@@ -5,22 +5,23 @@
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-    img {
-      border-radius: 50%;
-    }
+    img {border-radius: 50%;}
 </style>
 
     <body>
     <h1>Welcome to ...</h1>
     <p>This page is being developed...</p>
-    <table>
-        <tr>
-            <th>About me</th>
-        </tr>
-        <tr>
-            <td>
-                <img src="./images/05.jpg" alt="Me"
-                    style="width:200px">
+    <table style="width: 100%">
+        <colgroup>
+           <col span="1" style="width: 30%;">
+           <col span="1" style="width: 70%;">
+        </colgroup>
+        <!-- Put <thead>, <tbody>, and <tr>'s here! -->
+        <tbody>
+            <tr><th>About me</th></tr>
+            <tr>
+                <td>
+                    <img src="./images/05.jpg" alt="Me" style="width:200px">
                 <br>
                 He is a master's degree in data science (applied mathematics) at Ferdowsi University.<br>
                 He presented his thesis on classification of imbalanced data in September 2024. One of <br>
@@ -30,6 +31,7 @@
                 Recently, he has focused his studies in the field of deep learning.<br>
             </td>
         </tr>
+        </tbody>
 </table>
 </body>
 </html>
