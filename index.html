@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html>
     <head>
-	    <link rel="icon" type="image/jpg" sizes="16x16" href="./images/05.jpg">
+	<link rel="icon" type="image/jpg" sizes="16x16" href="./images/05.jpg">
         <title>Abdh home page</title>
-    </head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+        }
+        .left-column {
+            flex-basis: 300px; /* Fixed width for the left column */
+            background-color: #f0f0f0;
+            padding: 10px;
+	            }
+        .right-column {
+            flex-grow: 1; /* Stretch to fill the remaining space */
+            background-color: #e0e0e0;
+            padding: 10px;
+        }
+    </style>
+    <style>
         .center-div {
             display: flex;
             justify-content: center;
@@ -14,8 +37,8 @@
             height: 100vh;
         }
     </style>
-
-</style>
+    </head>
+    
     <style>
         button
         {
@@ -38,45 +61,34 @@
     <style>
         div {text-align: justify; text-justify: inter-word;}
     </style>
-    
-    <body>
-        <h1>This page is being developed...</h1>
-        <table style="width: 100%">
-            <colgroup>
-               <col span="1" style="width: 20%;">
-               <col span="1" style="width: 80%;">
-            </colgroup>
-            <!-- Put <thead>, <tbody>, and <tr>'s here! -->
-            <tbody>
-                <tr>
-                    <td><h1 style="text-align:center">About me</h1></td>
-<td>
-                        	<div class="container">
-                            		<h1 style="font-size:300%;text-align:center;">Mathematics is the right way of thinking.</h1>
-                         
-                    	</td>
-		</tr>
-		<tr>
-			<td>                 
-				<img src="./images/05.jpg" alt="Me" style="width:200px"> <br>
-                       		<div>
+<body>
+ <h1>This page is being developed...</h1>
+ <div class="container">
+
+      <div class="column left-column">
+ 	<!-- Content for the left column -->
+
+	<h1 style="text-align:center">About me</h1>
+	
+	<img src="./images/05.jpg" alt="Me" style="width:200px">
+        <div>
                            		He is a master's degree in data science (applied mathematics) at Ferdowsi University of Mashhad,Iran.
                            		He presented his thesis on classification of imbalanced data in September 2024. One of 
                            		his achievements during his master's degree is presenting a new method in binary classification
                            		for imbalanced data and presenting an article at the 5th National Informatics Conference of Iran.
                            		He is very interested in research in data science and cooperation in research teams.
                            		Recently, he has focused his studies in the field of deep learning.
-                      	 	</div>
-                    	</td>
-			<td>
-				<div class="center-div">
-        <button>Data Science</button>
-        <button>Mathematics Education</button>
-    </div>      
-                        	           	</td>
-               </tr>
-           
-           </tbody>
-</table>
+        </div>
+      </div>  
+      <div class="column right-column">
+ 	<!-- Content for the right column -->
+    
+        <h1 style="font-size:300%;text-align:center;">Mathematics is the right way of thinking.</h1>
+	<div class="center-div">
+        			<button>Data Science</button>
+        			<button>Mathematics Education</button>
+    	</div>
+      </div> 
+  </div>
 </body>
 </html>
