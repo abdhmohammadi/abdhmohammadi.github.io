@@ -4,7 +4,14 @@
     <title>Abdh home page</title>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <style>
+.container {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+</style>
     <style>
     button {
 border: none;
@@ -51,9 +58,11 @@ button2 {background-color: #008CBA;} /* Blue */
                    </div>
             </td>
                 <td>
-                    <h1 style="font-size:300%;text-align:center;">Mathematics is the right way of thinking.</h1>
-                    <button class="button button1">Education</button>
+                    <div class="container">
+                        <h1 style="font-size:300%;text-align:center;">Mathematics is the right way of thinking.</h1>
+                        <button class="button button1" style="">Education</button>
                     <button class="button button2">Data Science</button>
+                </div>
                 </td>
         </tr>
         </tbody>
