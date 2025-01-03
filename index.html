@@ -4,6 +4,33 @@
         <title>Abdh home page</title>
     </head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+        .center-div {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+    </style>
+
+</style>
+    <style>
+        button
+        {
+	    width: 200px;
+            padding: 10px 20px;
+	    background-color: #007BFF; 
+            color: white; 
+            border: none; 
+            margin: 4px;
+            border-radius: 10px; /* This applies the corner radius */
+            cursor: pointer;
+        }
+        button1 {background-color: #04AA6D;} /* Green */
+        button2 {background-color: #008CBA;} /* Blue */
+    </style>
+    
     <style>
         img {border-radius: 50%;}
     </style>
@@ -21,18 +48,31 @@
             <!-- Put <thead>, <tbody>, and <tr>'s here! -->
             <tbody>
                 <tr>
-                    <td> 
-                       <th>About me</th> <br>
-                       <img src="./images/05.jpg" alt="Me" style="width:200px"> <br>
-                       <div>
-                           He is a master's degree in data science (applied mathematics) at Ferdowsi University of Mashhad,Iran.
-                           He presented his thesis on classification of imbalanced data in September 2024. One of 
-                           his achievements during his master's degree is presenting a new method in binary classification
-                           for imbalanced data and presenting an article at the 5th National Informatics Conference of Iran.
-                           He is very interested in research in data science and cooperation in research teams.
-                           Recently, he has focused his studies in the field of deep learning.
-                       </div>
-                    </td>
+                    <td><h1 style="text-align:center">About me</h1></td>
+<td>
+                        	<div class="container">
+                            		<h1 style="font-size:300%;text-align:center;">Mathematics is the right way of thinking.</h1>
+                         
+                    	</td>
+		</tr>
+		<tr>
+			<td>                 
+				<img src="./images/05.jpg" alt="Me" style="width:200px"> <br>
+                       		<div>
+                           		He is a master's degree in data science (applied mathematics) at Ferdowsi University of Mashhad,Iran.
+                           		He presented his thesis on classification of imbalanced data in September 2024. One of 
+                           		his achievements during his master's degree is presenting a new method in binary classification
+                           		for imbalanced data and presenting an article at the 5th National Informatics Conference of Iran.
+                           		He is very interested in research in data science and cooperation in research teams.
+                           		Recently, he has focused his studies in the field of deep learning.
+                      	 	</div>
+                    	</td>
+			<td>
+				<div class="center-div">
+        <button>Data Science</button>
+        <button>Mathematics Education</button>
+    </div>      
+                        	           	</td>
                </tr>
            
            </tbody>
