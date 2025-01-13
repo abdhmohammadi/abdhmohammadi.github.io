@@ -1,3 +1,41 @@
+// script.js
+
+function sendMessage()
+{
+    const message = document.getElementById('message').value;
+    if (!message) return;
+
+    const username = 'abdhmohammadi';
+    const repo = 'abdhmohammadi.github.io';
+    const workflow_id = 'send_message.yml';
+    const token = 'YOUR_PERSONAL_ACCESS_TOKEN';
+
+    fetch(`https://api.github.com/repos/${username}/${repo}/actions/workflows/${workflow_id}/dispatches`, 
+        {
+            method: 'POST',
+            headers: 
+            {
+                'Accept': 'application/vnd.github.v3+json',
+                'Authorization': `token ${token}`
+            },
+            body: JSON.stringify(
+                {
+                    ref: 'main',
+                    inputs: { message: message }
+                })
+    })
+    .then(response => response.json())
+    .then(data =>
+        {
+         alert('Message sent successfully');
+        })
+    .catch(error => 
+    {
+        alert('An error occurred while sending the message: ' + error.message);
+    });
+}
+
+
 function sendMessage()
 {
     const message = document.getElementById('message').value;
