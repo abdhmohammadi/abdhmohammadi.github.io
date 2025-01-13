@@ -8,7 +8,8 @@ function sendMessage()
     const username = 'abdhmohammadi';
     const repo = 'abdhmohammadi.github.io';
     const workflow_id = 'send_message.yml';
-    const token = 'YOUR_PERSONAL_ACCESS_TOKEN';
+    /* this token is expired in 90 days */
+    const token = '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';
 
     fetch(`https://api.github.com/repos/${username}/${repo}/actions/workflows/${workflow_id}/dispatches`, 
         {
@@ -35,10 +36,11 @@ function sendMessage()
     });
 }
 
-
+/*
 function sendMessage()
 {
     const message = document.getElementById('message').value;
+
     const botToken = '5960219678:AAFk5DsbuPPKRX35-EwMSRkIYBaIequ5oSs';
 
     const chatId = '101548936';
@@ -60,3 +62,4 @@ function sendMessage()
             alert('An error occurred while sending the message: ' + error.message);
             });
 }
+*/
