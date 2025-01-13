@@ -1,5 +1,5 @@
 // script.js
-
+/*
 function sendMessage()
 {
     const message = document.getElementById('message').value;
@@ -8,7 +8,7 @@ function sendMessage()
     const username = 'abdhmohammadi';
     const repo = 'abdhmohammadi.github.io';
     const workflow_id = 'send_message.yml';
-    /* this token is expired in 90 days */
+    
     const token = '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';
 
     fetch(`https://api.github.com/repos/${username}/${repo}/actions/workflows/${workflow_id}/dispatches`, 
@@ -34,17 +34,20 @@ function sendMessage()
     {
         alert('An error occurred while sending the message: ' + error.message);
     });
-}
+}*/
 
-/*
+
 function sendMessage()
 {
+    require('dotenv').config();
+    const botToken = process.env.TA023_BOT_TOKEN;
+    const chatId = process.env.CHAT_ID;
     const message = document.getElementById('message').value;
 
-    const botToken = '5960219678:AAFk5DsbuPPKRX35-EwMSRkIYBaIequ5oSs';
+    /*const botToken = '5960219678:AAFk5DsbuPPKRX35-EwMSRkIYBaIequ5oSs';
 
     const chatId = '101548936';
-
+    */
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
         .then(response => response.json())
         .then(data => 
@@ -62,4 +65,3 @@ function sendMessage()
             alert('An error occurred while sending the message: ' + error.message);
             });
 }
-*/
