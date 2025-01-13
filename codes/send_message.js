@@ -13,8 +13,9 @@ function sendMessage()
                 throw new Error(data.description);
             }
         })
-        .catch(error => {
-            console.error('Error:', error);
+        .catch(error =>
+            {
+            /* console.error('Error:', error); */
             alert('An error occurred while sending the message: ' + error.message);
-        });
+            });
 }
