@@ -1,101 +1,131 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<link rel="icon" type="image/jpg" sizes="16x16" href="./images/05.jpg">
-        <title>Abdh home page</title>
-	<meta charset="UTF-8"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/jpg" sizes="16x16" href="./images/05.jpg">
+      <title>Abdh home page</title>
+	  <meta charset="UTF-8"> 
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
+	  <style>
+        body
+        {   /*ROOT*/
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-        }
-        .container {
+            /*TOP RIGHT BUTTOM LEFT*/
+            padding: 10px 10px 10px 10px;
+            background-color: #171616b2;
+        }.container
+        {   /*BODY(WITHOUT HEADER)*/
             display: flex;
-        }
-        .left-column {
-            flex-basis: 300px; /* Fixed width for the left column */
-            background-color: #f0f0f0;
             padding: 10px;
-	            }
-        .right-column {
-            flex-grow: 1; /* Stretch to fill the remaining space */
-            background-color: #e0e0e0;
+            background-color:#44034098;
+        }.left-column
+        {  /*LEFT COLUMN*/
+            flex-basis: 275px; /* Fixed width for the left column */
+            background-color: dimgray;
             padding: 10px;
-        }
-    </style>
-    <style>
-        .center-div {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-        }
-    </style>
+            justify-content:center;
+	    }
+      </style>
     </head>
-    
-    <style>
-        button
-        {
-	    width: 200px;
-            padding: 10px 20px;
-	    background-color: #007BFF; 
-            color: white; 
-            border: none; 
-            margin: 4px;
-            border-radius: 10px; /* This applies the corner radius */
-            cursor: pointer;
-        }
-        button1 {background-color: #04AA6D;} /* Green */
-        button2 {background-color: #008CBA;} /* Blue */
-    </style>
-    
-    <style>
-        img {border-radius: 50%;}
-    </style>
-    <style>
-        div {text-align: justify; text-justify: inter-word;}
-    </style>
-<body>
-	
- <h1>This page is being developed...</h1>
-	<p id="datetime"></p>
-	<script src="script.js"></script>
- <div class="container">
 
-      <div class="column left-column">
- 	<!-- Content for the left column -->
-
-	<h1 style="text-align:center">About me</h1>
-	
-	<img src="./images/05.jpg" alt="Me" style="width:200px">
-        <div>
-                           		He is a master's degree in data science (applied mathematics) at Ferdowsi University of Mashhad,Iran.
-                           		He presented his thesis on classification of imbalanced data in September 2024. One of 
-                           		his achievements during his master's degree is presenting a new method in binary classification
-                           		for imbalanced data and presenting an article at the 5th National Informatics Conference of Iran.
-                           		He is very interested in research in data science and cooperation in research teams.
-                           		Recently, he has focused his studies in the field of deep learning.
+   <body>
+        <div style="display:flex; align-items:flex-start;">
+            <h1 style="justify-self:left;">This page is being developed...</h1> 
+            <div style="flex-grow:1;"></div>
+            <div style="justify-self: right; justify-content: top; padding:-10px 0px 0px 0px; color: #19181899;">
+                <span id="datetime"></span>
+            </div>
         </div>
-      </div>  
-      <div class="column right-column">
- 	<!-- Content for the right column -->
-    
-        <h1 style="font-size:300%;text-align:center;">Mathematics is the right way of thinking.</h1>
-	<div class="center-div">
-        			<button id="open-data-science-page-button">Data Science</button>
-				<script> 
-	document.getElementById('open-data-science-page-button').addEventListener('click', function() { window.location.href = 'https://abdhmohammadi.github.io/sources/data-sciences/data-sciences-root.html'; }); 
-				</script>
-		<button id="open-mathematics-education-page-button">Mathematics Education</button>
-		<script src="open-mathematics-education-page-button.js"></script>
-    	</div>
-      </div> 
-  </div>
-</body>
+        <script src="script.js"></script>
+        
+        <div class="container" >
+            <!-- Content for the left column -->
+            <div class="column left-column">
+                
+                <h2 style="text-align:center;">About A. Mohammadi</h2>
+<div>----------------------------------------------------</div>
+                <div style="display:flex;">
+                    <img src="./images/abdh.jpg" alt="Me" style="width:120px; border-radius: 15%;">
+                    <div>
+                        <div style="display: flex; justify-content: left;" >
+                            <h3 style="font-size: small; justify-self:left;margin:10px 10px 10px 5px;">@abdhmohammadi</h3>
+                            <div style="flex-grow:1;"></div>
+                            <img src="./images/medu.shad.png" alt="ShadSchool" style="justify-self:right; width:24px; height:24px; margin:0px;">
+                        </div>
+                        
+			<div style="display: flex; justify-content: left;" >
+                            <h3 style="font-size: small; justify-self:left;margin:10px 10px 10px 5px;">@abdhmohammadi</h3>
+                            <div style="flex-grow:1;"></div>
+			    <img src="./images/Telegram-100.png" alt="Telegram" style="justify-self:right; width:24px; height:24px; margin:0px;">
+                        </div>
+                        
+			<div style="display: flex; justify-content: left;" >
+                            <h4 style="font-size: small; justify-self:left; margin:5px;">+98-937-256-1238</h4>
+                            <div style="flex-grow:1;"></div>
+                            <img src="./images/call-100.png" alt="Call" style="justify-self:right; width:24px; height:34px; margin:0px 0px 0px 5px;">
+                        </div>                        
+                    </div>
+                    
+                </div>
+		<div style="display: flex; justify-content: left;" >
+            <a style="font-size: small; margin:2.5px 2.5px 2.5px 5px;justify-self:left; color:blue; margin:5px;" href="mailto:abdhmohammadi@mail.um.ac.ir"><b>abdhmohammadi@mail.um.ac.ir</b></a>
+            <div style="flex-grow:1;"></div>
+            <img src="./images/email-yellow-100.png" alt="Call" style="justify-self:right; width:24px; height:24px; margin:0px 0px 0px 0px;">
+        </div>
+        <div style="display: flex; justify-content: left;" >
+            <a style="font-size: small; margin:2.5px 2.5px 2.5px 5px;justify-self:left; color:blue; margin:5px;" href="mailto:abdhmohammadi@gmail.com"><b>abdhmohammady@gmail.com</b></a>
+            <div style="flex-grow:1;"></div>
+            <img src="./images/email-yellow-100.png" alt="Call" style="justify-self:right; width:24px; height:24px; margin:0px 0px 0px 0px;">
+        </div>
+        <div style="display: flex; justify-content: left;" >
+            <a style="font-size: small; color:blue; margin:2.5px 2.5px 2.5px 5px;justify-self:left; margin:5px 5px 5px 5px;" href="https://abdhmohammadi.github.io"><b>https://abdhmohammadi.github.io</b></a>
+            <div style="flex-grow:1;"></div>
+            <img src="./images/github-500.png" alt="Call" style="justify-self:right; width:24px; height:24px; margin:0px 0px 0px 0px;">
+        </div>
+		<div>----------------------------------------------------</div>
+        <!-- 
+         He received the M.S. degree in Data Sciences from Ferdowsi University of Mashhad in 2024.
+                    Since 2022, he has started his studies in the field of Machine Learning and data analysis. He is interested in applied 
+                    research in the field of artificial intelligence and deep learning. Recently, under the supervision of Dr. S. Effati and 
+                    Dr. J.A. Nasiri, he has defended his thesis with the excellent degree by presenting a method in Twin Support Vector 
+                    Machines, and plans to continue his research in the field of deep learning and data analysis.
+        -->
+                <div style="text-align: justify; text-justify: inter-word;">
+    	            A. Mohammadi is a Mathematics teacher.
+                </div>
+            </div>
+            <div style="flex-grow:1;">            
+               <!-- Content for the right column -->
+              <div style="flex-grow: 1; padding: 10px;background-color: #1a1919eb; height:200px;">
+                <h1 style="font-size:300%; text-align:center;background-color: transparent;">Mathematics is the right way of thinking.</h1>
+	            <div style="display:flex; justify-content:center; align-items:flex-start; height:100vh;">
+        	        <button id="open-data-science-page-button" style="color:whitesmoke; margin: 4px; padding: 10px 20px;background-color:#007BFF; width: 200px;border-radius: 10px;">Data Science</button>
+			        <script> 
+	                    document.getElementById('open-data-science-page-button').addEventListener('click', function() { window.location.href = 'https://abdhmohammadi.github.io/resources/data-sciences/data-sciences-root.html'; }); 
+			        </script>
+        	        <button id="open-mathematics-education-page-button" style="color:whitesmoke; margin: 4px; padding: 10px 20px;background-color:#007BFF; width: 200px;border-radius: 10px;">Mathematics Education</button>
+		            <script> 
+	                    document.getElementById('open-mathematics-education-page-button').addEventListener('click', function() { window.location.href = 'https://abdhmohammadi.github.io/resources/teaching/mathematics-education-root.html'; }); 
+			        </script>
+                </div>
+              </div>
+              <div style="display:flex; justify-content: left; flex-grow:1;">
+                <a>Send Message to Telegram</a>
+                <input type="text" id="message" placeholder="Send me a message"
+                style="width:auto; height: 100px;width:400px;background-color: whitesmoke; border-radius: 10px;">
+                <button onclick="sendMessage()" style="color:whitesmoke; margin: 4px; padding: 10px 20px;background-color:#007BFF;height:40px; width: 200px;border-radius: 10px;">Send</button>
+                <script> 
+                    function sendMessage()
+                    { 
+                        const message = document.getElementById('message').value;
+                        const botToken = 'AAH2NEoGDCZsHDft_p6GbxMZDNz_1__4ZiE'; 
+                        const chatId = '101548936'; 
+                        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`) .then(response => response.json()) .then(data => console.log(data)) .catch(error => console.error('Error:', error)); 
+                    }
+                </script>
+              </div>
+            </div>
+        </div>    
+    </body>
 </html>
