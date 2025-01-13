@@ -9,7 +9,7 @@ function sendMessage()
         .then(data => console.log(data))
         .catch(error =>
           {
-            console.error('Error:', error));
+            console.error('Error:', error);
             alert('An error occurred while sending the message: ' + error.message);
           }
 }
