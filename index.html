@@ -114,16 +114,8 @@
                 <a>Send Message to Telegram</a>
                 <input type="text" id="message" placeholder="Send me a message"
                 style="width:auto; height: 100px;width:400px;background-color: whitesmoke; border-radius: 10px;">
-                <button id="send-tg-message-button" onclick="sendMessage()" style="color:whitesmoke; margin: 4px; padding: 10px 20px;background-color:#007BFF;height:40px; width: 200px;border-radius: 10px;">Send</button>
-                <script> 
-                    function sendMessage()
-                    { 
-                        const message = document.getElementById('message').value;
-                        const botToken = 'AAH2NEoGDCZsHDft_p6GbxMZDNz_1__4ZiE'; 
-                        const chatId = '101548936'; 
-                        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`) .then(response => response.json()) .then(data => console.log(data)) .catch(error => console.error('Error:', error)); 
-                    }
-                </script>
+                <button onclick="sendMessage()" style="color:whitesmoke; margin: 4px; padding: 10px 20px;background-color:#007BFF;height:40px; width: 200px;border-radius: 10px;">Send</button>
+                <script src="./codes/send_message.js"></script>
               </div>
             </div>
         </div>    
