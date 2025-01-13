@@ -1,7 +1,7 @@
 function sendMessage()
 {
     const message = document.getElementById('message').value;
-    const botToken = 'AAFk5DsbuPPKRX35-EwMSRkIYBaIequ5oSs';
+    const botToken = '5960219678:AAFk5DsbuPPKRX35-EwMSRkIYBaIequ5oSs';
 
     const chatId = '101548936';
 
