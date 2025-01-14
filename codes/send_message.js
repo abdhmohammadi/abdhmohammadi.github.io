@@ -2,7 +2,7 @@ function sendMessage()
 {
     require('dotenv').config();
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.MY_CHAT_ID;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
     const message = document.getElementById('message').value;
     alert('Bot: ' + botToken);
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
