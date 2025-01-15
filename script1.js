@@ -1,5 +1,5 @@
 // URL to fetch the secret data file from your GitHub Pages site
-const apiUrl = 'https://raw.githubusercontent.com/abdhmohammadi/abdhmohammadi.github.io/main/secret-data.json';
+const apiUrl = 'https://raw.githubusercontent.com/abdhmohammadi/abdhmohammadi.github.io/refs/heads/main/secret-data.json';
 
 async function fetchSecretData() {
     try {
