@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science & Mathematics Education | علوم داده و آموزش ریاضی</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <h6 class="mb-0 me-3" data-en="Abdullah Mohammadi" data-fa="عبدالله محمدی">Abdullah Mohammadi</h6>
+                <div class="social-links">
+                    <a href="https://github.com/abdhmohammadi" class="mx-2"><i class="bi bi-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abdh-mohammadi-47095a267" class="mx-2"><i class="bi bi-linkedin"></i></a>
+                    <a href="tg://resolve?domain=abdhmohammadi" class="mx-2"><i class="bi bi-telegram"></i></a>
+                    <a href="mailto:abdhmohammady@gmail.com" class="mx-2"><i class="bi bi-envelope"></i></a>
+                    <a href="tel:+989372561238" class="mx-2"><i class="bi bi-telephone"></i></a>
+                    <a href="https://shad.ir/abdhmohammadi" class="mx-2"><img style="width:18px;height:20px;" src="Images/shad.png"/></a>
+                </div>
+            </div>
+            <!-- MUST BE STRETCHED SPACE WHEN LANGUAGE SWITCHED TO FARSI -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home" data-en="Home" data-fa="خانه">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#data-science" data-en="Data Science" data-fa="علوم داده">Data Science</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#teaching" data-en="Teaching"  data-fa="تدریس">Teaching</a>
+                        <div class="dropdown-content">
+                            <!-- Shared from my OneDrive/Myfiles/Exam-papaers -->
+                            <a href="https://1drv.ms/f/c/cdf6eeb6642025d1/Ev-D3JPlrpJGqMrOyEz1FtUBPmjkhnWlHe8is2p3UlqeUQ?e=zv1nf4" 
+                            data-en="Past exam papers" data-fa="نمونه سوالات امتحانها">Past Exam Papers</a>
+                            <a href="#lesson-planes" class="disabled" data-en="Lesson Planes" data-fa="طرح درس">Lesson Planes</a>
+                            <a href="Private Tutoring" class="disabled" data-en="Private Tutoring" data-fa="تدریس خصوصی">Private Tutoring</a>
+                            <!--
+                                <a href="#syllabi">Syllabi</a>
+                                <a href="#lectures">Lectures</a>
+                                
+                            -->
+                        </div>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="pages/applications.html" data-en="Applications" data-fa="نرم افزارها">َApplications</a></li>
+                    <!--<li class="nav-item"><a class="nav-link" href="#blog" data-en="Blog" data-fa="وبلاگ">Blog</a></li>-->
+                    <li class="nav-item"><a class="nav-link" href="#contact" data-en="Contact" data-fa="تماس">Contact</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-link nav-link" onclick="toggleLanguage()" id="langToggle">
+                            <img src="images/uk-flag.png" alt="English" class="flag-icon en-flag">
+                            <span class="flag-separator">|</span>
+                            <img src="images/iran.png" alt="فارسی" class="flag-icon fa-flag">
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Hero Section -->
+    <header id="home" class="hero-section">
+        <div class="container h-00">
+            <div class="row align-items-center">
+                
+                <div class="col-md-4 text-center mb-4 mb-md-0">
+                    <div class="profile-image-container">
+                        <img src="images/abdh.jpg" alt="Abdullah Mohammadi" class="profile-image">
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    
+                    <div class="card-container">
+                        <!-- Graduation Card -->
+                        <div class="card">
+                            <h4 class="lang-text" data-en="🎓 DataScience Researcher" data-fa="🎓 پژوهشگر علوم داده">🎓 DataScience Researcher</h4>
+                            
+                            <p class="lang-text"
+                               data-en="Graduated with Master's degree in <span class='highlight'>DataSciences</span> from Ferdowsi University of Mashhad (FUM)"
+                               data-fa="فارغ‌التحصیل کارشناسی ارشد در <span class='highlight'>علوم داده</span> از دانشگاه فردوسی مشهد">
+                               Graduated with Master's degree in <span class="highlight">DataSciences</span> from Ferdowsi University of Mashhad (FUM)
+                            </p>
+                            <p class="lang-text"
+                               data-en="Thesis: Gravitational Least Squares TSVM based on Optimal Angle for Class Imbalance Learning"
+                               data-fa="پایان‌نامه: روش بردارهای پشتیبان گرانشی دوقلو کمترین مربعات براساس زاویه بهینه برای یادگیری عدم تعادل کلاس‌">
+                               Thesis: Gravitational Least Squares TSVM based on Optimal Angle for Class Imbalance Learning
+                            </p>
+                        </div>
+                    
+                        <!-- Teaching Experience Card -->
+                        <div class="card">
+                            <h4 class="lang-text" data-en="📚 Mathematics Teacher" data-fa="📚 معلم ریاضی">📚 Mathematics Teacher</h4>
+                            <p class="lang-text"
+                               data-en="Official Teacher of the Education Ministry<br><span class='highlight'>10 years of experience</span> at <span class='highlight'>High School</span> teaching"
+                               data-fa="معلم رسمی وزارت آموزش و پرورش<br><span class='highlight'>۱۰ سال تجربه</span> در تدریس <span class='highlight'>دبیرستان</span>">
+                               Official Teacher of the Education Ministry<br><span class="highlight">10 years of experience</span> at <span class="highlight">High School</span> teaching
+                            </p>
+                            <p class="lang-text"
+                               data-en="Interested in the psychology of mathematics in education, to be able to create positive attitude towards mathematics in students"
+                               data-fa="علاقه‌مند به روانشناسی ریاضی در آموزش برای ایجاد نگرش مثبت به ریاضیات در دانش‌آموزان">
+                               Interested in the psychology of mathematics in education, to be able to create positive attitude towards mathematics in students
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-text mt-4">
+                        <p class="lang-text" data-en="I am a data science graduate, math teacher, and book lover. 
+                            I am passionate about combining advanced analytics with educational excellence 
+                            to create innovative learning experiences. With expertise in both fields, 
+                            I strive to make complex concepts accessible and engaging for students, 
+                            and to improve educational outcomes using data-driven approaches."
+                             data-fa="فارغ التحصیل علوم داده، معلم ریاضی و عاشق کتاب هستم.
+                             با اشتیاق به ترکیب تحلیل‌های پیشرفته
+                             با تعالی آموزشی برای ایجاد تجربیات یادگیری نوآورانه می‌پردازم.
+                             با تخصص در هر دو زمینه، تلاش می‌کنم مفاهیم ریاضی را
+                             برای دانش‌آموزان قابل دسترس و جذاب کنم و 
+                            با استفاده از رویکردهای مبتنی بر داده، نتایج آموزشی را بهبود بخشم.">
+                            I am a data science graduate, math teacher, and book lover. 
+                            I am passionate about combining advanced analytics with educational excellence 
+                            to create innovative learning experiences. With expertise in both fields, 
+                            I strive to make complex concepts accessible and engaging for students, 
+                            and to improve educational outcomes using data-driven approaches.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- News Banner Section -->
+    <section class="news-banner py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-1 text-center">
+                    <i class="bi bi-megaphone-fill news-icon"></i>
+                </div>
+                <div class="col-md-11">
+                    
+                    <div class="news-slider">
+                        <div class="news-item">
+                            <div class="news-text" data-en="[2025-04-01]   Programming is my hobby, I am currently developing an application to automate some of my work tasks." 
+                                                     data-fa="[1404-01-12] برنامه نویسی سرگرمی من است، در حال حاضر در حال توسعه برنامه ای برای خودکار کردن برخی از وظایف کاری خود هستم.">
+                                Programming is my hobby, I am currently developing an application to automate some of my work tasks.
+                            </div>
+                            <!-- The link remains static outside the data-en and data-fa attributes -->
+                            <a href="TeacherAssistant-Help/index.html" class="learn-more-link">TeacherAssistant App(using Python)</a>
+                        </div>
+                    </div>
+
+                    <!--
+                        <div class="news-item" data-en="Programming is my hobby, I am currently developing a program to automate some of my work tasks."
+                         data-fa="برنامه نویسی سرگرمی من است، من در حال حاضر در حال توسعه برنامه ای برای خودکار کردن برخی از وظایف کاری خود هستم.">
+                            Programming is my hobby, I am currently developing a program to automate some of my work tasks.
+                        </div>
+                        
+                        <div class="news-item" data-en="New Data Science Project: Machine Learning for Educational Analytics" data-fa="پروژه جدید علوم داده: یادگیری ماشین برای تحلیل آموزشی">
+                            New Data Science Project: Machine Learning for Educational Analytics
+                        </div>
+                        <div class="news-item" data-en="Upcoming Mathematics Workshop for High School Students" data-fa="کارگاه ریاضیات برای دانش‌آموزان دبیرستان">
+                            Upcoming Mathematics Workshop for High School Students
+                        </div>
+                        <div class="news-item" data-en="New Blog Post: Integrating Data Science in Mathematics Education" data-fa="پست جدید وبلاگ: ادغام علوم داده در آموزش ریاضیات">
+                            New Blog Post: Integrating Data Science in Mathematics Education
+                        </div>
+                        -->
+               
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Sections -->
+    <main>
+        <!-- Data Science Section -->
+        <section id="data-science" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Data Science Portfolio</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">Projects</h3>
+                                <p class="card-text">Explore my data science projects, including machine learning, data analysis, and visualization work.</p>
+                                <a href="https://github.com/abdhmohammadi" class="btn btn-primary">View Projects</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">Technical Blog</h3>
+                                <p class="card-text">Read about my insights and experiences in data science, including tutorials and case studies.</p>
+                                <a href="#" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaching Section -->
+        <section id="teaching" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">Mathematics Education</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">Teaching Resources</h3>
+                                <p class="card-text">Access mathematics teaching materials, lesson plans, and educational resources.</p>
+                                <a href="#" class="btn btn-primary">Browse Resources</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">Student Corner</h3>
+                                <p class="card-text">Interactive mathematics problems, study guides, and learning materials for students.</p>
+                                <a href="#" class="btn btn-primary">Start Learning</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">Educational Blog</h3>
+                                <p class="card-text">Articles on mathematics education, teaching strategies, and student engagement.</p>
+                                <a href="#" class="btn btn-primary">Read Articles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-5">
+            <div class="container">
+                <h2 class="lang-text" style="text-align: center;" data-en="Contact Me" data-fa="تماس با من">Contact Me</h2>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="text-center">
+                            <p class="lead mb-4 lang-text" data-en="Get in touch for collaborations, questions, or opportunities" data-fa="برای همکاری‌، سوالات یا فرصت‌ها تماس بگیرید">
+                                Get in touch for collaborations, questions, or opportunities
+                            </p>
+                            
+                            <div class="social-links">
+                                <a href="https://github.com/abdhmohammadi" class="mx-2"><i class="bi bi-github"></i></a>
+                                <a href="https://www.linkedin.com/in/abdhmohammadi" class="mx-2"><i class="bi bi-linkedin"></i></a>
+                                <a href="tg://resolve?domain=abdhmohammadi" class="mx-2"><i class="bi bi-telegram"></i></a>
+                                <a href="mailto:abdhmohammadi@gmail.com" class="mx-2"><i class="bi bi-envelope"></i></a>
+                                <a href="tel:+989372561238" class="mx-2"><i class="bi bi-telephone"></i></a>
+                                <a href="https://shad.ir/abdhmohammadi" class="mx-2" ><img style="width:18px;height:20px;" src="Images/shad.png"/><a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 Abdullah Mohammadi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="./js/main.js"></script> <!-- This will call your main.js file -->
+</body>
+</html> 
