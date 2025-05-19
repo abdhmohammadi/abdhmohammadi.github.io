@@ -372,7 +372,14 @@ currently hides the symbol ▼ */
     text-decoration: none;
     pointer-events: none;
 }
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates two equal columns */
+}
 
+.sub-section {
+  grid-column: 1 / -1; /* Spans across both columns */
+}
 /* Optional: If you want to keep pointer events but prevent navigation */
 /*
 .dropdown-content a.disabled:hover {
