@@ -1,4 +1,5 @@
-async function loadDictionary() {
+async function loadDictionary() 
+{
   const response = await fetch('nlp-sp-dic.json');
   const data = await response.json();
   displayEntries(data);
@@ -14,16 +15,21 @@ async function loadDictionary() {
   });
 }
 
-function displayEntries(entries) {
+function displayEntries(entries) 
+{
   const container = document.getElementById('dictionaryContainer');
   container.innerHTML = '';
 
-  if (entries.length === 0) {
+  if (entries.length === 0) 
+  {
     container.innerHTML = '<p>No matching entries found.</p>';
     return;
   }
+  
+  entries.sort((a, b) => a.term.localeCompare(b.term));
 
-  entries.forEach(entry => {
+  entries.forEach(entry => 
+  {
     const div = document.createElement('div');
     div.className = 'entry';
 
