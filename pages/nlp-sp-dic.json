@@ -145,5 +145,12 @@
     "tags": ["training", "customization"],
     "example": "Fine-tuning BERT on a medical Q&A dataset.",
     "see_also": ["Transfer Learning", "BERT"]
+  },
+  {
+  "term": "Vector Space Model",
+  "definition": "A mathematical model for representing text documents (and queries) as vectors in a multi-dimensional space, typically used in information retrieval and NLP tasks.",
+  "tags": ["Information Retrieval", "Mathematical Model", "NLP", "IR"],
+  "example": "In a vector space model, a query and a set of documents are converted to vectors, and their relevance is measured using cosine similarity.",
+  "see_also": ["TF-IDF", "Cosine Similarity", "Bag of Words"]
   }
 ]
