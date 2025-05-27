@@ -1,388 +1,466 @@
-/* General Styles */
-:root 
-{
-    --primary-color:   #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color:    #e74c3c;
-    --light-bg:        #f8f9fa;
-    --dark-text:       #2c3e50;
-    --navbar-height: 76px;
+/* General Body Styles */
+body {
+    font-family: 'Vazirmatn', sans-serif; /* Using your specified font */
+    line-height: 1.6;
+    color: #333; /* Darker text for readability */
+    background-color: #f8f9fa; /* Light grey background */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-body 
-{
-    font-family: 'Yas', Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--dark-text);
-    padding-top: var(--navbar-height);
-    transition: all 0.3s ease;
-}
-/* RTL Support */
-.fa-lang 
-{
-    font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    direction: rtl;
-    text-align: right;
-}
-
-.fa-lang .navbar-nav 
-{
-    padding-right: 0;
-}
-
-.fa-lang .ms-auto {
-    margin-left: 0 !important;
-    margin-right: auto !important;
-}
-
-.fa-lang .text-center {
-    text-align: center !important;
-}
-
-.fa-lang .about-text {
-    line-height: 1.8;
-}
-
-/* General Navbar Styles */
+/* --- Navigation Bar --- */
 .navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: var(--navbar-height);
-    display: flex;
-    justify-content: space-between; /* Ensure space between the left and right side */
-    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+    background-color: #ffffff !important; /* Ensure white background */
+    padding: 0.8rem 0;
 }
 
 .navbar-brand {
-    font-weight: 600;
-    color: var(--primary-color) !important;
+    font-weight: 700; /* Bold brand name */
+    color: #007bff; /* Primary blue for brand */
 }
 
-/* Navbar Items Layout */
-.navbar-nav {
-    display: flex;
-    gap: 20px; /* Spacing between items */
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-}
-
-/* Contact Info Section */
-.contact-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-/* RTL Layout - Adjustments for Persian (fa) Language */
-.fa-lang .navbar-nav {
-    padding-left: 0;
-    padding-right: 0;
-    justify-content: flex-start; /* Align to the left in RTL */
-    margin-right: auto;
-}
-
-.fa-lang .navbar-toggler {
-    order: 1; /* Ensure the toggle button is placed after the menu in RTL layout */
-}
-
-.fa-lang .contact-info {
-    margin-left: 1rem; /* Adjust margin for the contact info */
-    margin-right: 0;
-}
-
-/* Ensuring proper spacing between navbar elements in RTL */
-.fa-lang .navbar {
-    justify-content: space-between; /* Ensure spacing between elements */
-}
-
-/* Language Toggle */
-#langToggle {
-    padding: 8px 12px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.flag-icon {
-    width: 28px;
-    height: 20px;
-    object-fit: cover;
-    border-radius: 2px;
-    vertical-align: middle;
-}
-
-.flag-separator {
-    color: var(--primary-color);
-    font-weight: 300;
-    opacity: 0.5;
-}
-
-/* Flexbox Adjustment for Navbar in RTL Mode */
-.fa-lang .navbar-nav {
-    padding-left: 0;
-    padding-right: 0;
-    margin-right: auto; /* Ensure the content stretches to the left */
-    justify-content: flex-start;
-}
-
-
-/* Hero Section */
-.hero-section 
-{
-    background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('../images/hero-bg.jpg') center/cover;
-    color: white;
-    min-height: auto;
-    display: flex;
-    align-items: center;
-    margin-top: 0;
-    padding: 60px 0;
-    position: relative;
-}
-
-.hero-section h1 {
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.hero-section .lead {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-}
-
-/* Profile Image */
-.profile-image-container 
-{
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-    position: relative;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 4px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.profile-image:hover {
-    transform: scale(1.20);
-}
-
-.about-text {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    backdrop-filter: blur(5px);
-    line-height: 1.6;
-}
-
-.about-text p {
-    margin-bottom: 0;
-    font-size: 1.1rem;
-}
-
-/* News Banner */
-.news-banner {
-    background-color: var(--primary-color);
-    color: white;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.news-icon {
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-}
-
-.news-slider {
-    position: relative;
-    overflow: hidden;
-    height: 50px;
-}
-
-.news-item {
-    position: absolute;
-    width: 100%;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: all 0.5s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.news-item.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* RTL Support for News Banner */
-.fa-lang .news-slider {
-    direction: rtl;
-}
-
-/* Animation for News Items */
-@keyframes slideNews {
-    0% {
-        opacity: 0;
-        transform: translateY(100%);
-    }
-    5% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    95% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 80px 0;
-        text-align: center;
-    }
-    
-    .profile-image-container {
-        width: 200px;
-        height: 200px;
-        margin-bottom: 30px;
-    }
-    
-    .hero-section h1 {
-        font-size: 2rem;
-    }
-    
-    .hero-section .lead {
-        font-size: 1.1rem;
-    }
-
-    .about-text p {
-        font-size: 1rem;
-    }
-} 
-
-.card-container {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.card {
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: auto;
-    flex: 1;
-}
-
-.card h4 {
-    color: #2c3e50;
-    text-align: center;
-}
-
-.card p {
-    font-size: 16px;
+.navbar-nav .nav-link {
     color: #555;
-    margin: 10px 0;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+    padding: 0.75rem 1rem; /* Increase padding for better click area */
 }
 
-.highlight 
-{
-    font-weight: bold;
-    color: #2980b9;
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #007bff; /* Primary blue on hover/active */
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
-/* Alignment Adjustments for RTL */
-.rtl-layout .navbar-nav {
-    justify-content: flex-start; /* Align navbar items to the left in RTL */
-}
-
-.rtl-layout .menu {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.rtl-layout .card-container 
-{
-    justify-content: flex-start; /* Align cards properly */
-}
-/* Dropdown container */
-.dropdown 
-{
-    position: relative;
-    display: inline-block;
-}
-
-/* Dropdown content (hidden by default) */
-.dropdown-content {
+/* Dropdown specific styles */
+.navbar-nav .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    top: 100%; /* Position below parent */
-    left: 0;
+    border-radius: 8px; /* Rounded corners for dropdown */
+    overflow: hidden;
+    margin-top: 5px; /* Space from navbar link */
+    animation: fadeIn 0.3s ease-out; /* Fade-in animation */
 }
 
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
+.navbar-nav .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.navbar-nav .dropdown-content a {
+    color: #333;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Show dropdown on hover */
-.dropdown:hover .dropdown-content {
+.navbar-nav .dropdown-content a:hover {
+    background-color: #e9ecef; /* Lighter background on hover */
+    color: #007bff;
+}
+
+.navbar-nav .dropdown-content a.disabled {
+    color: #b0b0b0;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Language Toggle Button */
+#langToggle {
+    display: flex;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+#langToggle:hover {
+    transform: scale(1.05);
+}
+
+.flag-icon {
+    width: 24px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 3px; /* Slightly rounded flag corners */
+    margin: 0 5px;
+}
+
+.flag-separator {
+    color: #ccc;
+    font-size: 1.2rem;
+    margin: 0 5px;
+}
+
+/* Social Links in Navbar */
+.social-links a {
+    color: #6c757d; /* Muted grey for social icons */
+    font-size: 1.25rem;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #007bff; /* Primary blue on hover */
+}
+
+/* Github Star Button - Refined */
+.github-star-button {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: #2da44e; /* GitHub green */
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.1);
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+    margin-left: 0px; /* Add some space from social links */
+}
+
+.github-star-button:hover {
+    background-color: #972c2e; /* Slightly darker green on hover */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transform: translateY(-1px); /* Slight lift */
+}
+
+
+/* --- Hero Section --- */
+.hero-section 
+{
+    background: linear-gradient(135deg, #e0f2f7 0%, #c1e7f0 100%); /* Soft gradient background */
+    padding: 10px 50px; /* More padding for spacious feel */
+    /*min-height: 80vh;  Ensure it takes up most of the viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.profile-image-container 
+{
+    width: 250px; /* Larger image container */
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid #fff; /* White border around image */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow for depth */
+    margin: 10px 50px 10px 40px;
+    display: flex;
+    justify-content: left;
+    background-color: #fff;
+}
+
+.profile-image 
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the container */
     display: block;
 }
 
-/* Hover effect for dropdown items */
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
-/* Optional: Style the dropdown toggle 
-currently hides the symbol ▼ */
-.dropdown-toggle::after 
-{
-    content: "";
-    font-size: 0.0em;
-}
-/* Disabled state */
-.dropdown-content a.disabled {
-    color: #6c757d !important;
-    cursor: not-allowed;
-    opacity: 0.6;
-    text-decoration: none;
-    pointer-events: none;
-}
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Creates two equal columns */
+.hero-section p.lead {
+    font-size: 1.3rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
 }
 
+/* Card Container for Hero Section */
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+    gap: 20px; /* Space between cards */
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.card-container .card {
+    flex: 1; /* Allow cards to grow and shrink */
+    min-width: 300px; /* Minimum width before wrapping */
+    background-color: #fff;
+    border: none;
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-container .card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-container .card h4 {
+    color: #007bff; /* Accent color for card titles */
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.card-container .card p {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.highlight {
+    color: #0056b3; /* Darker blue for highlights */
+    font-weight: 600;
+}
+
+.about-text p {
+    color: #444;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+.news-banner {
+  background-color: #007bff;
+  padding: 100px 25px 30px 25px;
+  color: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.news-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.news-items-wrapper {
+  display: flex;
+  transition: transform 3s ease-in-out;
+  will-change: transform;
+}
+
+.news-item {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.news-text {
+  margin-right: 10px;
+}
+
+.news-item a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+
+/* --- Main Content Sections (Teaching, Data Science) --- */
+main {
+    padding: 60px 0;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #007bff; /* Underline effect */
+    border-radius: 2px;
+}
+
+.card {
+    background-color: #fff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Softer shadow for main cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+}
+
+.card-title {
+    color: #007bff;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 8px; /* Rounded buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Contact Section */
 .sub-section {
-  grid-column: 1 / -1; /* Spans across both columns */
+    padding: 80px 0;
+    background-color: #f0f8ff; /* Very light blue background */
+    border-top: 1px solid #e0e0e0;
 }
-/* Optional: If you want to keep pointer events but prevent navigation */
-/*
-.dropdown-content a.disabled:hover {
-    background-color: inherit !important;
+
+.sub-section h2 {
+    color: #007bff; /* Consistent heading color */
 }
-*/
+
+.sub-section .lead {
+    font-size: 1.25rem;
+    color: #555;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: #343a40; /* Dark grey footer */
+    color: #f8f9fa; /* Light text */
+    padding: 30px 0;
+    font-size: 0.9rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08); /* Top shadow */
+}
+
+footer p, footer a {
+    color: #ced4da;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 80px 0 60px 0;
+        min-height: auto;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p.lead {
+        font-size: 1.1rem;
+    }
+    .card-container {
+        display: table-column;
+        flex-direction: column; /* Stack cards on small screens */
+        align-items: center;
+    }
+
+    .card-container .card {
+        width: 90%; /* Take up more width */
+        min-width: unset;
+    }
+
+    .news-slider {
+        animation: none; /* Disable scroll animation on small screens */
+        display: block; /* Stack news items */
+    }
+
+    .news-item {
+        opacity: 1; /* Always visible */
+        animation: none;
+        margin-bottom: 10px; /* Space between stacked news items */
+        white-space: normal; /* Allow text to wrap */
+    }
+
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 5px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Right-to-Left (RTL) specific styles for Farsi */
+body.rtl {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Vazirmatn', sans-serif; /* Ensure Vazirmatn for Farsi */
+}
+
+.rtl .navbar-nav .ms-auto {
+    margin-left: unset !important;
+    margin-right: auto !important; /* Push menu to left in RTL */
+}
+
+.rtl .navbar-nav .nav-link {
+    text-align: right;
+}
+
+.rtl .dropdown-content {
+    right: 0; /* Align dropdown to the right */
+    left: unset;
+}
+
+.rtl .hero-section .col-md-8 {
+    text-align: right;
+}
+
+.rtl .about-text p {
+    text-align: justify;
+}
+
+.rtl h2::after {
+    left: unset;
+    right: 50%;
+    transform: translateX(50%);
+}
