@@ -1,0 +1,23 @@
+[
+  {
+    "term": "Corpus",
+    "definition": "A large and structured collection of texts (or speech data) used for linguistic analysis and training machine learning models.",
+    "tags": ["dataset", "text", "annotation"],
+    "example": "The Brown Corpus contains 1 million words of American English text from 1961.",
+    "see_also": ["CoNLL-2003", "NLTK"]
+  },
+  {
+    "term": "Word Embedding",
+    "definition": "A type of word representation that allows words to be represented as vectors in a continuous vector space, capturing semantic similarity.",
+    "tags": ["representation", "vector", "semantics"],
+    "example": "Word2Vec and GloVe are popular word embedding models.",
+    "see_also": ["Vector Space", "Word2Vec"]
+  },
+  {
+    "term": "Tokenization",
+    "definition": "The process of breaking a text into smaller units called tokens (words, subwords, or characters).",
+    "tags": ["preprocessing", "segmentation"],
+    "example": "I'm learning NLP.\" → [\"I\", \"'m\", \"learning\", \"NLP\", \".\"]",
+    "see_also": ["Normalization", "Sentence Splitting"]
+  }
+]
