@@ -49,20 +49,6 @@ This is the personal portfolio and project showcase website of **Abdullah Mohamm
 - **Contact & Social Links:**  
   Quick access to email, phone, LinkedIn, Telegram, GitHub, and Shad.
 
-## 🚀 Getting Started
-
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/abdhmohammadi/abdhmohammadi.github.io.git
-   ```
-2. Open `index.html` in your browser, or deploy via GitHub Pages.
-
-## 🛠️ Customization
-
-- Update images in the `images/` folder.
-- Edit content in `index.html` and subfolders as needed.
-- Adjust styles in `css/styles.css`.
-
 ## 📄 License
 
 This project is open source for educational and personal portfolio purposes.  
