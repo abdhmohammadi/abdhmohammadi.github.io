@@ -1,249 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Science & Mathematics Education | علوم داده و آموزش ریاضی</title>
-    <link rel="icon" href="images/abdh.jpg" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Abdullah Mohammadi | Mathematics Teacher & Data Science Researcher</title>
+    
+    <!-- SEO & Sharing -->
+    <meta name="description" content="High school mathematics teacher and data science researcher. Bridging education and AI.">
+    <meta property="og:title" content="Abdullah Mohammadi | Mathematics & Data Science">
+    <meta property="og:description" content="Portfolio of a math educator and data science enthusiast.">
+    <meta property="og:image" content="images/abdh.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/abdh-01.jpg" type="image/x-icon">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container">
-
-                <a href="https://github.com/abdhmohammadi/abdhmohammadi.github.io" target="_blank" class="github-star-button">
-                    ⭐ Star me on Github
-                </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#home" data-en="Home" data-fa="خانه">Home</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#datascience" data-en="Data Sciences" data-fa="علوم داده">Data Sciences</a>
-                        <div class="dropdown-content">
-                            <a href="pages/nlp-sp-dic.html" data-en="Specialized dictionary of NLP" data-fa="دیکشنری تخصصی پردازش زبان طبیعی">Specialized dictionary of NLP</a>
-                        </div>
-                    </li>
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#teaching" data-en="Teaching" data-fa="تدریس">Teaching</a>
-                        <div class="dropdown-content">
-                            <a href="https://1drv.ms/f/c/cdf6eeb6642025d1/Ev-D3JPlrpJGqMrOyEz1FtUBPmjkhnWlHe8is2p3UlqeUQ?e=zv1nf4" 
-                            data-en="Past exam papers" data-fa="نمونه سوالات امتحانها">Past Exam Papers</a>
-                            <a href="#lesson-planes" class="disabled" data-en="Lesson Planes" data-fa="طرح درس">Lesson Planes</a>
-                            <a href="Private Tutoring" class="disabled" data-en="Private Tutoring" data-fa="تدریس خصوصی">Private Tutoring</a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item"><a class="nav-link" href="pages/applications.html" data-en="Applications" data-fa="نرم افزارها">َApplications</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact" data-en="Contact" data-fa="تماس">Contact</a></li>
-                    <li class="nav-item">
-                        <button class="btn btn-link nav-link" onclick="toggleLanguage()" id="langToggle">
-                            <img src="images/uk-flag.png" alt="English flag" class="flag-icon en-flag">
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <span>Abdh. Mohammadi</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">Bio</a></li>
+                    <li><a href="#activities">Prof. Activities</a></li>
+                    <li><a href="#contact-info">Contact</a></li>
+                    <li>
+                        <button class="dir-switch" onclick="toggleLanguage()" id="langToggle" aria-label="Toggle language">
+                            <img src="images/uk-flag.png" alt="Switch to English" class="flag-icon en-flag">
                             <span class="flag-separator">|</span>
-                            <img src="images/iran.png" alt="Farsi flag" class="flag-icon fa-flag">
+                            <img src="images/iran.png" alt="تغییر به فارسی" class="flag-icon fa-flag">
                         </button>
                     </li>
                 </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <div class="hero-container">
+        <div class="hero-content">
+            <!--<h1>Improving Education Through Data Sciences</h1> -->
+            <p style="font-size: 32px;">“Data is not the new oil, it is the new soil: barren without models, blind without code, and fruitless without thought.”</p>
+            <p style="font-size:12px;color: currentColor;float: right;">(Abdh. Mohammadi, June 6, 2025)</p>
+            <div class="hero-buttons">
+                <a href="mathematics-teacher/mathematics-teacher.html" class="btn btn-outline">Teaching & Education</a>
+                <a href="data-sciences/data-sciences.html" class="btn btn-outline">Data Science Projects</a>
+                <a href="https://github.com/abdhmohammadi/abdhmohammadi.github.io" class="btn btn-outline">⭐ Star me on Github</a>
             </div>
         </div>
-        
-    </nav>
-    <div class="news-banner">
-                        <div class="news-slider">
-                            <div class="news-items-wrapper">
-      
-                                <div class="news-item">
-                                    <div class="news-text" data-en="[2025-05-27] Specialized dictionary of NLP is in progress" data-fa="[1404-03-06] آغاز جمع آوری داده ها برای ساخت دیکشنری تخصصی NLP">
-                                        [2025-05-27] Specialized dictionary of NLP is in progress
-                                    </div>
-                                    <a href="pages/nlp-sp-dic.html">GO</a>
-                                </div>
-                                <div class="news-item">
-                                    <div class="news-text" data-en="[2025-04-01] Starting a Deep Dive into NLP" data-fa="[1404-02-20] شروع کاوش عمیق در NLP">
-                                        [2025-04-01] Starting a Deep Dive into NLP
-                                    </div>
-                                    <a href="https://github.com/abdhmohammadi/NLP">Github</a>
-                                </div>
-                                <div class="news-item">
-                                    <div class="news-text" data-en="[2025-04-01] Programming is my hobby, I am currently developing an application to automate some of my work tasks." 
-                                                        data-fa="[1404-01-12] برنامه نویسی سرگرمی من است، در حال حاضر در حال توسعه برنامه ای برای خودکار کردن برخی از وظایف کاری خود هستم.">
-                                        Programming is my hobby, I am currently developing an application to automate some of my work tasks.
-                                    </div>
-                                    <a href="TeacherAssistant-Help/index.html" class="learn-more-link">TeacherAssistant App (using Python)</a>
-                                </div>
-
-                                <div class="news-item">
-                                    <div class="news-text" data-en="" data-fa=""></div>
-                                    <a href="#nothing" class=""></a>
-                                </div>
-                            </div>
-                        </div>
+       
+        <div class="hero-image">
+            <img src="images/abdh.jpg" alt="Abdh. Mohammadi" class="profile-photo">
+            <div class="hero-badge">
+                Math Teacher in N.Kh (+10 years experience)<br>
+                Data Science Researcher | Deep Learning | NLP
+            </div>
+        </div>
     </div>
     
-    <section class="hero-section">
-        <div style="width: 50px; padding: 50px;">
-                    <a href="https://github.com/abdhmohammadi" class="mx-2" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                    <a href="https://www.linkedin.com/in/abdh-mohammadi-47095a267" class="mx-2" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                    <a href="tg://resolve?domain=abdhmohammadi" class="mx-2" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
-                    <a href="mailto:abdhmohammady@gmail.com" class="mx-2" aria-label="Email"><i class="bi bi-envelope"></i></a>
-                    <a href="tel:+989372561238" class="mx-2" aria-label="Phone"><i class="bi bi-telephone"></i></a>
-                    <a href="https://shad.ir/abdhmohammadi" class="mx-2" aria-label="Shad"><img style="width:18px;height:20px;" src="images/shad.png" alt="Shad icon"/></a>
+    <!-- News Banner -->
+    <div class="news-banner">
+        <div class="news-slider">
+            <div class="news-items-wrapper">
+                <div class="news-item">
+                    <div class="news-text" data-en="[2025-05-27] Specialized dictionary of NLP is in progress" data-fa="[1404-03-06] آغاز جمع آوری داده ها برای ساخت دیکشنری تخصصی NLP">
+                        [2025-05-27] Specialized dictionary of NLP is in progress
+                    </div>
+                    <a href="pages/nlp-sp-dic.html">GO</a>
+                </div>
+                <div class="news-item">
+                    <div class="news-text" data-en="[2025-04-01] Starting a Deep Dive into NLP" data-fa="[1404-02-20] شروع کاوش عمیق در NLP">
+                        [2025-04-01] Starting a Deep Dive into NLP
+                    </div>
+                    <a href="https://github.com/abdhmohammadi/NLP">Github</a>
+                </div>
+                <div class="news-item">
+                    <div class="news-text" data-en="[2025-04-01] Programming is my hobby, I am currently developing an application to automate some of my work tasks." 
+                                        data-fa="[1404-01-12] برنامه نویسی سرگرمی من است، در حال حاضر در حال توسعه برنامه ای برای خودکار کردن برخی از وظایف کاری خود هستم.">
+                        [2025-04-01] Programming is my hobby, I am currently developing an application to automate some of my work tasks.
+                    </div>
+                    <a href="TeacherAssistant-Help/index.html" class="learn-more-link">TeacherAssistant App (using Python)</a>
+                </div>
+            </div>
         </div>
-        <div class="profile-image-container">
-            <img src="images/abdh.jpg" alt="Abdullah Mohammadi" class="profile-image">
-        </div>
-     
-        <div class="card-container">
-                        <div class="card">
-                            <h4 class="lang-text" data-en="🎓 DataScience Researcher" data-fa="🎓 پژوهشگر علوم داده">🎓 DataScience Researcher</h4>
-                            <p class="lang-text"
-                               data-en="Graduated with Master's degree in <span class='highlight'>DataSciences</span> from Ferdowsi University of Mashhad (FUM)"
-                               data-fa="فارغ‌التحصیل کارشناسی ارشد در <span class='highlight'>علوم داده</span> از دانشگاه فردوسی مشهد">
-                               Graduated with Master's degree in <span class="highlight">DataSciences</span> from Ferdowsi University of Mashhad (FUM)
-                            </p>
-                            <p class="lang-text"
-                               data-en="Thesis: Gravitational Least Squares TSVM based on Optimal Angle for Class Imbalance Learning"
-                               data-fa="پایان‌نامه: روش بردارهای پشتیبان گرانشی دوقلو کمترین مربعات براساس زاویه بهینه برای یادگیری عدم تعادل کلاس‌">
-                               Thesis: Gravitational Least Squares TSVM based on Optimal Angle for Class Imbalance Learning
-                            </p>
-                        </div>
-                    
-                        <div class="card">
-                            <h4 class="lang-text" data-en="📚 Mathematics Teacher" data-fa="📚 معلم ریاضی">📚 Mathematics Teacher</h4>
-                            <p class="lang-text"
-                               data-en="Official Teacher of the Education Ministry<br><span class='highlight'>10 years of experience</span> at <span class='highlight'>High School</span> teaching"
-                               data-fa="معلم رسمی وزارت آموزش و پرورش<br><span class='highlight'>با ۱۰ سال تجربه</span> تدریس ریاضی در <span class='highlight'>دبیرستان</span>">
-                               Official Teacher of the Education Ministry<br><span class="highlight">10 years of experience</span> at <span class="highlight">High School</span> teaching
-                            </p>
-                            <p class="lang-text"
-                               data-en="Interested in the psychology of mathematics in education, to be able to create positive attitude towards mathematics in students"
-                               data-fa="علاقه‌مند به روانشناسی ریاضی در آموزش برای ایجاد نگرش مثبت به ریاضیات در دانش‌آموزان">
-                               Interested in the psychology of mathematics in education, to be able to create positive attitude towards mathematics in students
-                            </p>
-                        </div>
-        </div>
-                    
-        
- 
-    </section>
+    </div>
     
-    <div style="background: linear-gradient(135deg, #e0f2f7 0%, #c1e7f0 100%); padding: 10px 60px 10px 50px;">
-                        <p class="lang-text" data-en="I am a data science graduate, math teacher, and book lover. 
-                            I am passionate about combining advanced analytics with educational excellence 
-                            to create innovative learning experiences. With expertise in both fields, 
-                            I strive to make complex concepts accessible and engaging for students, 
-                            and to improve educational outcomes using data-driven approaches."
-                            data-fa="فارغ التحصیل علوم داده، معلم ریاضی و عاشق کتاب هستم.
-                            با اشتیاق به ترکیب تحلیل‌های پیشرفته
-                            با تعالی آموزشی برای ایجاد تجربیات یادگیری نوآورانه می‌پردازم.
-                            با تخصص در هر دو زمینه، تلاش می‌کنم مفاهیم ریاضی را
-                            برای دانش‌آموزان قابل دسترس و جذاب کنم و 
-                            با استفاده از رویکردهای مبتنی بر داده، نتایج آموزشی را بهبود بخشم.">
-                            I am a data science graduate, math teacher, and book lover. 
-                            I am passionate about combining advanced analytics with educational excellence 
-                            to create innovative learning experiences. With expertise in both fields, 
-                            I strive to make complex concepts accessible and engaging for students, 
-                            and to improve educational outcomes using data-driven approaches.
-                        </p>
+    <!-- Activities Section -->
+    <div id="activities" >
+        <div class="section-title">
+            <h2>Professional Activities</h2>
+            <p>Explore the teaching resources and data science projects</p>
         </div>
-    <main class="grid-container">
-        <section id="teaching">
-            <div class="container">
-                <h2 class="text-center mb-4" data-en="Mathematics Education" data-fa="آموزش ریاضی">Mathematics Education</h2>
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h3 class="card-title" data-en="Teacher Resources" data-fa="منابع تدریس">Teaching Resources</h3>
-                                <p class="card-text" data-en="Access mathematics teaching materials, lesson plans, and educational resources."
-                                data-fa="دسترسی به مطالب آموزشی، طرح درس و منابع دیگر ...">Access mathematics teaching materials, lesson plans, and educational resources.</p>
-                                <a href="pages/TeachingResources.html" class="btn btn-primary" data-en="Browse Resources" data-fa="منابع را ببینید">Browse Resources</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h3 class="card-title" data-en="Student Corner" data-fa="بخش دانش آموزی">Student Corner</h3>
-                                <p class="card-text" data-en="Interactive mathematics problems, study guides, and learning materials for students." data-fa="مسائل تعاملی ریاضی، راهنمای مطالعه و مواد آموزشی برای دانش‌آموزان.">Interactive mathematics problems, study guides, and learning materials for students.</p>
-                                <a href="#" class="btn btn-primary" data-en="Start Learning" data-fa="شروع یادگیری">Start Learning</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="data-science">
-            <div class="container">
-                <h2 class="text-center mb-4" data-en="Data Science" data-fa="علوم داده">Data Science</h2>
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h3 class="card-title" data-en="Projects" data-fa="پروژه‌ها">Projects</h3>
-                                <p class="card-text" data-en="Explore my data science projects, including machine learning, data analysis, and visualization work." data-fa="پروژه‌های علوم داده من، شامل یادگیری ماشین، تحلیل داده و کارهای بصری‌سازی را کاوش کنید.">Explore my data science projects, including machine learning, data analysis, and visualization work.</p>
-                                <a href="https://github.com/abdhmohammadi" class="btn btn-primary" data-en="View Projects" data-fa="مشاهده پروژه‌ها">View Projects</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h3 class="card-title" data-en="Technical Blog" data-fa="وبلاگ فنی">Technical Blog</h3>
-                                <p class="card-text" data-en="Read about my insights and experiences in data science, including tutorials and case studies." data-fa="درباره دیدگاه‌ها و تجربیات من در علوم داده، از جمله آموزش‌ها و مطالعات موردی، بخوانید.">Read about my insights and experiences in data science, including tutorials and case studies.</p>
-                                <a href="#" class="btn btn-primary" data-en="Read More" data-fa="بیشتر بخوانید">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         
-    </main>
-    <section id="contact" class="sub-section">
-            <div class="container">
-                <h2 class="lang-text" style="text-align: center;" data-en="Contact Me" data-fa="تماس با من">Contact Me</h2>
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="text-center">
-                            <p class="lead mb-4 lang-text" data-en="Get in touch for collaborations, questions, or opportunities" data-fa="برای همکاری‌، سوالات یا فرصت‌ها تماس بگیرید">
-                                Get in touch for collaborations, questions, or opportunities
-                            </p>
-                            
-                            <div class="social-links">
-                                <a href="https://github.com/abdhmohammadi" class="mx-2" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                                <a href="https://www.linkedin.com/in/abdhmohammadi" class="mx-2" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                                <a href="tg://resolve?domain=abdhmohammadi" class="mx-2" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
-                                <a href="mailto:abdhmohammadi@gmail.com" class="mx-2" aria-label="Email"><i class="bi bi-envelope"></i></a>
-                                <a href="tel:+989372561238" class="mx-2" aria-label="Phone"><i class="bi bi-telephone"></i></a>
-                                <a href="https://shad.ir/abdhmohammadi" class="mx-2" aria-label="Shad"><img style="width:18px;height:20px;" src="images/shad.png" alt="Shad icon"/></a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="cards-container">
+            <!-- Teaching Card -->
+            <div class="card teaching" id="teaching">
+                <div class="card-image">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="card-content">
+                   
+                        <h3>Teaching & Education</h3>
+
+                    <p>Access to educational resources designed for high school students, educational slides suitable for teachers, teaching approaches, lesson plans, videos, and more.</p>
+                    <p>All materials align with curriculum standards while fostering critical thinking and mathematical reasoning skills.<a href="mathematics-teacher/mathematics-teacher.html" style="float: right;">Explore Teaching Resources</a>
+                    </p>   
                 </div>
             </div>
-        </section>
-    <footer class="bg-light py-4">
-        <div class="container text-center">
-            <p>&copy; 2025 Abdullah Mohammadi. All rights reserved.</p>
-            <a target="_blank" data-en="Visited:" data-fa="بازدید:">Visited:</a>
-            <img src="https://hitwebcounter.com/counter/counter.php?page=20715483&style=0011&nbdigits=4&type=ip&initCount=0" 
-            title="Counter Widget" Alt="Visit counter For Websites" border="0" />
+            
+            <!-- Data Science Card -->
+            <div class="card data-science" id="data-science">
+                <div class="card-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Data Sciences</h3>
+                    <p>Access to data science portfolios, machine learning projects, natural language processing, data visualization and more ... .</p>
+                    <p><!-- Projects include predictive analytics in education, NLP for student feedback analysis, and interactive data visualization tools for classroom use. These projects demonstrate how data science can enhance educational outcomes and provide valuable insights into student learning patterns. --><a href="data-sciences/data-sciences.html" style="float: right;">View Data Science Projects</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Abdullah Mohammadi</h3>
+                    <p>Dedicated educator and data scientist passionate about transforming education through innovative teaching methods and data-driven insights.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/abdhmohammadi"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="tg://resolve?domain=abdhmohammadi"><i class="fab fa-telegram"></i></a>
+                        <a href="https://github.com/abdhmohammadi"><i class="fab fa-github"></i></a>
+                        <a href="https://shad.ir/abdhmohammadi" aria-label="Shad"><img style="width:18px;height:20px;" src="images/shad.png" alt="Shad icon" /></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info" id="contact-info">
+                        <li><i class="fas fa-envelope"></i><span>abdhmohammady@gmail.com</span></li>
+                        <li><i class="fas fa-phone"></i><span>+98 (937) 256-1238</span></li>
+                        <li><i class="fas fa-map-marker-alt"></i><span>Bojnord, North Khorasan</span></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="contact-info">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Abdullah Mohammadi. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script src="./js/main.js"></script>
+    <!-- JS -->
+    <script src="js/script.js"></script>
 </body>
 </html>
