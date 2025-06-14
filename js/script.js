@@ -5,7 +5,8 @@ const displayPause = 1000;        // pause between slides in ms (1 second)
 let sliderTimeout;
 
 // Show slide at given index
-function showSlide(index) {
+function showSlide(index) 
+{
   const isEnglish = document.documentElement.lang === 'en';
   wrapper.style.transition = `transform ${transitionDuration}ms linear`;
 
@@ -17,7 +18,8 @@ function showSlide(index) {
 }
 
 // Reset slider to first item instantly (no animation)
-function resetToFirst() {
+function resetToFirst() 
+{
   wrapper.style.transition = 'none';
   wrapper.style.transform = `translateX(0%)`;
   currentIndex = 0;
@@ -73,7 +75,8 @@ function toggleLanguage() {
 }
 
 // Apply language changes to elements with data-en and data-fa attributes
-function applyLanguage() {
+function applyLanguage() 
+{
   const isEnglish = document.documentElement.lang === 'en';
   document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
   document.body.classList.toggle('rtl-layout', !isEnglish);

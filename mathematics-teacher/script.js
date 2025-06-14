@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function ()
   const inner = document.querySelector('.carousel-inner');
   const slides = document.querySelectorAll('.carousel-slide');
   const indicators = document.querySelectorAll('.carousel-indicator');
-  const dirToggle = document.getElementById('dirToggle');
+  //const dirToggle = document.getElementById('dirToggle');
   const body = document.body;
   const dropdowns = document.querySelectorAll(".dropdown-content");
 
@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', function ()
     showSlide(next);
   }
 
-  function startSlideShow() {
+  function startSlideShow() 
+  {
     slideInterval = setInterval(nextSlide, 4000);
   }
 
@@ -70,16 +71,49 @@ document.addEventListener('DOMContentLoaded', function ()
     });
   });
 
-  dirToggle.addEventListener('click', () => {
-    body.classList.toggle('rtl');
-    localStorage.setItem('dir', isRTL() ? 'rtl' : 'ltr');
-    showSlide(currentSlide); // re-render position
-  });
+  //dirToggle.addEventListener('click', () => {
+  //  body.classList.toggle('rtl');
+  //  localStorage.setItem('dir', isRTL() ? 'rtl' : 'ltr');
+  //  showSlide(currentSlide); // re-render position
+  //});
 
   showSlide(currentSlide);
   startSlideShow();
 
+  
+// Language toggle handler
+function toggleLanguage() 
+{
+  const isEnglish = document.documentElement.lang === 'en';
+  document.documentElement.lang = isEnglish ? 'fa' : 'en';
+  document.documentElement.dir = isEnglish ? 'rtl' : 'ltr';
+  applyLanguage();
+  initNewsSlider(); // restart slider on language change
+}
 
+// Initialize the news slider
+function initNewsSlider() {
+  wrapper = document.querySelector('.news-items-wrapper');
+  items = document.querySelectorAll('.news-item');
+  totalItems = items.length;
+  currentIndex = 0;
+  resetToFirst();
+  startSlider();
+}
+// Apply language changes to elements with data-en and data-fa attributes
+function applyLanguage() 
+{
+  const isEnglish = document.documentElement.lang === 'en';
+  document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+  document.body.classList.toggle('rtl-layout', !isEnglish);
+
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const content = isEnglish ? el.getAttribute('data-en') : el.getAttribute('data-fa');
+    if (content) el.innerHTML = content;
+  });
+
+  updateLanguageToggleButton(isEnglish);
+}
 
   // Smooth scrolling
   document.querySelectorAll('a[href^="#"]').forEach(anchor => 
@@ -95,5 +129,4 @@ document.addEventListener('DOMContentLoaded', function ()
       });
     });
   });
-
 });
