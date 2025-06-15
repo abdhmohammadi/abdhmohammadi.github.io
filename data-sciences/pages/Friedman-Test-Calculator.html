@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Friedman Test Calculator with LaTeX</title>
+    <title>Friedman Test Calculator</title>
     <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.5/dist/jstat.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0KOVEMeaMurLxlpHCzUZdJxnojOMrJNotYksj4MBzOpAUDaT5lIYBe" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIOOTenSvveiH92YdKowVFjephsnMpg3eKWxvaEhBC/pxOupVIb" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
-        onload="renderMathInElement(document.body);"></script>
-    <style>
+    <!-- jStat library -->
+    <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.5/dist/jstat.min.js"></script>
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMeaMurLxlpHCzUZdJxnojOMrJNotYksj4MBzOpAUDaT5lIYBe" crossorigin="anonymous">
+    <!-- KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIOOTenSvveiH92YdKowVFjephsnMpg3eKWxvaEhBC/pxOupVIb" crossorigin="anonymous"></script>
+    <!-- Auto-render extension for KaTeX -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+
+   <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
@@ -108,11 +114,14 @@
 <body>
 
     <div class="container">
-        <h1>🔬 Full Friedman Test Calculator</h1>
+        <div style="display: flex; flex-direction: column;">
+        <h1>🔬 Friedman Test Calculator</h1>
+            <a href="F-Steps-Example.html">Help</a>
+        </div>
         <p>Upload a CSV file where rows represent subjects and columns represent related groups to compare.</p>
         
         <div class="input-group">
-            <label for="alpha">1. Significance Level (Alpha)</label>
+            <label for="alpha">1. Significance Level $\alpha$</label>
             <input type="number" id="alpha" value="0.05" step="0.01" min="0.001" max="0.5">
         </div>
 
@@ -127,7 +136,7 @@
         </div>
         
         <div class="input-group">
-            <input type="checkbox" id="excludeFirstCol">
+            <input type="checkbox" id="excludeFirstCol" checked>
             <label for="excludeFirstCol" style="display: inline-block;">Exclude first column from test (e.g., an 'ID' column)</label>
         </div>
 
@@ -138,13 +147,25 @@
     </div>
 
     <script>
+         document.addEventListener('DOMContentLoaded', () => {
+            renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            // Add these for single dollar inline math
+            {left: "$", right: "$", display: false}
+        ]
+    });
+         });
         document.getElementById('calculateBtn').addEventListener('click', function() {
             const fileInput = document.getElementById('csvFile');
             const alpha = parseFloat(document.getElementById('alpha').value);
             const hasHeader = document.getElementById('hasHeader').checked;
             const excludeFirstCol = document.getElementById('excludeFirstCol').checked;
 
-            if (fileInput.files.length === 0) {
+            if (fileInput.files.length === 0) 
+            {
                 alert('Please upload a CSV file.');
                 return;
             }
@@ -152,6 +173,7 @@
             const file = fileInput.files[0];
             const reader = new FileReader();
 
+            
             reader.onload = function(event) {
                 try {
                     const csv = event.target.result;
@@ -166,7 +188,16 @@
                     const headers = hasHeader ? getHeaders(csv, excludeFirstCol) : null;
                     const analysisResults = fullFriedmanAnalysis(data);
                     displayResults(analysisResults, alpha, headers);
-                    renderMathInElement(document.getElementById('results')); // Re-render LaTeX
+                    //renderMathInElement(document.getElementById('results')); // Re-render LaTeX
+                    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            // Add these for single dollar inline math
+            {left: "$", right: "$", display: false}
+        ]
+    });
                 } catch (e) {
                     alert('Error: ' + e.message);
                 }

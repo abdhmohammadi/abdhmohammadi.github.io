@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nemenyi Test Calculator (Friedman Post-Hoc)</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.5/dist/jstat.min.js"></script>
+    <!-- integrity="sha384-n8MVd4RsNIU0KOVEMeaMurLxlpHCzUZdJxnojOMrJNotYksj4MBzOpAUDaT5lIYBe"
+     integrity="sha384-XjKyOOlGwcjNTAIOOTenSvveiH92YdKowVFjephsnMpg3eKWxvaEhBC/pxOupVIb"
+     integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"  crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" 
+     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+     crossorigin="anonymous"></script>
     <style>
         body {
             font-family: "Inter", sans-serif;
@@ -224,7 +234,7 @@
         </div>
 
         <div class="mb-6">
-            <label for="alpha" class="block text-gray-700 text-sm font-bold mb-2">Significance Level ($\alpha$):</label>
+            <label for="alpha" class="block text-gray-700 text-sm font-bold mb-2">Significance Level $\alpha$:</label>
             <select id="alpha" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
                 <option value="0.01">0.01</option>
                 <option value="0.05">0.05</option>
@@ -354,6 +364,16 @@
             document.getElementById('addGroupBtn').addEventListener('click', addGroup);
             document.getElementById('calculateBtn').addEventListener('click', calculateNemenyi);
             document.getElementById('toggleGroupDataBtn').addEventListener('click', toggleGroupDataVisibility);
+
+            renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            // Add these for single dollar inline math
+            {left: "$", right: "$", display: false}
+        ]
+    });
         });
 
         /**
@@ -548,7 +568,7 @@
         function calculateCriticalDifference(alpha, k, N) {
             const q = qValues[alpha][k];
             if (!q) {
-                showMessage(`Nemenyi Test: Critical q-value for k=${k} (number of groups) and alpha=${alpha} not found in lookup table. Please refer to a Studentized Range Q table for more values or use a different alpha/number of groups.`, "error");
+                showMessage(`Nemenyi Test: Critical q-value for k=${k} (number of groups) and \\(\\alpha\\)=${alpha} not found in lookup table. Please refer to a Studentized Range Q table for more values or use a different \\(\\alpha\\)/number of groups.`, "error");
                 return null;
             }
             // Corrected Formula for Nemenyi test after Friedman (comparing rank sums)
@@ -623,7 +643,7 @@
             const qAlpha = cdResult.qAlpha;
 
             // Display q_alpha and Critical Difference
-            document.getElementById('qAlphaDisplay').textContent = `Studentized Range q-value (q_alpha,k): ${qAlpha.toFixed(3)}`;
+            document.getElementById('qAlphaDisplay').textContent = `Studentized Range q-value \\(q_{\\alpha},k\\): ${qAlpha.toFixed(3)}`;
             document.getElementById('criticalDifference').textContent = `Calculated Critical Difference (CD): ${cd.toFixed(3)}`;
 
             // Populate Average Ranks and Group Rank Sums Table
@@ -705,6 +725,18 @@
 
             document.getElementById('results').classList.remove('hidden');
             showMessage("Calculation complete!", "success");
+            
+            renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            // Add these for single dollar inline math
+            {left: "$", right: "$", display: false}
+        ]
+    });
+            // THIS IS THE CRITICAL LINE:
+   
 
             // Hide group inputs after calculation to clean up the view
             document.getElementById('groupInputs').classList.add('hidden');
@@ -726,10 +758,10 @@
 
                 <p class="mb-3">The Friedman test first ranks the data *independently within each block (dataset)*. Then, for each group (algorithm), the ranks across all blocks are summed. The Nemenyi test then uses these rank sums to perform pairwise comparisons between groups to determine which specific pairs are significantly different.</p>
 
-                <p class="mb-3">In this analysis, we compared <strong>${k} algorithms</strong> across <strong>${N} datasets</strong>, at a significance level ($\alpha$) of <strong>${alpha}</strong>.</p>
+                <p class="mb-3">In this analysis, we compared <strong>${k} algorithms</strong> across <strong>${N} datasets</strong>, at a significance level $\\alpha$ of <strong>${alpha}</strong>.</p>
 
                 <h4 class="text-lg font-semibold mb-2">Critical Difference (CD):</h4>
-                <p class="mb-3">The calculated <strong>Critical Difference (CD) is approximately ${cd.toFixed(3)}</strong>. This CD serves as a threshold. For any pair of algorithms, if the absolute difference between their total rank sums (across all datasets) is greater than this CD, then those algorithms are considered statistically significantly different at the chosen $\alpha$ level.</p>
+                <p class="mb-3">The calculated <strong>Critical Difference (CD) is approximately ${cd.toFixed(3)}</strong>. This CD serves as a threshold. For any pair of algorithms, if the absolute difference between their total rank sums (across all datasets) is greater than this CD, then those algorithms are considered statistically significantly different at the chosen \\(\\alpha\\) level.</p>
 
                 <h4 class="text-lg font-semibold mb-2">Pairwise Comparison Interpretation:</h4>
                 <p class="mb-3">The "Pairwise Comparisons" table above displays the absolute difference in rank sums for every possible pair of algorithms. Here's how to interpret the "Significance" column:</p>
@@ -749,9 +781,10 @@
                 text += `<p class="mb-3"><strong>As indicated in the "Statistically Significant Differences" section above, no statistically significant differences were found between any pairs of algorithms at the ${alpha} level.</strong></p>`;
             }
 
-            text += `<p class="mt-4 text-sm text-gray-700 italic"><strong>Important Note:</strong> This implementation assumes a complete block design where each algorithm is evaluated on every dataset, and there are no missing values. It also assumes that the performance measure is at least ordinal. The critical q-values are based on infinite degrees of freedom; for smaller sample sizes or different $\alpha$ values, consulting a specialized Studentized Range Q table is recommended.</p>`;
+            text += `<p class="mt-4 text-sm text-gray-700 italic"><strong>Important Note:</strong> This implementation assumes a complete block design where each algorithm is evaluated on every dataset, and there are no missing values. It also assumes that the performance measure is at least ordinal. The critical q-values are based on infinite degrees of freedom; for smaller sample sizes or different \\(\\alpha\\) values, consulting a specialized Studentized Range Q table is recommended.</p>`;
 
             interpretationTextDiv.innerHTML = text;
+            interpretationTextDiv.style.display = 'block';
         }
 
         /**
