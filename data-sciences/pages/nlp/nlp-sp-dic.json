@@ -1,5 +1,12 @@
 [
-  {
+{
+  "term": "Generation",
+  "definition": "In the context of Large Language Models, 'generation' refers to the model's ability to produce text by predicting and outputting sequences of words based on given input, typically using probabilistic language modeling.",
+  "tags": ["language modeling", "text generation", "prediction"],
+  "example": "When you type a question into ChatGPT, the model generates a relevant response word by word.",
+  "see_also": ["Autoregressive Model", "Token Prediction", "Prompt"]
+},
+{
     "term": "Corpus",
     "definition": "A large and structured collection of texts (or speech data) used for linguistic analysis and training machine learning models.",
     "tags": ["dataset", "text", "annotation"],
