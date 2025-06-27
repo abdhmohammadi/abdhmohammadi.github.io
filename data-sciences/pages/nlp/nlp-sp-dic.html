@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Specialized dictionary of Natural Language Progressing(NLP)</title>
+  <title>Specialized dictionary for Natural Language Progressing (NLP)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,15 +12,19 @@
     header {
       text-align: center;
       background-color: #2c3e50;
+      border-radius: 10px;
       color: white;
       padding: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 0px;
     }
     input[type="text"] {
-      width: 100%;
+      width: 400px;
       padding: 10px;
-      margin-bottom: 20px;
+      margin-left: 0px;
+      margin-right: 10px;
       font-size: 16px;
+      border-radius: 4px;
+      border-color:#888888;
     }
     .entry {
       background: #fff;
@@ -51,16 +55,15 @@
 <body>
 
 <header>
-  <h1>📘 Specialized dictionary of Natural Language Progressing(NLP)</h1>
+  <h1>📘 Specialized dictionary for Natural Language Progressing (NLP)</h1>
   <p>By Abdh. Mohammadi (abdhmohammady@gmail.com)</p>
+  <p style="color: red; text-align: center;">This page will be updated over time ...</p>
 </header>
 
-<div style="display: flex; align-items: center; width:95%; margin:0px 20px 0px 20px;">
-  <p style="color: red; flex-grow: 1; text-align: center;">This page will be updated over time ...</p>
-  <p id="vocabulary-count" style="flex-shrink: 0; color: #888888;">Loading ...</p>
+<div style="display: flex; align-items: center; width:95%; margin:10px 0px 0px 10px;">
+  <input type="text" id="searchBox" placeholder="🔍 Search terms..."/>
+  <p id="vocabulary-count" style="color: #888888;  margin-left: auto;">Loading ...</p>
 </div>
-<input type="text" id="searchBox" placeholder="Search terms..." style="width:95%; margin:0px 20px 0px 20px;align-self:center;" >
-
 <div id="dictionaryContainer"></div>
 
 <script src="app.js"></script>
