@@ -2,10 +2,11 @@ async function loadDictionary()
 {
   const response = await fetch('nlp-sp-dic.json');
   const data = await response.json();
-  displayEntries(data);
-  
+
   vocab = document.getElementById('vocabulary-count');
   vocab.textContent = `${data.length} words`;
+
+  displayEntries(data);
 
   document.getElementById('searchBox').addEventListener('input', () => {
     const query = document.getElementById('searchBox').value.toLowerCase();
@@ -15,6 +16,7 @@ async function loadDictionary()
       entry.tags.join(' ').toLowerCase().includes(query)
     );
     displayEntries(filtered);
+
   });
 }
 
@@ -45,6 +47,7 @@ function displayEntries(entries)
     `;
     container.appendChild(div);
   });
+
 }
 
 loadDictionary();
