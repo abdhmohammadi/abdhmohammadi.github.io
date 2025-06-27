@@ -1,4 +1,18 @@
 [
+  {
+  "term": "Weight",
+  "definition": "Weights are the trainable parameters within a neural network that store the knowledge learned from data. They are fixed during inference and are used to transform inputs through layers to produce outputs such as logits.",
+  "tags": ["neural network", "parameters", "training", "model weights"],
+  "example": "In GPT, the weight matrices are updated during training to better predict the next token in a sequence.",
+  "see_also": ["Logits", "Backpropagation", "Gradient Descent"]
+},
+{
+  "term": "Logit, Logits",
+  "definition": "Logits are the raw, unnormalized output scores produced by a neural network for each possible token before applying the softmax function to convert them into probabilities.",
+  "tags": ["neural network", "output", "probability", "softmax", "prediction"],
+  "example": "GPT outputs logits for each token in the vocabulary, which are then converted into probabilities to predict the next word.",
+  "see_also": ["Weights", "Softmax", "Probability Distribution"]
+},
 {
   "term": "Generation",
   "definition": "In the context of Large Language Models, 'generation' refers to the model's ability to produce text by predicting and outputting sequences of words based on given input, typically using probabilistic language modeling.",
