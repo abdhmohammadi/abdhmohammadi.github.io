@@ -1,3 +1,4 @@
+
 async function loadDictionary() 
 {
   const response = await fetch('nlp-sp-dic.json');

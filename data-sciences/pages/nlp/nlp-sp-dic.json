@@ -1,5 +1,40 @@
 [
   {
+  "term": "Hidden State Vector",
+  "definition": "A hidden state vector is an internal representation of information in a neural network, particularly in recurrent or transformer-based models like LLMs. It captures the contextual understanding of the input up to a certain point and is passed through layers to influence the model's predictions.",
+  "tags": ["transformers", "context", "neural networks", "LLMs", "representations"],
+  "example": "In GPT-style models, after processing the first few tokens, the hidden state vector for the next token encodes the combined information from previous tokens to help predict the next word.",
+  "see_also": ["Token Embedding", "Self-Attention", "Transformer Architecture"]
+},
+{
+  "term": "Bias",
+  "definition": "In machine learning, bias refers to both a parameter in models (such as the intercept in linear regression or the additive term in neural networks) and a broader concept representing assumptions a model makes to learn from data. In parametric models, it adjusts outputs independently of input variables. In statistical learning, bias reflects the error introduced by approximating a real-world problem with a simplified model.",
+  "tags": ["machine learning", "model assumptions", "parameters", "bias-variance tradeoff"],
+  "example": "In linear regression, the bias term (often called the intercept) allows the regression line to fit data that does not pass through the origin, improving model accuracy.",
+  "see_also": ["Variance", "Bias-Variance Tradeoff", "Weights", "Regularization"]
+},
+{
+  "term": "Softmax",
+  "definition": "SoftMax is an activation function that converts a vector of raw scores (logits) into probabilities by exponentiating each value and normalizing by the sum of exponentials. It is commonly used in the output layer of classification models to represent the probability distribution over possible classes.",
+  "tags": ["activation function", "classification", "probabilities", "logits"],
+  "example": "In GPT, after computing the logits for the vocabulary, the SoftMax function is applied to obtain the probability of each token being the next word.",
+  "see_also": ["Logits", "Cross-Entropy Loss", "Argmax"]
+},
+{
+  "term": "Inference",
+  "definition": "Inference is the phase in which a trained model is used to make predictions or generate outputs on new, unseen data. During inference, model parameters such as weights and biases remain fixed, and the model processes input through its layers to produce outputs like probabilities or text.",
+  "tags": ["model prediction", "deployment", "serving", "neural networks"],
+  "example": "During inference with a large language model like GPT, the user provides a prompt, and the model generates a continuation by predicting one token at a time using its learned parameters.",
+  "see_also": ["Training", "Forward Pass", "Logits"]
+},
+{
+  "term": "Activation Function",
+  "definition": "An activation function is a mathematical operation applied to the output of a neural network layer to introduce non-linearity, enabling the network to model complex patterns. It transforms the weighted sum of inputs before passing the result to the next layer.",
+  "tags": ["neural networks", "non-linearity", "deep learning", "functions"],
+  "example": "ReLU (Rectified Linear Unit) is a widely used activation function that outputs zero for negative inputs and the input itself for positive values, allowing neural networks to learn non-linear relationships.",
+  "see_also": ["ReLU", "Sigmoid", "SoftMax", "Layer"]
+},
+  {
   "term": "Weight",
   "definition": "Weights are the trainable parameters within a neural network that store the knowledge learned from data. They are fixed during inference and are used to transform inputs through layers to produce outputs such as logits.",
   "tags": ["neural network", "parameters", "training", "model weights"],
