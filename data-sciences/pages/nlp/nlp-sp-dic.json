@@ -1,5 +1,19 @@
 [
   {
+  "term": "Conditional Generation",
+  "definition": "A text generation approach where the output is generated based on specific input conditions, such as prompts, source texts, or structured data, guiding the model to produce contextually relevant responses.",
+  "tags": ["text generation", "conditioning", "context-aware"],
+  "example": "In machine translation, a model performs conditional generation by producing a sentence in one language based on its equivalent in another language.",
+  "see_also": ["Sequence-to-Sequence", "Prompt Engineering", "Controlled Generation"]
+},
+  {
+  "term": "Autoregressive",
+  "definition": "A type of model that generates each output token based on the previously generated tokens, using a sequential prediction approach where each step conditions on the past.",
+  "tags": ["sequence modeling", "language modeling", "prediction"],
+  "example": "GPT models are autoregressive; they predict the next word by looking only at the preceding context.",
+  "see_also": ["Causal Language Model", "Generation", "Decoder-Only Architecture"]
+},
+  {
   "term": "Hidden State Vector",
   "definition": "A hidden state vector is an internal representation of information in a neural network, particularly in recurrent or transformer-based models like LLMs. It captures the contextual understanding of the input up to a certain point and is passed through layers to influence the model's predictions.",
   "tags": ["transformers", "context", "neural networks", "LLMs", "representations"],
