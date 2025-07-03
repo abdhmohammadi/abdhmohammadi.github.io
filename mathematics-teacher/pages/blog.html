@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathematics Teacher - Blog</title>
-    <link rel="stylesheet" href="../css/style.css"> <!-- Your existing CSS -->
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         /* Weblog-specific styles */
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         .entry {
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             margin-bottom: 25px;
             overflow: hidden;
+            padding: 20px;
         }
         .sub-bar {
             background: #2c3e50;
@@ -20,9 +26,45 @@
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
+            margin-top: 15px;
+            border-radius: 4px;
         }
         .comment-form {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        .comment-form input,
+        .comment-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .comment-form button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .comments-container {
             margin-top: 15px;
+        }
+        .comment {
+            background: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #2c3e50;
+        }
+        .comment-meta {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -37,47 +79,22 @@
         <div id="blog-entries">
             <p>Loading blog posts...</p>
         </div>
+        
+        <!-- Comment Form (hidden by default) -->
+        <div id="comment-form-container" style="display:none;">
+            <div class="comment-form">
+                <h3>Leave a Comment</h3>
+                <input type="text" id="comment-name" placeholder="Your name" required>
+                <textarea id="comment-text" placeholder="Your thoughts" required></textarea>
+                <button id="submit-comment">Submit</button>
+                <button onclick="hideCommentForm()">Cancel</button>
+            </div>
+        </div>
     </main>
 
     <!-- Your existing footer -->
     <footer>...</footer>
-    <!-- Add to your existing blog.html -->
-<div id="comment-form" style="display:none;">
-  <h3>Leave a Comment</h3>
-  <input type="text" id="comment-name" placeholder="Your name">
-  <textarea id="comment-text" placeholder="Your thoughts"></textarea>
-  <button onclick="submitComment()">Submit</button>
-</div>
 
-<script>
-// Configuration
-const COMMENT_API = "https://script.google.com/macros/s/AKfycbyDUH9YU78MSin6Itg88aJhb6eZsf2AMatJCNVxuzdt8PE0-lL5TAggPGwUQO0fyxAV/exec"; // Paste web app URL here
-
-// Show comment form for a post
-function showCommentForm(postId) {
-  document.getElementById('comment-form').style.display = 'block';
-  document.getElementById('comment-form').dataset.postId = postId;
-}
-
-// Submit comment to Google Sheets
-async function submitComment() {
-  const name = document.getElementById('comment-name').value;
-  const text = document.getElementById('comment-text').value;
-  const postId = document.getElementById('comment-form').dataset.postId;
-  
-  await fetch(COMMENT_API, {
-    method: 'POST',
-    body: JSON.stringify({
-      entryId: postId,
-      name: name,
-      text: text
-    })
-  });
-  
-  alert('Comment submitted!');
-  location.reload(); // Refresh to show new comment
-}
-</script>
     <!-- Load blog script -->
     <script src="../js/blog.js"></script>
 </body>
