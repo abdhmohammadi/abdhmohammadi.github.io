@@ -2,7 +2,7 @@
 
 const CONFIG = {
   csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkAgbOLO9NA6TKeRlMAYOGPW2gRtmlUZjBqD2-tQsKwVryGC3pIzLWg844P8ysrfRc2wpy6GSAPrVF/pub?output=csv',
-  commentApiUrl: 'https://script.google.com/macros/s/AKfycbz4p2gSAD-rxAU7QlVMifW1UtctjKv3X17mDzuB49Px9Tfkn7UzBVxHiAQZpUJSxLTp/exec',
+  commentApiUrl: 'https://script.google.com/macros/s/AKfycbwq83MUqFugMl_MaZQSHozy-aRvrf3EkoKKLiPMOUhcNBPAO8J3oeAiBhFlXmMkE9-B/exec',
   contactInfo: '📧 abdhmohammady@gmail.com',
   debug: true
 };
