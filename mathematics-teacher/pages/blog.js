@@ -3,7 +3,8 @@
 const CONFIG = {
   csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkAgbOLO9NA6TKeRlMAYOGPW2gRtmlUZjBqD2-tQsKwVryGC3pIzLWg844P8ysrfRc2wpy6GSAPrVF/pub?output=csv',
   commentApiUrl: 'https://script.google.com/macros/s/AKfycbyDUH9YU78MSin6Itg88aJhb6eZsf2AMatJCNVxuzdt8PE0-lL5TAggPGwUQO0fyxAV/exec',
-  contactInfo: '📧 abdhmohammady@gmail.com'
+  contactInfo: '📧 abdhmohammady@gmail.com',
+  debug: true
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -99,24 +100,31 @@ function toggleComments(postId) {
 
 function loadComments(postId) {
   return new Promise((resolve, reject) => {
-    const callbackName = `cb_${Date.now()}_${Math.random().toString().slice(2)}`;
+    const callbackName = `jsonp_callback_${postId}_${Date.now()}`;
+
     window[callbackName] = function(data) {
-      resolve(data);
-      cleanup();
-    };
-    function cleanup() {
       delete window[callbackName];
-      script.remove();
-    }
+      document.head.removeChild(script);
+
+      console.log(`[DEBUG] Comments loaded for post ${postId}:`, data); // ✅ Debug print
+
+      renderComments(postId, data);
+      resolve();
+    };
+
     const script = document.createElement('script');
     script.src = `${CONFIG.commentApiUrl}?postId=${postId}&callback=${callbackName}`;
-    script.onerror = () => {
-      reject();
-      cleanup();
+    script.onerror = function() {
+      delete window[callbackName];
+      document.head.removeChild(script);
+      console.error(`[ERROR] Failed to load comments for post ${postId} via JSONP`);
+      reject(new Error('Failed to load comments'));
     };
+
     document.head.appendChild(script);
   });
 }
+
 
 function renderCommentList(comments) {
   if (!comments || !comments.length) return '<p>No comments yet.</p>';
