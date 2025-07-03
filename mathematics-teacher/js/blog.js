@@ -98,29 +98,29 @@ async function loadPosts() {
 
 function parseCsv(csvText) {
     try {
-        // Normalize line endings and remove empty lines
         const lines = csvText
             .replace(/\r\n/g, '\n')
             .split('\n')
             .filter(line => line.trim() !== '');
-        
+
         if (lines.length < 2) {
             throw new Error('CSV file is empty or has no data rows');
         }
-        
-        // Extract headers
-        const headers = lines[0].split(',').map(h => h.trim()); // trim trailing spaces!
-        // Parse data rows
+
+        // ✅ Trim header fields to avoid issues like 'date '
+        const headers = lines[0].split(',').map(h => h.trim());
+
         return lines.slice(1).map((line, index) => {
-            const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // Handles quoted commas
-            const post = { id: index + 1 }; // Default ID if not specified
-            
+            const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            const post = { id: index + 1 };
+
             headers.forEach((header, i) => {
-                post[header.toLowerCase()] = values[i] 
-                    ? values[i].trim().replace(/^"|"$/g, '') 
+                const key = header.toLowerCase();
+                post[key] = values[i]
+                    ? values[i].trim().replace(/^"|"$/g, '')
                     : '';
             });
-            
+
             return post;
         });
     } catch (error) {
