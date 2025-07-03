@@ -45,7 +45,6 @@ function parseCsvLine(line) {
     const nextChar = line[i + 1];
 
     if (char === '"' && insideQuote && nextChar === '"') {
-      // Escaped quote ("")
       value += '"';
       i++;
     } else if (char === '"') {
@@ -76,7 +75,7 @@ function renderPosts(posts) {
         <div>${CONFIG.contactInfo}</div>
       </div>
       <div class="comment-section" id="comments-${post.id}">
-        <div class="comments"></div> <!-- Always shown -->
+        <div class="comments"></div>
         <form class="comment-form" onsubmit="submitComment(event, ${post.id})">
           <input type="text" name="name" placeholder="Your name" required />
           <textarea name="text" placeholder="Your comment" required></textarea>
@@ -86,12 +85,9 @@ function renderPosts(posts) {
     `;
 
     container.appendChild(article);
-
-    // ✅ LOAD comments immediately per post
     loadComments(post.id);
   });
 }
-
 
 function escapeHtml(text) {
   const div = document.createElement('div');
@@ -137,7 +133,9 @@ function loadComments(postId) {
       delete window[callbackName];
       document.head.removeChild(script);
 
-      console.log(`[DEBUG] Comments loaded for post ${postId}:`, data); // ✅ Debug print
+      if (CONFIG.debug) {
+        console.log(`[DEBUG] Comments loaded for post ${postId}:`, data);
+      }
 
       renderComments(postId, data);
       resolve();
@@ -155,7 +153,6 @@ function loadComments(postId) {
     document.head.appendChild(script);
   });
 }
-
 
 function renderCommentList(comments) {
   if (!comments || !comments.length) return '<p>No comments yet.</p>';
