@@ -76,8 +76,7 @@ function renderPosts(posts) {
         <div>${CONFIG.contactInfo}</div>
       </div>
       <div class="comment-section" id="comments-${post.id}">
-        <div class="toggle-btn" onclick="toggleComments(${post.id})">Show Comments</div>
-        <div class="comments" style="display:none;"></div>
+        <div class="comments"></div> <!-- Always shown -->
         <form class="comment-form" onsubmit="submitComment(event, ${post.id})">
           <input type="text" name="name" placeholder="Your name" required />
           <textarea name="text" placeholder="Your comment" required></textarea>
@@ -85,9 +84,14 @@ function renderPosts(posts) {
         </form>
       </div>
     `;
+
     container.appendChild(article);
+
+    // ✅ LOAD comments immediately per post
+    loadComments(post.id);
   });
 }
+
 
 function escapeHtml(text) {
   const div = document.createElement('div');
