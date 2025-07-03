@@ -41,7 +41,43 @@
 
     <!-- Your existing footer -->
     <footer>...</footer>
+    <!-- Add to your existing blog.html -->
+<div id="comment-form" style="display:none;">
+  <h3>Leave a Comment</h3>
+  <input type="text" id="comment-name" placeholder="Your name">
+  <textarea id="comment-text" placeholder="Your thoughts"></textarea>
+  <button onclick="submitComment()">Submit</button>
+</div>
 
+<script>
+// Configuration
+const COMMENT_API = "https://script.google.com/macros/s/AKfycbyDUH9YU78MSin6Itg88aJhb6eZsf2AMatJCNVxuzdt8PE0-lL5TAggPGwUQO0fyxAV/exec"; // Paste web app URL here
+
+// Show comment form for a post
+function showCommentForm(postId) {
+  document.getElementById('comment-form').style.display = 'block';
+  document.getElementById('comment-form').dataset.postId = postId;
+}
+
+// Submit comment to Google Sheets
+async function submitComment() {
+  const name = document.getElementById('comment-name').value;
+  const text = document.getElementById('comment-text').value;
+  const postId = document.getElementById('comment-form').dataset.postId;
+  
+  await fetch(COMMENT_API, {
+    method: 'POST',
+    body: JSON.stringify({
+      entryId: postId,
+      name: name,
+      text: text
+    })
+  });
+  
+  alert('Comment submitted!');
+  location.reload(); // Refresh to show new comment
+}
+</script>
     <!-- Load blog script -->
     <script src="../js/blog.js"></script>
 </body>
