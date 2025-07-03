@@ -87,8 +87,6 @@ function renderPosts(posts) {
 
   container.innerHTML = '';
 
-
-
   posts.forEach(post => {
 
     const article = document.createElement('div');
@@ -268,11 +266,19 @@ function renderCommentList(comments) {
 }
 
 
-function submitComment(postId, name, text) {
+function submitComment(event, postId) {
+  event.preventDefault(); // ⛔ stop form from reloading the page
+
+  // Get the form that was submitted
+  const form = event.target;
+
+  const name = form.querySelector('input[name="name"]').value;
+  const text = form.querySelector('textarea[name="text"]').value;
+
   const commentData = {
-    postId: postId,
-    name: name,
-    text: text
+    postId,
+    name,
+    text
   };
 
   fetch("https://script.google.com/macros/s/AKfycbwq83MUqFugMl_MaZQSHozy-aRvrf3EkoKKLiPMOUhcNBPAO8J3oeAiBhFlXmMkE9-B/exec", {
@@ -283,22 +289,25 @@ function submitComment(postId, name, text) {
     body: JSON.stringify(commentData)
   })
   .then(async res => {
-    const rawText = await res.text(); // get raw text
-    console.log("[Raw response text]", rawText); // this will reveal HTML or error
+    const rawText = await res.text();
+    console.log("[Raw response text]", rawText);
     try {
       const json = JSON.parse(rawText);
-      console.log("[Parsed JSON]", json);
-    } catch (e) {
-      console.error("[Comment Error] Failed to parse JSON:", rawText);
+      if (json.success) {
+        alert("✅ Comment added successfully");
+        form.reset();               // clear form
+        loadComments(postId);       // reload comment list
+      } else {
+        alert("❌ Failed to add comment: " + json.message);
+      }
+    } catch (err) {
+      console.error("[Comment Error] Invalid JSON:", rawText);
     }
   })
   .catch(err => {
     console.error("[Comment Error] Network or server error:", err);
   });
 }
-
-
-
 
 // Utility functions
 
