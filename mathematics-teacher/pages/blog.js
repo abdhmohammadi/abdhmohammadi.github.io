@@ -49,10 +49,32 @@ function renderPosts(posts) {
   });
 }
 
-function formatDate(dt) {
-  const date = new Date(dt);
-  return date.toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' });
+function formatDate(dateString) {
+  if (!dateString) return '';
+  
+  // Try to parse the date string
+  let date = new Date(dateString);
+  
+  // If invalid, try alternative parsing (e.g., treating as UTC ISO)
+  if (isNaN(date.getTime())) {
+    // Attempt parsing with added 'Z' to treat as UTC if missing
+    date = new Date(dateString + 'Z');
+  }
+  
+  // Still invalid? Just return original string (or empty)
+  if (isNaN(date.getTime())) {
+    console.warn('Unparseable date:', dateString);
+    return dateString; // or return '' to hide invalid dates
+  }
+  
+  // Return formatted date string
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 }
+
 
 async function toggleComments(postId) {
   const section = document.querySelector(`#comments-${postId} .comments`);
