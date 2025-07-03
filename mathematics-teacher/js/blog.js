@@ -1,184 +1,338 @@
-// Configuration
+/**
+ * Mathematics Teacher Weblog - Dynamic Loader
+ * Version 2.1 (GitHub CSV + Google Sheets Comments)
+ */
+
+// ========================
+// CONFIGURATION
+// ========================
 const CONFIG = {
-    blogEntriesUrl: '../blog-data/blog_entries.csv',
+    // CSV data paths (try multiple fallbacks)
+    blogEntriesUrls: [
+        'https://abdhmohammadi.github.io/mathematics-teacher/pages/blog-data/blog_entries.csv',
+        '/mathematics-teacher/pages/blog-data/blog_entries.csv',
+        '../blog-data/blog_entries.csv'
+    ],    
+    // Google Sheets integration (for comments)
     googleSheetId: '1_uuyiehQZbnibhZt_jtvI53jFH1zkp1Bv8xheM4PVlA', // Replace with your actual Sheet ID
-    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbyDUH9YU78MSin6Itg88aJhb6eZsf2AMatJCNVxuzdt8PE0-lL5TAggPGwUQO0fyxAV/exec' // Replace with your deployed Web App URL
+    googleScriptUrl: 'https://script.google.com/macros/s/AKfycbyDUH9YU78MSin6Itg88aJhb6eZsf2AMatJCNVxuzdt8PE0-lL5TAggPGwUQO0fyxAV/exec' // Replace with your deployed Web App URL    
+    // Display settings
+    postsPerPage: 10,
+    enableComments: true
 };
 
-// DOM Elements
-let currentPostId = null;
+// ========================
+// STATE MANAGEMENT
+// ========================
+let currentState = {
+    posts: [],
+    currentPage: 1,
+    isLoading: false,
+    lastError: null
+};
 
-// Initialize when page loads
+// ========================
+// CORE INITIALIZATION
+// ========================
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log('[Blog] Initializing...');
+    
     try {
-        await loadBlog();
-        document.getElementById('submit-comment').addEventListener('click', submitComment);
+        // Load and display posts
+        await loadPosts();
+        
+        // Setup UI event listeners
+        setupEventListeners();
+        
+        console.log('[Blog] Initialized successfully');
     } catch (error) {
-        console.error('Error initializing blog:', error);
-        document.getElementById('blog-entries').innerHTML = 
-            '<p class="error">Failed to load blog. Please refresh the page.</p>';
+        console.error('[Blog] Critical initialization error:', error);
+        showFatalError(error);
     }
 });
 
-// Load and display blog entries
-async function loadBlog() {
+// ========================
+// DATA LOADING FUNCTIONS
+// ========================
+async function loadPosts() {
+    if (currentState.isLoading) return;
+    currentState.isLoading = true;
+    
     try {
-        const entries = await fetchCsv(CONFIG.blogEntriesUrl);
-        displayEntries(entries);
-    } catch (error) {
-        throw new Error('Failed to load blog entries: ' + error.message);
-    }
-}
-
-// Fetch CSV data
-async function fetchCsv(url) {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Failed to fetch CSV');
-    const text = await response.text();
-    return parseCsv(text);
-}
-
-// Parse CSV to JSON
-function parseCsv(csvText) {
-    const lines = csvText.split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    
-    return lines.slice(1).map(line => {
-        const values = line.split(',');
-        const entry = {};
-        headers.forEach((header, i) => {
-            entry[header] = values[i] ? values[i].trim() : '';
-        });
-        return entry;
-    }).filter(entry => entry.id); // Filter out empty lines
-}
-
-// Display blog entries
-async function displayEntries(entries) {
-    const container = document.getElementById('blog-entries');
-    
-    if (!entries.length) {
-        container.innerHTML = '<p>No blog posts found.</p>';
-        return;
-    }
-    
-    container.innerHTML = await Promise.all(entries.map(async entry => {
-        const comments = await loadComments(entry.id);
-        return `
-            <div class="entry" data-id="${entry.id}">
-                <div class="entry-content">
-                    <h2>${escapeHtml(entry.title)}</h2>
-                    <p>${escapeHtml(entry.content)}</p>
-                    <small>Posted: ${entry.date}</small>
-                </div>
-                <div class="sub-bar">
-                    <span>${comments.length} comments</span>
-                    <button onclick="showCommentForm('${entry.id}')">Add Comment</button>
-                </div>
-                <div class="comments-container" id="comments-${entry.id}">
-                    ${renderComments(comments)}
-                </div>
-            </div>
-        `;
-    })).then(html => html.join(''));
-}
-
-// Load comments from Google Sheet
-async function loadComments(postId) {
-    try {
-        const sheetUrl = `https://docs.google.com/spreadsheets/d/${CONFIG.googleSheetId}/gviz/tq?tqx=out:json`;
-        const response = await fetch(sheetUrl);
-        const text = await response.text();
-        const json = JSON.parse(text.substr(47).slice(0, -2));
+        showLoader();
         
-        return json.table.rows.map(row => ({
-            entryId: row.c[0]?.v,
-            name: row.c[1]?.v,
-            text: row.c[2]?.v,
-            date: formatDate(row.c[3]?.v)
-        })).filter(c => c.entryId === postId);
+        // Try all possible CSV URLs until one works
+        for (const url of CONFIG.blogEntriesUrls) {
+            try {
+                const csvData = await fetchWithTimeout(url, {
+                    cache: 'no-store',
+                    headers: {
+                        'Content-Type': 'text/csv; charset=utf-8'
+                    }
+                });
+                
+                currentState.posts = parseCsv(await csvData.text());
+                
+                if (currentState.posts.length > 0) {
+                    console.log(`[Blog] Successfully loaded ${currentState.posts.length} posts from ${url}`);
+                    renderPosts();
+                    return;
+                }
+            } catch (error) {
+                console.warn(`[Blog] Failed to load from ${url}:`, error.message);
+                continue;
+            }
+        }
+        
+        throw new Error('All data source attempts failed');
     } catch (error) {
-        console.error('Error loading comments:', error);
-        return [];
+        currentState.lastError = error;
+        console.error('[Blog] Post loading failed:', error);
+        showError(error);
+        throw error;
+    } finally {
+        currentState.isLoading = false;
+        hideLoader();
     }
 }
 
-// Render comments HTML
-function renderComments(comments) {
-    if (!comments.length) return '<p>No comments yet. Be the first to comment!</p>';
+function parseCsv(csvText) {
+    try {
+        // Normalize line endings and remove empty lines
+        const lines = csvText
+            .replace(/\r\n/g, '\n')
+            .split('\n')
+            .filter(line => line.trim() !== '');
+        
+        if (lines.length < 2) {
+            throw new Error('CSV file is empty or has no data rows');
+        }
+        
+        // Extract headers
+        const headers = lines[0].split(',').map(h => h.trim());
+        
+        // Parse data rows
+        return lines.slice(1).map((line, index) => {
+            const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // Handles quoted commas
+            const post = { id: index + 1 }; // Default ID if not specified
+            
+            headers.forEach((header, i) => {
+                post[header.toLowerCase()] = values[i] 
+                    ? values[i].trim().replace(/^"|"$/g, '') 
+                    : '';
+            });
+            
+            return post;
+        });
+    } catch (error) {
+        console.error('[Blog] CSV parsing error:', error);
+        throw new Error(`Failed to parse CSV data: ${error.message}`);
+    }
+}
+
+// ========================
+// RENDERING FUNCTIONS
+// ========================
+function renderPosts() {
+    const container = document.getElementById('blog-entries');
+    if (!container) {
+        throw new Error('Blog entries container not found');
+    }
     
-    return comments.map(comment => `
-        <div class="comment">
-            <div class="comment-meta">
-                <strong>${escapeHtml(comment.name)}</strong> • ${comment.date}
+    // Calculate pagination
+    const startIdx = (currentState.currentPage - 1) * CONFIG.postsPerPage;
+    const endIdx = startIdx + CONFIG.postsPerPage;
+    const visiblePosts = currentState.posts.slice(startIdx, endIdx);
+    
+    // Generate HTML
+    container.innerHTML = visiblePosts.map(post => `
+        <article class="blog-post" data-post-id="${post.id}">
+            <header>
+                <h2>${escapeHtml(post.title)}</h2>
+                <time datetime="${post.date}">${formatDate(post.date)}</time>
+            </header>
+            <div class="post-content">
+                ${paragraphize(escapeHtml(post.content))}
             </div>
-            <p>${escapeHtml(comment.text)}</p>
-        </div>
+            ${CONFIG.enableComments ? renderCommentSection(post.id) : ''}
+        </article>
     `).join('');
-}
-
-// Show comment form
-function showCommentForm(postId) {
-    currentPostId = postId;
-    document.getElementById('comment-form-container').style.display = 'block';
-    document.getElementById('comment-name').value = '';
-    document.getElementById('comment-text').value = '';
-    window.scrollTo(0, document.body.scrollHeight);
-}
-
-// Hide comment form
-function hideCommentForm() {
-    document.getElementById('comment-form-container').style.display = 'none';
-    currentPostId = null;
-}
-
-// Submit new comment
-async function submitComment() {
-    const name = document.getElementById('comment-name').value.trim();
-    const text = document.getElementById('comment-text').value.trim();
     
-    if (!name || !text) {
+    // Render pagination controls if needed
+    if (currentState.posts.length > CONFIG.postsPerPage) {
+        renderPagination();
+    }
+}
+
+function renderCommentSection(postId) {
+    return `
+        <section class="comments-section">
+            <h3>Comments</h3>
+            <div class="comments-container" id="comments-${postId}">
+                <p>Loading comments...</p>
+            </div>
+            <form class="comment-form" onsubmit="handleCommentSubmit(event, ${postId})">
+                <input type="text" name="name" placeholder="Your name" required>
+                <textarea name="comment" placeholder="Your thoughts" required></textarea>
+                <button type="submit">Post Comment</button>
+            </form>
+        </section>
+    `;
+}
+
+// ========================
+// UTILITY FUNCTIONS
+// ========================
+function escapeHtml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function paragraphize(text) {
+    return text.split('\n').filter(p => p.trim()).map(p => `<p>${p}</p>`).join('');
+}
+
+function formatDate(dateString) {
+    if (!dateString) return '';
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    } catch {
+        return dateString;
+    }
+}
+
+async function fetchWithTimeout(resource, options = {}) {
+    const { timeout = 5000 } = options;
+    
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    
+    const response = await fetch(resource, {
+        ...options,
+        signal: controller.signal  
+    });
+    
+    clearTimeout(id);
+    
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    return response;
+}
+
+// ========================
+// ERROR HANDLING
+// ========================
+function showFatalError(error) {
+    document.getElementById('blog-entries').innerHTML = `
+        <div class="error fatal-error">
+            <h2>Blog Unavailable</h2>
+            <p>We couldn't load the blog content. Please try again later.</p>
+            <button onclick="window.location.reload()">Retry</button>
+            ${DEBUG_MODE ? `<div class="technical-details">${error.message}</div>` : ''}
+        </div>
+    `;
+}
+
+function showLoader() {
+    document.getElementById('blog-entries').innerHTML = `
+        <div class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading blog posts...</p>
+        </div>
+    `;
+}
+
+function hideLoader() {
+    const loader = document.querySelector('.loading-indicator');
+    if (loader) loader.remove();
+}
+
+// ========================
+// EVENT HANDLERS
+// ========================
+function setupEventListeners() {
+    // Comment form submission
+    document.querySelectorAll('.comment-form').forEach(form => {
+        form.addEventListener('submit', handleCommentSubmit);
+    });
+    
+    // Pagination controls
+    document.querySelector('.pagination')?.addEventListener('click', handlePagination);
+}
+
+function handleCommentSubmit(event, postId) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    // Validate inputs
+    if (!formData.get('name') || !formData.get('comment')) {
         alert('Please fill in all fields');
         return;
     }
+    
+    submitComment(postId, {
+        name: formData.get('name'),
+        text: formData.get('comment')
+    });
+}
 
+// ========================
+// COMMENT SYSTEM
+// ========================
+async function submitComment(postId, { name, text }) {
     try {
+        if (!CONFIG.googleScriptUrl.includes('http')) {
+            throw new Error('Google Script URL not configured');
+        }
+        
         const response = await fetch(CONFIG.googleScriptUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                entryId: currentPostId,
+                entryId: postId,
                 name: name,
                 text: text
             })
         });
         
-        if (!response.ok) throw new Error('Failed to submit comment');
+        if (!response.ok) {
+            throw new Error(`Comment submission failed: ${response.status}`);
+        }
         
         alert('Comment submitted successfully!');
-        hideCommentForm();
-        await loadBlog(); // Refresh to show new comment
+        loadComments(postId); // Refresh comments
     } catch (error) {
-        console.error('Error submitting comment:', error);
-        alert('Failed to submit comment. Please try again.');
+        console.error('Comment submission error:', error);
+        alert('Failed to submit comment. Please try again later.');
     }
 }
 
-// Helper function to escape HTML
-function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/&/g, "&amp;")
-             .replace(/</g, "&lt;")
-             .replace(/>/g, "&gt;")
-             .replace(/"/g, "&quot;")
-             .replace(/'/g, "&#039;");
-}
-
-// Format date
-function formatDate(dateString) {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+// Initialize debug mode
+const DEBUG_MODE = true;
+if (DEBUG_MODE) {
+    console.log('[Blog] Debug mode enabled');
+    window.blogDebug = {
+        state: () => currentState,
+        reload: () => loadPosts(),
+        testComment: (postId) => submitComment(postId, {
+            name: 'Test User',
+            text: 'This is a test comment'
+        })
+    };
 }
