@@ -47,5 +47,31 @@ function displayEntries(entries, comments) {
     `).join('');
 }
 
+function showCommentForm(entryId) {
+    const container = document.getElementById(`comments-${entryId}`);
+    container.innerHTML = `
+        <form onsubmit="submitComment(event, '${entryId}')">
+            <input type="text" placeholder="Your name" required>
+            <textarea placeholder="Your comment" required></textarea>
+            <button type="submit">Submit via GitHub</button>
+        </form>
+    `;
+}
+
+function submitComment(event, entryId) {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.querySelector('input').value;
+    const text = form.querySelector('textarea').value;
+    
+    // Create GitHub Issue URL
+    const issueUrl = `https://github.com/${config.repo}/issues/new?` +
+        `title=Comment on Post ${entryId}&` +
+        `body=Name: ${name}%0AComment: ${text}%0A%0APost ID: ${entryId}`;
+    
+    window.open(issueUrl, '_blank');
+    form.reset();
+}
+
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', loadBlog);
