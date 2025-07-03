@@ -95,21 +95,25 @@ function formatDate(dateString) {
     return '';
   }
 }
-// Replace loadComments() with this CORS version
 async function loadComments(postId) {
   try {
     const url = new URL(CONFIG.commentApiUrl);
     url.searchParams.append('postId', postId);
     
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    if (!res.ok) throw new Error('Failed to load comments');
     
     const data = await res.json();
-    if (CONFIG.debug) console.log(`Comments loaded for post ${postId}:`, data);
+    
+    // Handle Google Script errors
+    if (data.error) {
+      throw new Error(data.message);
+    }
+    
     return data;
   } catch (error) {
-    console.error(`Failed to load comments for post ${postId}:`, error);
-    return [];
+    console.error(`[ERROR] Comments load failed (${postId}):`, error);
+    return []; // Return empty array to prevent UI breakage
   }
 }
 /*
