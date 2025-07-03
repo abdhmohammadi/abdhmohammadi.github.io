@@ -267,6 +267,7 @@ function renderCommentList(comments) {
 
 }
 
+
 function submitComment(postId, name, text) {
   const commentData = {
     postId: postId,
@@ -281,24 +282,18 @@ function submitComment(postId, name, text) {
     },
     body: JSON.stringify(commentData)
   })
-  .then(async (res) => {
-    const text = await res.text();               // inspect raw response
-    console.log("Raw response:", text);
+  .then(async res => {
+    const rawText = await res.text(); // get raw text
+    console.log("[Raw response text]", rawText); // this will reveal HTML or error
     try {
-      const json = JSON.parse(text);             // safe parse
-      if (json.success) {
-        alert("✅ Comment added successfully");
-        loadComments(postId); // reload comments
-      } else {
-        console.error("[Comment Error]", json.message);
-        alert("❌ Failed to add comment: " + json.message);
-      }
-    } catch (err) {
-      console.error("[Comment Error] Invalid JSON:", text);
+      const json = JSON.parse(rawText);
+      console.log("[Parsed JSON]", json);
+    } catch (e) {
+      console.error("[Comment Error] Failed to parse JSON:", rawText);
     }
   })
   .catch(err => {
-    console.error("[Comment Error] Network error:", err);
+    console.error("[Comment Error] Network or server error:", err);
   });
 }
 
