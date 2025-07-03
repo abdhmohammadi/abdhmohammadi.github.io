@@ -79,26 +79,6 @@ function renderPosts(posts) {
   });
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.innerText = text;
-  return div.innerHTML;
-}
-
-function formatDate(dateString) {
-  try {
-    const date = new Date(dateString);
-    if (isNaN(date)) throw new Error("Invalid date");
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  } catch {
-    console.warn("Unparseable date:", dateString);
-    return '';
-  }
-}
-
-
-
-
 async function loadComments(postId) {
   try {
     const url = new URL(CONFIG.commentApiUrl);
@@ -158,31 +138,125 @@ function renderCommentList(comments) {
   `).join('');
 }
 
-async function submitComment(e, postId) {
-  e.preventDefault();
-  const form = e.target;
-  const name = form.name.value;
-  const text = form.text.value;
-
-  try {
-    const res = await fetch(CONFIG.commentApiUrl, {
-      method: 'POST',
-      body: JSON.stringify({ postId, name, text }),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const result = await res.json();
-    if (result.success) {
-      alert('Comment added!');
-      form.reset();
-      loadComments(postId).then(comments => {
-        const section = document.querySelector(`#comments-${postId} .comments`);
-        section.innerHTML = renderCommentList(comments);
-      });
-    } else {
-      throw new Error(result.message);
+// Submit a new comment
+    async function submitComment(e, postId) {
+      e.preventDefault();
+      const form = e.target;
+      const name = form.name.value;
+      const text = form.text.value;
+      
+      // Show loading state
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = 'Posting...';
+      submitBtn.disabled = true;
+      
+      try {
+        // Using FormData to avoid CORS preflight for application/json
+        const formData = new FormData();
+        formData.append('postId', postId);
+        formData.append('name', name);
+        formData.append('text', text);
+        
+        const res = await fetch(CONFIG.commentApiUrl, {
+          method: 'POST',
+          body: formData,
+          redirect: 'follow' // Important for Google Apps Script
+        });
+        
+        // Since Google Apps Script returns a redirect, we need to handle it
+        const result = await res.text();
+        
+        try {
+          // Try to parse as JSON in case it worked
+          const data = JSON.parse(result);
+          if (data.success) {
+            // Show success message
+            const commentSection = form.closest('.comment-section');
+            const successMsg = document.createElement('div');
+            successMsg.className = 'success';
+            successMsg.textContent = 'Comment added successfully!';
+            commentSection.insertBefore(successMsg, form);
+            
+            // Clear form
+            form.reset();
+            
+            // Reload comments
+            loadComments(postId);
+          } else {
+            throw new Error(data.message || 'Failed to submit comment');
+          }
+        } catch (parseError) {
+          // Handle redirect response
+          if (result.includes('Thanks!')) {
+            // Show success message
+            const commentSection = form.closest('.comment-section');
+            const successMsg = document.createElement('div');
+            successMsg.className = 'success';
+            successMsg.textContent = 'Comment added successfully!';
+            commentSection.insertBefore(successMsg, form);
+            
+            // Clear form
+            form.reset();
+            
+            // Reload comments
+            loadComments(postId);
+          } else {
+            throw new Error('Failed to parse response');
+          }
+        }
+      } catch (err) {
+        console.error('[Comment Error]', err);
+        alert('Failed to submit comment. Please try again.');
+      } finally {
+        // Reset button state
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      }
+      
+      // Prevent default form submission
+      return false;
     }
-  } catch (err) {
-    alert('Failed to submit comment.');
-    console.error('[Comment Error]', err);
-  }
-}
+
+// Utility functions
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+
+
+function formatDate(dateString) {
+      try {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        if (isNaN(date)) throw new Error("Invalid date");
+        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      } catch {
+        console.warn("Unparseable date:", dateString);
+        return dateString || '';
+      }
+    }
+
+// Simulated Papa Parse for demo purposes
+    function simulatePapaParse(csv) {
+      const lines = csv.split('\n');
+      const headers = lines[0].split(',').map(h => h.trim());
+      
+      const data = [];
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',');
+        if (values.length !== headers.length) continue;
+        
+        const row = {};
+        headers.forEach((header, index) => {
+          row[header] = values[index].trim();
+        });
+        data.push(row);
+      }
+      
+      return { data };
+    }
+
+    // Make submitComment available globally
+    window.submitComment = submitComment;
