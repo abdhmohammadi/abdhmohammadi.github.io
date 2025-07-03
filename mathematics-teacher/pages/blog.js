@@ -4,32 +4,44 @@ const CONFIG = {
   contactInfo: '📧 abdhmohammady@gmail.com'
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const posts = await fetchPosts();
-  renderPosts(posts);
+
+// MAIN ENTRY POINT
+window.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const posts = await fetchPosts();
+    renderPosts(posts);
+  } catch (error) {
+    console.error('[Blog] Failed to initialize:', error);
+    document.getElementById('blog-entries').innerHTML = '<p>Failed to load posts.</p>';
+  }
 });
 
+// FETCH POSTS FROM CSV
 async function fetchPosts() {
   const res = await fetch(CONFIG.csvUrl);
   const csv = await res.text();
-  const lines = csv.trim().split('\n');
-  const [header, ...rows] = lines.map(l => l.split(','));
-  return rows.map((row, i) => ({
-    id: row[0],
-    title: row[1],
-    content: row[2],
-    date: row[3]
-  }));
+  const [header, ...rows] = csv.trim().split('\n').map(line => line.split(','));
+  const posts = [];
+
+  for (const row of rows) {
+    if (row.length < 4) continue;
+    const [id, title, content, date] = row;
+    posts.push({ id: id.trim(), title: title.trim(), content: content.trim(), date: date.trim() });
+  }
+
+  return posts;
 }
 
+// RENDER POSTS AND COMMENTS
 function renderPosts(posts) {
   const container = document.getElementById('blog-entries');
   container.innerHTML = '';
+
   posts.forEach(post => {
     const article = document.createElement('div');
     article.className = 'blog-post';
     article.innerHTML = `
-      ${post.title ? `<h2>${post.title}</h2>` : ''}
+      ${post.title ? `<h2>${escapeHtml(post.title)}</h2>` : ''}
       <div>${post.content}</div>
       <div class="sub-bar">
         <div>${formatDate(post.date)}</div>
@@ -47,15 +59,27 @@ function renderPosts(posts) {
     `;
     container.appendChild(article);
 
-    // Load comments for this post immediately after rendering
-    loadComments(post.id);
+    // Preload comments safely
+    loadComments(post.id).catch(err => console.warn(`Post ${post.id}:`, err.message));
   });
+}
+
+function formatDate(dateString) {
+  try {
+    const parsed = new Date(dateString);
+    if (isNaN(parsed)) throw new Error('Invalid date');
+    return parsed.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+  } catch (e) {
+    console.warn('Unparseable date:', dateString);
+    return '';
+  }
 }
 
 function loadComments(postId) {
   return new Promise((resolve, reject) => {
-    const callbackName = `jsonp_callback_${postId}_${Date.now()}`;
-
+    const callbackName = `jsonp_cb_${postId}_${Date.now()}`;
     window[callbackName] = function(data) {
       delete window[callbackName];
       document.head.removeChild(script);
@@ -68,7 +92,6 @@ function loadComments(postId) {
     script.onerror = function() {
       delete window[callbackName];
       document.head.removeChild(script);
-      console.error('Error loading comments via JSONP');
       reject(new Error('Failed to load comments'));
     };
 
@@ -79,12 +102,10 @@ function loadComments(postId) {
 function renderComments(postId, comments) {
   const container = document.querySelector(`#comments-${postId} .comments`);
   if (!container) return;
-  
   if (!comments || comments.length === 0) {
     container.innerHTML = '<p>No comments yet.</p>';
     return;
   }
-
   container.innerHTML = comments.map(c => `
     <div class="comment">
       <div class="comment-meta">${escapeHtml(c.name)} - ${formatDate(c.date)}</div>
@@ -93,42 +114,10 @@ function renderComments(postId, comments) {
   `).join('');
 }
 
-
-function formatDate(dateString) {
-  if (!dateString) return '';
-
-  try {
-    // Try to parse as ISO 8601 string or fallback to Date constructor
-    let date = new Date(dateString);
-
-    // If parsing fails, try stripping HTML tags and parsing again
-    if (isNaN(date)) {
-      // Strip HTML tags if accidentally passed content with tags
-      const textOnly = dateString.replace(/<[^>]*>?/gm, '').trim();
-      date = new Date(textOnly);
-      if (isNaN(date)) throw new Error('Invalid date');
-    }
-
-    // Format date nicely
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  } catch (e) {
-    console.warn('Unparseable date:', dateString);
-    return dateString;
-  }
-}
-
-async function toggleComments(postId) {
+function toggleComments(postId) {
   const section = document.querySelector(`#comments-${postId} .comments`);
   const btn = document.querySelector(`#comments-${postId} .toggle-btn`);
   if (section.style.display === 'none') {
-    const comments = await fetch(`${CONFIG.commentApiUrl}?postId=${postId}`).then(res => res.json());
-    section.innerHTML = comments.map(c =>
-      `<div class="comment"><strong>${c.name}</strong><br/>${c.text}<br/><em>${formatDate(c.date)}</em></div>`
-    ).join('');
     section.style.display = 'block';
     btn.textContent = 'Hide Comments';
   } else {
@@ -140,19 +129,29 @@ async function toggleComments(postId) {
 async function submitComment(e, postId) {
   e.preventDefault();
   const form = e.target;
-  const name = form.name.value;
-  const text = form.text.value;
+  const name = form.name.value.trim();
+  const text = form.text.value.trim();
+
+  if (!name || !text) return;
 
   const res = await fetch(CONFIG.commentApiUrl, {
     method: 'POST',
-    body: JSON.stringify({ postId, name, text }),
-    headers: { 'Content-Type': 'application/json' }
-  }).then(res => res.json());
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ postId, name, text })
+  });
 
-  if (res.success) {
-    alert("Comment added!");
-    toggleComments(postId);  // Refresh
+  const result = await res.json();
+  if (result.success) {
+    alert('Comment added!');
+    form.reset();
+    loadComments(postId);
   } else {
-    alert("Error: " + res.message);
+    alert('Failed to add comment: ' + result.message);
   }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
