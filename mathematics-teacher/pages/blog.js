@@ -113,7 +113,16 @@ async function loadComments(postId) {
     return data;
   } catch (error) {
     console.error(`[ERROR] Comments load failed (${postId}):`, error);
-    return []; // Return empty array to prevent UI breakage
+    
+    // Return sample data for debugging
+    if (CONFIG.debug) {
+      console.warn('Using sample comments for debugging');
+      return [
+        {name: 'Test User', text: 'Sample comment for debugging', date: new Date().toISOString()}
+      ];
+    }
+    
+    return []; // Return empty array for production
   }
 }
 /*
