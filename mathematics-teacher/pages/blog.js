@@ -95,7 +95,24 @@ function formatDate(dateString) {
     return '';
   }
 }
-
+// Replace loadComments() with this CORS version
+async function loadComments(postId) {
+  try {
+    const url = new URL(CONFIG.commentApiUrl);
+    url.searchParams.append('postId', postId);
+    
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    
+    const data = await res.json();
+    if (CONFIG.debug) console.log(`Comments loaded for post ${postId}:`, data);
+    return data;
+  } catch (error) {
+    console.error(`Failed to load comments for post ${postId}:`, error);
+    return [];
+  }
+}
+<!--
 function loadComments(postId) {
   return new Promise((resolve, reject) => {
     const callbackName = `jsonp_callback_${postId}_${Date.now()}`;
@@ -122,7 +139,7 @@ function loadComments(postId) {
 
     document.head.appendChild(script);
   });
-}
+} -->
 
 function renderCommentList(comments) {
   if (!comments || !comments.length) return '<p>No comments yet.</p>';
