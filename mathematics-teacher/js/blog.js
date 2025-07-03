@@ -135,34 +135,33 @@ function parseCsv(csvText) {
 // RENDERING FUNCTIONS
 // ========================
 function renderPosts() {
-    const container = document.getElementById('blog-entries');
-    if (!container) {
-        throw new Error('Blog entries container not found');
-    }
-    
-    // Calculate pagination
-    const startIdx = (currentState.currentPage - 1) * CONFIG.postsPerPage;
-    const endIdx = startIdx + CONFIG.postsPerPage;
-    const visiblePosts = currentState.posts.slice(startIdx, endIdx);
-    
-    // Generate HTML
-    container.innerHTML = visiblePosts.map(post => `
-        <article class="blog-post" data-post-id="${post.id}">
-            <header>
-                <h2>${escapeHtml(post.title)}</h2>
-                <time datetime="${post.date}">${formatDate(post.date)}</time>
-            </header>
-            <div class="post-content">
-                ${paragraphize(escapeHtml(post.content))}
-            </div>
-            ${CONFIG.enableComments ? renderCommentSection(post.id) : ''}
-        </article>
-    `).join('');
-    
-    // Render pagination controls if needed
-    if (currentState.posts.length > CONFIG.postsPerPage) {
-        renderPagination();
-    }
+  const container = document.getElementById('blog-entries');
+  if (!container) {
+    throw new Error('Blog entries container not found');
+  }
+
+  // Calculate pagination
+  const startIdx = (currentState.currentPage - 1) * CONFIG.postsPerPage;
+  const endIdx = startIdx + CONFIG.postsPerPage;
+  const visiblePosts = currentState.posts.slice(startIdx, endIdx);
+
+  // Generate HTML
+  container.innerHTML = visiblePosts.map(post => `
+    <article class="entry blog-post" data-post-id="${post.id}">
+      <div class="post-content">
+        <h2>${escapeHtml(post.title)}</h2>
+        <div>${paragraphize(escapeHtml(post.content))}</div>
+      </div>
+      <div class="sub-bar">
+        <div class="post-date">${new Date(post.date).toUTCString()}</div>
+        <div class="post-contact">Contact: your.email@example.com</div>
+      </div>
+    </article>
+  `).join('');
+
+  if (currentState.posts.length > CONFIG.postsPerPage) {
+    renderPagination();
+  }
 }
 
 function renderCommentSection(postId) {
