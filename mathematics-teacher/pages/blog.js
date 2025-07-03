@@ -267,165 +267,41 @@ function renderCommentList(comments) {
 
 }
 
+function submitComment(postId, name, text) {
+  const commentData = {
+    postId: postId,
+    name: name,
+    text: text
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbwq83MUqFugMl_MaZQSHozy-aRvrf3EkoKKLiPMOUhcNBPAO8J3oeAiBhFlXmMkE9-B/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(commentData)
+  })
+  .then(async (res) => {
+    const text = await res.text();               // inspect raw response
+    console.log("Raw response:", text);
+    try {
+      const json = JSON.parse(text);             // safe parse
+      if (json.success) {
+        alert("✅ Comment added successfully");
+        loadComments(postId); // reload comments
+      } else {
+        console.error("[Comment Error]", json.message);
+        alert("❌ Failed to add comment: " + json.message);
+      }
+    } catch (err) {
+      console.error("[Comment Error] Invalid JSON:", text);
+    }
+  })
+  .catch(err => {
+    console.error("[Comment Error] Network error:", err);
+  });
+}
 
-
-// Submit a new comment
-
-    async function submitComment(e, postId) {
-
-      e.preventDefault();
-
-      const form = e.target;
-
-      const name = form.name.value;
-
-      const text = form.text.value;
-
-      
-
-      // Show loading state
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-
-      const originalBtnText = submitBtn.textContent;
-
-      submitBtn.textContent = 'Posting...';
-
-      submitBtn.disabled = true;
-
-      
-
-      try {
-
-        // Using FormData to avoid CORS preflight for application/json
-
-        const formData = new FormData();
-
-        formData.append('postId', postId);
-
-        formData.append('name', name);
-
-        formData.append('text', text);
-
-        
-
-        const res = await fetch(CONFIG.commentApiUrl, {
-
-          method: 'POST',
-
-          body: formData,
-
-          redirect: 'follow' // Important for Google Apps Script
-
-        });
-
-        
-
-        // Since Google Apps Script returns a redirect, we need to handle it
-
-        const result = await res.text();
-
-        
-
-        try {
-
-          // Try to parse as JSON in case it worked
-
-          const data = JSON.parse(result);
-
-          if (data.success) {
-
-            // Show success message
-
-            const commentSection = form.closest('.comment-section');
-
-            const successMsg = document.createElement('div');
-
-            successMsg.className = 'success';
-
-            successMsg.textContent = 'Comment added successfully!';
-
-            commentSection.insertBefore(successMsg, form);
-
-            
-
-            // Clear form
-
-            form.reset();
-
-            
-
-            // Reload comments
-
-            loadComments(postId);
-
-          } else {
-
-            throw new Error(data.message || 'Failed to submit comment');
-
-          }
-
-        } catch (parseError) {
-
-          // Handle redirect response
-
-          if (result.includes('Thanks!')) {
-
-            // Show success message
-
-            const commentSection = form.closest('.comment-section');
-
-            const successMsg = document.createElement('div');
-
-            successMsg.className = 'success';
-
-            successMsg.textContent = 'Comment added successfully!';
-
-            commentSection.insertBefore(successMsg, form);
-
-            
-
-            // Clear form
-
-            form.reset();
-
-            
-
-            // Reload comments
-
-            loadComments(postId);
-
-          } else {
-
-            throw new Error('Failed to parse response');
-
-          }
-
-        }
-
-      } catch (err) {
-
-        console.error('[Comment Error]', err);
-
-        alert('Failed to submit comment. Please try again.');
-
-      } finally {
-
-        // Reset button state
-
-        submitBtn.textContent = originalBtnText;
-
-        submitBtn.disabled = false;
-
-      }
-
-      
-
-      // Prevent default form submission
-
-      return false;
-
-    }
 
 
 
