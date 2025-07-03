@@ -52,56 +52,67 @@ function renderPosts(posts) {
   });
 }
 
-async function loadComments(postId) {
-  try {
-    const response = await fetch(`${CONFIG.commentApiUrl}?postId=${postId}`);
-    if (!response.ok) throw new Error('Failed to load comments');
-    const comments = await response.json();
+function loadComments(postId) {
+  return new Promise((resolve, reject) => {
+    const callbackName = `jsonp_callback_${postId}_${Date.now()}`;
 
-    const container = document.getElementById(`comments-${postId}`);
-    if (!container) return;
+    window[callbackName] = function(data) {
+      delete window[callbackName];
+      document.head.removeChild(script);
+      renderComments(postId, data);
+      resolve();
+    };
 
-    if (comments.length === 0) {
-      container.innerHTML = '<p>No comments yet.</p>';
-      return;
-    }
+    const script = document.createElement('script');
+    script.src = `${CONFIG.commentApiUrl}?postId=${postId}&callback=${callbackName}`;
+    script.onerror = function() {
+      delete window[callbackName];
+      document.head.removeChild(script);
+      console.error('Error loading comments via JSONP');
+      reject(new Error('Failed to load comments'));
+    };
 
-    container.innerHTML = comments.map(c => `
-      <div class="comment">
-        <div class="comment-meta">${escapeHtml(c.name)} - ${formatDate(c.date)}</div>
-        <div class="comment-text">${escapeHtml(c.text)}</div>
-      </div>
-    `).join('');
-  } catch (error) {
-    console.error('Error loading comments:', error);
-  }
+    document.head.appendChild(script);
+  });
 }
+
+function renderComments(postId, comments) {
+  const container = document.querySelector(`#comments-${postId} .comments`);
+  if (!container) return;
+  
+  if (!comments || comments.length === 0) {
+    container.innerHTML = '<p>No comments yet.</p>';
+    return;
+  }
+
+  container.innerHTML = comments.map(c => `
+    <div class="comment">
+      <div class="comment-meta">${escapeHtml(c.name)} - ${formatDate(c.date)}</div>
+      <div class="comment-text">${escapeHtml(c.text)}</div>
+    </div>
+  `).join('');
+}
+
 
 function formatDate(dateString) {
   if (!dateString) return '';
-  
-  // Try to parse the date string
-  let date = new Date(dateString);
-  
-  // If invalid, try alternative parsing (e.g., treating as UTC ISO)
-  if (isNaN(date.getTime())) {
-    // Attempt parsing with added 'Z' to treat as UTC if missing
-    date = new Date(dateString + 'Z');
-  }
-  
-  // Still invalid? Just return original string (or empty)
-  if (isNaN(date.getTime())) {
+
+  try {
+    // Try to parse ISO string, fallback to original if fails
+    const date = new Date(dateString);
+    if (isNaN(date)) throw new Error('Invalid date');
+
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } catch {
     console.warn('Unparseable date:', dateString);
-    return dateString; // or return '' to hide invalid dates
+    return dateString;
   }
-  
-  // Return formatted date string
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
 }
+
 
 
 async function toggleComments(postId) {
