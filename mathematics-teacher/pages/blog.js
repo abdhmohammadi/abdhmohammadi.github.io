@@ -98,22 +98,28 @@ function formatDate(dateString) {
   if (!dateString) return '';
 
   try {
-    // Try to parse ISO string, fallback to original if fails
-    const date = new Date(dateString);
-    if (isNaN(date)) throw new Error('Invalid date');
+    // Try to parse as ISO 8601 string or fallback to Date constructor
+    let date = new Date(dateString);
 
+    // If parsing fails, try stripping HTML tags and parsing again
+    if (isNaN(date)) {
+      // Strip HTML tags if accidentally passed content with tags
+      const textOnly = dateString.replace(/<[^>]*>?/gm, '').trim();
+      date = new Date(textOnly);
+      if (isNaN(date)) throw new Error('Invalid date');
+    }
+
+    // Format date nicely
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
-  } catch {
+  } catch (e) {
     console.warn('Unparseable date:', dateString);
     return dateString;
   }
 }
-
-
 
 async function toggleComments(postId) {
   const section = document.querySelector(`#comments-${postId} .comments`);
