@@ -147,37 +147,40 @@ function renderPosts() {
 
   // Generate HTML
   container.innerHTML = visiblePosts.map(post => `
-    <article class="entry blog-post" data-post-id="${post.id}">
-      <div class="post-content">
-        <h2>${escapeHtml(post.title)}</h2>
-        <div>${paragraphize(escapeHtml(post.content))}</div>
-      </div>
-      <div class="sub-bar">
-        <div class="post-date">${new Date(post.date).toUTCString()}</div>
-        <div class="post-contact">Contact: your.email@example.com</div>
-      </div>
-    </article>
-  `).join('');
+  <article class="entry blog-post" data-post-id="${post.id}">
+    <div class="post-content">
+      <h2>${escapeHtml(post.title)}</h2>
+      <div>${paragraphize(escapeHtml(post.content))}</div>
+    </div>
 
-  if (currentState.posts.length > CONFIG.postsPerPage) {
+    ${CONFIG.enableComments ? renderCommentSection(post.id) : ''}
+
+    <div class="sub-bar">
+      <div class="post-date">${new Date(post.date).toUTCString()}</div>
+      <div class="post-contact">Contact: your.email@example.com</div>
+    </div>
+  </article>
+`).join('');
+
+    if (currentState.posts.length > CONFIG.postsPerPage) {
     renderPagination();
   }
 }
 
 function renderCommentSection(postId) {
-    return `
-        <section class="comments-section">
-            <h3>Comments</h3>
-            <div class="comments-container" id="comments-${postId}">
-                <p>Loading comments...</p>
-            </div>
-            <form class="comment-form" onsubmit="handleCommentSubmit(event, ${postId})">
-                <input type="text" name="name" placeholder="Your name" required>
-                <textarea name="comment" placeholder="Your thoughts" required></textarea>
-                <button type="submit">Post Comment</button>
-            </form>
-        </section>
-    `;
+  return `
+    <section class="comments-section">
+      <h3>Comments</h3>
+      <div class="comments-container" id="comments-${postId}">
+        <p>Loading comments...</p>
+      </div>
+      <form class="comment-form" onsubmit="handleCommentSubmit(event, ${postId})">
+        <input type="text" name="name" placeholder="Your name" required>
+        <textarea name="comment" placeholder="Your thoughts" required></textarea>
+        <button type="submit">Post Comment</button>
+      </form>
+    </section>
+  `;
 }
 
 // ========================
