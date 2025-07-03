@@ -85,7 +85,13 @@ function renderPosts(posts) {
     `;
 
     container.appendChild(article);
-    loadComments(post.id);
+    loadComments(post.id).then(comments => {
+      const commentsContainer = document.querySelector(`#comments-${post.id} .comments`);
+      commentsContainer.innerHTML = renderCommentList(comments);
+    }).catch(err => {
+      const commentsContainer = document.querySelector(`#comments-${post.id} .comments`);
+      commentsContainer.innerHTML = '<p>Error loading comments.</p>';
+    });
   });
 }
 
@@ -106,25 +112,6 @@ function formatDate(dateString) {
   }
 }
 
-function toggleComments(postId) {
-  const section = document.querySelector(`#comments-${postId} .comments`);
-  const btn = document.querySelector(`#comments-${postId} .toggle-btn`);
-
-  if (section.style.display === 'none') {
-    loadComments(postId).then(comments => {
-      section.innerHTML = renderCommentList(comments);
-      section.style.display = 'block';
-      btn.textContent = 'Hide Comments';
-    }).catch(err => {
-      section.innerHTML = '<p>Error loading comments.</p>';
-      section.style.display = 'block';
-    });
-  } else {
-    section.style.display = 'none';
-    btn.textContent = 'Show Comments';
-  }
-}
-
 function loadComments(postId) {
   return new Promise((resolve, reject) => {
     const callbackName = `jsonp_callback_${postId}_${Date.now()}`;
@@ -137,8 +124,7 @@ function loadComments(postId) {
         console.log(`[DEBUG] Comments loaded for post ${postId}:`, data);
       }
 
-      renderComments(postId, data);
-      resolve();
+      resolve(data);
     };
 
     const script = document.createElement('script');
@@ -180,7 +166,10 @@ async function submitComment(e, postId) {
     if (result.success) {
       alert('Comment added!');
       form.reset();
-      toggleComments(postId); // refresh view
+      loadComments(postId).then(comments => {
+        const section = document.querySelector(`#comments-${postId} .comments`);
+        section.innerHTML = renderCommentList(comments);
+      });
     } else {
       throw new Error(result.message);
     }
