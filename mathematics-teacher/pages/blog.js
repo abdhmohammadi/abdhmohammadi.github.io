@@ -26,14 +26,23 @@ async function fetchPosts() {
 
   return rows.map((line, idx) => {
     const fields = parseCsvLine(line);
+
+    if (fields.length < 4) {
+      if (CONFIG.debug) {
+        console.warn(`[WARN] Skipping row ${idx + 2} - Not enough fields:`, fields);
+      }
+      return null;
+    }
+
     return {
-      id: fields[0],
-      title: fields[1],
-      content: fields[2],
-      date: fields[3]
+      id: fields[0].trim(),
+      title: fields[1].trim(),
+      content: fields[2].trim(),
+      date: fields[3].trim()
     };
-  });
+  }).filter(Boolean); // remove nulls
 }
+
 
 function parseCsvLine(line) {
   const result = [];
@@ -54,6 +63,11 @@ function parseCsvLine(line) {
       value = '';
     } else {
       value += char;
+    }
+
+    if (insideQuote) 
+    {
+      console.warn("[CSV] Unclosed quote in line:", line);
     }
   }
   result.push(value.trim());
