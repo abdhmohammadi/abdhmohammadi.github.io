@@ -112,7 +112,7 @@ async function loadComments(postId) {
     return [];
   }
 }
-<!--
+/*
 function loadComments(postId) {
   return new Promise((resolve, reject) => {
     const callbackName = `jsonp_callback_${postId}_${Date.now()}`;
@@ -139,7 +139,7 @@ function loadComments(postId) {
 
     document.head.appendChild(script);
   });
-} -->
+} */
 
 function renderCommentList(comments) {
   if (!comments || !comments.length) return '<p>No comments yet.</p>';
