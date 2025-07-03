@@ -1,98 +1,15 @@
-<!-- /mathematics-teacher/pages/blog.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mathematics Teacher - Blog</title>
-  <style>
-    .blog-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .entry {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 25px;
-      overflow: hidden;
-      padding: 20px;
-    }
-    .sub-bar {
-      background: #2c3e50;
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-      border-radius: 4px;
-    }
-    .comment-form {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f5f5f5;
-      border-radius: 4px;
-    }
-    .comment-form input,
-    .comment-form textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    .comment-form button {
-      background: #2c3e50;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .comments-container {
-      margin-top: 15px;
-    }
-    .comment {
-      background: #f9f9f9;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 4px;
-      border-left: 3px solid #2c3e50;
-    }
-    .comment-meta {
-      font-size: 0.8em;
-      color: #666;
-      margin-bottom: 5px;
-    }
-  </style>
+  <title>Abdullah Mohammadi Blog</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <nav>...</nav>
-  </header>
-
   <main class="blog-container">
-    <h1>My Teaching Blog</h1>
-    <div id="blog-entries">
-      <p>Loading blog posts...</p>
-    </div>
-
-    <!-- Comment Form (hidden by default) -->
-    <div id="comment-form-container" style="display:none;">
-      <div class="comment-form">
-        <h3>Leave a Comment</h3>
-        <input type="text" id="comment-name" placeholder="Your name" required />
-        <textarea id="comment-text" placeholder="Your thoughts" required></textarea>
-        <button id="submit-comment">Submit</button>
-        <button onclick="hideCommentForm()">Cancel</button>
-      </div>
-    </div>
+    <h1>Teaching Blog</h1>
+    <div id="blog-entries">Loading...</div>
   </main>
-
-  <footer>...</footer>
-
-  <!-- ✅ FIXED PATH: updated blog.js path -->
-  <script src="../js/blog.js"></script>
+  <script src="blog.js"></script>
 </body>
 </html>
