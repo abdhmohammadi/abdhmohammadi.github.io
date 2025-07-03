@@ -95,37 +95,8 @@ function formatDate(dateString) {
     return '';
   }
 }
-async function loadComments(postId) {
-  try {
-    const url = new URL(CONFIG.commentApiUrl);
-    url.searchParams.append('postId', postId);
-    
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('Failed to load comments');
-    
-    const data = await res.json();
-    
-    // Handle Google Script errors
-    if (data.error) {
-      throw new Error(data.message);
-    }
-    
-    return data;
-  } catch (error) {
-    console.error(`[ERROR] Comments load failed (${postId}):`, error);
-    
-    // Return sample data for debugging
-    if (CONFIG.debug) {
-      console.warn('Using sample comments for debugging');
-      return [
-        {name: 'Test User', text: 'Sample comment for debugging', date: new Date().toISOString()}
-      ];
-    }
-    
-    return []; // Return empty array for production
-  }
-}
-/*
+
+
 function loadComments(postId) {
   return new Promise((resolve, reject) => {
     const callbackName = `jsonp_callback_${postId}_${Date.now()}`;
@@ -133,26 +104,20 @@ function loadComments(postId) {
     window[callbackName] = function(data) {
       delete window[callbackName];
       document.head.removeChild(script);
-
-      if (CONFIG.debug) {
-        console.log(`[DEBUG] Comments loaded for post ${postId}:`, data);
-      }
-
       resolve(data);
     };
 
     const script = document.createElement('script');
     script.src = `${CONFIG.commentApiUrl}?postId=${postId}&callback=${callbackName}`;
+    
     script.onerror = function() {
       delete window[callbackName];
-      document.head.removeChild(script);
-      console.error(`[ERROR] Failed to load comments for post ${postId} via JSONP`);
       reject(new Error('Failed to load comments'));
     };
 
     document.head.appendChild(script);
   });
-} */
+}
 
 function renderCommentList(comments) {
   if (!comments || !comments.length) return '<p>No comments yet.</p>';
