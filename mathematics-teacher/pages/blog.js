@@ -97,6 +97,8 @@ function formatDate(dateString) {
 }
 
 
+
+
 async function loadComments(postId) {
   try {
     const url = new URL(CONFIG.commentApiUrl);
@@ -144,6 +146,7 @@ function loadCommentsJsonp(postId) {
     document.head.appendChild(script);
   });
 }
+
 
 function renderCommentList(comments) {
   if (!comments || !comments.length) return '<p>No comments yet.</p>';
