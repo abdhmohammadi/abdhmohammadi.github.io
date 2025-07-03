@@ -1,6 +1,6 @@
 const CONFIG = {
   csvUrl: 'https://docs.google.com/spreadsheets/d/1NNVySRVX6Uh_7xIaejKfdQ_MzS3AseiaRNpxYeyhiHU/export?format=csv',
-  commentApiUrl: 'https://script.google.com/macros/s/YOUR_DEPLOYED_ID/exec',
+  commentApiUrl: 'https://script.google.com/macros/s/AKfycbyDUH9YU78MSin6Itg88aJhb6eZsf2AMatJCNVxuzdt8PE0-lL5TAggPGwUQO0fyxAV/exec',
   contactInfo: '📧 abdhmohammady@gmail.com'
 };
 
