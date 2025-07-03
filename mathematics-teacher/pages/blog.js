@@ -20,18 +20,45 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function fetchPosts() {
   const res = await fetch(CONFIG.csvUrl);
   const csv = await res.text();
-  const lines = csv.trim().split('\n');
-  const [headers, ...rows] = lines.map(line => line.split(','));
 
-  return rows.map((cols, i) => {
-    const post = {
-      id: cols[0]?.trim(),
-      title: cols[1]?.trim(),
-      content: cols[2]?.trim(),
-      date: cols[3]?.trim()
+  const lines = csv.trim().split('\n');
+  const [header, ...rows] = lines;
+
+  return rows.map((line, idx) => {
+    const fields = parseCsvLine(line);
+    return {
+      id: fields[0],
+      title: fields[1],
+      content: fields[2],
+      date: fields[3]
     };
-    return post;
-  }).filter(p => p.content); // Skip malformed
+  });
+}
+
+function parseCsvLine(line) {
+  const result = [];
+  let insideQuote = false;
+  let value = '';
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    const nextChar = line[i + 1];
+
+    if (char === '"' && insideQuote && nextChar === '"') {
+      // Escaped quote ("")
+      value += '"';
+      i++;
+    } else if (char === '"') {
+      insideQuote = !insideQuote;
+    } else if (char === ',' && !insideQuote) {
+      result.push(value.trim());
+      value = '';
+    } else {
+      value += char;
+    }
+  }
+  result.push(value.trim());
+  return result;
 }
 
 function renderPosts(posts) {
