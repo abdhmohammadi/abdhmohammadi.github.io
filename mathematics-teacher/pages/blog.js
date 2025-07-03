@@ -21,58 +21,28 @@ async function fetchPosts() {
   const res = await fetch(CONFIG.csvUrl);
   const csv = await res.text();
 
-  const lines = csv.trim().split('\n');
-  const [header, ...rows] = lines;
+  const parsed = Papa.parse(csv, {
+    header: true,
+    skipEmptyLines: true
+  });
 
-  return rows.map((line, idx) => {
-    const fields = parseCsvLine(line);
-
-    if (fields.length < 4) {
+  return parsed.data.map((row, idx) => {
+    if (!row.id || !row.content) {
       if (CONFIG.debug) {
-        console.warn(`[WARN] Skipping row ${idx + 2} - Not enough fields:`, fields);
+        console.warn(`[WARN] Skipping row ${idx + 2}`, row);
       }
       return null;
     }
 
     return {
-      id: fields[0].trim(),
-      title: fields[1].trim(),
-      content: fields[2].trim(),
-      date: fields[3].trim()
+      id: row.id.trim(),
+      title: row.title?.trim() || '',
+      content: row.content?.trim() || '',
+      date: row.date?.trim() || ''
     };
-  }).filter(Boolean); // remove nulls
+  }).filter(Boolean);
 }
 
-
-function parseCsvLine(line) {
-  const result = [];
-  let insideQuote = false;
-  let value = '';
-
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-    const nextChar = line[i + 1];
-
-    if (char === '"' && insideQuote && nextChar === '"') {
-      value += '"';
-      i++;
-    } else if (char === '"') {
-      insideQuote = !insideQuote;
-    } else if (char === ',' && !insideQuote) {
-      result.push(value.trim());
-      value = '';
-    } else {
-      value += char;
-    }
-
-    if (insideQuote) 
-    {
-      console.warn("[CSV] Unclosed quote in line:", line);
-    }
-  }
-  result.push(value.trim());
-  return result;
-}
 
 function renderPosts(posts) {
   const container = document.getElementById('blog-entries');
