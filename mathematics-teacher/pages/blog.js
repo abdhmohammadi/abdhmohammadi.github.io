@@ -138,85 +138,92 @@ function renderCommentList(comments) {
   `).join('');
 }
 
+// This is the updated submitComment function for your blog.js file.
+// Replace your existing submitComment function with this one.
+
 // Submit a new comment
-    async function submitComment(e, postId) {
-      e.preventDefault();
-      const form = e.target;
-      const name = form.name.value;
-      const text = form.text.value;
-      
-      // Show loading state
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.textContent;
-      submitBtn.textContent = 'Posting...';
-      submitBtn.disabled = true;
-      
-      try {
-        // Using FormData to avoid CORS preflight for application/json
-        const formData = new FormData();
-        formData.append('postId', postId);
-        formData.append('name', name);
-        formData.append('text', text);
-        
-        const res = await fetch(CONFIG.commentApiUrl, {
-          method: 'POST',
-          body: formData,
-          redirect: 'follow' // Important for Google Apps Script
-        });
-        
-        // Since Google Apps Script returns a redirect, we need to handle it
-        const result = await res.text();
-        
-        try {
-          // Try to parse as JSON in case it worked
-          const data = JSON.parse(result);
-          if (data.success) {
-            // Show success message
-            const commentSection = form.closest('.comment-section');
-            const successMsg = document.createElement('div');
-            successMsg.className = 'success';
-            successMsg.textContent = 'Comment added successfully!';
-            commentSection.insertBefore(successMsg, form);
-            
-            // Clear form
-            form.reset();
-            
-            // Reload comments
-            loadComments(postId);
-          } else {
-            throw new Error(data.message || 'Failed to submit comment');
-          }
-        } catch (parseError) {
-          // Handle redirect response
-          if (result.includes('Thanks!')) {
-            // Show success message
-            const commentSection = form.closest('.comment-section');
-            const successMsg = document.createElement('div');
-            successMsg.className = 'success';
-            successMsg.textContent = 'Comment added successfully!';
-            commentSection.insertBefore(successMsg, form);
-            
-            // Clear form
-            form.reset();
-            
-            // Reload comments
-            loadComments(postId);
-          } else {
-            throw new Error('Failed to parse response');
-          }
-        }
-      } catch (err) {
-        console.error('[Comment Error]', err);
-        alert('Failed to submit comment. Please try again.');
-      } finally {
-        // Reset button state
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-      }
-      
-      // Prevent default form submission
-      return false;
+async function submitComment(e, postId) {
+  e.preventDefault();
+  const form = e.target;
+  const name = form.name.value;
+  const text = form.text.value;
+  
+  // Show loading state
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn.textContent;
+  submitBtn.textContent = 'Posting...';
+  submitBtn.disabled = true;
+  
+  // Get the comment section to display messages
+  const commentSection = form.closest('.comment-section');
+  // Remove any previous success/error messages
+  const existingMessage = commentSection.querySelector('.message');
+  if (existingMessage) {
+    existingMessage.remove();
+  }
+
+  try {
+    // Using FormData to avoid CORS preflight for application/json
+    const formData = new FormData();
+    formData.append('postId', postId);
+    formData.append('name', name);
+    formData.append('text', text);
+    
+    const res = await fetch(CONFIG.commentApiUrl, {
+      method: 'POST',
+      body: formData,
+      // redirect: 'follow' is generally not needed if the Apps Script returns JSON directly
+      // and doesn't perform a browser-level redirect.
+    });
+    
+    // Check if the HTTP response itself was successful (e.g., 200 OK)
+    if (!res.ok) {
+        const errorBody = await res.text(); // Get raw response for debugging
+        throw new Error(`HTTP error! Status: ${res.status}, Response: ${errorBody}`);
     }
+
+    // Parse the response as JSON. Apps Script will now always return JSON.
+    const data = await res.json();
+    
+    if (data.success) {
+      // Show success message
+      const successMsg = document.createElement('div');
+      successMsg.className = 'message success'; // Added 'message' class
+      successMsg.textContent = 'Comment added successfully!';
+      commentSection.insertBefore(successMsg, form);
+      
+      // Clear form
+      form.reset();
+      
+      // Reload comments to show the new one
+      loadComments(postId).then(comments => {
+        const commentsContainer = commentSection.querySelector('.comments');
+        commentsContainer.innerHTML = renderCommentList(comments);
+      }).catch(err => {
+        console.error(`[Blog] Failed to reload comments for post ${postId}:`, err);
+        const commentsContainer = commentSection.querySelector('.comments');
+        commentsContainer.innerHTML = '<p>Error reloading comments.</p>';
+      });
+    } else {
+      // Apps Script returned success: false with an error message
+      throw new Error(data.message || 'Failed to submit comment from server.');
+    }
+  } catch (err) {
+    console.error('[Comment Error]', err);
+    // Display error message in the UI instead of an alert
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'message error'; // Added 'message' class
+    errorMsg.textContent = `Failed to submit comment: ${err.message || 'Unknown error'}. Please try again.`;
+    commentSection.insertBefore(errorMsg, form);
+  } finally {
+    // Reset button state
+    submitBtn.textContent = originalBtnText;
+    submitBtn.disabled = false;
+  }
+  
+  // Prevent default form submission
+  return false;
+}
 
 // Utility functions
     function escapeHtml(text) {
