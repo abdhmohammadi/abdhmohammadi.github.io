@@ -97,24 +97,50 @@ function formatDate(dateString) {
 }
 
 
-function loadComments(postId) {
-  return new Promise((resolve, reject) => {
-    const callbackName = `jsonp_callback_${postId}_${Date.now()}`;
-
-    window[callbackName] = function(data) {
-      delete window[callbackName];
-      document.head.removeChild(script);
-      resolve(data);
-    };
-
-    const script = document.createElement('script');
-    script.src = `${CONFIG.commentApiUrl}?postId=${postId}&callback=${callbackName}`;
+async function loadComments(postId) {
+  try {
+    const url = new URL(CONFIG.commentApiUrl);
+    url.searchParams.append('postId', postId);
     
-    script.onerror = function() {
-      delete window[callbackName];
-      reject(new Error('Failed to load comments'));
-    };
+    // Add cache-buster to prevent tracking prevention
+    url.searchParams.append('t', Date.now());
+    
+    const res = await fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-store'
+    });
+    
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    
+    return await res.json();
+  } catch (error) {
+    console.error(`Comments load error (${postId}):`, error);
+    
+    // Fallback to JSONP if CORS fails
+    if (CONFIG.debug) {
+      console.warn('Attempting JSONP fallback');
+      return loadCommentsJsonp(postId);
+    }
+    
+    return [];
+  }
+}
 
+// JSONP fallback (keep as backup)
+function loadCommentsJsonp(postId) {
+  return new Promise((resolve) => {
+    const callbackName = `jsonp_${Date.now()}`;
+    window[callbackName] = (data) => {
+      delete window[callbackName];
+      resolve(data);
+      document.head.removeChild(script);
+    };
+    
+    const script = document.createElement('script');
+    script.src = `${CONFIG.commentApiUrl}?postId=${postId}&callback=${callbackName}&t=${Date.now()}`;
+    script.onerror = () => resolve([]);
+    
     document.head.appendChild(script);
   });
 }
