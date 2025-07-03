@@ -1,6 +1,6 @@
 // Configuration
 const CONFIG = {
-    blogEntriesUrl: '../data/blog_entries.csv',
+    blogEntriesUrl: '../blog-data/blog_entries.csv',
     googleSheetId: '1_uuyiehQZbnibhZt_jtvI53jFH1zkp1Bv8xheM4PVlA', // Replace with your actual Sheet ID
     googleScriptUrl: 'https://script.google.com/macros/s/AKfycbyDUH9YU78MSin6Itg88aJhb6eZsf2AMatJCNVxuzdt8PE0-lL5TAggPGwUQO0fyxAV/exec' // Replace with your deployed Web App URL
 };
