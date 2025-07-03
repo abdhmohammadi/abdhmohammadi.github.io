@@ -109,8 +109,7 @@ function parseCsv(csvText) {
         }
         
         // Extract headers
-        const headers = lines[0].split(',').map(h => h.trim());
-        
+        const headers = lines[0].split(',').map(h => h.trim()); // trim trailing spaces!
         // Parse data rows
         return lines.slice(1).map((line, index) => {
             const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // Handles quoted commas
