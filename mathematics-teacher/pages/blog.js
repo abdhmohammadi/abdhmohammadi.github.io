@@ -46,7 +46,35 @@ function renderPosts(posts) {
       </div>
     `;
     container.appendChild(article);
+
+    // Load comments for this post immediately after rendering
+    loadComments(post.id);
   });
+}
+
+async function loadComments(postId) {
+  try {
+    const response = await fetch(`${CONFIG.commentApiUrl}?postId=${postId}`);
+    if (!response.ok) throw new Error('Failed to load comments');
+    const comments = await response.json();
+
+    const container = document.getElementById(`comments-${postId}`);
+    if (!container) return;
+
+    if (comments.length === 0) {
+      container.innerHTML = '<p>No comments yet.</p>';
+      return;
+    }
+
+    container.innerHTML = comments.map(c => `
+      <div class="comment">
+        <div class="comment-meta">${escapeHtml(c.name)} - ${formatDate(c.date)}</div>
+        <div class="comment-text">${escapeHtml(c.text)}</div>
+      </div>
+    `).join('');
+  } catch (error) {
+    console.error('Error loading comments:', error);
+  }
 }
 
 function formatDate(dateString) {
