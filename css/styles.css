@@ -1,0 +1,752 @@
+:root 
+{
+    /* --- CHROME-INSPIRED LIGHT THEME PALETTE (Default) --- */
+    --primary: #1A73E8; /* Google Blue - for links, buttons, and primary actions */
+    --secondary: #4285F4; /* A slightly lighter shade of Google Blue for secondary accents */
+    --accent: #EA4335; /* A subtle red for specific highlights or warnings (e.g., Google's red) */
+    --light: #FFFFFF; /* Pure white for main backgrounds, mimicking Chrome's content area */
+    --dark: #202124; /* A deep, almost black, for primary text for excellent readability */
+    --gray: #DADCE0; /* A very light, neutral gray for borders and subtle dividers */
+    --success: #34A853; /* Google Green for success indicators */
+
+    --transition: all 0.35s ease-in-out;
+    --shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15); /* More subtle, Chrome-like shadow */
+    --radius: 8px; /* Slightly less rounded, more direct feel */
+    --header-height: 80px;
+
+    /* Semantic color variables for the CHROME-INSPIRED LIGHT THEME */
+    --body-background: var(--light); /* Pure white body background */
+    --body-color: var(--dark); /* Dark text color */
+    --header-color: var(--dark); /* Header text in dark for contrast on light header */
+    --nav-link-color: var(--dark); /* Navigation links in dark text */
+    --dropdown-background-color: var(--light);
+    --dropdown-text-color: var(--dark);
+    --theme-switch-border: var(--gray); /* Subtle border for switch */
+    --theme-switch-color: var(--dark);
+    --theme-switch-hover-bg: #F8F9FA; /* Very light gray hover for switch */
+    --theme-switch-hover-color: var(--dark);
+    --news-banner-background: hwb(174 23% 28% / 0.615);/* Very light gray for news banner */
+    --news-banner-color: var(--dark);
+
+    /* --- UPDATED HERO BACKGROUNDS (CHROME LIGHT THEME) --- */
+    --header-background: var(--light); /* Pure white header background */
+    --hero-gradient: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%); /* A very subtle white to off-white gradient */
+    --footer-background: var(--light); /* Pure white footer background */
+
+    --hero-badge-background: #F1F3F4; /* Light gray badge for subtle presence */
+    --profile-photo-border: var(--gray); /* Subtle border for profile photo */
+    --profile-photo-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lighter shadow for profile */
+    --section-title-color: var(--dark);
+
+    /* Card colors remain crisp with subtle gradients in headers */
+    --card-background: var(--light); /* Cards are pure white */
+    --card-shadow: var(--shadow);
+    --card-hover-shadow: 0 2px 4px rgba(60, 64, 67, 0.3), 0 3px 6px 2px rgba(60, 64, 67, 0.15); /* Slightly more pronounced on hover */
+    --card-heading-color: var(--primary);
+    --card-paragraph-color: #5F6368; /* Google's standard gray for secondary text */
+    --card-image-teaching-gradient: linear-gradient(45deg, var(--primary), var(--secondary)); /* Blue to lighter blue */
+    --card-image-data-science-gradient: linear-gradient(45deg, var(--success), #2ECC71); /* Green to a slightly brighter green */
+
+
+    --btn-background: var(--primary);
+    --btn-color: white;
+    --btn-hover-background: #174EA6; /* Darker Google Blue on hover */
+    --btn-hover-shadow: 0 2px 4px rgba(60, 64, 67, 0.3), 0 3px 6px 2px rgba(60, 64, 67, 0.15);
+    --btn-outline-background: transparent;
+    --btn-outline-border: 1px solid var(--gray); /* Lighter border for outline buttons */
+    --btn-outline-color: var(--primary);
+    --btn-outline-hover-background: #F8F9FA;
+    --btn-outline-hover-color: var(--primary);
+
+    --footer-color: var(--dark); /* Footer text is dark on white background */
+    --footer-border-top: 1px solid var(--gray); /* Subtle border */
+    --copyright-color: #5F6368;
+    --contact-link-color: var(--primary);
+    --contact-link-hover-color: #174EA6;
+    --flag-separator-color: var(--gray);
+    --social-link-background: var(--gray); /* Social links on gray background */
+    --social-link-color: var(--dark);
+    --social-link-hover-background: var(--primary); /* Blue on hover */
+    --social-link-hover-color: white;
+}
+
+/* --- MODERN DARK THEME PALETTE (UNCHANGED) --- */
+body[data-theme="dark"] {
+    --primary: #7986CB;
+    --secondary: #A8E6CF;
+    --accent: #FFAB91;
+    --light: #2B2B2B;
+    --dark: #1E1E1E;
+    --gray: #888888;
+    --success: #A8E6CF;
+
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+
+    --body-background: var(--dark);
+    --body-color: #E0E0E0;
+    --header-background: #282828;
+    --header-color: #E0E0E0;
+    --nav-link-color: #E0E0E0;
+    --dropdown-background-color: var(--light);
+    --dropdown-text-color: #E0E0E0;
+    --theme-switch-border: var(--secondary);
+    --theme-switch-color: var(--body-color);
+    --theme-switch-hover-bg: var(--secondary);
+    --theme-switch-hover-color: var(--dark);
+    --news-banner-background: #282828;
+    --news-banner-color: #E0E0E0;
+
+    --hero-gradient: linear-gradient(135deg, #1E1E1E 0%, #3A3A3A 100%);
+    --hero-badge-background: linear-gradient(135deg, #7986CB 0%, #5C6BC0 100%);
+
+    --profile-photo-border: rgba(255, 255, 255, 0.2);
+    --profile-photo-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    --section-title-color: var(--secondary);
+
+    --card-background: #252525;
+    --card-shadow: var(--shadow);
+    --card-hover-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+    --card-heading-color: var(--secondary);
+    --card-paragraph-color: #B0B0B0;
+    --card-image-teaching-gradient: linear-gradient(45deg, var(--secondary), #68C6AA);
+    --card-image-data-science-gradient: linear-gradient(45deg, var(--accent), #F48FB1);
+
+
+    --btn-background: var(--secondary);
+    --btn-color: var(--dark);
+    --btn-hover-background: var(--primary);
+    --btn-hover-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    --btn-outline-background: transparent;
+    --btn-outline-border: 2px solid var(--secondary);
+    --btn-outline-color: var(--secondary);
+    --btn-outline-hover-background: var(--secondary);
+    --btn-outline-hover-color: var(--dark);
+    --footer-background: #282828;
+    --footer-color: #E0E0E0;
+    --footer-border-top: 1px solid rgba(255, 255, 255, 0.1);
+    --copyright-color: rgba(255, 255, 255, 0.6);
+    --contact-link-color: #C5CAE9;
+    --contact-link-hover-color: var(--accent);
+    --flag-separator-color: #666;
+    --social-link-background: rgba(255, 255, 255, 0.1);
+    --social-link-color: #E0E0E0;
+    --social-link-hover-background: var(--secondary);
+    --social-link-hover-color: var(--dark);
+}
+
+/* Base styles, using dynamic color variables */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--body-color);
+    background-color: var(--body-background);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+header {
+    background-color: var(--header-background);
+    color: var(--header-color);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+    transition: background-color var(--transition), box-shadow var(--transition);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.logo {
+    font-family: 'Merriweather', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.logo span {
+    color: var(--secondary);
+}
+
+.navbar 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    height: var(--header-height);
+}
+
+.nav-links 
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links a 
+{
+    font-size: 18px;
+    position: relative;
+    transition: var(--transition);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    color: var(--nav-link-color);
+}
+
+.nav-links a:after 
+{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--secondary);
+    border-radius: 3px;
+    transition: var(--transition);
+}
+
+body.rtl .nav-links a:after {
+    left: auto;
+    right: 0;
+}
+
+.nav-links a:hover:after { width: 100%; }
+
+.nav-links a:hover { color: var(--secondary);}
+
+.nav-links li { position: relative;}
+
+.dropdown-content 
+{
+    display: none;
+    border-radius: var(--radius);
+    position: absolute;
+    top: 100%;
+    inset-inline-start: 0;
+    border-inline-end: 10px;
+    background-color: var(--dropdown-background-color);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 270px;
+    transition: background-color var(--transition), box-shadow var(--transition);
+}
+
+.dropdown-content a,
+.dropdown-content li {
+    color: var(--dropdown-text-color);
+    font-size: 14px;
+    list-style-type: none;
+}
+
+.dropdown:hover .dropdown-content { display: block;}
+
+.nav-links .dropdown-content a.disabled {
+    color: #b0b0b0;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.theme-switch {
+    background: transparent;
+    border: 1px solid var(--theme-switch-border);
+    color: var(--theme-switch-color);
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.theme-switch:hover {
+    background: var(--theme-switch-hover-bg);
+    color: var(--theme-switch-hover-color);
+}
+
+.news-banner 
+{
+    background-color: var(--news-banner-background);
+    padding: 25px 25px;
+    margin-top: 0px;
+    color: var(--news-banner-color);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+    vertical-align: bottom;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.news-slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.news-items-wrapper {
+    display: flex;
+    transition: transform 3s ease-in-out;
+    will-change: transform;
+}
+
+.news-item {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.news-text {
+    margin-right: 10px;
+}
+
+.hero-container {
+    display: flex;
+    align-content: center;
+    gap: 50px;
+    position: relative;
+    background: var(--hero-gradient);
+    color: var(--dark); /* Changed to dark for contrast on light hero */
+    padding-right: 100px;
+    padding-left: 100px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    overflow: hidden;
+    transition: background var(--transition), color var(--transition); /* Add color transition */
+}
+/* Ensure hero text is readable even if base color is white.
+   If the hero-gradient is white, ensure the text color is dark. */
+.hero-container h1, .hero-container p {
+    color: var(--header-color);
+}
+
+
+.hero-image {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.profile-photo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    align-self: center;
+    object-fit: cover;
+    border: 2px solid var(--profile-photo-border);
+    box-shadow: var(--profile-photo-shadow);
+    transition: border var(--transition), box-shadow var(--transition);
+}
+
+.hero h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.hero-badge {
+    margin-top: 1rem;
+    background: var(--hero-badge-background);
+    padding: 1rem;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    text-align: center;
+    display: center;
+    font-size: 13px;
+    margin-top: 20px;
+    font-weight: bold;
+    box-shadow: var(--shadow);
+    width: 350px;
+    color: var(--dark); /* Badge text should be dark */
+    transition: background var(--transition), box-shadow var(--transition), color var(--transition);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.section-title h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 2.5rem;
+    color: var(--section-title-color);
+    margin-bottom: 15px;
+    transition: color var(--transition);
+}
+
+.section-title:after {
+    content: '';
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.cards-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 25px;
+}
+
+.card {
+    background: var(--card-background);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    flex: 1;
+    min-width: 350px;
+    max-width: 45%;
+    box-sizing: border-box;
+    transition: background var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.card-image {
+    width: 100%;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-image i {
+    font-size: 4.5rem;
+    color: white;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.teaching .card-image {
+    background: var(--card-image-teaching-gradient);
+}
+
+.data-science .card-image {
+    background: var(--card-image-data-science-gradient);
+}
+
+.card-content {
+    padding: 25px;
+    width: 100%;
+}
+
+.card h3 {
+    font-size: 2rem;
+    color: var(--card-heading-color);
+    transition: color var(--transition);
+}
+
+.card p {
+    color: var(--card-paragraph-color);
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+    text-align: justify;
+    transition: color var(--transition);
+}
+
+.btn {
+    display: inline-block;
+    justify-self: center;
+    padding: 8px 12px;
+    background: var(--btn-background);
+    color: var(--btn-color);
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    min-width: 200px;
+    text-align: center;
+}
+
+.btn:hover {
+    background: var(--btn-hover-background);
+    transform: translateY(-3px);
+    box-shadow: var(--btn-hover-shadow);
+}
+
+.btn-outline {
+    background: transparent;
+    border: var(--btn-outline-border);
+    color: var(--btn-outline-color);
+    justify-self: right;
+    vertical-align: middle;
+}
+
+.btn-outline:hover {
+    background: var(--btn-outline-hover-background);
+    color: var(--btn-outline-hover-color);
+}
+
+footer {
+    background: var(--footer-background);
+    color: var(--footer-color);
+    padding: 60px 0 30px;
+    transition: background var(--transition), color var(--transition);
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3 {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3:after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: var(--secondary);
+    bottom: 0;
+    left: 0;
+}
+
+.contact-info {
+    list-style: none;
+}
+
+.contact-info li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-info i,
+.contact-info span {
+    margin-right: 15px;
+    color: var(--secondary);
+    margin-top: 5px;
+    color: var(--footer-color);
+}
+
+.contact-info a,
+.news-item a {
+    color: var(--contact-link-color);
+    text-decoration: underline;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.contact-info a:hover,
+.contact-info a:focus {
+    color: var(--contact-link-hover-color);
+    text-decoration: underline;
+}
+
+.flag-icon {
+    width: 24px;
+    height: auto;
+    border-radius: 3px;
+    margin: 0 5px;
+}
+
+.flag-separator {
+    color: var(--flag-separator-color);
+    font-size: 1.2rem;
+    margin: 0 5px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--social-link-background);
+    border-radius: 50%;
+    color: var(--social-link-color);
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    background: var(--social-link-hover-background);
+    transform: translateY(-5px);
+}
+.hero-badge:hover
+    {
+     transform: translateY(-5px);   
+     box-shadow: var(--card-hover-shadow);
+    }
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    border-top: var(--footer-border-top);
+    font-size: 0.9rem;
+    color: var(--copyright-color);
+}
+
+@media (max-width: 1200px) {
+    .card {
+        height: 400px;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-container {
+        flex-direction: row-reverse;
+        text-align: center;
+    }
+
+    .hero p {
+        margin: 0 auto 30px;
+    }
+
+    .hero-badge {
+        margin: 20px 20px;
+    }
+    .hero-badge:hover
+    {
+     transform: translateY(-5px);   
+     box-shadow: var(--card-hover-shadow);
+    }
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .profile-photo {
+        width: 280px;
+        height: 280px;
+    }
+
+    .card {
+        flex-direction: row;
+        height: auto;
+        max-width: 700px;
+    }
+
+    .card-image,
+    .card-content {
+        width: 100%;
+        padding: 30px;
+    }
+
+    .card-image {
+        height: 250px;
+    }
+
+    .card-image i {
+        font-size: 5rem;
+    }
+}
+
+@media (max-width: 768px) 
+{
+    .nav-links 
+    {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-outline {
+        margin-top: 10px;
+    }
+
+    .card {
+        max-width: 90%;
+    }
+
+    .card-content {
+        padding: 30px;
+    }
+
+    .card h3 {
+        font-size: 1.8rem;
+    }
+}
