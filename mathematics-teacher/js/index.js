@@ -1,9 +1,4 @@
 
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function () 
 {
   const inner = document.querySelector('.carousel-inner');
@@ -16,9 +11,8 @@ document.addEventListener('DOMContentLoaded', function ()
   let currentSlide = 0;
   let slideInterval;
   const totalSlides = slides.length;
-  
   // Save/Restore RTL preference
-  if (localStorage.getItem('dir') === 'rtl') 
+  /*if (localStorage.getItem('dir') === 'rtl') 
   {
     body.classList.add('rtl');
     dropdowns.forEach(dropdown => 
@@ -36,17 +30,17 @@ document.addEventListener('DOMContentLoaded', function ()
       dropdown.style.left = "0";
       dropdown.style.right = "auto"; // Default LTR alignment
     });
-  }
+  //}
 
   function isRTL() 
   {
     return body.classList.contains('rtl');
   }
-
+*/
   function showSlide(index) 
   {
     currentSlide = index;
-    const directionMultiplier = isRTL() ? 1 : -1;
+    const directionMultiplier =1;// isRTL() ? 1 : -1;
     const offset = index * 100 * directionMultiplier;
     inner.style.transform = `translateX(${offset}%)`;
 
@@ -57,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function ()
 
   function nextSlide() 
   {
-    let next = isRTL()
+    let next = true//isRTL()
       ? (currentSlide - 1 + totalSlides) % totalSlides
       : (currentSlide + 1) % totalSlides;
     showSlide(next);
@@ -85,7 +79,18 @@ document.addEventListener('DOMContentLoaded', function ()
   showSlide(currentSlide);
   startSlideShow();
 
-  
+ 
+
+/*// Initialize the news slider
+function initNewsSlider() {
+  wrapper = document.querySelector('.news-items-wrapper');
+  items = document.querySelectorAll('.news-item');
+  totalItems = items.length;
+  currentIndex = 0;
+  resetToFirst();
+  startSlider();
+}
+ 
 // Language toggle handler
 function toggleLanguage() 
 {
@@ -94,16 +99,6 @@ function toggleLanguage()
   document.documentElement.dir = isEnglish ? 'rtl' : 'ltr';
   applyLanguage();
   initNewsSlider(); // restart slider on language change
-}
-
-// Initialize the news slider
-function initNewsSlider() {
-  wrapper = document.querySelector('.news-items-wrapper');
-  items = document.querySelectorAll('.news-item');
-  totalItems = items.length;
-  currentIndex = 0;
-  resetToFirst();
-  startSlider();
 }
 // Apply language changes to elements with data-en and data-fa attributes
 function applyLanguage() 
@@ -119,7 +114,7 @@ function applyLanguage()
 
   updateLanguageToggleButton(isEnglish);
 }
-
+*/
   // Smooth scrolling
   document.querySelectorAll('a[href^="#"]').forEach(anchor => 
   {
