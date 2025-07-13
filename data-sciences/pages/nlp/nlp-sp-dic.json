@@ -223,13 +223,6 @@
     "see_also": ["Transformer", "GPT"]
   },
   {
-    "term": "Transformer",
-    "definition": "A neural network architecture based on self-attention, widely used in NLP.",
-    "tags": ["architecture", "deep learning"],
-    "example": "BERT and GPT are based on the Transformer architecture.",
-    "see_also": ["BERT", "GPT", "Attention"]
-  },
-  {
     "term": "Attention",
     "definition": "A mechanism that helps models focus on relevant parts of the input when producing output.",
     "tags": ["neural network", "transformer", "alignment"],
