@@ -1,5 +1,43 @@
 [
   {
+  "term": "Prompt / Prompting",
+  "definition": "The process of providing input or instructions to a language model to guide its output generation. A prompt can be a question, statement, command, or structured input that sets the context or task for the model.",
+  "tags": ["language models", "input design", "instruction tuning", "contextualization"],
+  "example": "To generate a poem about the ocean, the user provides the prompt: 'Write a short poem describing the beauty of the ocean at sunset.'",
+  "see_also": ["Prompt Engineering", "Instruction Tuning", "Few-Shot Learning", "Conditional Generation"]
+}
+,{
+  "term": "Teacher Forcing",
+  "definition": "A training technique used in sequence-to-sequence models where the ground truth output from the previous time step is provided as input to the current time step, instead of using the model’s own prediction. This helps the model learn more effectively by staying close to the correct sequence during training.",
+  "tags": ["training strategy", "sequence modeling", "RNN", "decoder", "supervised learning"],
+  "example": "In a language translation model, during training, the correct word in the target language is fed into the decoder at each step, instead of the word predicted by the model.",
+  "see_also": ["Sequence-to-Sequence", "Autoregressive Models", "Exposure Bias", "Scheduled Sampling"]
+}
+,
+{
+  "term": "Exposure Bias",
+  "definition": "A discrepancy that arises during training and inference in sequence generation models. During training, models are exposed to the ground truth sequence (via techniques like teacher forcing), but during inference, they must rely on their own predictions. This mismatch can lead to compounding errors during generation.",
+  "tags": ["sequence generation", "training vs inference", "model robustness", "teacher forcing", "bias"],
+  "example": "A language model trained with teacher forcing might generate incoherent sentences at inference time because it has never learned to recover from its own mistakes.",
+  "see_also": ["Teacher Forcing", "Scheduled Sampling", "Autoregressive Models", "Sequence-to-Sequence"]
+},
+{
+  "term": "Scheduled Sampling",
+  "definition": "A training strategy designed to reduce exposure bias in sequence generation models by gradually mixing model-generated predictions with ground truth tokens during training. Over time, the model becomes more robust to its own errors by learning to recover from imperfect inputs.",
+  "tags": ["training strategy", "sequence generation", "exposure bias", "teacher forcing", "robustness"],
+  "example": "Instead of always feeding the ground truth word during training, a model using scheduled sampling sometimes uses its own previous prediction, helping it prepare for inference-time conditions.",
+  "see_also": ["Exposure Bias", "Teacher Forcing", "Sequence-to-Sequence", "Reinforcement Learning"]
+}
+,
+{
+  "term": "Sequence-to-Sequence",
+  "definition": "A neural network architecture designed to transform one sequence into another, typically used in tasks like machine translation, summarization, and dialogue generation. It consists of an encoder that processes the input sequence and a decoder that generates the output sequence.",
+  "tags": ["architecture", "encoder-decoder", "sequence modeling", "translation", "NLP"],
+  "example": "In machine translation, a Sequence-to-Sequence model encodes an English sentence and decodes it into its French equivalent.",
+  "see_also": ["Encoder-Decoder", "Transformer", "Conditional Generation", "Teacher Forcing"]
+}
+,
+  {
   "term": "Encoder-Only Model",
   "definition": "A type of neural network architecture in natural language processing that uses only the encoder component of a Transformer model. It processes input sequences to generate rich contextual embeddings or representations without generating output sequences directly.",
   "tags": ["transformer", "encoder", "contextual embeddings", "representation learning"],
