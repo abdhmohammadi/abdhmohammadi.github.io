@@ -1,5 +1,28 @@
 [
   {
+  "term": "Encoder-Only Model",
+  "definition": "A type of neural network architecture in natural language processing that uses only the encoder component of a Transformer model. It processes input sequences to generate rich contextual embeddings or representations without generating output sequences directly.",
+  "tags": ["transformer", "encoder", "contextual embeddings", "representation learning"],
+  "example": "BERT is an encoder-only model that produces contextualized word embeddings used for various downstream tasks like classification and named entity recognition.",
+  "see_also": ["Transformer", "Encoder-Decoder Model", "Decoder-Only Model", "BERT"]
+},
+{
+  "term": "Decoder-Only Model",
+  "definition": "A neural network architecture that utilizes only the decoder part of a Transformer to generate text by predicting the next token in a sequence, often used for autoregressive language modeling and text generation tasks.",
+  "tags": ["transformer", "decoder", "autoregressive", "text generation", "language modeling"],
+  "example": "GPT (Generative Pre-trained Transformer) is a decoder-only model that generates coherent and contextually relevant text by predicting each next word based on the previous words.",
+  "see_also": ["Transformer", "Encoder-Only Model", "Encoder-Decoder Model", "Autoregressive Models"]
+}
+,
+{
+  "term": "Encoder-Decoder Model",
+  "definition": "A neural network architecture that combines an encoder and a decoder, where the encoder processes the input sequence into a latent representation, and the decoder generates the output sequence based on this representation. This structure is commonly used for tasks like machine translation and sequence-to-sequence learning.",
+  "tags": ["transformer", "encoder", "decoder", "sequence-to-sequence", "machine translation"],
+  "example": "The original Transformer model for machine translation uses an encoder-decoder architecture, encoding a source language sentence and decoding it into the target language.",
+  "see_also": ["Transformer", "Encoder-Only Model", "Decoder-Only Model", "Sequence-to-Sequence"]
+}
+,
+  {
   "term": "Conditional Generation",
   "definition": "A text generation approach where the output is generated based on specific input conditions, such as prompts, source texts, or structured data, guiding the model to produce contextually relevant responses.",
   "tags": ["text generation", "conditioning", "context-aware"],
