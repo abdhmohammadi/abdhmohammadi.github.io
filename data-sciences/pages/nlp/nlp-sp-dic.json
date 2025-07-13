@@ -35,6 +35,28 @@
   "tags": ["architecture", "encoder-decoder", "sequence modeling", "translation", "NLP"],
   "example": "In machine translation, a Sequence-to-Sequence model encodes an English sentence and decodes it into its French equivalent.",
   "see_also": ["Encoder-Decoder", "Transformer", "Conditional Generation", "Teacher Forcing"]
+},
+{
+  "term": "Self-Attention",
+  "definition": "A mechanism that allows a model to weigh and relate different positions of a single input sequence in order to capture contextual relationships. It computes attention scores between all tokens in the sequence, enabling the model to consider the entire context when encoding each token.",
+  "tags": ["attention mechanism", "transformer", "context modeling", "sequence modeling", "deep learning"],
+  "example": "In a sentence like 'The cat sat on the mat', self-attention helps the model understand that 'cat' is the subject related to the verb 'sat', even though they are not adjacent.",
+  "see_also": ["Transformer", "Multi-Head Attention", "Contextual Embeddings", "Encoder-Decoder"]
+},
+{
+  "term": "Embedding",
+  "definition": "A dense vector representation of discrete items (such as words, tokens, or characters) in a continuous vector space, capturing semantic or syntactic relationships. Embeddings are used to convert symbolic input into numerical format suitable for neural network processing.",
+  "tags": ["representation", "vector space", "neural networks", "word embeddings", "NLP"],
+  "example": "The words 'king' and 'queen' may have embeddings that are close in the vector space and differ primarily along the gender dimension, reflecting their semantic similarity.",
+  "see_also": ["Word2Vec", "GloVe", "Positional Encoding", "Contextual Embedding", "Transformer"]
+}
+,
+{
+  "term": "Transformer",
+  "definition": "A neural network architecture introduced to handle sequence-to-sequence tasks without relying on recurrence. It uses self-attention mechanisms to model dependencies between all elements of a sequence simultaneously, allowing for efficient parallel computation and long-range context handling.",
+  "tags": ["architecture", "attention mechanism", "NLP", "sequence modeling", "deep learning"],
+  "example": "In machine translation, a Transformer model can translate an English sentence to French by attending to all input words simultaneously, rather than processing them sequentially like RNNs.",
+  "see_also": ["Self-Attention", "Encoder-Decoder", "Sequence-to-Sequence", "BERT", "GPT"]
 }
 ,
   {
