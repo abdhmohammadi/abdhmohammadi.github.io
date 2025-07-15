@@ -1,5 +1,32 @@
-[
+[{
+  "term": "Training",
+  "definition": "The process of optimizing a language model’s parameters using large datasets and learning algorithms, typically through gradient descent, to minimize a loss function. Training enables the model to learn patterns, relationships, and structures in language.",
+  "tags": ["machine learning", "optimization", "language models", "gradient descent", "deep learning"],
+  "example": "During training, a language model is shown millions of text sequences and learns to predict the next word by adjusting its internal weights to reduce prediction error.",
+  "see_also": ["Pretraining", "Fine-Tuning", "Loss Function", "Backpropagation", "Transformer"]
+},
+{
+  "term": "Pretraining",
+  "definition": "The initial phase in training a language model where it learns general language patterns from large-scale, unlabeled text corpora. Pretraining is usually unsupervised and equips the model with broad linguistic knowledge before task-specific fine-tuning.",
+  "tags": ["unsupervised learning", "language modeling", "transfer learning", "foundation models", "deep learning"],
+  "example": "A model like BERT is pretrained on a large text dataset using a masked language modeling objective, allowing it to learn grammar, syntax, and semantics before being fine-tuned on a specific task like sentiment analysis.",
+  "see_also": ["Training", "Fine-Tuning", "Self-Supervised Learning", "Masked Language Modeling", "Transfer Learning"]
+},
   {
+  "term": "Emergence",
+  "definition": "A phenomenon where certain complex and often unexpected capabilities appear in large-scale language models as a result of increasing model size, data, or training steps. These capabilities are not explicitly programmed or observed in smaller models, but emerge once a critical threshold is crossed.",
+  "tags": ["scaling laws", "model behavior", "large language models", "capabilities", "NLP"],
+  "example": "A model with billions of parameters may unexpectedly learn arithmetic, code generation, or reasoning skills that are absent in smaller versions, illustrating emergent behavior.",
+  "see_also": ["Scaling Laws", "Zero-Shot Learning", "Few-Shot Learning", "Generalization"]
+},
+{
+  "term": "Adaptation",
+  "definition": "The process by which a pre-trained language model is fine-tuned or adjusted to perform well on a specific task, domain, or dataset. Adaptation helps general-purpose models specialize in particular use cases through additional training or conditioning.",
+  "tags": ["fine-tuning", "domain adaptation", "transfer learning", "model specialization", "NLP"],
+  "example": "A general language model is adapted to the legal domain by fine-tuning it on legal documents, improving its ability to understand contracts and regulations.",
+  "see_also": ["Fine-Tuning", "Transfer Learning", "Prompt Tuning", "Domain Adaptation"]
+},
+{
   "term": "Prompt / Prompting",
   "definition": "The process of providing input or instructions to a language model to guide its output generation. A prompt can be a question, statement, command, or structured input that sets the context or task for the model.",
   "tags": ["language models", "input design", "instruction tuning", "contextualization"],
