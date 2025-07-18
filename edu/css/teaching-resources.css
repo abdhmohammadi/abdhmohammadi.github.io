@@ -1,0 +1,169 @@
+body {
+            display: flex; /* Enable flexbox for the body */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            
+        }
+.gallery 
+{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr; /* 3 equal columns */
+        gap: 20px; /* Adjust spacing between items */
+        width: 80%; /* Adjust the width of the gallery as needed */
+        max-width: 1200px; /* Set a maximum width for larger screens */
+        justify-content: center; /* Center items horizontally within the gallery */
+        align-items: center; /* Center items vertically within each row */
+        margin: 20px; /* Space around the gallery */
+    }
+.gallery-header
+{
+    font-family: Vazirmatn;
+    margin: 5px;
+}
+.card-container
+{
+  width: 300px;
+  height: 190px;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid darkblue;
+  background-color: #6763a1a8;
+  padding-bottom: 20px;
+
+}
+
+.card-container img 
+{
+  width: 300px;
+  height: 170px;
+  object-fit:fill;
+  display: block;
+  margin: 0px;
+
+}
+.exam-gallery 
+{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* 3 equal columns */
+        gap: 20px; /* Adjust spacing between items */
+        width: 80%; /* Adjust the width of the gallery as needed */
+        max-width: 1200px; /* Set a maximum width for larger screens */
+        justify-content: center; /* Center items horizontally within the gallery */
+        align-items: center; /* Center items vertically within each row */
+        margin: 20px; /* Space around the gallery */
+    }
+
+.exam-card-container
+{
+  width: 240px;
+  height: 320px;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid darkblue;
+  background-color: #6763a1a8;
+  padding-bottom: 20px;
+
+}
+
+.exam-card-container img 
+{
+  width: 240px;
+  height: 300px;
+  object-fit:fill;
+  display: block;
+  margin: 0px;
+
+}
+
+.exam-card-container a
+{
+  position: absolute;
+  bottom: 90%;
+  left: 5%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.card-container a
+{
+  position: absolute;
+  bottom: 90%;
+  left: 5%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.exam-card-container p
+{
+  font-family: 'Vazirmatn';
+  font-size: 14px;
+  text-align: center;
+  background-color: red;
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+}
+.card-container p
+{
+  font-family: 'Vazirmatn';
+  font-size: 14px;
+  text-align: center;
+  background-color: red;
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+}
+.card-container i
+{
+  color: rgb(91, 89, 89);
+}
+  .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 10px 0;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            padding: 0px;
+            font-size: 2rem;
+            color: var(--secondary);
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            color: blue;
+            background: var(--secondary);
+        }
+ @keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+      
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
