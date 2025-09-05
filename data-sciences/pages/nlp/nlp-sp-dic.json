@@ -1,4 +1,19 @@
-[{
+[
+  {
+  "term": "Backpropagation",
+  "definition": "An algorithm for computing gradients of a neural network’s parameters by propagating the error backward through the network. It applies the chain rule of calculus to efficiently update weights during training and minimize the loss function.",
+  "tags": ["machine learning", "neural networks", "gradient descent", "optimization", "deep learning"],
+  "example": "During training, backpropagation calculates how much each weight contributed to the output error, then updates those weights to reduce the error.",
+  "see_also": ["Forward Pass", "Gradient Descent", "Loss Function", "Training", "Chain Rule"]
+},
+  {
+  "term": "Forward Pass",
+  "definition": "The process in which input data flows through the layers of a neural network to produce an output. During the forward pass, each layer applies transformations using weights, biases, and activation functions, resulting in predictions or intermediate representations.",
+  "tags": ["machine learning", "neural networks", "inference", "deep learning", "activation functions"],
+  "example": "In the forward pass, an image is passed through the convolutional layers of a CNN to generate feature maps and predict the object category.",
+  "see_also": ["Backpropagation", "Training", "Activation Function", "Neural Network", "Inference"]
+},
+  {
   "term": "Training",
   "definition": "The process of optimizing a language model’s parameters using large datasets and learning algorithms, typically through gradient descent, to minimize a loss function. Training enables the model to learn patterns, relationships, and structures in language.",
   "tags": ["machine learning", "optimization", "language models", "gradient descent", "deep learning"],
