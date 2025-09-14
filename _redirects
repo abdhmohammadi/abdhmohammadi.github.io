@@ -1,4 +1,4 @@
 # Rewrite for blog page, serves Google Apps Script in iframe
 /blogs/datascience /blogs/ds.html 200
-/bogs/edu /blogs/ds.html 200
+/bogs/edu /blogs/edu.html 200
 /blogs/blog-manager /blogs/blog-manager.html 200
