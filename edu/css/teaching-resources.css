@@ -58,13 +58,13 @@ body {
 .exam-card-container
 {
   width: 240px;
-  height: 320px;
+  height: 330px;
   overflow: hidden;
   position: relative;
   margin: auto;
   border-radius: 10px;
   border: 1px solid darkblue;
-  background-color: #6763a1a8;
+  background-color: red;
   padding-bottom: 20px;
 
 }
@@ -82,13 +82,23 @@ body {
 .exam-card-container a
 {
   position: absolute;
-  bottom: 90%;
-  left: 5%;
+  bottom: 93%;
+  left: 7%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
 
+}
+.exam-card-container p
+{
+  font-family: 'Vazirmatn';
+  font-size: 14px;
+  text-align: center;
+  background-color: red;
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: auto;
 }
 .card-container a
 {
@@ -102,16 +112,7 @@ body {
 
 }
 
-.exam-card-container p
-{
-  font-family: 'Vazirmatn';
-  font-size: 14px;
-  text-align: center;
-  background-color: red;
-  margin: 0px;
-  padding-top: 8px;
-  padding-bottom: 10px;
-}
+
 .card-container p
 {
   font-family: 'Vazirmatn';
