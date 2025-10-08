@@ -9,45 +9,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet">
 
+    <div class="navbar container">
+        <div class="logo">Your Logo</div>
+        
+        <i class="fas fa-bars menu-toggle" id="menuToggle"></i> 
+        
+        <ul class="nav-links" id="navLinks">
+            ...
+        </ul>
+        <button class="dir-switch">... </button>
+    </div>
+
 </head>
 <body dir="rtl">
     <!-- Header & Navigation -->
-    <header>
-            <nav class="navbar">
-                <ul class="nav-links">
-                    <li><a href="../index.html"><i class="fas fa-home"></i></a></li>
-                    <li class="dropdown">
-                        <a href="#research" class="dropbtn">تدریس</a>
-                        <ul class="dropdown-content">
-                            <li><a href="pages/exam-papers.html"> 
-                            نمونه سوالات امتحانها</a></li>
-                            <li><a href="pages/teaching-resources.html">منابع تدریس</a></li>
-                            <li><a href="#paper2" class="disabled" >طرح درس</a></li>
-                            <li><a href="#paper3" class="disabled" >تدریس خصوصی</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu">وبلاگ</a></li>
-                   <!-- <li><a href="#research">تحقیقات</a></li> -->
-                    <li><a href="#contact">تماس با من</a></li>
-                </ul>
-
-                 <div class="logo">
-                    
-                    <a href="tel:+989372561238" style="color: chocolate;font-size: 10pt;text-decoration: none;">  <i class="fas fa-phone-alt"></i>    0937-256-1238</a>
-                    <span>عبدالله محمدی | Abdh. Mohammadi</span>
-                    <img src="../images/abdh-01.png" width="60" height="60" style="margin-right: 15px; margin-left: 15px; border-radius: 50%; border: 2px solid rgba(53, 51, 51, 0.884);">
-                    
-                </div>
-                <!--
-                <button class="dir-switch" id="dirToggle" onclick="toggleLanguage()">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>RTL/LTR</span>
-                </button>
-                -->
-            </nav>
+   <header>
+    <nav class="navbar">
         
-    </header>
+        <i class="fas fa-bars menu-toggle" id="menuToggle"></i> 
+        
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../index.html"><i class="fas fa-home"></i></a></li>
+            <li class="dropdown">
+                <a href="#research" class="dropbtn">تدریس</a>
+                <ul class="dropdown-content">
+                    <li><a href="pages/exam-papers.html">
+                    نمونه سوالات امتحانها</a></li>
+                    <li><a href="pages/teaching-resources.html">منابع تدریس</a></li>
+                    <li><a href="#paper2" class="disabled" >طرح درس</a></li>
+                    <li><a href="#paper3" class="disabled" >تدریس خصوصی</a></li>
+                </ul>
+            </li>
+            <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu">وبلاگ</a></li>
+            <li><a href="#contact">تماس با من</a></li>
+        </ul>
 
+        <div class="logo">
+            <div class="logo-content"> 
+                <a href="tel:+989372561238" style="color: chocolate;font-size: 10pt;text-decoration: none;"> 
+                    <i class="fas fa-phone-alt"></i> 
+                    0937-256-1238
+                </a>
+                <span>عبدالله محمدی | Abdh. Mohammadi</span>
+                <img src="../images/abdh-01.png" width="60" height="60" style="margin-right: 15px; margin-left: 15px; border-radius: 50%; border: 2px solid rgba(53, 51, 51, 0.884);">
+            </div>
+        </div>
+        
+    </nav>
+</header>
     <!-- Hero Section: Green rectangle-->
     <div class="hero" id="home">
 
