@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function ()
 
   function startSlideShow() 
   {
-    slideInterval = setInterval(nextSlide, 4000);
+    slideInterval = setInterval(nextSlide, 6000);
   }
 
   indicators.forEach((indicator, index) => {
