@@ -1,39 +1,4 @@
 [
-{
-  "tag": "Representation Learning",
-  "defination": "Representation learning is a machine learning approach in which the system automatically discovers the features or representations needed to perform a task, rather than relying on hand-designed features. This enables models to learn abstractions that capture the underlying structure of data and adapt quickly to new tasks with minimal human intervention.",
-  "tags": ["Machine Learning", "Deep Learning", "Feature Learning", "AI"],
-  "example": "A neural network trained on images can automatically learn features such as edges, textures, shapes, and objects without explicit programming.",
-  "see_also": "Autoencoder; Deep Learning; Feature Learning; Latent Variables"
-},
-{
-  "tag": "Autoencoder",
-  "defination": "An autoencoder is a representation learning algorithm composed of an encoder that transforms input data into a new representation and a decoder that reconstructs the original input from that representation. It is trained to preserve as much information as possible while shaping the latent representation to have useful properties for tasks such as compression, denoising, or disentanglement.",
-  "tags": ["Neural Networks", "Representation Learning", "Encoder", "Decoder"],
-  "example": "A denoising autoencoder learns to map noisy images into a clean, compressed latent code and then reconstruct clean images from that code.",
-  "see_also": "Variational Autoencoder (VAE); Sparse Autoencoder; Denoising Autoencoder; Representation Learning"
-},
-{
-  "tag": "Factors of Variation",
-  "defination": "Factors of variation are the underlying independent sources of influence that cause observable differences in data. They are often unobserved quantities or conceptual abstractions, such as lighting, pose, accent, or object position. A major goal of representation learning is to separate or disentangle these factors so that each latent variable corresponds to a meaningful, interpretable source of variation.",
-  "tags": ["Latent Variables", "Representation Learning", "Disentanglement", "Machine Learning"],
-  "example": "In speech recordings, factors of variation include the speaker’s age, sex, accent, and the linguistic content. In images of cars, they include color, position, viewpoint, and the brightness of the sun.",
-  "see_also": "Disentangled Representations; Latent Space; Generative Models; Autoencoder"
-},
-  {
-  "term": "Machine Learning",
-  "definition": "A field of AI where systems acquire knowledge by extracting patterns and statistical relationships from raw data, enabling them to make predictions or decisions without relying solely on hard-coded rules.",
-  "tags": ["machine learning", "data-driven", "learning", "supervised", "unsupervised"],
-  "example": "A spam filter learns from labeled emails to identify and block unwanted messages by detecting patterns in content and metadata instead of using fixed rules.",
-  "see_also": ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Feature Engineering", "Model Training"]
-},
-{
-  "term": "Deep Learning",
-  "definition": "An approach to machine learning in which models learn hierarchical, compositional representations by stacking many computational layers. The concept graph is deep: simple features learned in early layers are combined into increasingly complex concepts in later layers, enabling powerful learning from raw data for tasks like vision, speech, and language.",
-  "tags": ["deep learning", "neural networks", "hierarchical", "representation learning", "deep neural networks"],
-  "example": "A convolutional neural network learns edges and textures in early layers and full object shapes in deeper layers, allowing accurate image classification.",
-  "see_also": ["Machine Learning", "Neural Networks", "Backpropagation", "Representation Learning"]
-},
   {
   "term": "Backpropagation",
   "definition": "An algorithm for computing gradients of a neural network’s parameters by propagating the error backward through the network. It applies the chain rule of calculus to efficiently update weights during training and minimize the loss function.",
