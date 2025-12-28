@@ -18,16 +18,31 @@ body {
     margin: 20px auto; /* Center the gallery block */
 }
 
-/* --- Exam Gallery Styles (Default/Desktop: 5 columns) --- */
+/* --- Exam Gallery Styles (Default/Desktop: 4 columns) --- */
 .exam-gallery {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* 5 equal columns */
-    gap: 20px; /* Adjust spacing between items */
-    width: 90%; /* Increase width slightly for better use of space on all screens */
-    max-width: 1200px; /* Set a maximum width for larger screens */
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 15px; /* Adjust spacing between items */
+    width: 95%; /* Increase width slightly for better use of space */
+    max-width: 1400px; /* Set a maximum width for larger screens */
     justify-content: center;
     align-items: center;
     margin: 20px auto; /* Center the gallery block */
+}
+
+/* Medium screens - 3 columns */
+@media screen and (max-width: 1200px) and (min-width: 769px) {
+    .exam-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
+
+/* For very large screens, allow 5 columns */
+@media screen and (min-width: 1600px) {
+    .exam-gallery {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 
 /* --- Card Sizing (Default/Desktop) --- */

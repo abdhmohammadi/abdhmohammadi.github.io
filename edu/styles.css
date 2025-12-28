@@ -529,6 +529,49 @@ body.rtl .carousel-indicators
             padding: 30px 0;
             text-align: center;
         }
+        
+        
+.section-title {
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.section-title h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 2.5rem;
+    color: var(--section-title-color);
+    margin-bottom: 15px;
+    transition: color var(--transition);
+}
+.publications-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 100px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.publication-item {
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 5px solid #4f46e5;
+}
+
+.publication-title {
+  font-weight: 600;
+}
+
+.publication-authors,
+.publication-journal {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.publication-link {
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #2563eb;
+}
 
         /* Animations 
         @keyframes float {

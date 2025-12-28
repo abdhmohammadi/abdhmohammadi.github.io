@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Teacher Assisstant - A technical online notes">
+    <meta name="author" content="Your Name">
+    <title>Teacher Assisstant - A technical online notes</title>
+
+    <!-- Google Fonts (Optional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --text: #333;
+            --light: #f8f9fa;
+            --gray: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: var(--gray);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .toc {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            border: 1px solid #ddd;
+        }
+
+        .toc h2 {
+            font-family: 'Libre Baskerville', serif;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .toc ol {
+            counter-reset: item;
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .toc li {
+            margin: 0.8rem 0;
+        }
+
+        .toc li:before {
+            content: counters(item, ".") ". ";
+            counter-increment: item;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        article {
+            margin-bottom: 4rem;
+        }
+
+        article h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        article h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--primary);
+        }
+
+        article p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        article ul, article ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            nav ul { flex-direction: column; align-items: center; }
+            main { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1> Developer notes for Teacher Assisstant</h1>
+        <p>by Abdh. Mohammadi</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#toc">Table of Contents</a></li>
+            <li><a href="#chapter1">Chapter 1</a></li>
+            <li><a href="#chapter2">Chapter 2</a></li>
+            <li><a href="#about">About the Author</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <section id="home" class="toc">
+            <h2>Welcome to the Documentation Hub</h2>
+            <p style="text-align: justify;">Teaching and working with adolescents is one of the busiest jobs. The abundance of audiences, 
+                curriculum requirements, age, emotional, and learning sensitivities on the one hand, and the 
+                abundance of job duties on the other, make teachers one of the busiest employees. Despite the 
+                availability of ready-made textbooks, one of their most important tasks is to prepare and compile 
+                a variety of teaching resources tailored to the needs of learners. In addition, compiling tests to 
+                measure academic progress, understanding the emotional needs of learners, making appropriate decisions 
+                at critical moments of interaction with audiences, and guiding them on the path of appropriate and 
+                personalized learning are among the most important issues related to the job of teachers. This 
+                program is a personal program in which we try to record all events throughout the school year so 
+                that we can gain appropriate insights about the above topics and, based on the data collected, 
+                we can make effective decisions and discover appropriate methods of dealing with different situations. 
+                With its help, we can compile a set of educational materials and extract unique results from the data.</p>
+                <br>
+            <p style="text-align: justify; font-weight: bold;">Note: This document is written only for memorizing code 
+                functionality and program design and currently serves no other purpose.</p>
+        </section>
+
+        <section id="toc" class="toc">
+            <h2>Table of Contents</h2>
+            <ol>
+                <li><a href="#chapter1">Introduction</a></li>
+                <li><a href="#chapter2">Chapter 1: Getting Started</a></li>
+                <li><a href="#chapter3">Chapter 2: Core Concepts</a></li>
+                <li><a href="#chapter4">Chapter 3: Advanced Topics</a></li>
+                <li><a href="#chapter5">Chapter 4: Practical Examples</a></li>
+                <li><a href="#chapter6">Chapter 5: Best Practices</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+                <li><a href="#about">About the Author</a></li>
+            </ol>
+        </section>
+
+        <!-- Example Chapter -->
+        <article id="chapter1">
+            <h2>Introduction</h2>
+            <p>
+                This document serves as my personal technical reference and developer notes for the Teacher Assistant application. 
+                As the sole developer of this project, I've created this guide to document the codebase architecture, design decisions, 
+                and development procedures for my own reference. This helps me remember implementation details, understand the 
+                rationale behind architectural choices, and quickly recall how to set up, build, and maintain the application.
+            </p>
+            <p>
+                The Teacher Assistant is a desktop application built with Python and PySide6 (Qt for Python), designed to help 
+                educators manage their teaching activities, track student progress, compile educational materials, and make 
+                data-driven decisions throughout the school year. The application follows modern software development practices 
+                and is structured to be maintainable and extensible.
+            </p>
+            <p>
+                This developer guide documents various aspects of the project, including:
+            </p>
+            <ul>
+                <li>Project setup and development environment configuration</li>
+                <li>Application architecture and code organization</li>
+                <li>Core concepts and design patterns used throughout the codebase</li>
+                <li>Build and packaging procedures</li>
+                <li>Resource management and icon integration</li>
+                <li>Best practices and coding standards</li>
+                <li>Practical examples and common development scenarios</li>
+            </ul>
+            <p>
+                This guide is a living document that evolves with the project, serving as both a memory aid and a reference 
+                manual for ongoing development work. It helps me quickly recall how different components interact, understand 
+                past architectural decisions, and efficiently navigate and modify the codebase.
+            </p>
+        </article>
+
+        <article id="chapter2">
+            <h2>Chapter 1: Getting Started</h2>
+            <section id="getting-started">
+
+            <p>
+                This section explains how to set up, run, build, and package the
+                <strong>Teacher Assistant</strong> application.
+            </p>
+
+            <h3>1. Running the Application</h3>
+            <ol>
+                <li>
+                <strong>Activate the virtual environment</strong>:
+                <pre><code>env\Scripts\activate</code></pre>
+                </li>
+                <li>
+                <strong>Run the application</strong>: Use the <em>Run</em> option from the VS Code menu, 
+                        or run from terminal <b>python main.py</b>
+
+                </li>
+            </ol>
+
+            <h3>2. Installing Required Dependencies</h3>
+            <p>
+                This project depends on the custom UI package
+                <strong>PySideAbdhUI</strong>. You can install it using one of the
+                following methods:
+            </p>
+
+            <ul>
+                <li>
+                <strong>Option 1 - Install from local wheel file:</strong>
+                <pre><code>pip install F:\Projects\Python\PySideAbdhUI\dist\PySideAbdhUI-[version]-py3-none-any.whl</code></pre>
+                </li>
+
+                <li>
+                <strong>Option 2 - Install using project Python interpreter:</strong>
+                <pre><code>env\Scripts\python.exe -m pip install F:\Projects\Python\PySideAbdhUI</code></pre>
+                </li>
+
+                <li>
+                <strong>Option 3 - Editable install (recommended for developers):</strong>
+                <pre><code>pip install -e F:\Projects\Python\PySideAbdhUI</code></pre>
+                </li>
+
+                <li>
+                <strong>Option 4 - Install directly from GitHub:</strong>
+                <pre><code>pip install git+https://github.com/abdhmohammadi/PySideAbdhUI.git</code></pre>
+                </li>
+
+                <li>
+                <strong>Option 5 - Install from wheel using project path:</strong>
+                <pre><code>cd F:\Projects\Python\Teaching-assistant-project\TeacherAssistant
+            env\Scripts\python.exe -m pip install F:\Projects\Python\PySideAbdhUI\dist\PySideAbdhUI-[version]-py3-none-any.whl</code></pre>
+                </li>
+            </ul>
+
+            <h3>3. Building the Application (Windows)</h3>
+
+            <h4>Step 1: Create Executable with PyInstaller</h4>
+            <pre><code>pyinstaller scripts\TeacherAssistant.spec</code></pre>
+
+            <p>If PyInstaller is not available in PATH, use:</p>
+            <pre><code>C:\Users\[user]\AppData\Roaming\Python\Python314\Scripts\pyinstaller scripts\TeacherAssistant.spec</code></pre>
+
+            <h4>Step 2: Create Windows Installer</h4>
+            <p>
+                Use <strong>Inno Setup</strong> to generate a professional Windows
+                installer from the executable files.
+            </p>
+
+            <h3>4. Icons and Resources</h3>
+            <p>All icons have been downloaded from the free version of <a href="https://lucide.dev/icons/categories" target="_blank">
+                Lucide Icons</a> (and modified if needed) and placed in src/teacher_assistant/resources/. 
+                For portable usage of the icons, we created resources.qrc from PNG and SVG files. The script scripts/build_qrc.py 
+                generates resources.qrc in the resources folder. We need to compile resources.qrc to generate embedded icon files. 
+                Any changes in resources.qrc require recompiling this file. The script scripts/compile_qrc.py performs this task 
+                and creates resources_rc.py. We imported resources_rc in src/teacher_assistant/core/app_context.py to use icons 
+                in the app scope.
+            </p>
+            In short:<br>
+            <ul>
+                <li>Icons are stored in <code>src/teacher_assistant/resources</code></li>
+                <li>Icons are embedded using a Qt resource file (<code>resources.qrc</code>)</li>
+                <li>
+                <code>scripts/build_qrc.py</code> generates the <code>resources.qrc</code>
+                file from PNG and SVG icons
+                </li>
+                <li>
+                <code>scripts/compile_qrc.py</code> compiles the QRC file into
+                <code>resources_rc.py</code>
+                </li>
+                <li>
+                Any change in <code>resources.qrc</code> requires recompilation
+                </li>
+                <li>
+                <code>resources_rc.py</code> is imported in
+                <code>app_context.py</code> to make icons available application-wide
+                </li>
+            </ul>
+
+        </section>
+
+            <h3>Section 1.1</h3>
+            <p>More detailed content...</p>
+        </article>
+
+        <!-- Add more <article> blocks for each chapter -->
+
+        <article id="about">
+            <h2>About the Author</h2>
+            <p>Author bio, credentials, and contact information.</p>
+        </article>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 <strong>Abdh. Mohammadi</strong>. All rights reserved.</p>
+        <p>Published online at <a href="https://abdhmohammadi.github.io" style="color:#fff;">abdhmohammadi.github.io</a></p>
+    </footer>
+
+</body>
+</html>
