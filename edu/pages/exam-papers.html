@@ -147,17 +147,20 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .side-panel ul {
+        .side-panel ul 
+        {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        .side-panel li {
+        .side-panel li 
+        {
             margin: 0;
         }
 
-        .side-panel a {
+        .side-panel a 
+        {
             display: block;
             padding: 12px 20px;
             color: white;
@@ -168,25 +171,29 @@
             border-left: 3px solid transparent;
         }
 
-        .side-panel a:hover {
+        .side-panel a:hover 
+        {
             background: rgba(255, 255, 255, 0.1);
             border-left-color: white;
             padding-right: 25px;
         }
 
-        .side-panel a.active {
+        .side-panel a.active 
+        {
             background: rgba(255, 255, 255, 0.2);
             border-left-color: #ffd700;
             font-weight: 600;
         }
 
-        .side-panel .sub-item {
+        .side-panel .sub-item 
+        {
             padding-right: 35px;
             font-size: 0.85em;
             opacity: 0.9;
         }
 
-        .side-panel-toggle {
+        .side-panel-toggle 
+        {
             display: none;
             position: fixed;
             top: 100px; /* Below header */
@@ -202,7 +209,8 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .main-content {
+        .main-content 
+        {
             margin-left: 250px;
             transition: margin-left 0.3s ease;
             width: calc(100% - 250px);
@@ -214,19 +222,22 @@
             margin-top: 0; /* Header already accounts for top spacing */
         }
 
-        .main-content h1 {
+        .main-content h1 
+        {
             width: 100%;
             text-align: center;
             padding: 10px;
             margin-bottom: 20px;
         }
 
-        .main-content .gallery-header {
+        .main-content .gallery-header 
+        {
             width: 100%;
             text-align: center;
         }
 
-        .exam-gallery {
+        .exam-gallery 
+        {
             padding: 0 15px;
             box-sizing: border-box;
             grid-template-columns: repeat(4, 1fr) !important; /* 4 columns instead of 5 */
@@ -236,100 +247,124 @@
         }
         
         /* For very large screens, allow 5 columns */
-        @media screen and (min-width: 1600px) {
-            .exam-gallery {
+        @media screen and (min-width: 1600px) 
+        {
+            .exam-gallery
+            {
                 grid-template-columns: repeat(5, 1fr) !important;
             }
         }
 
         /* Medium screens - 3 columns */
-        @media screen and (max-width: 1200px) and (min-width: 769px) {
-            .exam-gallery {
+        @media screen and (max-width: 1200px) and (min-width: 769px) 
+        {
+            .exam-gallery 
+            {
                 grid-template-columns: repeat(3, 1fr) !important;
                 gap: 12px !important;
             }
         }
 
         /* Mobile Responsive - Tablet */
-        @media screen and (max-width: 768px) {
-            .side-panel {
+        @media screen and (max-width: 768px) 
+        {
+            .side-panel 
+            {
                 transform: translateX(-100%);
             }
 
-            .side-panel.open {
+            .side-panel.open 
+            {
                 transform: translateX(0);
             }
 
-            .side-panel-toggle {
+            .side-panel-toggle 
+            {
                 display: block;
                 top: 90px; /* Below header on tablet */
             }
 
-            .main-content {
+            .main-content 
+            {
                 margin-left: 0;
                 width: 100%;
                 padding: 15px;
             }
 
-            .main-content h1 {
+            .main-content h1 
+            {
                 padding: 10px 5px;
                 margin-bottom: 15px;
             }
 
-            .exam-gallery {
+            .exam-gallery 
+            {
+                grid-template-columns: repeat(2, 1fr) !important;
                 padding: 0 10px;
                 width: 100%;
             }
         }
 
         /* Mobile Responsive - Phone */
-        @media screen and (max-width: 480px) {
-            .main-content {
+        @media screen and (max-width: 480px) 
+        {
+            .main-content 
+            {
                 padding: 10px 8px;
             }
 
-            .main-content h1 {
+            .main-content h1 
+            {
                 font-size: 1.4em;
                 padding: 8px 5px;
                 margin: 8px 0 12px 0;
             }
 
-            .gallery-header {
+            .gallery-header 
+            {
                 font-size: 1em;
                 padding: 5px 8px;
                 margin: 8px 0;
             }
 
-            .exam-gallery {
+            .exam-gallery 
+            {
+                grid-template-columns: repeat(1, 1fr) !important;
                 padding: 0 5px;
                 gap: 12px;
                 width: 100%;
                 max-width: 100%;
             }
 
-            .exam-card-container {
+            .exam-card-container 
+            {
                 margin: 0 auto;
                 width: 100%;
                 max-width: 280px;
             }
 
-            .exam-card-container img {
+            .exam-card-container img 
+            {
                 width: 100%;
                 max-width: 280px;
             }
-            .exam-card-container p{
+            .exam-card-container p
+            {
                 height: 50px;
             }
-            .side-panel {
+            .side-panel 
+            {
                 width: 220px;
             }
 
-            .side-panel h3 {
+            .side-panel h3 
+            {
                 font-size: 1em;
                 padding: 12px 15px;
             }
 
-            .side-panel a {
+            .side-panel a 
+            {
                 padding: 10px 15px;
                 font-size: 0.85em;
             }
