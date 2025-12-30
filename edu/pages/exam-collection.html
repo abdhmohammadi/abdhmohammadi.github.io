@@ -771,6 +771,9 @@
         <!-- Book Navigation -->
         <nav class="book-nav">
             <div class="nav-buttons">
+                <button class="nav-btn">
+                    <a href="../index.html"><i class="fas fa-home"></i></a>
+                </button>
                 <button class="nav-btn" id="tocBtn" onclick="toggleTOC()">
                     <i class="fas fa-bars"></i>
                     <span>فهرست مطالب</span>
@@ -840,6 +843,14 @@
     <script>
         // =============================================
         // DATA STRUCTURE
+        //هندسه 3
+        //
+        //ریاضی و آمار 1
+        //
+        //ریاضی و آمار 2-(1)شهید بهشتی
+        //
+        //
+        //
         // =============================================
         const bookData = {
             chapters: [
@@ -850,7 +861,7 @@
                     pages: [
                         {
                             id: "diagnostic-1",
-                            title: "ارزشیابی آغازین ریاضیات",
+                            title: "ارزشیابی آغازین",
                             type: "exam-gallery",
                             content: {
                                 exams: [
@@ -893,7 +904,16 @@
                             title: "آمار و احتمال",
                             type: "exam-gallery",
                             content: {
-                                exams: []
+                                exams: [
+                                    {
+                                        id: "statistics-probability-1404-day",
+                                        title: "آمار و احتمال، دی ماه 1404 + پاسخنامه",
+                                        description: "دبیرستان شاهد امام حسین(ع)، بجنورد",
+                                        image: "../images/exam-previews/mathematics/statistics-and-probability/140410.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDreyCCY1dERp0LNAUKgdQuAQDH4r89I4Tq5aZOqOA3CpY?e=oeJlsg",
+                                        date: "1404/10"
+                                    }
+                                ]
                             }
                         },
                         {
@@ -901,7 +921,16 @@
                             title: "ریاضیات گسسته",
                             type: "exam-gallery",
                             content: {
-                                exams: []
+                                exams: [
+                                    {
+                                        id: "discrete-mathematics-1404-day",
+                                        title: "ریاضیات گسسته، دی ماه 1404+ پاسخنامه",
+                                        description: "دبیرستان شاهد امام حسین(ع)، بجنورد",
+                                        image: "../images/exam-previews/mathematics/discrete-mathematics/140410.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQC44TGmIZEXR4Lbr7tAAX9fAXLuOsol4Llyk9CdORAFJFo?e=YvcYWb",
+                                        date: "1404/10"
+                                    }
+                                ]
                             }
                         },
                         {
@@ -911,20 +940,12 @@
                             content: {
                                 exams: [
                                     {
-                                        id: "geometry-1404-azar",
-                                        title: "هندسه 3، ماتریس، آذر 1404",
-                                        description: "نمونه سوال کلاسی",
-                                        image: "../images/exam-previews/mathematics/geometry-3/140409-classroom.png",
-                                        downloadUrl: "#",
-                                        date: "1404/09"
-                                    },
-                                    {
                                         id: "geometry-1404-day",
                                         title: "هندسه 3، دی 1404",
                                         description: "نمونه سوال + پاسخنامه",
                                         image: "../images/exam-previews/mathematics/geometry-3/140410.png",
-                                        downloadUrl: "#",
-                                        date: "1404/10"
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQBbkT3Xfwl5SrbncDSlj7djAfYnb4kRbR8drUXqT17HUHI?e=WiZ8s7",
+                                        date: "1404/09/29"
                                     }
                                 ]
                             }
@@ -947,7 +968,7 @@
                                         title: "ریاضی و آمار 1 انسانی، دی 1404",
                                         description: "نمونه سوال نیم‌سال اول",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-1/140410.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EaUmguD2oVBKtE_BEcGlhK8B85MS_dGL-DdLAAo0cXb25w?e=AekErT",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCKlZrmzracTqmKlpXNM0y9AeZK-y5PfE_GOp4ejfEUnls?e=WUFfvy",
                                         date: "1404/10"
                                     },
                                     {
@@ -970,15 +991,23 @@
                                     {
                                         id: "human-2-1404-10",
                                         title: "ریاضی و آمار 2 انسانی، دی 1404",
-                                        description: "نمونه سوال نیم‌سال اول",
-                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140410.png",
-                                        downloadUrl: "#",
+                                        description: "نیم‌سال اول - نمونه دولتی شهید بهشتی",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140410-(1).png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAYXQJ4cvcjQJ3TrTY79ocGAXDU5_s-75piOeDY0QloeaQ?e=4NFoak",
+                                        date: "1404/10"
+                                    },
+                                     {
+                                        id: "human-2-1404-10",
+                                        title: "ریاضی و آمار 2 انسانی، دی 1404",
+                                        description: "نیم‌سال اول - شاهد امام حسین(ع)",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140410-(2).png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAWLufDMVaBTqCzfveIlLvpARPDsZ2hfzS-dqc65ZNRyvs?e=8p4nqN",
                                         date: "1404/10"
                                     },
                                     {
                                         id: "human-2-1404-03",
                                         title: "ریاضی و آمار 2 انسانی، خرداد 1404",
-                                        description: "نمونه سوال پایان‌سال",
+                                        description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-2/140403.png",
                                         downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EZNoTtSvIC9Dk4iwdG4na6kBoNYgO1p6sASmOPaX1mAYbA?e=xlSqdX",
                                         date: "1404/03"
@@ -995,7 +1024,7 @@
                                     {
                                         id: "human-3-1402-10",
                                         title: "ریاضی و آمار 3 انسانی، دی 1402",
-                                        description: "نمونه سوال نیم‌سال اول",
+                                        description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-3/140210.png",
                                         downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EYdZxPICoNZEtwhj2QNzQ3MBUeX8--uAjQS1GL36sB7RGg?e=heVrG2",
                                         date: "1402/10"
@@ -1019,7 +1048,7 @@
                                     {
                                         id: "exp-1-1402-10",
                                         title: "ریاضی 1 تجربی، دی 1402",
-                                        description: "نمونه سوال نیم‌سال اول",
+                                        description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/experimental-science/math-1/140210.png",
                                         downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EVvJyWbCBi9OlxfB1WIEmg8B--2p_C03WujmDjAMTYDycw?e=u1eIhZ",
                                         date: "1402/10"
@@ -1044,7 +1073,7 @@
                                     {
                                         id: "exp-2-1403-10",
                                         title: "ریاضی 2 تجربی، دی 1403",
-                                        description: "نمونه سوال نیم‌سال اول",
+                                        description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/experimental-science/math-2/140310.png",
                                         downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EdvG4v6Z2VhPmPorOEzKqKMBl_q3dDIOtIvcuBXRjeXpGQ?e=5wKELk",
                                         date: "1403/10"
@@ -1061,7 +1090,7 @@
                                     {
                                         id: "exp-3-1401-10",
                                         title: "ریاضی 3 تجربی، دی 1401",
-                                        description: "نمونه سوال نیم‌سال اول",
+                                        description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/experimental-science/math-3/140110.png",
                                         downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/Ee5T39IpvFtCiziCdzJUNAQBqqCYSyDGp_TwLS8mp52-Fw?e=Kdfjgi",
                                         date: "1401/10"
@@ -1108,7 +1137,7 @@
         // APPLICATION STATE
         // =============================================
         let currentState = {
-            currentChapter: 0,
+            currentChapter: 1,
             currentPage: 0,
             userProgress: {},
             quizAnswers: {}
@@ -1308,7 +1337,7 @@
                 <div class="quiz-section" id="quizSection">
                     <div class="quiz-header">
                         <h3 class="quiz-title">${quiz.title}</h3>
-                        <h6 style="color: red;">نسخه آزمایشی: بخش آزمون در حال توسعه است</h6>
+                        <h4 style="color: red;">نسخه آزمایشی: بخش آزمون در حال توسعه است</h4>
                         <div class="quiz-progress">
                             <span>پیشرفت آزمون:</span>
                             <div class="progress-bar">
