@@ -418,11 +418,23 @@
             font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            
         }
-        
-        .download-btn {
+        .downloadlink-disabled 
+        {
+            cursor: not-allowed;
+            opacity: 0.5;
             background: var(--primary);
             color: white;
+            text-decoration: line-through;
+        }
+
+        .download-btn 
+        {
+            background: var(--primary);
+            color: white;
+            pointer-events: auto;
+            cursor: pointer;
         }
         
         .download-btn:hover {
@@ -937,7 +949,15 @@
                                         image: "../images/exam-previews/mathematics/discrete-mathematics/140410.png",
                                         downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQD-M409mTp_SJoT37HZEsMtAYihpyXFQ3-_6CovsvdOKCg?e=PrnIb5",
                                         date: "1404/10"
-                                    }
+                                    },
+                                    {
+                                        id: "discrete-mathematics-140407-formative",
+                                        title: "آزمون مستمر مهر 1404",
+                                        description: "دبیرستان شاهد امام حسین(ع)، بجنورد",
+                                        image: "../images/exam-previews/mathematics/discrete-mathematics/formative-assessments/140407.png",
+                                        downloadUrl: "#",
+                                        date: "1404/07"
+                                    },                                    
                                 ],
                                 quizzes: 
                                 [
@@ -996,7 +1016,7 @@
                                 exams: [
                                     {
                                         id: "human-1-1404-10",
-                                        title: "ریاضی و آمار 1 انسانی، دی 1404",
+                                        title: "ریاضی و آمار 1 + پاسخنامه دی 1404",
                                         description: "دبیرستان نمونه دولتی شهید بهشتی",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-1/140410.png",
                                         downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDyUFiS5lljRKtyRvIZ7uoRAWaEvMGfX0VKm2CZWpK1WWc?e=02gPjs",
@@ -1481,7 +1501,17 @@
             {
                 contentHTML += '<div class="exam-gallery">';
                 
+                //const url = exam.downloadUrl;
+
                 page.content.exams.forEach(exam => {
+
+                    const url = exam.downloadUrl;
+                    const download_state = !url || 
+                       url.trim() === "" || 
+                       url === "#" || 
+                       url.startsWith("javascript:") ? 
+                       "downloadlink-disabled" : "download-btn";
+                    title_disabled_help = download_state === "downloadlink-disabled" ? "به زودی لینک دانلود قرار داده می شود":"دانلود نمونه سوال"
                     contentHTML += `
                         <div class="exam-card" id="${exam.id}">
                             <img src="${exam.image}" 
@@ -1498,23 +1528,21 @@
                                             <i class="fas fa-eye"></i>
                                             پیش‌نمایش
                                         </button>
-                                        <a href="${exam.downloadUrl}" 
-                                           target="_blank" 
-                                           class="exam-btn download-btn"
-                                           onclick="trackDownload('${exam.id}')">
+                                        <button type="button"
+                                            title="${title_disabled_help}"
+                                            class="exam-btn ${download_state}"
+                                            onclick="handleDownload('${exam.id}', '${exam.downloadUrl}')">
                                             <i class="fas fa-download"></i>
                                             دانلود
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     `;
                 });
-                
                 contentHTML += '</div>';
-
-            } 
+            }
             else 
             {
                 contentHTML += `
@@ -1804,23 +1832,65 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
+        function closeModal() 
+        {
             modalOverlay.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-
-        function trackDownload(examId) {
-            if (!currentState.userProgress.downloads) {
-                currentState.userProgress.downloads = [];
+        
+        function handleDownload(examId, downloadUrl) 
+        {
+            // Check if button is disabled
+            if (downloadUrl === '#' || downloadUrl === '') 
+            {
+                return; // Do nothing if disabled
             }
             
-            if (!currentState.userProgress.downloads.includes(examId)) {
-                currentState.userProgress.downloads.push(examId);
+            // Track the download
+            trackDownload(examId);
+            
+            // Open in new tab
+            window.open(downloadUrl, '_blank');
+        }
+        
+        async function trackDownload(examId) 
+        {
+            try {
+                // Initialize downloads array if needed
+                if (!currentState.userProgress.downloads) 
+                {
+                    currentState.userProgress.downloads = [];
+                }
+                
+                // Track that download was initiated
+                const downloadRecord = {
+                    id: examId,
+                    timestamp: new Date().toISOString(),
+                    status: 'initiated'
+                };
+                
+                // Add to tracking (allow multiple download attempts)
+                currentState.userProgress.downloads.push(downloadRecord);
+                
+                // Save progress
                 saveProgress();
+                
+                // Show notification
+                showNotification('در حال آماده‌سازی دانلود...');
+                
+                // Optional: Send analytics to server
+                if (typeof sendAnalytics === 'function') {
+                    sendAnalytics('download_initiated', { examId });
+                }
+                
+                // Optional: Track actual download success (if you have a way to know)
+                return downloadRecord;
+                
+            } catch (error) 
+            {
+                console.error('Error tracking download:', error);
+                showNotification('خطا در ثبت اطلاعات دانلود', 'error');
             }
-            
-            // Show download notification
-            showNotification('دانلود شروع شد!');
         }
 
         function showNotification(message) 
