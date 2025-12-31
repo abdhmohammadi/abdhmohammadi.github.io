@@ -151,12 +151,15 @@
             border-bottom: 1px solid var(--border);
         }
         
-        .nav-buttons {
+        .nav-buttons 
+        {
             display: flex;
+            width: 100%;
             gap: 10px;
         }
         
-        .nav-btn {
+        .nav-btn 
+        {
             background: white;
             border: 1px solid var(--border);
             color: var(--text-dark);
@@ -354,7 +357,8 @@
             margin-bottom: 40px;
         }
         
-        .exam-card {
+        .exam-card 
+        {
             background: white;
             border-radius: 12px;
             overflow: hidden;
@@ -693,12 +697,14 @@
         }
         
         /* Animations */
-        @keyframes fadeIn {
+        @keyframes fadeIn 
+        {
             from { opacity: 0; }
             to { opacity: 1; }
         }
         
-        @keyframes slideIn {
+        @keyframes slideIn 
+        {
             from { transform: translateX(100%); }
             to { transform: translateX(0); }
         }
@@ -714,30 +720,44 @@
             }
         }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        /* Responsive Design(Phone view) */
+        @media (max-width: 768px) 
+        {
             .interactive-book {
                 margin: 15px;
                 border-radius: 10px;
             }
             
-            .book-nav {
+            .book-nav 
+            { 
+                display: flex 1fr;
                 padding: 12px 15px;
                 flex-direction: column;
                 gap: 15px;
             }
             
-            .nav-buttons {
-                width: 100%;
+            .nav-buttons 
+            {
+                display: flex 1fr;
                 justify-content: center;
                 flex-wrap: wrap;
+
             }
-            
-            .book-content {
+            .nav-btn
+            {
+                width: 100%;
+            }
+            .chapter-title
+            {
+                text-align: center;
+            }
+            .book-content 
+            {
                 padding: 25px 20px;
             }
             
-            .exam-gallery {
+            .exam-gallery 
+            {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 15px;
             }
@@ -760,16 +780,32 @@
             }
         }
         
-        @media (max-width: 480px) {
-            .exam-gallery {
+        @media (max-width: 480px) 
+        {
+            .exam-gallery 
+            {
                 grid-template-columns: 1fr;
             }
             
-            .main-header h1 {
+            .main-header h1 
+            {
                 font-size: 1.4rem;
             }
-            
-            .chapter-title {
+            .book-nav 
+            { 
+                display: flex 1fr;
+            }
+            .nav-buttons 
+            {
+                display: flex 1fr;
+            }
+             .nav-btn
+            {
+                width: 100%;
+            }
+            .chapter-title 
+            {
+                text-align: center;
                 font-size: 1rem;
             }
             
@@ -810,7 +846,7 @@
                     <i class="fas fa-arrow-left"></i>
                 </button>
             </div>
-            <div class="chapter-title" id="currentChapter">ارزشیابی آغازین</div>
+            <div class="chapter-title" id="currentChapter"><!-- Title comes here --></div>
         </nav>
 
         <!-- Table of Contents -->
@@ -1560,8 +1596,6 @@
             {
                 contentHTML += '<div class="exam-gallery">';
                 
-                //const url = exam.downloadUrl;
-
                 page.content.exams.forEach(exam => {
 
                     const url = exam.downloadUrl;
