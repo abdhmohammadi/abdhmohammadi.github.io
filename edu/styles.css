@@ -573,24 +573,9 @@ body.rtl .carousel-indicators
   color: #2563eb;
 }
 
-        /* Animations 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .rotating {
-            animation: rotate 20s linear infinite;
-        }
+        /*
+        // Animations 
+       
 
          Responsive
         @media (max-width: 992px) {
@@ -625,6 +610,58 @@ body.rtl .carousel-indicators
             }
         }*/
         /* Animations */
+
+@media (max-width: 768px) 
+{
+    /* Navbar Mobile */
+    .menu-toggle 
+    {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start off-screen */
+        width: 75%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.4s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        right: 0; /* Slide in */
+    }
+
+    /* Hero Mobile: Stack Vertically */
+    .hero {
+        flex-direction: column-reverse; /* Text on top, or remove reverse for Image on top */
+        text-align: center;
+        padding-top: 20px;
+    }
+    
+    .hero .right {
+        align-items: center;
+    }
+
+    .carousel-container {
+        width: 100%;
+    }
+
+    /* Math elements smaller on mobile */
+    .math-element {
+        font-size: 2rem;
+    }
+
+    .bio-highlights {
+        grid-template-columns: 1fr;
+    }
+}
 
 /* Float up and down gently (e.g., for icons or background elements) */
 /* Zoom effect */
