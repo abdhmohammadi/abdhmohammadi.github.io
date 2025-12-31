@@ -33,10 +33,20 @@
     <meta name="twitter:image" content="https://abdhmohammadi.github.io/images/abdh.jpg">
     
     
-    <!-- Fonts & Icons <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
-    
+    <!-- configuration for LaTeX rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']]
+                },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
     {
@@ -762,7 +772,7 @@
 <body>
     <!-- Main Header -->
     <header class="main-header">
-        <h1>📚 نمونه سوالات امتحانی ریاضی دبیرستان</h1>
+        <h1>📚 مجموعه نمونه سوالات امتحانی ریاضی دبیرستان</h1>
         <div class="subtitle">عبدالله محمدی - دبیر ریاضی متوسطه 2، بجنورد</div>
     </header>
 
@@ -776,7 +786,7 @@
                 </button>
                 <button class="nav-btn" id="tocBtn" onclick="toggleTOC()">
                     <i class="fas fa-bars"></i>
-                    <span>فهرست مطالب</span>
+                    <span>فهرست</span>
                 </button>
                 <button class="nav-btn" id="prevBtn" onclick="navigatePage(-1)">
                     <i class="fas fa-arrow-right"></i>
@@ -843,17 +853,11 @@
     <script>
         // =============================================
         // DATA STRUCTURE
-        //هندسه 3
-        //
-        //ریاضی و آمار 1
-        //
-        //ریاضی و آمار 2-(1)شهید بهشتی
-        //
-        //
-        //
         // =============================================
-        const bookData = {
-            chapters: [
+        const bookData = 
+        {
+            chapters: 
+            [
                 {
                     id: "diagnostic",
                     title: "ارزشیابی آغازین",
@@ -864,7 +868,8 @@
                             title: "ارزشیابی آغازین",
                             type: "exam-gallery",
                             content: {
-                                exams: [
+                                exams: 
+                                [
                                     {
                                         id: "discrete-diagnostic",
                                         title: "ارزشیابی آغازین ریاضیات گسسته",
@@ -895,22 +900,23 @@
                     ]
                 },
                 {
-                    id: "mathematics",
+                    id: "mathematics", // Field Id
                     title: "ریاضی-فیزیک",
                     icon: "🧮",
                     pages: [
                         {
-                            id: "stats-probability",
+                            id: "stats-probability", // Textbook
                             title: "آمار و احتمال",
                             type: "exam-gallery",
                             content: {
-                                exams: [
+                                exams: 
+                                [
                                     {
                                         id: "statistics-probability-1404-day",
                                         title: "آمار و احتمال، دی ماه 1404 + پاسخنامه",
                                         description: "دبیرستان شاهد امام حسین(ع)، بجنورد",
                                         image: "../images/exam-previews/mathematics/statistics-and-probability/140410.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDreyCCY1dERp0LNAUKgdQuAQDH4r89I4Tq5aZOqOA3CpY?e=oeJlsg",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQA-Je4fOd23RoTLdQgZUA9fARVxqghxmKKT6t2-i6M3Qtk?e=udevxV",
                                         date: "1404/10"
                                     }
                                 ]
@@ -920,15 +926,38 @@
                             id: "discrete-math",
                             title: "ریاضیات گسسته",
                             type: "exam-gallery",
-                            content: {
-                                exams: [
+                            content: 
+                            {
+                                exams: 
+                                [
                                     {
                                         id: "discrete-mathematics-1404-day",
                                         title: "ریاضیات گسسته، دی ماه 1404+ پاسخنامه",
                                         description: "دبیرستان شاهد امام حسین(ع)، بجنورد",
                                         image: "../images/exam-previews/mathematics/discrete-mathematics/140410.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQC44TGmIZEXR4Lbr7tAAX9fAXLuOsol4Llyk9CdORAFJFo?e=YvcYWb",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQD-M409mTp_SJoT37HZEsMtAYihpyXFQ3-_6CovsvdOKCg?e=PrnIb5",
                                         date: "1404/10"
+                                    }
+                                ],
+                                quizzes: 
+                                [
+                                    {
+                                        id: "diagnostic-quiz",
+                                        title: "آزمون آشنایی با مفاهیم پایه",
+                                        questions: 
+                                        [
+                                            {
+                                                question: "کدام گزینه جزء مفاهیم اصلی ریاضیات گسسته نیست؟",
+                                                options: [
+                                                    "گراف و درخت",
+                                                    "ترکیبیات",
+                                                    "جبر خطی",
+                                                    "منطق ریاضی"
+                                                ],
+                                                correctAnswer: 2,
+                                                hint: "جبر خطی بیشتر در ریاضیات پیوسته کاربرد دارد."
+                                            }
+                                        ]
                                     }
                                 ]
                             }
@@ -944,7 +973,7 @@
                                         title: "هندسه 3، دی 1404",
                                         description: "نمونه سوال + پاسخنامه",
                                         image: "../images/exam-previews/mathematics/geometry-3/140410.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQBbkT3Xfwl5SrbncDSlj7djAfYnb4kRbR8drUXqT17HUHI?e=WiZ8s7",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDzvL46OtbQSKehrpwni4LnAREKLx0bIYVa3ITNrou1_oc?e=mVHfiG",
                                         date: "1404/09/29"
                                     }
                                 ]
@@ -956,52 +985,114 @@
                     id: "math-humanities",
                     title: "ریاضی و آمار انسانی",
                     icon: "📈",
-                    pages: [
+                    pages: 
+                    [
                         {
                             id: "humanities-1",
                             title: "ریاضی و آمار 1",
                             type: "exam-gallery",
-                            content: {
+                            content: 
+                            {
                                 exams: [
                                     {
                                         id: "human-1-1404-10",
                                         title: "ریاضی و آمار 1 انسانی، دی 1404",
-                                        description: "نمونه سوال نیم‌سال اول",
+                                        description: "دبیرستان نمونه دولتی شهید بهشتی",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-1/140410.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCKlZrmzracTqmKlpXNM0y9AeZK-y5PfE_GOp4ejfEUnls?e=WUFfvy",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDyUFiS5lljRKtyRvIZ7uoRAWaEvMGfX0VKm2CZWpK1WWc?e=02gPjs",
                                         date: "1404/10"
                                     },
                                     {
                                         id: "human-1-1404-03",
                                         title: "ریاضی و آمار 1 انسانی، خرداد 1404",
-                                        description: "نمونه سوال پایان‌سال",
+                                        description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-1/140403.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EaUmguD2oVBKtE_BEcGlhK8B85MS_dGL-DdLAAo0cXb25w?e=AekErT",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQClJoLg9qFQSrRPwRHBpYSvAfOTEv3Ri_g3SwAKNHF29uc?e=nA6EXc",
                                         date: "1404/03"
                                     }
+                                    ,
+                                    {
+                                        id: "human-1-1403-10",
+                                        title: "ریاضی و آمار 1 انسانی، دی ماه 1403",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-1/140310.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDfG6PShGfvQLHWKGrS4wp6AeIRaBtYeDqYjK1dyugxaaE?e=ETpiIe",
+                                        date: "1403/10"
+                                    }
+                                    ,
+                                    {
+                                        id: "human-1-1402-10",
+                                        title: "ریاضی و آمار 1 انسانی، دی ماه 1402",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-1/140210.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDHrvtMehhrSa5pW_ol28JDARczXlJuMAKG17TlGPXPzJg?e=UJPHGP",
+                                        date: "1402/10"
+                                    },
+                                    {
+                                        id: "human-1-1402-03",
+                                        title: "ریاضی و آمار 1 انسانی، خرداد 1402",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-1/140203.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQC3yiwcmfJwRZGkgpEUNMNiAcK4zT17F_X7nlfQv5fsgto?e=vPapHl",
+                                        date: "1402/03"
+                                    },
+                                    {
+                                        id: "human-1-1401-10",
+                                        title: "ریاضی و آمار 1 انسانی، دی ماه 1401",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-1/140110.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCkge-iW2HmQ4kHlvTndO-kAZPqr-ig6CkQRtudkhpxEKI?e=crk8oK",
+                                        date: "1401/10"
+                                    },
+                                    {
+                                        id: "human-1-1401-06",
+                                        title: "ریاضی و آمار 1 انسانی، شهریور 1401",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-1/140106.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAWDUCxUXywSLgIig0L4FccASoj_qAR4thcfx6wTpDtNl8?e=hJ966r",
+                                        date: "1401/06"
+                                    },
+                                    {
+                                        id: "human-1-1401-03",
+                                        title: "ریاضی و آمار 1 انسانی، خرداد 1401",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-1/140103.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCrRC4wwrddQ5DHTGlD7mlzAe_Iri5M6SzG9ADyIF6KFQs?e=aTwO45",
+                                        date: "1401/03"
+                                    },
+                                    {
+                                        id: "human-1-1400-10",
+                                        title: "ریاضی و آمار 1 انسانی، دی ماه 1400",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-1/140010.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQATfbqjqDVBRqjpuE0xaZQUAfg_EX9Uh6NtzmBJaPxi2WA?e=msQoOR",
+                                        date: "1400/10"
+                                    }
                                 ]
-                            }
+                            },
                         },
                         {
                             id: "humanities-2",
                             title: "ریاضی و آمار 2",
                             type: "exam-gallery",
-                            content: {
-                                exams: [
+                            content: 
+                            {
+                                exams: 
+                                [
                                     {
                                         id: "human-2-1404-10",
                                         title: "ریاضی و آمار 2 انسانی، دی 1404",
                                         description: "نیم‌سال اول - نمونه دولتی شهید بهشتی",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-2/140410-(1).png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAYXQJ4cvcjQJ3TrTY79ocGAXDU5_s-75piOeDY0QloeaQ?e=4NFoak",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCDSLtzQGwyQaHlRqYIXlAgAXHc39nU9rLDR-1jPGeraCM?e=zFJgEx",
                                         date: "1404/10"
                                     },
-                                     {
+                                    {
                                         id: "human-2-1404-10",
                                         title: "ریاضی و آمار 2 انسانی، دی 1404",
                                         description: "نیم‌سال اول - شاهد امام حسین(ع)",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-2/140410-(2).png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAWLufDMVaBTqCzfveIlLvpARPDsZ2hfzS-dqc65ZNRyvs?e=8p4nqN",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCGhfqdhLMAQrzhlqJWyN1oAcmjPRtGgxWiCYlblU3VmaY?e=fcQtax",
                                         date: "1404/10"
                                     },
                                     {
@@ -1009,8 +1100,77 @@
                                         title: "ریاضی و آمار 2 انسانی، خرداد 1404",
                                         description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-2/140403.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EZNoTtSvIC9Dk4iwdG4na6kBoNYgO1p6sASmOPaX1mAYbA?e=xlSqdX",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCTaE7UryAvQ5OIsHRuJ2upAaDWIDtaerAEpjj2l9ZgGGw?e=cpeax9",
                                         date: "1404/03"
+                                    },
+                                    {
+                                        id: "human-2-1404-06",
+                                        title: "ریاضی و آمار 2 انسانی، شهریور 1404",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140406.png",
+                                        downloadUrl: "#",
+                                        date: "1404/06"
+                                    },
+                                    {
+                                        id: "human-2-1404-06",
+                                        title: "ریاضی و آمار 2 انسانی، شهریور 1404",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140406.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQBvQdk-oLz6TKDtwdDQcgIJAW-4lGA6WgkveL0O5yMTI8w?e=s6ETqJ",
+                                        date: "1404/06"
+                                    },
+                                    {
+                                        id: "human-2-1402-10",
+                                        title: "ریاضی و آمار 2 انسانی، دی ماه 1402",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140210.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQB9G3vMnQSLQJNBEkgUskQVAeeymzxjlsCytOM8ytgJqAg?e=I9ZsXH",
+                                        date: "1402/10"
+                                    },
+                                    {
+                                        id: "human-2-1401-10",
+                                        title: "ریاضی و آمار 2 انسانی، دی ماه 1401",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140110.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDnZ-xp5CXxQa7pA3CpQ9WmAT2l3xJwjXAoZRMtRPBMVPw?e=jjCXgJ",
+                                        date: "1401/10"
+                                    },
+                                    {
+                                        id: "human-2-1401-06",
+                                        title: "ریاضی و آمار 2 انسانی، شهریور 1401",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140106.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDTd1tt0zFlQ72T7vYV6WadAQHBrQwJ0QTDCCCZm5-b4Gg?e=NQeCbA",
+                                        date: "1401/06"
+                                    },
+                                    {
+                                        id: "human-2-1401-03",
+                                        title: "ریاضی و آمار 2 انسانی، خرداد 1401",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-2/140103.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAOEp44ZalOS63djwUw4iC2AQurxS0jSX871SgjTRYvCpI?e=QG1iub",
+                                        date: "1401/03"
+                                    }
+                                ],
+                                quizzes:
+                                [
+                                    {
+                                        id:"statistics-and-prrobability-quiz",
+                                        title:"ارزشیابی آغازین",
+                                        questions:
+                                        [
+                                            {
+                                               question:"کدام گزینه زیر یک گزاره منطقی است؟",
+                                                options:
+                                                [
+                                                    "آیا فردا مدرسه تعطیل است؟",
+                                                    "این کتاب بسیار عالی نوشته شده است",
+                                                    "اگر دمای هوا به 4 درجه سانتیگراد برسد مدرسه ها تعطیل می شود",
+                                                ],
+                                                correctAnswer: 2,
+                                                hint: "گزاره جمله ای خبری است که یا راست است یا دروغ"
+                                            }
+                                        ]
                                     }
                                 ]
                             }
@@ -1026,8 +1186,24 @@
                                         title: "ریاضی و آمار 3 انسانی، دی 1402",
                                         description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/humanity-science/math-and-statistics-3/140210.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EYdZxPICoNZEtwhj2QNzQ3MBUeX8--uAjQS1GL36sB7RGg?e=heVrG2",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCHWcTyAqDWRLcIY9kDc0NzAVHl_PvrgI0EtRi9-rAe0Ro?e=YHzHMC",
                                         date: "1402/10"
+                                    },
+                                    {
+                                        id: "human-3-1400-10",
+                                        title: "ریاضی و آمار 3 انسانی، دی ماه 1400",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-3/140010.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAcQShkXHabTo9ojqODka0aAWXwx8aSCBNXIwJ6crrp9Tw?e=ycvROM",
+                                        date: "1400/10"
+                                    },
+                                    {
+                                        id: "human-2-1401-10",
+                                        title: "ریاضی و آمار 3 انسانی، دی ماه 1401",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/humanity-science/math-and-statistics-3/140110.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCzudQ7-FZhQr7WWzM5WwgQAbHJ_VsJg4krCyEXmIY2rhE?e=Qalgjc",
+                                        date: "1401/10"
                                     }
                                 ]
                             }
@@ -1044,14 +1220,23 @@
                             title: "ریاضی 1 تجربی",
                             type: "exam-gallery",
                             content: {
-                                exams: [
+                                exams: 
+                                [
                                     {
                                         id: "exp-1-1402-10",
                                         title: "ریاضی 1 تجربی، دی 1402",
                                         description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/experimental-science/math-1/140210.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EVvJyWbCBi9OlxfB1WIEmg8B--2p_C03WujmDjAMTYDycw?e=u1eIhZ",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQBbyclmwgYvTpcXwdViBJoPAfvtqfwtN1ro5g4wDE2A8nM?e=cPvZrO",
                                         date: "1402/10"
+                                    },
+                                    {
+                                        id: "exp-1-1400-03",
+                                        title: "ریاضی 1 تجربی، خرداد 1400",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/experimental-science/math-1/140003.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDaw_p5Wy96QJGUU8G9Lh0DAXOfdq-fsdk65TSi1qXgzxY?e=zNCnmE",
+                                        date: "1400/03"
                                     }
                                 ]
                             }
@@ -1061,22 +1246,47 @@
                             title: "ریاضی 2 تجربی",
                             type: "exam-gallery",
                             content: {
-                                exams: [
+                                exams: 
+                                [
+                                    {
+                                        id: "exp-2-1401-03",
+                                        title: "ریاضی 2 تجربی، خرداد 1401",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/experimental-science/math-2/140103.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAOEp44ZalOS63djwUw4iC2AQurxS0jSX871SgjTRYvCpI?e=jFFhbI",
+                                        date: "1401/03"
+                                    },
                                     {
                                         id: "exp-2-1404-03",
                                         title: "ریاضی 2 تجربی، خرداد 1404",
                                         description: "نمونه سوال + پاسخنامه - رتبه سوم جشنواره",
                                         image: "../images/exam-previews/experimental-science/math-2/140403.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EeYDvZ91ZU5PmRiFxDbUAxQBOAWaki-ahyY7wUnAvEdUXw?e=t97LCC",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDmA72fdWVOT5kYhcQ21AMUATgFmpIvmocmO8FJwLxHVF8?e=5jMF84ُ",
                                         date: "1404/03"
                                     },
                                     {
                                         id: "exp-2-1403-10",
                                         title: "ریاضی 2 تجربی، دی 1403",
-                                        description: "دبیرستان الغدیر",
+                                        description: "نمونه سوال + پاسخنامه - رتبه اول جشنواره",
                                         image: "../images/exam-previews/experimental-science/math-2/140310.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/EdvG4v6Z2VhPmPorOEzKqKMBl_q3dDIOtIvcuBXRjeXpGQ?e=5wKELk",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDbxuL-mdlYT5j6KzhMyqijAZf6t3QyDrSL3LgV0Y3l6Rk?e=u1uTbW",
                                         date: "1403/10"
+                                    },
+                                    {
+                                        id: "exp-2-1400-10",
+                                        title: "ریاضی 2 تجربی، دی 1400",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/experimental-science/math-2/140010.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQCVbncioQwRQohM1A0Hw4A8ARixiPAxQYFjyNRuzKhuf1A?e=pTiQOG",
+                                        date: "1400/10"
+                                    },
+                                    {
+                                        id: "exp-2-1404-06",
+                                        title: "ریاضی 2 تجربی، شهریور 1404",
+                                        description: "دبیرستان الغدیر",
+                                        image: "../images/exam-previews/experimental-science/math-2/140406.png",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQAUOsrtaO67QYir0IyOMuCKAQ-R_N0oDjXs08eA2Hdk1Jw?e=AGRxAI",
+                                        date: "1404/06"
                                     }
                                 ]
                             }
@@ -1092,41 +1302,11 @@
                                         title: "ریاضی 3 تجربی، دی 1401",
                                         description: "دبیرستان الغدیر",
                                         image: "../images/exam-previews/experimental-science/math-3/140110.png",
-                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/Ee5T39IpvFtCiziCdzJUNAQBqqCYSyDGp_TwLS8mp52-Fw?e=Kdfjgi",
+                                        downloadUrl: "https://1drv.ms/b/c/cdf6eeb6642025d1/IQDuU9_SKbxbQos4gncyVDQEAaqgmEsgxqf08C0vJqedvhc?e=2mXcAo",
                                         date: "1401/10"
                                     }
                                 ]
                             }
-                        }
-                    ]
-                }
-            ],
-            quizzes: [
-                {
-                    id: "diagnostic-quiz",
-                    title: "آزمون آشنایی با مفاهیم پایه",
-                    questions: [
-                        {
-                            question: "کدام گزینه جزء مفاهیم اصلی ریاضیات گسسته نیست؟",
-                            options: [
-                                "گراف و درخت",
-                                "ترکیبیات",
-                                "جبر خطی",
-                                "منطق ریاضی"
-                            ],
-                            correctAnswer: 2,
-                            hint: "جبر خطی بیشتر در ریاضیات پیوسته کاربرد دارد."
-                        },
-                        {
-                            question: "هدف اصلی ارزشیابی آغازین چیست؟",
-                            options: [
-                                "تعیین نمره نهایی دانش‌آموز",
-                                "سنجش پیش‌نیازها و دانش پایه",
-                                "تمرین برای امتحان نهایی",
-                                "تعیین سطح سختی سوالات"
-                            ],
-                            correctAnswer: 1,
-                            hint: "ارزشیابی آغازین برای شناسایی نقاط قوت و ضعف دانش پایه طراحی می‌شود."
                         }
                     ]
                 }
@@ -1136,9 +1316,10 @@
         // =============================================
         // APPLICATION STATE
         // =============================================
-        let currentState = {
-            currentChapter: 1,
-            currentPage: 0,
+        let currentState = 
+        {
+            currentChapter: 0, // Feild study
+            currentPage: 0,    // Textbook
             userProgress: {},
             quizAnswers: {}
         };
@@ -1165,23 +1346,38 @@
         document.addEventListener('DOMContentLoaded', () => {
             initializeBook();
             renderTOC();
-            loadPage(currentState.currentChapter, currentState.currentPage);
+            
+            // This will cause one of the chapters to be selected each time the browser loads the page,
+            // avoiding opening a fixed page.
+            loadPage(randomInt(0,4), currentState.currentPage);
+
             updateNavigation();
+
             updateProgressDots();
         });
+        // Generate a random integer within the range of the number of chapters on this page: 
+        // This will cause one of the chapters to be selected each time the browser loads the page,
+        // avoiding opening a fixed page.
+        function randomInt(min, max) 
+        {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
 
         // =============================================
         // CORE FUNCTIONS
         // =============================================
-        function initializeBook() {
+        function initializeBook() 
+        {
             // Load saved progress from localStorage
             const savedProgress = localStorage.getItem('mathExamProgress');
-            if (savedProgress) {
+            if (savedProgress) 
+            {
                 currentState.userProgress = JSON.parse(savedProgress);
             }
         }
 
-        function renderTOC() {
+        function renderTOC() 
+        {
             tocList.innerHTML = '';
             
             bookData.chapters.forEach((chapter, chapterIndex) => {
@@ -1231,7 +1427,8 @@
             });
         }
 
-        function loadPage(chapterIndex, pageIndex) {
+        function loadPage(chapterIndex, pageIndex) 
+        {
             const chapter = bookData.chapters[chapterIndex];
             const page = chapter.pages[pageIndex];
             
@@ -1245,7 +1442,8 @@
             totalPagesEl.textContent = chapter.pages.length;
             
             // Render page content based on type
-            switch(page.type) {
+            switch(page.type) 
+            {
                 case 'exam-gallery':
                     renderExamGallery(page);
                     break;
@@ -1261,19 +1459,26 @@
             saveProgress();
         }
 
-        function renderExamGallery(page) {
+        function renderExamGallery(page) 
+        {
             let contentHTML = '';
-            
+            let quiz = false;
+            const cnt = page.content.exams.length
             // Page header
             contentHTML += `
                 <div class="page-header">
-                    <div class="badge">${getChapterIcon(page)}</div>
                     <h2>${page.title}</h2>
+                    <div>
+                        <div class="badge">${getChapterIcon(page)}</div>
+                        <div style="color: #bbb;">${cnt} نمونه سوال</div>
+                    </div>
+
                 </div>
             `;
             
             // Exam cards
-            if (page.content.exams && page.content.exams.length > 0) {
+            if (page.content.exams && page.content.exams.length > 0) 
+            {
                 contentHTML += '<div class="exam-gallery">';
                 
                 page.content.exams.forEach(exam => {
@@ -1308,7 +1513,10 @@
                 });
                 
                 contentHTML += '</div>';
-            } else {
+
+            } 
+            else 
+            {
                 contentHTML += `
                     <div style="text-align: center; padding: 50px 20px;">
                         <i class="fas fa-folder-open" style="font-size: 3rem; color: #ddd; margin-bottom: 20px;"></i>
@@ -1317,22 +1525,33 @@
                     </div>
                 `;
             }
-            
-            // Add quiz section for diagnostic chapter
-            if (currentState.currentChapter === 0) {
-                contentHTML += renderQuiz();
+            if(page.content.quizzes && page.content.quizzes.length > 0)
+            {
+                quiz = true;
+                contentHTML += renderQuiz(page.content.quizzes[0]);
+            }
+            else
+            {
+                contentHTML += `
+                    <div style="text-align: center; padding: 50px 20px;">
+                        <i class="fas fa-folder-open" style="font-size: 3rem; color: #ddd; margin-bottom: 20px;"></i>
+                        <h3 style="color: #999; margin-bottom: 10px;">آزمون آنلاین وجود ندارد</h3>
+                        <p style="color: #bbb;">به زودی آزمونهای جدید اضافه خواهند شد.</p>
+                    </div>
+                `;
             }
             
             bookContent.innerHTML = contentHTML;
             
             // Initialize quiz if exists
-            if (currentState.currentChapter === 0) {
-                initializeQuiz();
+            if (quiz) 
+            {
+                initializeQuiz(page.content.quizzes[0]);
             }
         }
 
-        function renderQuiz() {
-            const quiz = bookData.quizzes[0];
+        function renderQuiz(quiz) 
+        { 
             return `
                 <div class="quiz-section" id="quizSection">
                     <div class="quiz-header">
@@ -1362,13 +1581,14 @@
                 </div>
             `;
         }
-
-        function initializeQuiz() {
-            const quiz = bookData.quizzes[0];
+       
+        function initializeQuiz(quiz) 
+        {
             const quizQuestions = document.getElementById('quizQuestions');
             const currentQuestionIndex = currentState.quizAnswers.currentQuestion || 0;
             
-            if (currentQuestionIndex < quiz.questions.length) {
+            if (currentQuestionIndex < quiz.questions.length) 
+            {
                 const question = quiz.questions[currentQuestionIndex];
                 
                 let optionsHTML = '';
@@ -1395,13 +1615,21 @@
                 
                 // Reset selected answer
                 currentState.quizAnswers.selectedAnswer = null;
-            } else {
+                
+                // Tell MathJax to render the new math content
+                if (window.MathJax) 
+                {
+                    MathJax.typesetPromise([quizQuestions]).catch(err => console.error('MathJax typeset error:', err));
+                }
+            } else 
+            {
                 // Quiz completed
                 showQuizResults();
             }
         }
 
-        function selectAnswer(answerIndex) {
+        function selectAnswer(answerIndex) 
+        {
             // Remove selection from all options
             document.querySelectorAll('.quiz-option').forEach(option => {
                 option.classList.remove('selected');
@@ -1414,13 +1642,17 @@
             currentState.quizAnswers.selectedAnswer = answerIndex;
         }
 
-        function submitAnswer() {
-            const quiz = bookData.quizzes[0];
+        function submitAnswer() 
+        {
+            const c = currentState.currentChapter;
+            const p = currentState.currentPage;
+            const quiz = bookData.chapters[c].pages[p].content.quizzes[0];
             const currentQuestionIndex = currentState.quizAnswers.currentQuestion || 0;
             const question = quiz.questions[currentQuestionIndex];
             const selectedAnswer = currentState.quizAnswers.selectedAnswer;
             
-            if (selectedAnswer === null) {
+            if (selectedAnswer === null) 
+            {
                 alert('لطفاً یک گزینه را انتخاب کنید');
                 return;
             }
@@ -1461,19 +1693,24 @@
             saveProgress();
         }
 
-        function nextQuestion() {
+        function nextQuestion() 
+        {
             initializeQuiz();
         }
 
-        function showHint() {
-            const quiz = bookData.quizzes[0];
+        function showHint() 
+        {
+            const c = currentState.currentChapter;
+            const p = currentState.currentPage;
+            const quiz = bookData.chapters[c].pages[p].content.quizzes[0];
             const currentQuestionIndex = currentState.quizAnswers.currentQuestion || 0;
             const question = quiz.questions[currentQuestionIndex];
             
             alert(`💡 راهنمایی: ${question.hint}`);
         }
 
-        function showQuizResults() {
+        function showQuizResults() 
+        {
             const results = currentState.quizAnswers.results || [];
             const correctCount = results.filter(r => r.isCorrect).length;
             const totalCount = results.length;
@@ -1482,10 +1719,12 @@
             let message = '';
             let icon = '🎉';
             
-            if (percentage >= 80) {
+            if (percentage >= 80) 
+            {
                 message = 'عالی! شما تسلط خوبی بر مفاهیم دارید.';
                 icon = '🏆';
-            } else if (percentage >= 60) {
+            } else if (percentage >= 60) 
+            {
                 message = 'خوب است! اما نیاز به مطالعه بیشتری دارید.';
                 icon = '👍';
             } else {
@@ -1512,13 +1751,18 @@
             document.getElementById('quizActions').style.display = 'none';
         }
 
-        function restartQuiz() {
+        function restartQuiz() 
+        {
             currentState.quizAnswers = {
                 currentQuestion: 0,
                 results: [],
                 selectedAnswer: null
             };
-            initializeQuiz();
+
+            const c = currentState.currentChapter;
+            const p = currentState.currentPage;
+            const quiz = bookData.chapters[c].pages[p].content.quizzes[0];
+            initializeQuiz(quiz);
             
             // Reset button
             const submitBtn = document.getElementById('submitBtn');
@@ -1532,8 +1776,12 @@
             document.getElementById('quizActions').style.display = 'flex';
         }
 
-        function updateQuizProgress() {
-            const quiz = bookData.quizzes[0];
+        function updateQuizProgress() 
+        {
+            const c = currentState.currentChapter;
+            const p = currentState.currentPage;
+            const quiz = bookData.chapters[c].pages[p].content.quizzes[0];
+            
             const currentQuestionIndex = currentState.quizAnswers.currentQuestion || 0;
             const progress = (currentQuestionIndex / quiz.questions.length) * 100;
             
@@ -1542,12 +1790,14 @@
                 `${currentQuestionIndex}/${quiz.questions.length}`;
         }
 
-        function getChapterIcon(page) {
+        function getChapterIcon(page) 
+        {
             const chapter = bookData.chapters[currentState.currentChapter];
             return chapter.icon;
         }
 
-        function previewExam(imageUrl, title) {
+        function previewExam(imageUrl, title) 
+        {
             modalImage.src = imageUrl;
             modalTitle.textContent = title;
             modalOverlay.style.display = 'block';
@@ -1573,7 +1823,8 @@
             showNotification('دانلود شروع شد!');
         }
 
-        function showNotification(message) {
+        function showNotification(message) 
+        {
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -1598,7 +1849,8 @@
             }, 3000);
         }
 
-        function updateNavigation() {
+        function updateNavigation() 
+        {
             const chapter = bookData.chapters[currentState.currentChapter];
             
             // Update prev button
@@ -1610,7 +1862,8 @@
             nextBtn.disabled = isLastPage && isLastChapter;
         }
 
-        function updateActiveTOC() {
+        function updateActiveTOC() 
+        {
             // Update chapter links
             document.querySelectorAll('.toc-link').forEach((link, index) => {
                 if (index === currentState.currentChapter) {
@@ -1632,12 +1885,14 @@
             }
         }
 
-        function updateProgressDots() {
+        function updateProgressDots() 
+        {
             progressDots.innerHTML = '';
             
             const chapter = bookData.chapters[currentState.currentChapter];
             
-            for (let i = 0; i < chapter.pages.length; i++) {
+            for (let i = 0; i < chapter.pages.length; i++) 
+            {
                 const dot = document.createElement('div');
                 dot.className = 'progress-dot';
                 if (i === currentState.currentPage) {
@@ -1648,12 +1903,14 @@
             }
         }
 
-        function navigateToPage(chapterIndex, pageIndex) {
+        function navigateToPage(chapterIndex, pageIndex) 
+        {
             loadPage(chapterIndex, pageIndex);
             updateProgressDots();
         }
 
-        function navigatePage(direction) {
+        function navigatePage(direction) 
+        {
             const chapter = bookData.chapters[currentState.currentChapter];
             let newChapter = currentState.currentChapter;
             let newPage = currentState.currentPage + direction;
@@ -1675,12 +1932,14 @@
             navigateToPage(newChapter, newPage);
         }
 
-        function toggleTOC() {
+        function toggleTOC() 
+        {
             tocOverlay.style.display = tocOverlay.style.display === 'block' ? 'none' : 'block';
             document.body.style.overflow = tocOverlay.style.display === 'block' ? 'hidden' : 'auto';
         }
 
-        function saveProgress() {
+        function saveProgress() 
+        {
             localStorage.setItem('mathExamProgress', JSON.stringify(currentState.userProgress));
         }
 
