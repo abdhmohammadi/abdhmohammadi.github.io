@@ -726,111 +726,150 @@ body.rtl .carousel-indicators
 }
 
 /* ========== RESPONSIVE DESIGN ========== */
-
-/* Tablet (768px - 991px) */
+/* Tablet (992px and below) */
 @media (max-width: 992px) {
-    .navbar {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    
     .hero h1 {
         font-size: 1.8rem;
     }
     
     .bio {
-        padding: 40px 30px;
+        padding: 40px 50px;
     }
     
     .bio-content {
         flex-direction: column;
+        gap: 30px;
+    }
+    
+    .carousel-container {
+        width: 350px;
+        height: 240px;
+    }
+    
+    .carousel-slide img {
+        width: 350px;
+        height: 240px;
     }
     
     .publications-list {
-        margin: 40px 30px;
-    }
-}
-
-/* Mobile (below 768px) */
-@media (max-width: 768px) {
-    /* Fix navbar for mobile */
-    .navbar {
-        flex-direction: column;
-        height: auto;
-        padding: 15px 20px;
+        margin: 50px;
     }
     
+    .navbar {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+/* ========== MOBILE MENU STYLES ========== */
+
+/* Hamburger Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* Show hamburger menu */
+    .menu-toggle {
+        display: block;
+    }
+    
+    /* Navbar adjustments */
+    .navbar {
+        flex-wrap: wrap;
+        position: relative;
+        padding: 15px 20px;
+        height: auto;
+        min-height: var(--header-height);
+    }
+    
+    /* Hide nav links by default, show as mobile menu */
     .nav-links {
-        display: none; /* Hide by default, show with hamburger */
-        width: 100%;
+        display: none;
         flex-direction: column;
-        align-items: flex-start;
-        margin-top: 15px;
-        padding: 15px 0;
-        border-top: 1px solid #eee;
+        width: 100%;
+        order: 3; /* Move below logo and hamburger */
+        margin-top: 20px;
+        padding: 20px 0;
+        border-top: 1px solid rgba(0,0,0,0.1);
     }
     
     .nav-links.active {
         display: flex;
     }
     
-    .nav-links li {
+    .nav-links > * {
         width: 100%;
         margin: 5px 0;
     }
     
     .nav-links a {
-        padding: 12px 0;
-        display: block;
-        width: 100%;
+        padding: 12px 15px;
+        font-size: 1.1rem;
     }
     
+    /* Dropdown adjustments for mobile */
     .dropdown-content {
         position: static;
-        box-shadow: none;
+        display: none;
         width: 100%;
-        background-color: transparent;
-        padding-right: 20px;
+        box-shadow: none;
+        background-color: rgba(0,0,0,0.03);
+        border-radius: 8px;
+        margin-top: 5px;
+        padding: 10px 0;
+    }
+    
+    .dropdown-content.active {
+        display: block;
+    }
+    
+    .dropdown-content li {
+        padding: 8px 15px;
     }
     
     /* Logo adjustments */
     .logo {
         width: 100%;
-        justify-content: space-between;
-        font-size: 1rem;
+        justify-content: center;
+        order: 1;
+        margin-bottom: 10px;
     }
     
-    .logo img {
-        margin-right: 0;
-        margin-left: 10px;
-        width: 50px;
-        height: 50px;
+    .logo a[href^="tel:"] {
+        position: absolute;
+        left: 20px;
+        top: 25px;
+        font-size: 0.9rem;
     }
     
-    /* Hero section - stack vertically */
+    /* Hero section adjustments */
     .hero {
         flex-direction: column;
         padding: 20px 15px;
-        text-align: center;
+        margin-top: 20px;
     }
     
-    .hero .left {
-        padding: 0;
-        margin-bottom: 30px;
-        width: 100%;
-        order: 2; /* Image comes after text */
-    }
-    
+    .hero .left,
     .hero .right {
+        width: 100%;
         padding: 0;
-        order: 1; /* Text comes first */
-        margin-bottom: 30px;
     }
     
     .hero .right h1 {
-        font-size: 1.5rem;
-        line-height: 1.4;
-        max-width: 100%;
+        font-size: 1.4rem;
+        text-align: center;
+        margin-bottom: 15px;
     }
     
     .carousel-container {
@@ -843,98 +882,34 @@ body.rtl .carousel-indicators
     .carousel-slide img {
         width: 100%;
         height: auto;
-        max-height: 250px;
+        max-height: 200px;
         object-fit: contain;
     }
     
-    /* Biography section */
+    /* Biography adjustments */
     .bio {
         padding: 30px 20px;
-        margin: 0;
     }
     
     .bio-text h3 {
-        font-size: 1.6rem;
         text-align: center;
+        font-size: 1.5rem;
     }
     
-    .bio-text p {
-        text-align: justify;
-        font-size: 1rem;
-    }
-    
-    /* Publications section */
-    .section-title {
-        font-size: 1.8rem;
-        padding: 0 20px;
-    }
-    
+    /* Publications adjustments */
     .publications-list {
-        margin: 30px 15px;
+        margin: 30px 20px;
     }
     
     .publication-item {
-        padding-left: 10px;
-        margin-bottom: 1.2rem;
+        padding: 10px;
+        margin-bottom: 20px;
     }
     
-    .publication-title {
-        font-size: 0.95rem;
-        line-height: 1.4;
-    }
-    
-    /* Contact section */
-    .container {
-        width: 100%;
-        padding: 0 15px;
-    }
-    
+    /* Social icons adjustments */
     .social-icons {
         flex-wrap: wrap;
         gap: 15px;
-    }
-    
-    .social-icons a {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-    
-    /* Math elements - hide or reduce on mobile */
-    .math-element {
-        font-size: 1.5rem;
-        opacity: 0.05; /* Even fainter on mobile */
-    }
-    
-    /* Hide phone number in logo on very small screens */
-    @media (max-width: 480px) {
-        .logo a[href^="tel:"] span {
-            display: none;
-        }
-        
-        .logo a[href^="tel:"] {
-            font-size: 0.9rem;
-        }
-        
-        .hero .right h1 {
-            font-size: 1.3rem;
-        }
-        
-        .carousel-slide img {
-            max-height: 200px;
-        }
-    }
-}
-
-/* Very small screens (below 400px) */
-@media (max-width: 400px) {
-    .logo span {
-        font-size: 0.9rem;
-    }
-    
-    .logo img {
-        width: 40px;
-        height: 40px;
     }
     
     .social-icons a {
@@ -942,35 +917,30 @@ body.rtl .carousel-indicators
         height: 50px;
         font-size: 1.3rem;
     }
-    
-    .bio-highlights {
-        grid-template-columns: 1fr;
-    }
 }
 
-/* Hamburger Menu Toggle */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: var(--primary);
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1001;
-}
-
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-        position: absolute;
-        top: 20px;
-        left: 20px;
+/* Very small screens */
+@media (max-width: 480px) {
+    .logo span {
+        font-size: 0.9rem;
+        text-align: center;
     }
     
-    .navbar {
-        position: relative;
-        padding-top: 20px;
-        padding-bottom: 20px;
+    .logo img {
+        width: 40px;
+        height: 40px;
+        margin: 0 10px;
+    }
+    
+    .hero .right h1 {
+        font-size: 1.2rem;
+    }
+    
+    .carousel-slide img {
+        max-height: 180px;
+    }
+    
+    .bio {
+        padding: 20px 15px;
     }
 }

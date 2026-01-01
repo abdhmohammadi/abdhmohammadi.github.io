@@ -1,47 +1,16 @@
-
-document.addEventListener('DOMContentLoaded', function () 
-{
+document.addEventListener('DOMContentLoaded', function () {
+  // ========== CAROUSEL FUNCTIONALITY ==========
   const inner = document.querySelector('.carousel-inner');
   const slides = document.querySelectorAll('.carousel-slide');
   const indicators = document.querySelectorAll('.carousel-indicator');
-  //const dirToggle = document.getElementById('dirToggle');
-  const body = document.body;
-  const dropdowns = document.querySelectorAll(".dropdown-content");
-
+  
   let currentSlide = 0;
   let slideInterval;
   const totalSlides = slides.length;
-  // Save/Restore RTL preference
-  /*if (localStorage.getItem('dir') === 'rtl') 
-  {
-    body.classList.add('rtl');
-    dropdowns.forEach(dropdown => 
-    {
-      const parent = dropdown.parentElement;
-      dropdown.style.left = "auto";
-      dropdown.style.right = "0"; // Align dropdown correctly in RTL
-      
-    });
-  }else
-  {
-    dropdowns.forEach(dropdown => 
-    {
-      const parent = dropdown.parentElement;
-      dropdown.style.left = "0";
-      dropdown.style.right = "auto"; // Default LTR alignment
-    });
-  //}
 
-  function isRTL() 
-  {
-    return body.classList.contains('rtl');
-  }
-*/
-  function showSlide(index) 
-  {
+  function showSlide(index) {
     currentSlide = index;
-    const directionMultiplier =1;// isRTL() ? 1 : -1;
-    const offset = index * 100 * directionMultiplier;
+    const offset = -index * 100; // Negative for RTL direction
     inner.style.transform = `translateX(${offset}%)`;
 
     indicators.forEach((ind, i) => {
@@ -49,19 +18,18 @@ document.addEventListener('DOMContentLoaded', function ()
     });
   }
 
-  function nextSlide() 
-  {
-    let next = true//isRTL()
-      ? (currentSlide - 1 + totalSlides) % totalSlides
-      : (currentSlide + 1) % totalSlides;
-    showSlide(next);
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    showSlide(currentSlide);
   }
 
-  function startSlideShow() 
-  {
-    slideInterval = setInterval(nextSlide, 6000);
+  function startSlideShow() {
+    if (totalSlides > 1) {
+      slideInterval = setInterval(nextSlide, 5000);
+    }
   }
 
+  // Add click events to indicators
   indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', () => {
       clearInterval(slideInterval);
@@ -70,138 +38,146 @@ document.addEventListener('DOMContentLoaded', function ()
     });
   });
 
-  //dirToggle.addEventListener('click', () => {
-  //  body.classList.toggle('rtl');
-  //  localStorage.setItem('dir', isRTL() ? 'rtl' : 'ltr');
-  //  showSlide(currentSlide); // re-render position
-  //});
+  // Initialize carousel
+  if (slides.length > 0) {
+    showSlide(currentSlide);
+    startSlideShow();
+  }
 
-  showSlide(currentSlide);
-  startSlideShow();
-
-/*// Initialize the news slider
-function initNewsSlider() {
-  wrapper = document.querySelector('.news-items-wrapper');
-  items = document.querySelectorAll('.news-item');
-  totalItems = items.length;
-  currentIndex = 0;
-  resetToFirst();
-  startSlider();
-}
- 
-// Language toggle handler
-function toggleLanguage() 
-{
-  const isEnglish = document.documentElement.lang === 'en';
-  document.documentElement.lang = isEnglish ? 'fa' : 'en';
-  document.documentElement.dir = isEnglish ? 'rtl' : 'ltr';
-  applyLanguage();
-  initNewsSlider(); // restart slider on language change
-}
-// Apply language changes to elements with data-en and data-fa attributes
-function applyLanguage() 
-{
-  const isEnglish = document.documentElement.lang === 'en';
-  document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
-  document.body.classList.toggle('rtl-layout', !isEnglish);
-
-  document.querySelectorAll('[data-en]').forEach(el => {
-    const content = isEnglish ? el.getAttribute('data-en') : el.getAttribute('data-fa');
-    if (content) el.innerHTML = content;
-  });
-
-  updateLanguageToggleButton(isEnglish);
-}
-*/
-  // Smooth scrolling
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => 
-  {
+  // ========== SMOOTH SCROLLING ==========
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return; // Skip empty anchors
+      
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
+      const target = document.querySelector(href);
+      if (!target) return;
+      
       const headerHeight = document.querySelector('header')?.offsetHeight || 0;
       const targetPosition = target.offsetTop - headerHeight;
+      
       window.scrollTo({
         top: targetPosition,
         behavior: 'smooth'
       });
     });
   });
-});
 
-    // Mobile menu toggle
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.querySelector('.nav-links');
+  // ========== MOBILE MENU TOGGLE ==========
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.querySelector('.nav-links');
 
-if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        
-        // Change icon
-        const icon = menuToggle.querySelector('i');
-        if (navLinks.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      navLinks.classList.toggle('active');
+      
+      // Change icon
+      const icon = menuToggle.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
     });
     
     // Close menu when clicking on a link
     const navItems = navLinks.querySelectorAll('a');
     navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            menuToggle.querySelector('i').classList.remove('fa-times');
-            menuToggle.querySelector('i').classList.add('fa-bars');
-        });
+      item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        if (menuToggle.querySelector('i')) {
+          menuToggle.querySelector('i').classList.remove('fa-times');
+          menuToggle.querySelector('i').classList.add('fa-bars');
+        }
+      });
     });
-}
 
-// Carousel functionality
-const carouselInner = document.querySelector('.carousel-inner');
-const indicators = document.querySelectorAll('.carousel-indicator');
-let currentSlide = 0;
-
-if (carouselInner && indicators.length > 0) {
-    function showSlide(index) {
-        // Update carousel position
-        carouselInner.style.transform = `translateX(-${index * 100}%)`;
-        
-        // Update indicators
-        indicators.forEach((indicator, i) => {
-            indicator.classList.toggle('active', i === index);
-        });
-        
-        currentSlide = index;
-    }
-    
-    // Initialize first indicator as active
-    indicators[0].classList.add('active');
-    
-    // Add click events to indicators
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            showSlide(index);
-        });
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+        navLinks.classList.remove('active');
+        if (menuToggle.querySelector('i')) {
+          menuToggle.querySelector('i').classList.remove('fa-times');
+          menuToggle.querySelector('i').classList.add('fa-bars');
+        }
+      }
     });
-    
-    // Auto slide every 5 seconds
-    setInterval(() => {
-        currentSlide = (currentSlide + 1) % indicators.length;
-        showSlide(currentSlide);
-    }, 5000);
-}
+  }
 
-// Close dropdowns when clicking outside (for mobile)
-document.addEventListener('click', (event) => {
+  // ========== MOBILE DROPDOWN HANDLING ==========
+  const dropdownButtons = document.querySelectorAll('.dropbtn');
+  
+  dropdownButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const dropdown = this.nextElementSibling;
+        if (dropdown && dropdown.classList.contains('dropdown-content')) {
+          // Toggle this dropdown
+          const isVisible = dropdown.style.display === 'block';
+          
+          // Close all dropdowns first
+          document.querySelectorAll('.dropdown-content').forEach(dd => {
+            dd.style.display = 'none';
+          });
+          
+          // Open this one if it was closed
+          if (!isVisible) {
+            dropdown.style.display = 'block';
+          }
+        }
+      }
+    });
+  });
+
+  // Close dropdowns when clicking outside on mobile
+  document.addEventListener('click', function(e) {
     if (window.innerWidth <= 768) {
-        const dropdowns = document.querySelectorAll('.dropdown-content');
+      const dropdowns = document.querySelectorAll('.dropdown-content');
+      let shouldClose = true;
+      
+      // Check if click is inside any dropdown or its button
+      dropdowns.forEach(dropdown => {
+        const button = dropdown.previousElementSibling;
+        if (dropdown.contains(e.target) || (button && button.contains(e.target))) {
+          shouldClose = false;
+        }
+      });
+      
+      if (shouldClose) {
         dropdowns.forEach(dropdown => {
-            if (!dropdown.parentElement.contains(event.target)) {
-                dropdown.style.display = 'none';
-            }
+          dropdown.style.display = 'none';
         });
+      }
     }
+  });
+
+  // ========== WINDOW RESIZE HANDLER ==========
+  function handleResize() {
+    // Reset dropdowns on desktop
+    if (window.innerWidth > 768) {
+      document.querySelectorAll('.dropdown-content').forEach(dd => {
+        dd.style.display = '';
+      });
+      
+      // Close mobile menu if open
+      if (navLinks && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        if (menuToggle && menuToggle.querySelector('i')) {
+          menuToggle.querySelector('i').classList.remove('fa-times');
+          menuToggle.querySelector('i').classList.add('fa-bars');
+        }
+      }
+    }
+  }
+
+  // Listen for resize events
+  window.addEventListener('resize', handleResize);
+  handleResize(); // Run once on load
 });
