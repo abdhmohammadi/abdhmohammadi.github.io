@@ -770,14 +770,20 @@ body {
     z-index: 1001;
 }
 
+/* Disable hover on mobile */
+@media (max-width: 768px) {
+    .dropdown:hover .dropdown-content {
+        display: none !important;
+    }
+}
 /* Mobile Styles */
 @media (max-width: 768px) 
 {
-    /* Show hamburger menu */
+    
     .menu-toggle 
     {
         display: block;
-    /* Make sure menu toggle button is visible */
+   
         z-index: 1000;
     }
         
@@ -786,7 +792,7 @@ body {
         display: flex;
     }
 
-    /* Navbar adjustments */
+   
     .navbar {
         flex-wrap: wrap;
         position: relative;
@@ -794,7 +800,7 @@ body {
         height: auto;
         min-height: var(--header-height);
     }
-    /* Hide nav links by default, show as mobile menu */
+    
     .nav-links 
     {
         display: none;
@@ -831,23 +837,37 @@ body {
         font-size: 1.1rem;
     }
     
-    /* Better dropdown styling for mobile */
+    
     .dropdown-content {
+        display: none !important; /* Start hidden */
         position: static !important;
-        display: none;
         width: 100% !important;
-        box-shadow: none;
-        background-color: rgba(249, 249, 249, 0.95);
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         border-radius: 8px;
-        margin-top: 5px;
-        margin-bottom: 10px;
+        margin: 5px 0 15px 0;
         padding: 10px 0;
         animation: fadeIn 0.3s ease;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
         left: auto !important;
         right: auto !important;
-        min-width: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+    }
+    .dropdown-content.mobile-open {
+        display: block !important;
     }
     
+    .dropdown-content li {
+        padding: 8px 20px;
+    }
+    
+    .dropdown-content a {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
     .dropdown-content.active {
         display: block;
     }
@@ -867,7 +887,7 @@ body {
         background-color: rgba(52, 152, 219, 0.1);
     }
     
-    /* Add indicator for dropdown items */
+   
     .dropdown > a.dropbtn::after {
         content: ' ▼';
         font-size: 0.8em;
@@ -875,10 +895,10 @@ body {
     }
     
     .dropdown:hover .dropdown-content {
-        display: none; /* Disable hover on mobile */
+        display: none; 
     }
+
     
-    /* Logo adjustments */
     .logo {
         width: 100%;
         justify-content: center;
@@ -893,7 +913,7 @@ body {
         font-size: 0.9rem;
     }
     
-    /* Hero section adjustments */
+    
     .hero {
         flex-direction: column;
         padding: 20px 15px;
