@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ========== MOBILE DROPDOWN HANDLING ==========
   const dropdownButtons = document.querySelectorAll('.dropbtn');
-  
+
   dropdownButtons.forEach(button => {
     button.addEventListener('click', function(e) {
       if (window.innerWidth <= 768) {
@@ -122,41 +122,50 @@ document.addEventListener('DOMContentLoaded', function () {
           // Toggle this dropdown
           const isVisible = dropdown.style.display === 'block';
           
-          // Close all dropdowns first
+          // Close all other dropdowns
           document.querySelectorAll('.dropdown-content').forEach(dd => {
-            dd.style.display = 'none';
+            if (dd !== dropdown) {
+              dd.style.display = 'none';
+            }
           });
           
-          // Open this one if it was closed
-          if (!isVisible) {
-            dropdown.style.display = 'block';
-          }
+          // Toggle current dropdown
+          dropdown.style.display = isVisible ? 'none' : 'block';
         }
       }
     });
   });
 
+
+
   // Close dropdowns when clicking outside on mobile
   document.addEventListener('click', function(e) {
     if (window.innerWidth <= 768) {
       const dropdowns = document.querySelectorAll('.dropdown-content');
-      let shouldClose = true;
+      let clickedInsideDropdown = false;
       
       // Check if click is inside any dropdown or its button
       dropdowns.forEach(dropdown => {
         const button = dropdown.previousElementSibling;
         if (dropdown.contains(e.target) || (button && button.contains(e.target))) {
-          shouldClose = false;
+          clickedInsideDropdown = true;
         }
       });
       
-      if (shouldClose) {
+      // Also check if click is inside nav links (mobile menu)
+      const navLinks = document.querySelector('.nav-links');
+      if (navLinks && navLinks.contains(e.target)) {
+        clickedInsideDropdown = true;
+      }
+      
+      // Close dropdowns if clicked outside
+      if (!clickedInsideDropdown) {
         dropdowns.forEach(dropdown => {
           dropdown.style.display = 'none';
         });
       }
     }
-  });
+});
 
   // ========== WINDOW RESIZE HANDLER ==========
   function handleResize() {
