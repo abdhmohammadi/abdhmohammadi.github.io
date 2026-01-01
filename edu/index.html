@@ -45,6 +45,10 @@
                     <span>RTL/LTR</span>
                 </button>
                 -->
+                <!-- Add this button inside .navbar, before closing </nav> -->
+                <button class="menu-toggle" id="menuToggle" aria-label="منو">
+                    <i class="fas fa-bars"></i>
+                </button>
             </nav>
     </header>
 
@@ -284,4 +288,84 @@
 
     <script src="js/index.js"></script>
 </body>
+
+<script>
+    // Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        
+        // Change icon
+        const icon = menuToggle.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+    
+    // Close menu when clicking on a link
+    const navItems = navLinks.querySelectorAll('a');
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            menuToggle.querySelector('i').classList.remove('fa-times');
+            menuToggle.querySelector('i').classList.add('fa-bars');
+        });
+    });
+}
+
+// Carousel functionality
+const carouselInner = document.querySelector('.carousel-inner');
+const indicators = document.querySelectorAll('.carousel-indicator');
+let currentSlide = 0;
+
+if (carouselInner && indicators.length > 0) {
+    function showSlide(index) {
+        // Update carousel position
+        carouselInner.style.transform = `translateX(-${index * 100}%)`;
+        
+        // Update indicators
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === index);
+        });
+        
+        currentSlide = index;
+    }
+    
+    // Initialize first indicator as active
+    indicators[0].classList.add('active');
+    
+    // Add click events to indicators
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            showSlide(index);
+        });
+    });
+    
+    // Auto slide every 5 seconds
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % indicators.length;
+        showSlide(currentSlide);
+    }, 5000);
+}
+
+// Close dropdowns when clicking outside (for mobile)
+document.addEventListener('click', (event) => {
+    if (window.innerWidth <= 768) {
+        const dropdowns = document.querySelectorAll('.dropdown-content');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.parentElement.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    }
+});
+</script>
+
 </html>
