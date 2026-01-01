@@ -352,8 +352,8 @@ section {
 }
 
 /* Publications */
-.publications-list h3 {
-    font-size: 1.3rem;
+.publications h3 {
+    font-size: 2rem;
     margin-bottom: 10px;
     color: var(--primary);
 }
@@ -680,11 +680,6 @@ footer {
         width: 350px;
         height: 240px;
     }
-    
-    .publications-list {
-        margin: 50px;
-    }
-    
     .navbar {
         padding: 0 20px;
     }
@@ -751,19 +746,6 @@ footer {
         margin: 0 auto;
         border-radius: 10px;
     }
-
-    /* Biography adjustments 
-    .bio
-    {
-        padding-left: 40px;
-        padding-right: 440px;
-    }*/
-    /*
-    .bio-text h3 {
-        text-align: center;
-        font-size: 1.5rem;
-    }
-    */
 
     .bio-text
     {
