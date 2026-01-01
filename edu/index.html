@@ -5,12 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdullah Mohammadi | Mathematics Teacher</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="../images/abdh-01.jpg" type="image/x-icon">
+    <link rel="icon" href="../images/abdh-01.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet">
 
 </head>
 <body dir="rtl">
+    <!-- Mobile Side Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+<!-- Mobile Side Menu -->
+<nav class="mobile-side-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div class="mobile-logo">
+      <img src="../images/abdh-01.png" width="50" height="50" alt="Abdullah Mohammadi">
+      <div>
+        <h3>عبدالله محمدی</h3>
+        <p>Abdullah Mohammadi</p>
+      </div>
+    </div>
+    <button class="mobile-close" id="mobileClose">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  
+  <div class="mobile-menu-content">
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html"><i class="fas fa-home"></i> صفحه اصلی</a></li>
+      
+      <li class="mobile-menu-item">
+        <a href="#" class="mobile-menu-toggle">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <p>تدریس</p>
+          <i class="fas fa-chevron-down toggle-icon"></i>
+        </a>
+        <ul class="mobile-submenu">
+          <li><a href="pages/exam-collection.html"><i class="fas fa-file-alt"></i> نمونه سوالات امتحانها</a></li>
+          <li><a href="pages/teaching-resources.html"><i class="fas fa-book"></i> منابع تدریس</a></li>
+          <li><a href="#" class="disabled"><i class="fas fa-clipboard-list"></i> طرح درس</a></li>
+          <li><a href="#" class="disabled"><i class="fas fa-user-graduate"></i> تدریس خصوصی</a></li>
+        </ul>
+      </li>
+      
+      <li><a href="#research"><i class="fas fa-newspaper"></i> مقالات</a></li>
+      <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu"><i class="fas fa-blog"></i> وبلاگ</a></li>
+      <li><a href="#contact"><i class="fas fa-address-book"></i> تماس با من</a></li>
+    </ul>
+    
+    <div class="mobile-contact-info">
+      <a href="tel:+989372561238" class="mobile-phone">
+        <i class="fas fa-phone-alt"></i>
+        0937-256-1238
+      </a>
+      <a href="mailto:abdhmohammady@gmail.com" class="mobile-email">
+        <i class="fas fa-envelope"></i>
+        abdhmohammady@gmail.com
+      </a>
+    </div>
+  </div>
+</nav>
     <!-- Header & Navigation -->
     <header> 
             <nav class="navbar">
@@ -45,8 +98,7 @@
                     <span>RTL/LTR</span>
                 </button>
                 -->
-                <!-- Add this button inside .navbar, before closing </nav> -->
-                <button class="menu-toggle" id="menuToggle" aria-label="منو">
+               <button class="menu-toggle" id="menuToggle" aria-label="منو">
                     <i class="fas fa-bars"></i>
                 </button>
             </nav>
@@ -65,7 +117,7 @@
         </div>
        
         <!-- Image Carousel -->
-        <div class="left">
+        <div class="right">
 
             <div class="carousel-container">
                 <div class="carousel-inner">
@@ -95,7 +147,7 @@
 
         <div class="right">
             <h1 data-en="The beauty of mathematics only shows itself to more patient followers." data-fa="ریاضیات، زیبایی خود را فقط به کسانی نشان می‌دهد که با صبر و بردباری آن را دنبال کنند.">ریاضیات، زیبایی خود را فقط به کسانی نشان می‌دهد که با صبر و بردباری آن را دنبال کنند.</h1>
-            <p data-en="Prof. Maryam Mirzakhani" data-fa="پرفسور مریم میرزاخانی">پرفسور مریم میرزاخانی</p>
+            <p data-en="Prof. Maryam Mirzakhani" data-fa="«پرفسور مریم میرزاخانی»">پرفسور مریم میرزاخانی</p>
                 <!--<a href="#bio" class="btn">Explore My Journey</a> -->
         </div>
     </div>
@@ -108,7 +160,6 @@
             </div>
         -->
     <!-- Biography Section -->
-
     <div id="bio" class="bio">
             <!--
             <div class="section-header">
@@ -128,39 +179,42 @@
                     <!--<p>His other studies and interests include programming, data analysis, developing natural language processing models, and deep learning algorithms.</p> -->
                     <p>از مطالعات و علاقمندی های دیگر او برنامه نویسی، تحلیل داده ها، توسعه مدل های پردازش زبان طبیعی و الگوریتمهای یادگیری عمیق است.</p>
                     
-                    <div class="highlight-card">
-                            <h4>تحصیلات</h4>
-                            <p>کارشناسی ارشد علوم داده از دانشگاه فردوسی مشهد</p>
-                            <p>کارشناسی ریاضیات کاربردی از دانشگاه فردوسی مشهد</p>
-                    </div>
                 </div>
             </div>
     </div>
 
     <!-- Published Papers -->
-    <section id="research">
-    <h2 class="section-title">مقالات</h2>
+    <div class="publications" id="publications">
 
-    <ul class="publications-list">
-        <li class="publication-item">
-        <span class="publication-title">
-            Gravitational least squares twin support vector machine based on optimal angle for class imbalance learning
-        </span>
-        <br>
-        <span class="publication-authors">
-            Abdullah Mohammadi, Jalal A. Nasiri, Sohrab Effati
-        </span>
-        <br>
-        <span class="publication-journal">
-            Journal of Applied Mathematics and Computation, 2026
-        </span>
-        <br>
-        <a class="publication-link" href="https://doi.org/10.1016/j.amc.2025.129705" target="_blank">
-            View Paper
-        </a>
-        </li>
+ <!--<ul class="publications-list">--> 
+        <div class="highlight-card">
+            <h4>تحصیلات</h4>
+            <p>کارشناسی ارشد علوم داده از دانشگاه فردوسی مشهد</p>
+            <p>کارشناسی ریاضیات کاربردی از دانشگاه فردوسی مشهد</p>
+        </div> 
 
-        <li class="publication-item">
+        <h3>مقالات</h3>   
+        
+        <div class="highlight-card" style="text-align: left;">
+                <span class="publication-title">
+                    Gravitational least squares twin support vector machine based on optimal angle for class imbalance learning
+                </span>
+                <br>
+                <span class="publication-authors">
+                    Abdullah Mohammadi, Jalal A. Nasiri, Sohrab Effati
+                </span>
+                <br>
+                <span class="publication-journal">
+                    Journal of Applied Mathematics and Computation, 2026
+                </span>
+                <br>
+                <a class="publication-link" href="https://doi.org/10.1016/j.amc.2025.129705" target="_blank">
+                    View Paper
+                </a>
+            </div>
+        
+
+        <div class="highlight-card">
         <span class="publication-title">
         از تصمیم‌سازی تا طرحواره‌سازی: تلفیق ساخت و ساز گرایی، تصمیم‌سازی  و طرحواره‌های ذهنی در آموزش  ریاضی برای ارتقای تدریس و یادگیری ریاضی
         </span>
@@ -176,9 +230,9 @@
         <a class="publication-link" href="https://tmsj.um.ac.ir/article_47676.html" target="_blank">
             View Paper
         </a>
-        </li>
+    </div>
 
-        <li class="publication-item">
+        <div class="highlight-card">
         <span class="publication-title">
         ماشین بردار پشتیبان دوقلو برای داده های نامتوازن
         </span>
@@ -198,9 +252,9 @@
         <a class="publication-link" href="#" target="_blank">
             View Paper
         </a>
-        </li>
+    </div>
 
-        <li class="publication-item">
+        <div class="highlight-card">
         <span class="publication-title">
             پیش بینی بیماری های مزمن با داده های نامتوازن توسط ماشین بردار پشتیبان گرانشی
         </span>
@@ -216,9 +270,10 @@
         <a class="publication-link" href="https://ecc.isc.ac/showJournal/39989/282326/3559496" target="_blank">
             View Paper
         </a>
-        </li>
-    </ul>
-    </section>
+    </div>
+        
+    
+    </div>
     <!-- Social & Contact Section -->
 
         <div class="container" id="contact">
@@ -285,6 +340,8 @@
     </footer>
 
     <script src="js/index.js"></script>
+
+
 </body>
 
 </html>
