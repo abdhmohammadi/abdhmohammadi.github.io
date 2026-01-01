@@ -613,13 +613,25 @@ body.rtl .carousel-indicators
 
 @media (max-width: 768px) 
 {
+
+    
+.carousel-container
+{
+  width: 80%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+  border-radius: 10px;
+}
     /* Navbar Mobile */
     .menu-toggle 
     {
         display: flex;
     }
 
-    .nav-links {
+    .nav-links 
+    {
         position: fixed;
         top: 0;
         right: -100%; /* Start off-screen */
@@ -634,12 +646,14 @@ body.rtl .carousel-indicators
         z-index: 999;
     }
 
-    .nav-links.active {
+    .nav-links.active 
+    {
         right: 0; /* Slide in */
     }
 
     /* Hero Mobile: Stack Vertically */
-    .hero {
+    .hero 
+    {
         flex-direction: column-reverse; /* Text on top, or remove reverse for Image on top */
         text-align: center;
         padding-top: 20px;
