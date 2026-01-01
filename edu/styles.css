@@ -613,16 +613,22 @@ body.rtl .carousel-indicators
 
 @media (max-width: 768px) 
 {
-
+    .hero 
+    {
+        display: flex 1fr;
+        /*align-items: flex-start; Align both divs to top 
+        gap: 20px;                  Space between left and right 
+        padding: 20px;*/
+    }
     
 .carousel-container
 {
   width: 80%;
   height: auto;
-  overflow: hidden;
+  /*overflow: hidden;
   position: relative;
   margin: auto;
-  border-radius: 10px;
+  border-radius: 10px;*/
 }
     /* Navbar Mobile */
     .menu-toggle 
