@@ -101,8 +101,8 @@
 
         [data-theme="dark"] {
             /* Dark theme */
-            --primary: #8bb9fe;
-            --secondary: #9d8bfe;
+            --primary: #667eea;
+            --secondary: #764ba2;
             --accent: #ffd700;
             --text-dark: #e0e0e0;
             --text-light: #b0b0b0;
@@ -294,7 +294,7 @@
         }
 
         .contact-info {
-            background: linear-gradient(135deg, var(--bg-light) 0%, var(--text-dark) 100%);
+            background: var(--bg-light);
             color: var(--text-light);
             border: 1px solid var(--border);
             padding-top: 0px;
@@ -393,7 +393,7 @@
             align-items: center;
             margin: 0px;
             padding: 15px;
-            border-bottom: 3px solid var(--primary);
+            /* border-bottom: 3px solid var(--primary);*/
         }
         
         .toc-header h2 {
@@ -444,7 +444,7 @@
         .toc-link {
             display: block;
             padding: 15px;
-            background: var(--bg-light);
+            /*background: var(--bg-light);*/
             color: var(--text-dark);
             text-decoration: none;
             border-radius: 8px;
@@ -847,7 +847,7 @@
         
         .modal-header {
             padding: 20px;
-            background: var(--primary);
+            background: var(--secondary);
             color: white;
             display: flex;
             justify-content: space-between;
@@ -1004,7 +1004,7 @@
                 </button>
                 
                 <button class="nav-btn">
-                    <a href="../index.html" style="text-decoration: none; color: inherit;"><i class="fas fa-home"></i> خانه</a>
+                    <a href="../index.html" style="text-decoration: none; color: inherit;"><i class="fas fa-home"></i></a>
                 </button>
                 <button class="nav-btn" id="tocBtn" onclick="toggleTOC()">
                     <i class="fas fa-bars"></i>
@@ -2238,7 +2238,39 @@
             nextBtn.disabled = isLastPage && isLastChapter;
         }
 
-        function updateActiveTOC() {
+
+
+///////////////////////////
+
+function updateActiveTOC() {
+    // Update chapter links
+    document.querySelectorAll('.toc-link').forEach((link, index) => {
+        if (index === currentState.currentChapter) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+    
+    // Find the active chapter's sub-list
+    const activeChapter = document.querySelectorAll('.toc-item')[currentState.currentChapter];
+    if (activeChapter) {
+        // Remove active from ALL sub-links first
+        document.querySelectorAll('.toc-sub-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Add active to current page's sub-link in active chapter
+        const subLinks = activeChapter.querySelectorAll('.toc-sub-link');
+        if (subLinks.length > 0 && currentState.currentPage < subLinks.length) {
+            subLinks[currentState.currentPage].classList.add('active');
+        }
+    }
+}
+
+/////////////////////////////////
+
+        function updateActiveTOC00() {
             // Update track links
             document.querySelectorAll('.toc-link').forEach((link, index) => {
                 if (index === currentState.currentTrack) {
