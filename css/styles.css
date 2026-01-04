@@ -916,6 +916,53 @@ p {
     transform: translateY(0);
 }
 
+/* اضافه کردن به style.css */
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.form-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    display: none;
+}
+
+.form-message.success {
+    display: block;
+    background-color: #10b981;
+    color: white;
+}
+
+.form-message.error {
+    display: block;
+    background-color: #ef4444;
+    color: white;
+}
+
+.form-message.info {
+    display: block;
+    background-color: #3b82f6;
+    color: white;
+}
+
+.form-group input:invalid,
+.form-group textarea:invalid {
+    border-color: #ef4444;
+}
+
+.form-group input:valid,
+.form-group textarea:valid {
+    border-color: #10b981;
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
     .hero-container {

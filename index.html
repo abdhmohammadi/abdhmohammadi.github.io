@@ -42,7 +42,7 @@
                     
                     <ul class="dropdown-menu">
                         
-                        <li><a href="blogs/open-source.html">Open Source Studies</a></li>
+                        <li><a href="#">Open Source Studies</a></li>
                         <li><a href="blogs/edu.html">Education Experience</a></li>
                         <li><a href="blogs/ds.html">Data Science</a></li>
                         <li><a href="blogs/blogmanager.html">Managment(private)</a></li>
@@ -304,7 +304,7 @@
                         <span>Experiments</span>
                         <span>Open Source</span>
                     </div>
-                    <a href="blogs/open-source.html" class="project-link">
+                    <a href="#" class="project-link">
                         View Studies <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -334,7 +334,7 @@
                 <article class="blog-card">
                     <h3>Open Source Studies</h3>
                     <p>Documentation of personal learning journeys, code experiments, and open source project contributions.</p>
-                    <a href="blogs/open-source.html" class="blog-link">View Studies <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="blog-link">View Studies <i class="fas fa-arrow-right"></i></a>
                 </article>
             </div>
         </div>
@@ -383,22 +383,41 @@
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="pointer-events: none; background: gray;">
-                            <i class="fas fa-paper-plane"></i> Send Message
-                        </button>
-                    </form>
-                </div>
+                <!-- در بخش Contact فرم -->
+<div class="contact-form">
+    <form id="contactForm">
+        <div class="form-group">
+            <input type="text" id="contactName" name="name" placeholder="Your Name" required>
+            <div class="error-message" id="nameError"></div>
+        </div>
+        
+        <div class="form-group">
+            <input type="email" id="contactEmail" name="email" placeholder="Your Email" required>
+            <div class="error-message" id="emailError"></div>
+        </div>
+        
+        <div class="form-group">
+            <input type="text" id="contactSubject" name="subject" placeholder="Subject" required>
+            <div class="error-message" id="subjectError"></div>
+        </div>
+        
+        <div class="form-group">
+            <textarea id="contactMessage" name="message" placeholder="Your Message" rows="5" required></textarea>
+            <div class="error-message" id="messageError"></div>
+        </div>
+        
+        <div class="form-group" style="display: none;">
+            <input type="text" id="contactBot" name="_bot">
+        </div>
+        
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+    </form>
+    
+    <div id="formMessage" class="form-message"></div>
+</div>
+
             </div>
         </div>
     </section>
@@ -444,5 +463,6 @@
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>

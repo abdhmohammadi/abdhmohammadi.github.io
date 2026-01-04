@@ -214,8 +214,8 @@ if (contactForm) {
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-        submitBtn.disabled = true;
+        //submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+        //submitBtn.disabled = true;
         
         setTimeout(() => {
             submitBtn.innerHTML = originalText;
