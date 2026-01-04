@@ -101,7 +101,8 @@ header {
     height: var(--header-height);
 }
 
-.navbar {
+.navbar 
+{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -117,7 +118,11 @@ header {
     font-weight: 700;
     color: var(--secondary);
 }
-
+.logo a
+{
+    color: chocolate;
+    text-decoration: none;
+}
 .nav-links {
     list-style: none;
     padding: 0;
@@ -188,7 +193,6 @@ header {
     cursor: not-allowed;
 }
 
-/* Hamburger Menu */
 .menu-toggle {
     display: none;
     background: none;
@@ -197,8 +201,8 @@ header {
     color: var(--primary);
     cursor: pointer;
     padding: 10px;
+    /* left: auto; - This can be removed as Flexbox handles positioning */
 }
-
 /* Hero Section */
 .hero {
     display: flex;
@@ -284,6 +288,7 @@ header {
     max-width: 650px;
     font-size: 2rem;
     font-weight: 500;
+    text-align: justify;
     color: var(--text-primary);
 }
 
@@ -492,9 +497,9 @@ footer {
 }
 
 /* ========== MOBILE SIDE MENU ========== */
-.mobile-menu-overlay {
+.mobile-menu-overlay 
+{
     display: none;
-    position: fixed;
     top: 0;
     right: 0;
     width: 100%;
@@ -722,11 +727,12 @@ footer {
 }
 
 /* Theme Toggle Button */
-.theme-toggle {
+.theme-toggle 
+{
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--text-primary);
+    color: var(--primary);
     cursor: pointer;
     padding: 10px;
     display: flex;
@@ -735,7 +741,8 @@ footer {
     transition: var(--transition);
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover 
+{
     color: var(--secondary);
     transform: rotate(30deg);
 }
@@ -789,12 +796,9 @@ footer {
     .menu-toggle 
     {
         display: block;
-        margin-right: auto;
+        margin-left: auto;
     }
-    .logo
-    {
-        display: none !important;
-    }
+   
     /* Hide desktop navigation */
     .nav-links {
         display: none !important;
@@ -802,19 +806,28 @@ footer {
     
     /* Adjust navbar layout */
     .navbar {
+
         justify-content: space-between;
         padding: 0 20px;
     }
-    
-    .logo {
+        
+    /* .logo 
+    {
         order: 2;
-    }
-    
-    /* Hide phone in logo on mobile */
-    .logo a[href^="tel:"] {
+    }Hide phone in logo on mobile */
+    .logo img 
+    {
         display: none !important;
     }
     
+    .logo a[href^="tel:"] 
+    {
+        display: none !important;
+    }
+    .logo span
+    {
+        font-size: 10pt;
+    }
     /* Hero section adjustments */
     .hero {
         flex-direction: column;
@@ -887,12 +900,21 @@ footer {
 
 /* Very small screens (480px and below) */
 @media (max-width: 480px) {
-    .logo
+    
+    .logo a[href^="tel:"] 
     {
         display: none !important;
     }
-    
-    .hero .right h1 {
+    .logo img 
+    {
+        display: none !important;
+    }
+    .logo span
+    {
+        font-size: 10pt;
+    }
+    .hero .right h1 
+    {
         font-size: 1.2rem;
     }
     

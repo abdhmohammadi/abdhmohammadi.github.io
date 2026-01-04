@@ -3,316 +3,446 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdullah Mohammadi | Mathematics Teacher & Data Science Researcher</title>
+    <title>Abdullah Mohammadi | Data Science Graduate & Researcher</title>
+    <meta name="description" content="Data Science graduate, Mathematics teacher, and researcher in machine learning with focus on Twin SVM, Deep Learning, and NLP.">
     
-    <!-- SEO & Sharing -->
-    <meta name="description" content="High school mathematics teacher and data science researcher. Bridging education and AI.">
-    <meta property="og:title" content="Abdullah Mohammadi | Mathematics & Data Science">
-    <meta property="og:description" content="Portfolio of a math educator and data science enthusiast.">
-    <meta property="og:image" content="images/abdh.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- Favicon -->
-    <link rel="icon" href="images/abdh-C.png" type="image/x-icon">
-
-    <!-- Fonts & Icons -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GETJHE2HM5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GETJHE2HM5');
-</script>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <span>Abdh. Mohammadi</span>
-            </div>
-            <nav class="navbar">
-                <ul class="nav-links">
-                    <li><a href="#activities">Activities</a></li>
-                    <li><a href="#publications">Published Papers</a></li>
-                    <li class="dropdown">
-                        <a href="#research" class="dropbtn">Blogs</a>
-                        <ul class="dropdown-content">
-                            <li><a href="blogs/edu.html">Education Experience Blog</a></li>
-                            
-                            <li><a href="blogs/ds.html">Data Science Blog</a></li>
-                           <!-- <li><a href="https://script.google.com/macros/s/AKfycbzd3PvtVwqofro8HwOyql9RHvY02ZoH9IIIyjieVSnI8aidvwCPrKKjE_TB6d3GBOE4AQ/exec">Blog Manager</a></li>
-                            -->
-                            <li><a href="blogs/blogmanager.html">Managment(private)</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Bio</a></li>
-                    <li><a href="#contact-info">Contact</a></li>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-text">Abdh. Mohammadi</span>
+                <span class="logo-subtitle">Data Scientist</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li class="dropdown">
+
+                    <!-- <div style="display: flex; gap: 15px; margin: 0px;align-items: center;"> -->
+                        <a href="#blogs">Blogs <i class="fas fa-chevron-down"></i> </a>
+                    <!-- </div>-->
                     
-                </ul>
-                <button id="theme-toggle" class="theme-switch">Switch Theme</button>
-            </nav>
+                    <ul class="dropdown-menu">
+                        
+                        <li><a href="blogs/open-source.html">Open Source Studies</a></li>
+                        <li><a href="blogs/edu.html">Education Experience</a></li>
+                        <li><a href="blogs/ds.html">Data Science</a></li>
+                        <li><a href="blogs/blogmanager.html">Managment(private)</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="nav-actions" style="display: flex; gap: 10px;">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
-    </header>
-    
+    </nav>
+
     <!-- Hero Section -->
-    <div class="hero-container">
-        <div class="hero-content">
-            <!--<h1>Improving Education Through Data Sciences</h1> -->
-            <p style="font-size: 32px;">“Data is not the new oil, it is the new soil: barren without models, blind without code, and fruitless without thought.”</p>
-            <p style="font-size:12px;float: right;">(Abdh. Mohammadi, June 6, 2025)</p>
-            <div class="hero-buttons">
-                <a href="edu/index.html" class="btn btn-outline">Teaching & Education</a>
-                <a href="data-sciences/index.html" class="btn btn-outline">Data Science Projects</a>
-                <a href="https://github.com/abdhmohammadi/" class="btn btn-outline">⭐ Star me on Github</a>
-            </div>
-            <div class="hero-buttons">
-                <a href="https://raw.githack.com/abdhmohammadi/TeacherAssistant/main/docs/index.html">TeacherAssistant docs</a>
-            </div>
-        </div>
-       
-        <div class="hero-image">
-            <img src="images/abdh.jpg" alt="Abdh. Mohammadi" class="profile-photo">
-            <div class="hero-badge">
-                Math Teacher in N.Kh (+10 years experience)<br>
-                Data Science Researcher<br>Twin SVM | Deep Learning | NLP
-            </div>
-        </div>
-    </div>
-    
-    <!-- News Banner -->
-    <div class="news-banner">
-        <div class="news-slider">
-            
-            <div class="news-items-wrapper">
-            <!--
-                <div class="news-item">
-                    <div class="news-text" data-en="[2025-05-27] Specialized dictionary of NLP is in progress" data-fa="[1404-03-06] آغاز جمع آوری داده ها برای ساخت دیکشنری تخصصی NLP">
-                        [2025-05-27] Specialized dictionary of NLP is in progress
-                    </div>
-                    <a href="pages/nlp-sp-dic.html">GO</a>
-                </div>
-                <div class="news-item">
-                    <div class="news-text" data-en="[2025-04-01] Starting a Deep Dive into NLP" data-fa="[1404-02-20] شروع کاوش عمیق در NLP">
-                        [2025-04-01] Starting a Deep Dive into NLP
-                    </div>
-                    <a href="https://github.com/abdhmohammadi/NLP">Github</a>
-                </div>
-                <div class="news-item">
-                    <div class="news-text" data-en="[2025-04-01] Programming is my hobby, I am currently developing an application to automate some of my work tasks." 
-                                        data-fa="[1404-01-12] برنامه نویسی سرگرمی من است، در حال حاضر در حال توسعه برنامه ای برای خودکار کردن برخی از وظایف کاری خود هستم.">
-                        [2025-04-01] Programming is my hobby, I am currently developing an application to automate some of my work tasks.
-                    </div>
-                    <a href="TeacherAssistant-Help/index.html" class="learn-more-link">TeacherAssistant App (using Python)</a>
-                </div>
+    <section id="home" class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <!--
+                <h1 class="hero-title">
+                    <span class="greeting">Hello, I'm</span> 
+                    <span class="name">Abdullah Mohammadi</span>
+                </h1>
             -->
-            </div>
-        </div>
-    </div>
-    
-    <!-- Activities Section -->
-    <div id="activities" >
-        <div class="section-title">
-            <h2>Professional Activities</h2>
-            <p>Explore the teaching resources and data science projects</p>
-        </div>
-        
-        <div class="cards-container">
-            <!-- Teaching Card -->
-            <div class="card teaching" id="teaching">
-                <div class="card-image">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <div class="card-content">
-                   
-                        <h3>Teaching & Education</h3>
 
-                    <p>Access to educational resources designed for high school students, educational slides suitable for teachers, teaching approaches, lesson plans, videos, and more.</p>
-                    <p>All materials align with curriculum standards while fostering critical thinking and mathematical reasoning skills.<a href="mathematics-teacher/index.html" style="float: right;">Explore Teaching Resources</a>
-                    </p>   
+                <p class="hero-subtitle">Data Science Graduate | Independent Machine Learning Researcher<br>Mathematics Educator</p>
+ 
+                <p class="hero-quote">
+                    "Data is not the new oil, it is the new soil: barren without models, blind without code, and fruitless without thought."
+                    <span class="quote-author">— Abdullah Mohammadi, June 6, 2025</span>
+                </p>
+                
+                <div class="hero-badges">
+                    <span class="badge">Twin SVM Researcher</span>
+                    <span class="badge">Deep Learning</span>
+                    <span class="badge">NLP Specialist</span>
+                    <span class="badge">10+ Years Teaching</span>
+                </div>
+                
+                <div class="hero-actions">
+                    <a href="#publications" class="btn btn-primary">
+                        <i class="fas fa-file-alt"></i> View Publications
+                    </a>
+                    <a href="#projects" class="btn btn-secondary">
+                        <i class="fas fa-code"></i> View Projects
+                    </a>
+                    <a href="https://github.com/abdhmohammadi" class="btn btn-outline">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                   
+                     <a href="edu/index.html" class="btn btn-outline">
+                        <i class="fas fa-graduation-cap"></i> Educational Resources <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
             
-            <!-- Data Science Card -->
-            <div class="card data-science" id="data-science">
-                <div class="card-image">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="card-content">
-                    <h3>Data Sciences</h3>
-                    <p>Access to data science portfolios, machine learning projects, natural language processing, data visualization and more ... .</p>
-                    <p><!-- Projects include predictive analytics in education, NLP for student feedback analysis, and interactive data visualization tools for classroom use. These projects demonstrate how data science can enhance educational outcomes and provide valuable insights into student learning patterns. --><a href="data-sciences/index.html" style="float: right;">View Data Science Projects</a></p>
+            <div class="hero-image">
+                <div class="image-container">
+                    <img src="images/abdh.jpg" alt="Abdullah Mohammadi" class="profile-img">
+                    <div class="image-overlay"></div>
                 </div>
             </div>
         </div>
-        
-    </div>
-<!-- Published Papers -->
-<section id="publications" class="activities-section">
-  <h2 class="section-title">Published Papers</h2>
+    </section>
 
-  <ul class="publications-list">
-    <li class="publication-item">
-      <span class="publication-title">
-        Gravitational least squares twin support vector machine based on optimal angle for class imbalance learning
-      </span>
-      <br>
-      <span class="publication-authors">
-        Abdullah Mohammadi, Jalal A. Nasiri, Sohrab Effati
-      </span>
-      <br>
-      <span class="publication-journal">
-        Journal of Applied Mathematics and Computation, 2026
-      </span>
-      <br>
-      <a class="publication-link" href="https://doi.org/10.1016/j.amc.2025.129705" target="_blank">
-        View Paper
-      </a>
-    </li>
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I am a passionate Data Science graduate with a strong background in Mathematics education. 
+                        My research focuses on machine learning algorithms, particularly Twin Support Vector Machines, 
+                        Deep Learning, and Natural Language Processing applications.
+                    </p>
+                    <p>
+                        With over 10 years of experience in teaching mathematics, I bridge the gap between theoretical 
+                        concepts and practical applications, bringing educational insights into data science research.
+                    </p>
+                    
+                    <div class="education">
+                        <h3>Education</h3>
+                        <div class="edu-item">
+                            <h4>M.Sc. in Data Science (Applied Mathematics)</h4>
+                            <p class="edu-meta">Ferdowsi University of Mashhad | 2023</p>
+                            <p>Thesis: Twin Support Vector Machines for Class Imbalanced Learning</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-skills">
+                    <h3>Research Interests</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fas fa-brain"></i>
+                            <span>Machine Learning</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Data Science</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-language"></i>
+                            <span>Natural Language Processing</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-calculator"></i>
+                            <span>Mathematical Modeling</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Educational Technology</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <span>AI-based Educational content production</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <li class="publication-item">
-      <span class="publication-title">
-       از تصمیم‌سازی تا طرحواره‌سازی: تلفیق ساخت و ساز گرایی، تصمیم‌سازی  و طرحواره‌های ذهنی در آموزش  ریاضی برای ارتقای تدریس و یادگیری ریاضی
-      </span>
-      <br>
-      <span class="publication-authors">
-        عبدالله محمدی
-      </span>
-      <br>
-      <span class="publication-journal">
-        به سوی علوم ریاضی، 29/09/1404
-      </span>
-      <br>
-      <a class="publication-link" href="https://tmsj.um.ac.ir/article_47676.html" target="_blank">
-        View Paper
-      </a>
-    </li>
+    <!-- Publications Section -->
+    <section id="publications" class="section publications">
+        <div class="container">
+            <h2 class="section-title">Publications</h2>
+            <p class="section-subtitle">Research papers and academic publications</p>
+            
+            <div class="publications-grid">
+                <article class="publication-card">
+                    <div class="pub-header">
+                        <span class="pub-year">2026</span>
+                        <span class="pub-type">Journal Article</span>
+                    </div>
+                    <h3 class="pub-title">Gravitational least squares twin support vector machine based on optimal angle for class imbalance learning</h3>
+                    <p class="pub-authors">Abdullah Mohammadi, Jalal A. Nasiri, Sohrab Effati</p>
+                    <p class="pub-journal">Journal of Applied Mathematics and Computation</p>
+                    <div class="pub-actions">
+                        <a href="https://doi.org/10.1016/j.amc.2025.129705" class="pub-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View Paper
+                        </a>
+                        <a href="#" class="pub-link">
+                            <i class="fas fa-quote-right"></i> Cite
+                        </a>
+                    </div>
+                </article>
+                
+                <article class="publication-card">
+                    <div class="pub-header">
+                        <span class="pub-year">2025</span>
+                        <span class="pub-type">Conference Paper</span>
+                    </div>
+                    <h3 class="pub-title">Prediction of chronic diseases with imbalanced data using gravitational support vector machines</h3>
+                    <p class="pub-authors">Abdullah Mohammadi, Jalal A. Nasiri, Sohrab Effati</p>
+                    <p class="pub-journal">5th National Conference on Iranian Informatics</p>
+                    <div class="pub-actions">
+                        <a href="https://ecc.isc.ac/showJournal/39989/282326/3559496" class="pub-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View Paper
+                        </a>
+                    </div>
+                </article>
+                
+                <article class="publication-card">
+                    <div class="pub-header">
+                        <span class="pub-year">2024</span>
+                        <span class="pub-type">Thesis</span>
+                    </div>
+                    <h3 class="pub-title">Twin Support Vector Machines for Imbalanced Data</h3>
+                    <p class="pub-authors">Abdullah Mohammadi</p>
+                    <p class="pub-journal">M.Sc. Thesis, Ferdowsi University of Mashhad</p>
+                    <div class="pub-actions">
+                        <a href="#" class="pub-link">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="section-footer">
+                <a href="publications/pubications.html" class="btn btn-outline">
+                    <i class="fas fa-list"></i> View All Publications
+                </a>
+            </div>
+        </div>
+    </section>
 
-    <li class="publication-item">
-      <span class="publication-title">
-       ماشین بردار پشتیبان دوقلو برای داده های نامتوازن
-      </span>
-      <br>
-      <span class="publication-authors">
-        عبدالله محمدی
-      </span>
-      <br>
-      <span class="publication-authors">
-       اساتید راهنما: دکتر سهراب عفتی، دکتر جلال الدین نصیری
-      </span>
-      <br>
-      <span class="publication-journal">
-        پایان نامه کارشناسی ارشد، دانشگاه فردوسی مشهد 25/06/1403
-      </span>
-      <br>
-      <a class="publication-link" href="#" target="_blank">
-        View Paper
-      </a>
-    </li>
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section-title">Projects & Open Source</h2>
+            <p class="section-subtitle">Personal studies and open source contributions for learning</p>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>TeacherAssistant</h3>
+                    <p>A Python application for automating teaching tasks and classroom management.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Automation</span>
+                        <span>Education</span>
+                    </div>
+                    <a href="teacher-assisstant-docs/index.html" class="project-link">
+                        View Documentation <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>NLP Dictionary</h3>
+                    <p>Specialized dictionary for Natural Language Processing terminology and concepts.</p>
+                    <div class="project-tech">
+                        <span>NLP</span>
+                        <span>Dictionary</span>
+                        <span>Education</span>
+                    </div>
+                    <a href="data-sciences/pages/nlp/nlp-sp-dic.html" class="project-link">
+                        Explore Dictionary <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Educational Resources</h3>
+                    <p>Mathematics teaching materials, lesson plans, and educational slides for high school.</p>
+                    <div class="project-tech">
+                        <span>Mathematics</span>
+                        <span>Teaching</span>
+                        <span>Resources</span>
+                    </div>
+                    <a href="edu/index.html" class="project-link">
+                        Access Resources <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>Open Source Studies</h3>
+                    <p>Personal learning projects and experiments with various technologies and frameworks.</p>
+                    <div class="project-tech">
+                        <span>Learning</span>
+                        <span>Experiments</span>
+                        <span>Open Source</span>
+                    </div>
+                    <a href="blogs/open-source.html" class="project-link">
+                        View Studies <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <li class="publication-item">
-      <span class="publication-title">
-        پیش بینی بیماری های مزمن با داده های نامتوازن توسط ماشین بردار پشتیبان گرانشی
-      </span>
-      <br>
-      <span class="publication-authors">
-        عبدالله محمدی، جلال الدین نصیری، سهراب عفتی
-      </span>
-      <br>
-      <span class="publication-journal">
-        پنجمین کنفرانس ملی انفورماتیک ایران، 14 دی ماه 1402
-      </span>
-      <br>
-      <a class="publication-link" href="https://ecc.isc.ac/showJournal/39989/282326/3559496" target="_blank">
-        View Paper
-      </a>
-    </li>
-  </ul>
-</section>
+    <!-- Blogs Preview -->
+    <section class="section blogs-preview">
+        <div class="container">
+            <h2 class="section-title">Latest from My Blogs</h2>
+            
+            <div class="blogs-grid">
+
+                <article class="blog-card">
+                    <h3>Education Experience Blog</h3>
+                    <p>Reflections on teaching methodologies, classroom experiences, and educational insights from 10+ years of teaching mathematics.</p>
+                    <a href="blogs/edu.html" class="blog-link">Read Education Blog <i class="fas fa-arrow-right"></i></a>
+                </article>
+                
+                <article class="blog-card">
+                    <h3>Data Science Insights Blog</h3>
+                    <p>Tutorials, research notes, and practical applications of machine learning, data analysis, and NLP techniques.</p>
+                    <a href="blogs/ds.html" class="blog-link">Read Data Science Insights <i class="fas fa-arrow-right"></i></a>
+                </article>
+                
+                <article class="blog-card">
+                    <h3>Open Source Studies</h3>
+                    <p>Documentation of personal learning journeys, code experiments, and open source project contributions.</p>
+                    <a href="blogs/open-source.html" class="blog-link">View Studies <i class="fas fa-arrow-right"></i></a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <!-- <a href="mailto:abdhmohammady@gmail.com">abdhmohammady@gmail.com</a> -->
+                            <a href="mailto:abdhmohammadi@alumni.um.ac.ir">abdhmohammadi@alumni.um.ac.ir</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Bojnord, North Khorasan, Iran</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-social">
+                        <h4>Connect</h4>
+                        <div class="social-links">
+                            <a href="https://github.com/abdhmohammadi" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/abdhmohammadi" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="tg://resolve?domain=abdhmohammadi" aria-label="Telegram">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                            <a href="https://scholar.google.com" aria-label="Google Scholar">
+                                <i class="fas fa-graduation-cap"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="pointer-events: none; background: gray;">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <div class="footer-container">
-                <div class="footer-section" style="width: 40%;" id="contacts">
-                    <h3>Abdullah Mohammadi</h3>
-                    <p>Certified Mathematics Teacher and Machine Learning Researcher, interested in psychology-based education and data-driven insights.</p>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/abdhmohammadi"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="tg://resolve?domain=abdhmohammadi"><i class="fab fa-telegram"></i></a>
-                        <a href="https://github.com/abdhmohammadi"><i class="fab fa-github"></i></a>
-                        <a href="https://shad.ir/abdhmohammadi" aria-label="Shad"><img style="width:18px;height:20px;" src="images/shad.png" alt="Shad icon" /></a>
-                    </div>
+            <div class="footer-content">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">Abdh. Mohammadi</a>
+                    <p>Independent researcher in Data Science and Mathematics educator bridging education and AI through research and innovation.</p>
                 </div>
                 
-                <div class="footer-section"  style="width: 20%;">
-                    <h3>Contact</h3>
-                    <ul class="contact-info" id="contact-info">
-                        <li><i class="fas fa-envelope"></i><a href="mailto:abdhmohammady@gmail.com">abdhmohammady@gmail.com</a></li>
-                        <li><i class="fas fa-envelope"></i><a href="abdhmohammadi@alumni.um.ac.ir">abdhmohammadi@alumni.um.ac.ir</a></li>
-                        <li><i class="fas fa-phone"></i><span>(+98)-937-256-1238</span></li>
-                        <li><i class="fas fa-map-marker-alt"></i><span>Bojnord, North Khorasan, I.R.I</span></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section"  style="width: 20%;">
-                    <h3>Applications</h3>
-                    <ul class="contact-info">
-                        <li><a href="data-sciences/pages/applications.html">Applications</a></li>
-                        <li><a href="data-sciences/pages/nlp/nlp-sp-dic.html">NLP dictionary</a></li>
-                    </ul>
-                </div> 
-                <div class="footer-section"  style="width: 20%;">
-                    <h3>Blogs</h3>
-                    <ul class="contact-info">
-                        <li><a href="blogs/edu.html">Education Experience Blog</a></li>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#publications">Publications</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="blogs/edu.html">Education Blog</a></li>
                         <li><a href="blogs/ds.html">Data Science Blog</a></li>
                     </ul>
                 </div>
-            </div>
-            <!--  
-            <div dir="rtl" style="text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid #eee; font-family: 'Vazirmatn', sans-serif;">
+                
+                <div class="footer-license">
+                    <h4>License</h4>
                     <p>
                         <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
-                            <img alt="مجوز کریتیو کامنز" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" />
+                            <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png">
                         </a>
-                        <br/>
-                        <span xmlns:cc="http://creativecommons.org/ns#" property="dc:title">تمام محتوای این سایت</span> تحت مجوز 
-                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>
-                        منتشر شده است.
-                        <br />
-                        **برای استفاده تجاری، لطفاً به بخش <a href="#contact">تماس با من</a> در همین صفحه مراجعه کنید.**
-                        <br />
-                        &copy; 1404, تمامی حقوق محفوظ است.
+                        <br>
+                        Content licensed under 
+                        <a class="project-link" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>
                     </p>
+                </div>
             </div>
-            -->
-            <div style="text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid #eee;">
-                <p>
-                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
-                        <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" />
-                    </a>
-                    <br />
-                    All content on this website is licensed under a 
-                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>.
-                    <br />
-                    <i>For commercial use, please refer to the <a href="#contact">Contact</a> at this page.</i>
-                    <br />
-                    &copy; 2025, Abdullah Mohammadi. All rights reserved.
-                </p>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> Abdullah Mohammadi. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JS -->
+    <!-- JavaScript -->
     <script src="js/script.js"></script>
 </body>
 </html>

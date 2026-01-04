@@ -155,13 +155,16 @@ document.addEventListener('DOMContentLoaded', function () {
     if (mobileOverlay) mobileOverlay.classList.add('active');
     if (mobileMenu) mobileMenu.classList.add('active');
     document.body.style.overflow = 'hidden';
+    menuToggle.style.display ='none';
+    themeToggle.style.display='none';
   }
   
   function closeMobileMenu() {
     if (mobileOverlay) mobileOverlay.classList.remove('active');
     if (mobileMenu) mobileMenu.classList.remove('active');
     document.body.style.overflow = '';
-    
+    menuToggle.style.display ='';
+    themeToggle.style.display='block';
     // Close all submenus
     document.querySelectorAll('.mobile-menu-item').forEach(item => {
       item.classList.remove('active');
