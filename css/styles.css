@@ -148,7 +148,8 @@ p {
     font-size: 1rem;
 }
 
-.btn-primary {
+.btn-primary 
+{
     background-color: var(--primary-color);
     color: white;
 }
@@ -216,7 +217,7 @@ p {
 }
 
 .logo-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -997,7 +998,13 @@ p {
     .quote-author,
     .hero-quote
     {text-align: left;}
-
+.btn-primary 
+{
+    background-color: var(--primary-color);
+    color: white;
+    margin-left: 0px;
+    width: 100%;
+}
 .profile-img {
     width: 100%;
     height: 100%;
