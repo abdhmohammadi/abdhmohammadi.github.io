@@ -1,7 +1,4 @@
 
-
- 
-
         // =============================================
         // APPLICATION STATE
         // =============================================
@@ -19,6 +16,7 @@
         const tocOverlay = document.getElementById('tocOverlay');
         const tocList = document.getElementById('tocList');
         const bookContent = document.getElementById('bookContent');
+        const mainHeader = document.getElementById('mainHeader');
         const currentTrackEl = document.getElementById('currentTrack');
         const currentBookEl = document.getElementById('currentBook');
         const totalPagesEl = document.getElementById('totalPages');
@@ -32,6 +30,26 @@
         window.json_data = JSON.parse("{}");
         window.Tracks = [];  // root items of json data
         
+        const config=JSON.parse(`
+            {
+                "resources":
+                {
+                    "header":"📚 مجموعه منابع آموزشی و جزوات ریاضیات دبیرستان",
+                    "mainsubtitle":"عبدالله محمدی - دبیر ریاضی متوسطه 2 بجنورد",
+                    "pagesubtitle":"مجموعه در دسترس است",
+                    "emptytitle":"در حال حاضر هیچ مجموعه ای در دسترس نیز",
+                    "emptysubtitle": "به زودی مجموعه های آموزشی جدید اضافه خواهند شد"
+
+                },
+                "assessments":
+                {
+                    "header":"📚 مجموعه نمونه سوالات امتحانی ریاضی دبیرستان",
+                    "mainsubtitle":"عبدالله محمدی - دبیر ریاضی متوسطه 2، بجنورد",
+                    "pagesubtitle":"نمونه سوال در دسترس است",
+                    "emptytitle":"هنوز نمونه سوالی اضافه نشده است",
+                    "emptysubtitle": "به زودی نمونه سوالات جدید اضافه خواهند شد"
+                }
+            }`);
         // =============================================
         // INITIALIZATION
         // =============================================
@@ -39,18 +57,22 @@
         {         
             // detecting input param
             const urlParams = new URLSearchParams(window.location.search);
-            const param = urlParams.get('page'); // "assessments" or "resources"
-            //const id = urlParams.get('id'); // null اگر وجود نداشته باشد
-            //const name = urlParams.get('name'); // null اگر وجود نداشته باشد
-
-            const jsonUrl = `https://raw.githubusercontent.com/abdhmohammadi/website-data/refs/heads/master/edu-${param}-data.json`;
+            window.page = urlParams.get('page');
+            
+            mainHeader.innerHTML = 
+                `
+                    <h1>${config[window.page].header}</h1>
+                    <div class="subtitle">${config[window.page].mainsubtitle}</div>
+                `;
+            
+            const jsonUrl = `https://raw.githubusercontent.com/abdhmohammadi/website-data/refs/heads/master/edu-${window.page}-data.json`;
 
             // feching data from website-data repo            
             fetch(jsonUrl).then(response => 
             {
                 if (!response.ok) 
                 {
-                throw new Error(`Error ${response.status}: can not receive data`);
+                    throw new Error(`Error ${response.status}: can not receive data`);
                 }
                 return response.json();
             })
@@ -213,7 +235,7 @@
                     <h2>${book.title}</h2>
                     <div>
                         <div class="badge">${get_track_icon(currentState.currentTrack)}</div>
-                        <div style="color: var(--text-light);">${cnt} نمونه سوال</div>
+                        <div style="color: var(--text-light);">${cnt} ${config[window.page].pagesubtitle}</div>
                     </div>
                 </div>
             `;
@@ -253,7 +275,6 @@
                                
                                 <h3 class="exam-card-title">${exam.title}</h3>
                                 <p style="color: var(--text-light);">${exam.description}</p>
-                                
                                 <div class="exam-card-meta">
                                     <span class="exam-card-date">${exam.date}</span>
                                     <div class="exam-card-actions">
@@ -286,9 +307,9 @@
             {
                 contentHTML += `
                     <div style="text-align: center; padding: 50px 20px;">
-                        <i class="fas fa-folder-open" style="font-size: 3rem; color: var(--border); margin-bottom: 20px;"></i>
-                        <h3 style="color: var(--text-light); margin-bottom: 10px;">هنوز نمونه سوالی اضافه نشده است</h3>
-                        <p style="color: var(--text-light);">به زودی نمونه سوالات جدید اضافه خواهند شد.</p>
+                        <i class="fas fa-chalkboard-teacher" style="font-size: 3rem; color: var(--border); margin-bottom: 20px;"></i>
+                        <h3 style="color: var(--text-light); margin-bottom: 10px;">${config[window.page].emptytitle}</h3>
+                        <p style="color: var(--text-light);">${config[window.page].emptysubtitle}</p>
                     </div>
                 `;
             }
