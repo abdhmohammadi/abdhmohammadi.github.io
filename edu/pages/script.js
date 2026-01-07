@@ -2,138 +2,113 @@
 /**
  * تابع کامل برای دریافت آیکون بر اساس پسوند فایل
  * @param {string} type - نوع فایل
- * @param {string} library - کتابخانه مورد نظر (fa, bi, material, feather)
  * @returns {string} کد HTML آیکون
  */
-function getFileIcon(type, library = 'fa') 
+function getFileIcon(type) 
 { 
     const iconMap = 
     {
         // PDF
-        'pdf': 
-        {
-            bi:'bi bi-filetype-pdf',
-            fa: 'fas fa-file-pdf text-danger',
-            //bi: 'bi bi-filetype-pdf text-danger',
-            material: 'material-icons text-danger',
-            feather: 'file-text'
-        },
-        
+        'pdf': 'fas fa-file-pdf',
         // Word
-        'doc': { fa: 'fas fa-file-word text-primary', bi: 'bi bi-filetype-doc text-primary' },
-        'docx': { fa: 'fas fa-file-word text-primary', bi: 'bi bi-filetype-docx text-primary' },
+        'doc': 'fas fa-file-word text-primary',
+        'docx':'fas fa-file-word text-primary',
         
         // Excel
-        'xls': { fa: 'fas fa-file-excel text-success', bi: 'bi bi-filetype-xls text-success' },
-        'xlsx': { fa: 'fas fa-file-excel text-success', bi: 'bi bi-filetype-xlsx text-success' },
-        'csv': { fa: 'fas fa-file-csv text-success', bi: 'bi bi-filetype-csv text-success' },
+        'xls': 'fas fa-file-excel text-success',
+        'xlsx':'fas fa-file-excel text-success',
+        'csv': 'fas fa-file-csv text-success',
         
         // PowerPoint
-        'ppt': { fa: 'fas fa-file-powerpoint text-danger', bi: 'bi bi-filetype-ppt text-danger' },
-        'pptx': { fa: 'fas fa-file-powerpoint text-danger', bi: 'bi bi-filetype-pptx text-danger' },
+        'ppt':  'fas fa-file-powerpoint text-danger',
+        'pptx': 'fas fa-file-powerpoint text-danger',
         
         // تصاویر
-        'jpg': { fa: 'fas fa-file-image text-warning', bi: 'bi bi-file-jpg text-warning' },
-        'jpeg': { fa: 'fas fa-file-image text-warning', bi: 'bi bi-file-jpg text-warning' },
-        'png': { fa: 'fas fa-file-image text-info', bi: 'bi bi-filetype-png text-info' },
-        'gif': { fa: 'fas fa-file-image text-success', bi: 'bi bi-filetype-gif text-success' },
-        'svg': { fa: 'fas fa-file-image text-danger', bi: 'bi bi-filetype-svg text-danger' },
-        'bmp': { fa: 'fas fa-file-image text-secondary', bi: 'bi bi-filetype-bmp text-secondary' },
+        'jpg':  'fas fa-file-image text-warning', 
+        'jpeg': 'fas fa-file-image text-warning',
+        'png': 'fas fa-file-image text-info',
+        'gif': 'fas fa-file-image text-success',
+        'svg': 'fas fa-file-image text-danger',
+        'bmp': 'fas fa-file-image text-secondary',
         
         // ویدئو
-        'mp4': { fa: 'fas fa-file-video text-purple', bi: 'bi bi-filetype-mp4 text-purple' },
-        'avi': { fa: 'fas fa-file-video text-purple', bi: 'bi bi-filetype-avi text-purple' },
-        'mov': { fa: 'fas fa-film text-secondary', bi: 'bi bi-filetype-mov text-secondary' },
-        'wmv': { fa: 'fas fa-file-video text-purple', bi: 'bi bi-filetype-wmv text-purple' },
-        'flv': { fa: 'fas fa-file-video text-purple', bi: 'bi bi-filetype-flv text-purple' },
-        'mkv': { fa: 'fas fa-film text-secondary', bi: 'bi bi-filetype-mkv text-secondary' },
+        'mp4':  'fas fa-file-video text-purple',
+        'avi':  'fas fa-file-video text-purple',
+        'mov': 'fas fa-film text-secondary',
+        'wmv': 'fas fa-file-video text-purple',
+        'flv': 'fas fa-file-video text-purple',
+        'mkv': 'fas fa-film text-secondary',
         
         // صدا
-        'mp3': { fa: 'fas fa-file-audio text-success', bi: 'bi bi-filetype-mp3 text-success' },
-        'wav': { fa: 'fas fa-file-audio text-success', bi: 'bi bi-filetype-wav text-success' },
-        'flac': { fa: 'fas fa-music text-info', bi: 'bi bi-filetype-flac text-info' },
-        'ogg': { fa: 'fas fa-file-audio text-success', bi: 'bi bi-filetype-ogg text-success' },
-        'm4a': { fa: 'fas fa-file-audio text-success', bi: 'bi bi-filetype-m4a text-success' },
+        'mp3': 'fas fa-file-audio text-success', 
+        'wav': 'fas fa-file-audio text-success', 
+        'flac':'fas fa-music text-info',
+        'ogg': 'fas fa-file-audio text-success',
+        'm4a': 'fas fa-file-audio text-success',
         
         // آرشیو
-        'zip': { fa: 'fas fa-file-archive text-warning', bi: 'bi bi-filetype-zip text-warning' },
-        'rar': { fa: 'fas fa-file-archive text-warning', bi: 'bi bi-filetype-rar text-warning' },
-        '7z': { fa: 'fas fa-file-archive text-warning', bi: 'bi bi-filetype-7z text-warning' },
-        'tar': { fa: 'fas fa-file-archive text-warning', bi: 'bi bi-filetype-tar text-warning' },
-        'gz': { fa: 'fas fa-file-archive text-warning', bi: 'bi bi-filetype-gz text-warning' },
+        'zip':  'fas fa-file-archive text-warning',
+        'rar': 'fas fa-file-archive text-warning', 
+        '7z': 'fas fa-file-archive text-warning', 
+        'tar': 'fas fa-file-archive text-warning',
+        'gz': 'fas fa-file-archive text-warning',
         
         // کد
-        'js': { fa: 'fab fa-js-square text-warning', bi: 'bi bi-filetype-js text-warning' },
-        'jsx': { fa: 'fab fa-react text-info', bi: 'bi bi-filetype-jsx text-info' },
-        'ts': { fa: 'fas fa-file-code text-primary', bi: 'bi bi-filetype-ts text-primary' },
-        'tsx': { fa: 'fas fa-file-code text-primary', bi: 'bi bi-filetype-tsx text-primary' },
-        'py': { fa: 'fab fa-python text-primary', bi: 'bi bi-filetype-py text-primary' },
-        'java': { fa: 'fab fa-java text-danger', bi: 'bi bi-filetype-java text-danger' },
-        'php': { fa: 'fab fa-php text-info', bi: 'bi bi-filetype-php text-info' },
-        'html': { fa: 'fab fa-html5 text-danger', bi: 'bi bi-filetype-html text-danger' },
-        'css': { fa: 'fab fa-css3-alt text-info', bi: 'bi bi-filetype-css text-info' },
-        'scss': { fa: 'fab fa-sass text-pink', bi: 'bi bi-filetype-scss text-pink' },
-        'sass': { fa: 'fab fa-sass text-pink', bi: 'bi bi-filetype-sass text-pink' },
-        'json': { fa: 'fas fa-file-code text-warning', bi: 'bi bi-filetype-json text-warning' },
-        'xml': { fa: 'fas fa-file-code text-success', bi: 'bi bi-filetype-xml text-success' },
-        'sql': { fa: 'fas fa-database text-info', bi: 'bi bi-filetype-sql text-info' },
+        'js': 'fab fa-js-square text-warning',
+        'jsx':'fab fa-react text-info',
+        'ts': 'fas fa-file-code text-primary',
+        'tsx': 'fas fa-file-code text-primary',
+        'py': 'fab fa-python text-primary',
+        'java': 'fab fa-java text-danger',
+        'php': 'fab fa-php text-info',
+        'html':'fab fa-html5',
+        'css': 'fab fa-css3-alt text-info',
+        'scss':'fab fa-sass text-pink',
+        'sass':'fab fa-sass text-pink',
+        'json': 'fas fa-file-code text-warning',
+        'xml': 'fas fa-file-code text-success',
+        'sql': 'fas fa-database text-info',
         
         // طراحی
-        'psd': { fa: 'fab fa-adobe text-primary', bi: 'bi bi-filetype-psd text-primary' },
-        'ai': { fa: 'fab fa-adobe text-warning', bi: 'bi bi-filetype-ai text-warning' },
-        'fig': { fa: 'fab fa-figma text-danger', bi: 'bi bi-filetype-fig text-danger' },
-        'xd': { fa: 'fab fa-adobe text-pink', bi: 'bi bi-filetype-xd text-pink' },
+        'psd': 'fab fa-adobe text-primary',
+        'ai': 'fab fa-adobe text-warning',
+        'fig':'fab fa-figma text-danger',
+        'xd': 'fab fa-adobe text-pink',
         
         // متنی
-        'txt': { fa: 'fas fa-file-alt text-secondary', bi: 'bi bi-filetype-txt text-secondary' },
-        'rtf': { fa: 'fas fa-file-alt text-secondary', bi: 'bi bi-filetype-rtf text-secondary' },
-        'md': { fa: 'fab fa-markdown text-dark', bi: 'bi bi-filetype-md text-dark' },
+        'txt':  'fas fa-file-alt text-secondary',
+        'rtf': 'fas fa-file-alt text-secondary',
+        'md': 'fab fa-markdown text-dark',
         
         // اجرایی
-        'exe': { fa: 'fas fa-cogs text-dark', bi: 'bi bi-filetype-exe text-dark' },
-        'msi': { fa: 'fas fa-cogs text-dark', bi: 'bi bi-filetype-msi text-dark' },
-        'dmg': { fa: 'fab fa-apple text-dark', bi: 'bi bi-filetype-dmg text-dark' },
-        'pkg': { fa: 'fab fa-apple text-dark', bi: 'bi bi-filetype-pkg text-dark' },
-        'apk': { fa: 'fab fa-android text-success', bi: 'bi bi-filetype-apk text-success' },
-        'ipa': { fa: 'fab fa-app-store-ios text-dark', bi: 'bi bi-filetype-ipa text-dark' },
-        'deb': { fa: 'fab fa-linux text-dark', bi: 'bi bi-filetype-deb text-dark' },
-        'rpm': { fa: 'fab fa-linux text-dark', bi: 'bi bi-filetype-rpm text-dark' },
+        'exe': 'fas fa-cogs text-dark',
+        'msi': 'fas fa-cogs text-dark',
+        'dmg': 'fab fa-apple text-dark',
+        'pkg': 'fab fa-apple text-dark',
+        'apk': 'fab fa-android text-success',
+        'ipa': 'fab fa-app-store-ios text-dark',
+        'deb': 'fab fa-linux text-dark',
+        'rpm': 'fab fa-linux text-dark',
         
         // سیستم
-        'iso': { fa: 'fas fa-compact-disc text-secondary', bi: 'bi bi-filetype-iso text-secondary' },
-        'dll': { fa: 'fas fa-puzzle-piece text-info', bi: 'bi bi-filetype-dll text-info' },
-        'sys': { fa: 'fas fa-cog text-dark', bi: 'bi bi-filetype-sys text-dark' },
+        'iso': 'fas fa-compact-disc text-secondary',
+        'dll': 'fas fa-puzzle-piece text-info',
+        'sys': 'fas fa-cog text-dark',
         
         // کتاب الکترونیک
-        'epub': { fa: 'fas fa-book text-info', bi: 'bi bi-filetype-epub text-info' },
-        'mobi': { fa: 'fas fa-book text-warning', bi: 'bi bi-filetype-mobi text-warning' },
-        'azw': { fa: 'fas fa-book text-warning', bi: 'bi bi-filetype-azw text-warning' },
+        'epub': 'fas fa-book text-info',
+        'mobi': 'fas fa-book text-warning',
+        'azw': 'fas fa-book text-warning',
         
         // پیش‌فرض
-        'default': 
-        { 
-            fa: 'fas fa-file text-muted',
-            bi: 'bi bi-file-earmark text-muted',
-            material: 'material-icons text-muted',
-            feather: 'file'
-        }
+        'default': 'fas fa-file text-muted',
     };
     
     const icon = iconMap[type] || iconMap['default'];
-    const iconClass = icon[library] || icon['fa'];
     
-    if (library === 'material') 
-    {
-        return `<span class="${iconClass}">description</span>`;
+    return `<i class="${icon}"></i>`;
+    
     }
-    else if (library === 'feather') 
-    {
-        return `<i data-feather="${iconClass}"></i>`;
-    } else 
-    {
-        return `<i class="${iconClass}"></i>`;
-    }
-}
         // =============================================
         // APPLICATION STATE
         // =============================================
@@ -158,6 +133,7 @@ function getFileIcon(type, library = 'fa')
         const progressDots = document.getElementById('progressDots');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const subSpan = document.getElementById('subSpan');
         const modalOverlay = document.getElementById('modalOverlay');
         const modalImage = document.getElementById('modalImage');
         const modalTitle = document.getElementById('modalTitle');
@@ -207,7 +183,7 @@ function getFileIcon(type, library = 'fa')
             {
                 if (!response.ok) 
                 {
-                    throw new Error(`Error ${response.status}: can not receive data`);
+                  throw new Error(`Error ${response.status}: can not receive data`);
                 }
                 return response.json();
             })
@@ -222,6 +198,8 @@ function getFileIcon(type, library = 'fa')
                     window.Tracks = Object.keys(json_data);
                 }
                 
+                subSpan.textContent = window.page === "resources"? "نمونه سوالها":"منابع آموزشی";
+
                 initializeBook();
                 
                 renderTOC();
@@ -255,7 +233,14 @@ function getFileIcon(type, library = 'fa')
                 currentState.userProgress = JSON.parse(savedProgress);
             }
         }
+        
+        function switch_page()
+        {
+            window.page = window.page === "resources"? "assessments":"resources";
+            
+            window.open(`resource-view.html?page=${window.page}`, '_self');
 
+        }
         function renderTOC() 
         {
             tocList.innerHTML = '';
@@ -416,7 +401,7 @@ function getFileIcon(type, library = 'fa')
                                     <span class="exam-card-date">${exam.date}</span>
                                     <div class="exam-card-actions">
 
-                                        <button class="exam-btn preview-btn" onclick="previewExam('${exam.image}', '${exam.title}')">
+                                        <button class="exam-btn preview-btn" onclick="previewExam('${exam.image}', '${exam.title} - ${exam.description}')">
                                             <i class="fas fa-eye"></i>
                                             پیش‌نمایش
                                         </button>
