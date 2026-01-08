@@ -239,6 +239,12 @@ function getFileIcon(type)
             window.page = window.page === "resources"? "assessments":"resources";
             
             window.open(`resource-view.html?page=${window.page}`, '_self');
+            const currentTheme = localStorage.getItem('theme');
+            
+            if (currentTheme != 'light')
+            {    
+                setTheme(window.page === 'resources'? 'dark-green': 'dark');
+            }
 
         }
         function renderTOC() 
@@ -403,7 +409,6 @@ function getFileIcon(type)
 
                                         <button class="exam-btn preview-btn" onclick="previewExam('${exam.image}', '${exam.title} - ${exam.description}')">
                                             <i class="fas fa-eye"></i>
-                                            پیش‌نمایش
                                         </button>
 
                                         <button type="button"
@@ -709,13 +714,14 @@ function getFileIcon(type)
         // THEME FUNCTIONALITY
         // =============================================
         const themeToggle = document.getElementById('themeToggle');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: light)');
         
         // Get saved theme from localStorage or use system preference
         function getSavedTheme() 
         {
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light' || savedTheme === 'dark') {
+            if (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'dark-green') 
+            {
                 return savedTheme;
             }
             return prefersDarkScheme.matches ? 'dark' : 'light';
@@ -725,15 +731,18 @@ function getFileIcon(type)
         function setTheme(theme) 
         {
             document.documentElement.setAttribute('data-theme', theme);
+            // Save current theme
             localStorage.setItem('theme', theme);
             
             // Update theme toggle icon
-            if (themeToggle) {
+            if (themeToggle) 
+            {
                 const lightIcon = themeToggle.querySelector('.light-icon');
                 const darkIcon = themeToggle.querySelector('.dark-icon');
-                if (lightIcon && darkIcon) {
-                    lightIcon.style.display = theme === 'dark' ? 'block' : 'none';
-                    darkIcon.style.display = theme === 'dark' ? 'none' : 'block';
+                if (lightIcon && darkIcon) 
+                {
+                    lightIcon.style.display = theme === 'dark' || theme ==='dark-green' ? 'block' : 'none';
+                    darkIcon.style.display = theme === 'dark' || theme === 'dark-green' ? 'none' : 'block';
                 }
             }
         }
@@ -745,17 +754,31 @@ function getFileIcon(type)
         // Toggle theme when button is clicked
         if (themeToggle) 
         {
-            themeToggle.addEventListener('click', () => {
+            themeToggle.addEventListener('click', () => 
+            {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                setTheme(newTheme);
+
+                if (window.page==='resources')
+                {    
+                    const newTheme = currentTheme === 'light' ? 'dark-green' : 'light';
+                    setTheme(newTheme);
+                }
+                else
+                {
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    setTheme(newTheme);
+                }
             });
         }
         
         // Listen for system theme changes
         prefersDarkScheme.addEventListener('change', (e) => 
         {
-            if (!localStorage.getItem('theme')) {
-                setTheme(e.matches ? 'dark' : 'light');
+            if (!localStorage.getItem('theme')) 
+            {
+                if(window.page=== 'assessments')
+                    setTheme(e.matches ? 'dark' : 'light');
+                else 
+                    setTheme(e.matches? 'dark-green': 'light')
             }
         });

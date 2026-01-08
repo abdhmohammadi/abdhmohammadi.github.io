@@ -78,7 +78,8 @@
     </script>
     
     <style>
-        :root {
+        :root 
+        {
             /* Light theme (default) */
             --primary: #667eea;
             --secondary: #764ba2;
@@ -119,7 +120,28 @@
             --disabled-bg: #2d3748;
             --disabled-color: #666;
         }
-
+        [data-theme="dark-green"] 
+        {
+            /* Dark Green Theme */
+            --primary: #2ecc71;           /* Vibrant green */
+            --secondary: #27ae60;         /* Darker green */
+            --accent: #f1c40f;            /* Golden yellow for highlights */
+            --text-dark: #e8f5e8;         /* Light green-tinged white */
+            --text-light: #a5d6a7;        /* Muted green for secondary text */
+            --main-header-bg: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            --bg-light: #1a2926;          /* Dark greenish-gray */
+            --bg-white: #121f1b;          /* Very dark green background */
+            --border: #37474f;            /* Blue-gray borders */
+            --success: #4caf50;           /* Green success */
+            --danger: #ef5350;            /* Coral red */
+            --warning: #ff9800;           /* Orange warning */
+            --info: #29b6f6;              /* Blue for info (added) */
+            --overlay: rgba(18, 31, 27, 0.9);
+            --shadow: rgba(0, 20, 0, 0.3);
+            --shadow-hover: rgba(0, 30, 0, 0.4);
+            --disabled-bg: #263238;
+            --disabled-color: #546e7a;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -186,11 +208,12 @@
             gap: 10px;
         }
         
-        .nav-btn {
+        .nav-btn 
+        {
             background: var(--bg-white);
             border: 1px solid var(--border);
             color: var(--text-dark);
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
             font-family: 'Vazirmatn';
@@ -998,8 +1021,9 @@
         <!-- Book Navigation -->
         <nav class="book-nav">
             <div class="nav-buttons">
+                <div style="display: flex; gap: 8px;">
                 <!-- Theme Toggle Button -->
-                <button class="theme-toggle-btn" id="themeToggle" aria-label="تغییر تم">
+                <button class="nav-btn" id="themeToggle" aria-label="تغییر تم">
                     <i class="fas fa-sun light-icon"></i>
                     <i class="fas fa-moon dark-icon"></i>
                 </button>
@@ -1007,6 +1031,7 @@
                 <button class="nav-btn">
                     <a href="../index.html" style="text-decoration: none; color: inherit;"><i class="fas fa-home"></i></a>
                 </button>
+                </div>
                 <button class="nav-btn" id="tocBtn" onclick="toggleTOC()">
                    <i class="fas fa-bars"></i>
                     <span>فهرست</span>
