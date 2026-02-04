@@ -1,1 +1,369 @@
-e
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Mohammadi | Mathematics Teacher</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../images/abdh-01.png" type="image/x-icon">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+<body dir="rtl">
+
+    <!-- Header & Navigation -->
+    <header> 
+        <nav class="navbar">
+            
+            <!-- Mobile Side Menu Overlay -->
+            <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+            <!-- Mobile Side Menu -->
+            <nav class="mobile-side-menu" id="mobileMenu">
+                <div class="mobile-menu-header">
+                    <div class="mobile-logo">
+                    <img src="../images/abdh-01.png" width="50" height="50" alt="Mohammadi"> 
+                    <div>
+                        <h3> محمدی</h3>
+                        <p> Mohammadi</p>
+                    </div>
+                    </div>
+                    <button class="mobile-close" id="mobileClose">
+                    <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                        
+                <div class="mobile-menu-content">
+                    
+                    <ul class="mobile-nav-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> صفحه اصلی</a></li>
+                    
+                    <li class="mobile-menu-item">
+                        <a href="#" class="mobile-menu-toggle">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <p>آموزش</p>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                        </a>
+                        <ul class="mobile-submenu">
+                        <li><a href="pages/resource-view.html?page=assessments"><i class="fas fa-file-alt"></i> نمونه سوالات امتحانها</a></li>
+                        <li><a href="pages/resource-view.html?page=resources"><i class="fas fa-book"></i> منابع تدریس</a></li>
+                        <li><a href="#" class="disabled"><i class="fas fa-clipboard-list"></i> طرح درس</a></li>
+                        <li><a href="#" class="disabled"><i class="fas fa-user-graduate"></i> تدریس خصوصی</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="#publications"><i class="fas fa-newspaper"></i> مقالات</a></li>
+                    <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu"><i class="fas fa-blog"></i> وبلاگ</a></li>
+                    <li><a href="#contact"><i class="fas fa-address-book"></i> تماس با من</a></li>
+                    </ul>
+                    
+                    <div class="mobile-contact-info">
+                    <a href="tel:+989372561238" class="mobile-phone">
+                        <i class="fas fa-phone-alt"></i>
+                        0937-256-1238
+                    </a>
+                    <a href="mailto:abdhmohammady@gmail.com" class="mobile-email">
+                        <i class="fas fa-envelope"></i>
+                        abdhmohammady@gmail.com
+                    </a>
+                    </div>
+                </div>
+            </nav>
+           
+            <!-- theme switcher -->
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-sun light-icon"></i>
+                <i class="fas fa-moon dark-icon"></i>
+            </button>
+
+             <button class="menu-toggle" id="menuToggle" aria-label="منو">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- normal navigation items -->
+            <ul class="nav-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">آموزش</a>
+                        <ul class="dropdown-content">
+                            <li>
+                                <a href="pages/resource-view.html?page=assessments"?page=assessments"> 
+                                نمونه سوالات امتحانها</a>
+                            </li>
+                            <li><a href="pages/resource-view.html?page=resources">منابع تدریس</a></li>
+                            <li><a href="#paper2" class="disabled" >طرح درس</a></li>
+                            <li><a href="#paper3" class="disabled" >تدریس خصوصی</a></li>
+                        </ul>
+                    </li>
+                    <a href="#publications" class="dropbtn">مقالات</a>
+                    <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu">وبلاگ</a></li>
+                   <!-- <li><a href="#research">تحقیقات</a></li> -->
+                    <li><a href="#contact">تماس با من</a></li>
+            </ul>
+
+            <div class="logo">
+                    
+                    <a href="tel:+989372561238"><i class="fas fa-phone-alt"></i>    0937-256-1238</a>
+                    <span> محمدی | Abdh. Mohammadi</span>
+                    <img src="../images/abdh-01.png" width="60" height="60" style="margin-right: 15px; margin-left: 15px; border-radius: 50%; border: 2px solid rgba(53, 51, 51, 0.884);">
+                    
+            </div>
+              
+            
+        </nav>
+    </header>
+
+    <!-- Hero Section: Green rectangle-->
+    <div class="hero" id="home">
+
+        <div class="hero-bg-elements">
+            <div class="math-element floating" style="font-size: 32pt; top: 10%; bottom: 40%; left: 5%; color:red;">π</div>
+            <div class="math-element floating" style="top: 15%; right: 15%; color: olive;">∞</div>
+            <div class="math-element floating" style="bottom: 20%; left: 20%; color: darkcyan;">∫</div>
+            <div class="math-element rotating" style="bottom: 30%; right: 10%; color: red;">∑</div>
+            <div class="math-element floating" style="top: 40%; left: 30%; color: black;">θ</div>
+            <div class="math-element rotating" style="top: 25%; right: 25%; color: green;">Δ</div>
+        </div>
+       
+        <!-- Image Carousel -->
+        <div class="right">
+
+            <div class="carousel-container">
+                <div class="carousel-inner">
+                    
+                    <div class="carousel-slide">
+                        <img src="images/img.png" alt="اسلاید آموزشی، هندسه 3، مقاطع مخروطی">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/Ad.png" alt="Slide 2">
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="images/MathLogicCourse.png" alt="Slide 3">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/Math11T.png" alt="Slide 4">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/Math07-S04.png" alt="Slide 5">
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <div class="carousel-indicator" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                    <div class="carousel-indicator" data-index="2"></div>
+                    <div class="carousel-indicator" data-index="3"></div>
+                    <div class="carousel-indicator" data-index="4"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <h1 data-en="The beauty of mathematics only shows itself to more patient followers." data-fa="">آنچه باید بیاموزیم تا انجام دهیم، با انجام دادن می آموزیم.</h1>
+            <p data-en="Prof. Maryam Mirzakhani" data-fa="«ارسطو»">«ارسطو»</p>
+             <!--
+            <h1 data-en="The beauty of mathematics only shows itself to more patient followers." data-fa="ریاضیات، زیبایی خود را فقط به کسانی نشان می‌دهد که با صبر و بردباری آن را دنبال کنند.">ریاضیات، زیبایی خود را فقط به کسانی نشان می‌دهد که با صبر و بردباری آن را دنبال کنند.</h1>
+            <p data-en="Prof. Maryam Mirzakhani" data-fa="«پرفسور مریم میرزاخانی»">پرفسور مریم میرزاخانی</p>
+               -->
+        </div>
+    </div>
+        <!--
+            <div style="background-color: green; padding: 15pt;left: 20%;right: 20%;">
+                <p style=" color: #eee;">سوالات ارزشیابی آغازین برای هندسه 3 دوازدهم ریاضی-فیزیک روی سایت قرار گرفت:  ===> تدریس/ نمونه سوالات امتحانها</p>        
+                <p style=" color: #eee;">سوالات ارزشیابی آغازین یازدهم انسانی روی سایت قرار گرفت:  ===> تدریس/ نمونه سوالات امتحانها</p>
+                <p style=" color: #eee;">دوره آموزشی استدلال ریاضی روی سایت قرار گرفت:  ===> تدریس/ منابع تدریس</p>
+                <p style=" color: #eee;">جزوه تدریس استدلال ریاضی روی سایت قرار گرفت:  ===> تدریس/ منابع تدریس</p>
+            </div>
+        -->
+    <!-- Biography Section -->
+    <div id="bio" class="bio">
+            <!--
+            <div class="section-header">
+                <h2>Professional Biography</h2>
+                <p>Dedicated educator with a decade of experience in transforming mathematical understanding through psychological insights and research-based methodologies.</p>
+            </div>
+        -->
+            <div class="bio-content">
+                <div class="bio-text">
+                    <h3>بیوگرافی</h3>
+                    <!--<p>With over 10 years of experience in high school mathematics education, He brings a unique perspective to teaching that combines rigorous mathematical training with insights from cognitive psychology. His approach focuses on understanding how students process mathematical concepts and developing strategies to overcome learning obstacles.</p> -->
+                    <p>با بیش از 10 سال سابقه در آموزش ریاضیات دبیرستان، دیدگاهی منحصر به فرد به تدریس ارائه می‌دهد که آموزش دقیق ریاضی را با بینش‌هایی از روانشناسی شناختی ترکیب می‌کند. رویکرد او بر درک چگونگی پردازش مفاهیم ریاضی توسط دانش‌آموزان و توسعه استراتژی‌هایی برای غلبه بر موانع یادگیری متمرکز است.</p>
+                    <!--<p>I hold a Master's Degree in Applied Mathematics with a specialization in Data Science from Ferdowsi University, where I graduated with top honors. My academic background enables me to incorporate real-world data applications into the classroom, helping students see the practical value of mathematics.</p>-->
+                    <p>رتبه ۳۰ کارشناسی ارشد است و مدرک ارشد خود را در ریاضیات کاربردی با تخصص در علوم داده(الگوریتمهای هوش مصنوعی) از دانشگاه فردوسی مشهد با درجه عالی کسب کرده است. پیشینه تحصیلیش به او این امکان را می‌دهد که کاربردهای داده‌های دنیای واقعی را در کلاس درس بگنجاند و با استفاده از ابزارهای هوشمند لذت و هیجان را به کلاس درس بیاورد تا دانش آموزان ارزش واقعی و عملی ریاضیات را به درستی درک کنند.</p>
+                    <!--<p>My research interests lie at the intersection of mathematics education and psychology, exploring how cognitive processes influence mathematical understanding and problem-solving abilities. This research directly informs my teaching methodology, creating more effective and engaging learning experiences.</p> -->
+                    <p>او قصد دارد زمینه‌ی مطالعاتش را در آموزش ریاضیات و روانشناسی ریاضی تعمیق کند و به بررسی چگونگی تاثیر فرآیندهای شناختی بر درک ریاضی و توانایی‌های حل مسئله بپردازد، این مطالعات مستقیماً روشهای تدریس او را شکل می‌دهد و تجربیات یادگیری مؤثرتر و جذاب‌تری ایجاد می‌کند.</p>
+                    <!--<p>His other studies and interests include programming, data analysis, developing natural language processing models, and deep learning algorithms.</p> -->
+                    <p>از مطالعات و علاقمندی های دیگر او برنامه نویسی، تحلیل داده ها، توسعه مدل های پردازش زبان طبیعی و الگوریتمهای یادگیری عمیق است.</p>
+                    
+                </div>
+            </div>
+    </div>
+
+    <!-- Published Papers -->
+    <div class="publications" id="publications">
+
+ <!--<ul class="publications-list">--> 
+        <div class="highlight-card">
+            <h4>تحصیلات</h4>
+            <p>کارشناسی ارشد علوم داده از دانشگاه فردوسی مشهد</p>
+            <p>کارشناسی ریاضیات کاربردی از دانشگاه فردوسی مشهد</p>
+        </div> 
+
+        <h3>مقالات</h3>   
+        
+        <div class="highlight-card" style="text-align: left;">
+                <span class="publication-title">
+                    Gravitational least squares twin support vector machine based on optimal angle for class imbalance learning
+                </span>
+                <br>
+                <span class="publication-authors">
+                    Abdullah Mohammadi, Jalal A. Nasiri, Sohrab Effati
+                </span>
+                <br>
+                <span class="publication-journal">
+                    Journal of Applied Mathematics and Computation, 2026
+                </span>
+                <br>
+                <a class="publication-link" href="https://doi.org/10.1016/j.amc.2025.129705" target="_blank">
+                    View Paper
+                </a>
+            </div>
+        
+
+        <div class="highlight-card">
+        <span class="publication-title">
+        از تصمیم‌سازی تا طرحواره‌سازی: تلفیق ساخت و ساز گرایی، تصمیم‌سازی  و طرحواره‌های ذهنی در آموزش  ریاضی برای ارتقای تدریس و یادگیری ریاضی
+        </span>
+        <br>
+        <span class="publication-authors">
+            عبدالله محمدی
+        </span>
+        <br>
+        <span class="publication-journal">
+            به سوی علوم ریاضی، 29/09/1404
+        </span>
+        <br>
+        <a class="publication-link" href="https://tmsj.um.ac.ir/article_47676.html" target="_blank">
+            View Paper
+        </a>
+    </div>
+
+        <div class="highlight-card">
+        <span class="publication-title">
+        ماشین بردار پشتیبان دوقلو برای داده های نامتوازن
+        </span>
+        <br>
+        <span class="publication-authors">
+            عبدالله محمدی
+        </span>
+        <br>
+        <span class="publication-authors">
+        اساتید راهنما: دکتر سهراب عفتی، دکتر جلال الدین نصیری
+        </span>
+        <br>
+        <span class="publication-journal">
+            پایان نامه کارشناسی ارشد، دانشگاه فردوسی مشهد 25/06/1403
+        </span>
+        <br>
+        <a class="publication-link" href="#" target="_blank">
+            View Paper
+        </a>
+    </div>
+
+        <div class="highlight-card">
+        <span class="publication-title">
+            پیش بینی بیماری های مزمن با داده های نامتوازن توسط ماشین بردار پشتیبان گرانشی
+        </span>
+        <br>
+        <span class="publication-authors">
+             عبدالله محمدی، جلال الدین نصیری، سهراب عفتی
+        </span>
+        <br>
+        <span class="publication-journal">
+            پنجمین کنفرانس ملی انفورماتیک ایران، 14 دی ماه 1402
+        </span>
+        <br>
+        <a class="publication-link" href="https://ecc.isc.ac/showJournal/39989/282326/3559496" target="_blank">
+            View Paper
+        </a>
+    </div>
+        
+    
+    </div>
+    <!-- Social & Contact Section -->
+
+        <div class="container" id="contact">
+            <div class="section-header">
+                <h2>تماس با من</h2>
+                <!--<p>Explore my research, teaching resources, and professional insights through these platforms.</p> -->
+            </div>
+            
+            <div class="social-icons">
+                 <!--
+                <a href="https://www.aparat.com/abdhmohammadi"
+                    class="floating"
+                    title="aparat channel"><img src="../images/aparat.svg"></a>
+                -->
+                <a href="tg://resolve?domain=abdhmohammadi"
+                    class="floating"
+                    title="Messaging with Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="https://shad.ir/abdhmohammadi" 
+                    class="floating"
+                    title="Open official social platform of Education Ministry of I.R.I"><img style="width:18px;height:20px;" src="../images/shad.png" alt="Shad icon"/></a>
+                <a href="tel:+989372561238" title="Call abdhmohammadi"
+                    class="floating" aria-label="Phone"><i class="fas fa-phone-alt"></i></a>
+                <a href="mailto:abdhmohammady@gmail.com" 
+                    class="floating"
+                    title="Send mail to abdhmohammady@gmail.com"><i class="fas fa-envelope"></i></a>
+
+            </div>
+           
+           <!-- <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>abdhmohammady@gmail.com</p>
+                </div>
+                 <div class="contact-item">
+                    <i class="fas fa-school"></i>
+                    <h3>Institution</h3>
+                    <p>Tehran Advanced Mathematics Academy</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-book"></i>
+                    <h3>Publications</h3>
+                    <p>View my research papers</p>
+                </div>
+                
+            </div>-->
+        
+        </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid #eee; font-family: 'Vazirmatn', sans-serif;">
+                    <p>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
+                            <img alt="مجوز کریتیو کامنز" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" />
+                        </a>
+                        <br/>
+                        <span xmlns:cc="http://creativecommons.org/ns#" property="dc:title">تمام محتوای این سایت</span> تحت مجوز 
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>
+                        منتشر شده است.
+                        <br/>
+                        <i>برای استفاده تجاری، لطفاً به بخش <a href="#contact">تماس با من</a> در همین صفحه مراجعه کنید.</i>
+                        <br/>
+                        &copy; 1404, تمامی حقوق محفوظ است.
+                    </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/index.js"></script>
+
+
+</body>
+
+</html>
