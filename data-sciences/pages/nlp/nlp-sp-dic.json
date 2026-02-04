@@ -1,0 +1,379 @@
+[
+{
+  "tag": "Representation Learning",
+  "defination": "Representation learning is a machine learning approach in which the system automatically discovers the features or representations needed to perform a task, rather than relying on hand-designed features. This enables models to learn abstractions that capture the underlying structure of data and adapt quickly to new tasks with minimal human intervention.",
+  "tags": ["Machine Learning", "Deep Learning", "Feature Learning", "AI"],
+  "example": "A neural network trained on images can automatically learn features such as edges, textures, shapes, and objects without explicit programming.",
+  "see_also": "Autoencoder; Deep Learning; Feature Learning; Latent Variables"
+},
+{
+  "tag": "Autoencoder",
+  "defination": "An autoencoder is a representation learning algorithm composed of an encoder that transforms input data into a new representation and a decoder that reconstructs the original input from that representation. It is trained to preserve as much information as possible while shaping the latent representation to have useful properties for tasks such as compression, denoising, or disentanglement.",
+  "tags": ["Neural Networks", "Representation Learning", "Encoder", "Decoder"],
+  "example": "A denoising autoencoder learns to map noisy images into a clean, compressed latent code and then reconstruct clean images from that code.",
+  "see_also": "Variational Autoencoder (VAE); Sparse Autoencoder; Denoising Autoencoder; Representation Learning"
+},
+{
+  "tag": "Factors of Variation",
+  "defination": "Factors of variation are the underlying independent sources of influence that cause observable differences in data. They are often unobserved quantities or conceptual abstractions, such as lighting, pose, accent, or object position. A major goal of representation learning is to separate or disentangle these factors so that each latent variable corresponds to a meaningful, interpretable source of variation.",
+  "tags": ["Latent Variables", "Representation Learning", "Disentanglement", "Machine Learning"],
+  "example": "In speech recordings, factors of variation include the speaker’s age, sex, accent, and the linguistic content. In images of cars, they include color, position, viewpoint, and the brightness of the sun.",
+  "see_also": "Disentangled Representations; Latent Space; Generative Models; Autoencoder"
+},
+  {
+  "term": "Machine Learning",
+  "definition": "A field of AI where systems acquire knowledge by extracting patterns and statistical relationships from raw data, enabling them to make predictions or decisions without relying solely on hard-coded rules.",
+  "tags": ["machine learning", "data-driven", "learning", "supervised", "unsupervised"],
+  "example": "A spam filter learns from labeled emails to identify and block unwanted messages by detecting patterns in content and metadata instead of using fixed rules.",
+  "see_also": ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Feature Engineering", "Model Training"]
+},
+{
+  "term": "Deep Learning",
+  "definition": "An approach to machine learning in which models learn hierarchical, compositional representations by stacking many computational layers. The concept graph is deep: simple features learned in early layers are combined into increasingly complex concepts in later layers, enabling powerful learning from raw data for tasks like vision, speech, and language.",
+  "tags": ["deep learning", "neural networks", "hierarchical", "representation learning", "deep neural networks"],
+  "example": "A convolutional neural network learns edges and textures in early layers and full object shapes in deeper layers, allowing accurate image classification.",
+  "see_also": ["Machine Learning", "Neural Networks", "Backpropagation", "Representation Learning"]
+},
+  {
+  "term": "Backpropagation",
+  "definition": "An algorithm for computing gradients of a neural network’s parameters by propagating the error backward through the network. It applies the chain rule of calculus to efficiently update weights during training and minimize the loss function.",
+  "tags": ["machine learning", "neural networks", "gradient descent", "optimization", "deep learning"],
+  "example": "During training, backpropagation calculates how much each weight contributed to the output error, then updates those weights to reduce the error.",
+  "see_also": ["Forward Pass", "Gradient Descent", "Loss Function", "Training", "Chain Rule"]
+},
+  {
+  "term": "Forward Pass",
+  "definition": "The process in which input data flows through the layers of a neural network to produce an output. During the forward pass, each layer applies transformations using weights, biases, and activation functions, resulting in predictions or intermediate representations.",
+  "tags": ["machine learning", "neural networks", "inference", "deep learning", "activation functions"],
+  "example": "In the forward pass, an image is passed through the convolutional layers of a CNN to generate feature maps and predict the object category.",
+  "see_also": ["Backpropagation", "Training", "Activation Function", "Neural Network", "Inference"]
+},
+  {
+  "term": "Training",
+  "definition": "The process of optimizing a language model’s parameters using large datasets and learning algorithms, typically through gradient descent, to minimize a loss function. Training enables the model to learn patterns, relationships, and structures in language.",
+  "tags": ["machine learning", "optimization", "language models", "gradient descent", "deep learning"],
+  "example": "During training, a language model is shown millions of text sequences and learns to predict the next word by adjusting its internal weights to reduce prediction error.",
+  "see_also": ["Pretraining", "Fine-Tuning", "Loss Function", "Backpropagation", "Transformer"]
+},
+{
+  "term": "Pretraining",
+  "definition": "The initial phase in training a language model where it learns general language patterns from large-scale, unlabeled text corpora. Pretraining is usually unsupervised and equips the model with broad linguistic knowledge before task-specific fine-tuning.",
+  "tags": ["unsupervised learning", "language modeling", "transfer learning", "foundation models", "deep learning"],
+  "example": "A model like BERT is pretrained on a large text dataset using a masked language modeling objective, allowing it to learn grammar, syntax, and semantics before being fine-tuned on a specific task like sentiment analysis.",
+  "see_also": ["Training", "Fine-Tuning", "Self-Supervised Learning", "Masked Language Modeling", "Transfer Learning"]
+},
+  {
+  "term": "Emergence",
+  "definition": "A phenomenon where certain complex and often unexpected capabilities appear in large-scale language models as a result of increasing model size, data, or training steps. These capabilities are not explicitly programmed or observed in smaller models, but emerge once a critical threshold is crossed.",
+  "tags": ["scaling laws", "model behavior", "large language models", "capabilities", "NLP"],
+  "example": "A model with billions of parameters may unexpectedly learn arithmetic, code generation, or reasoning skills that are absent in smaller versions, illustrating emergent behavior.",
+  "see_also": ["Scaling Laws", "Zero-Shot Learning", "Few-Shot Learning", "Generalization"]
+},
+{
+  "term": "Adaptation",
+  "definition": "The process by which a pre-trained language model is fine-tuned or adjusted to perform well on a specific task, domain, or dataset. Adaptation helps general-purpose models specialize in particular use cases through additional training or conditioning.",
+  "tags": ["fine-tuning", "domain adaptation", "transfer learning", "model specialization", "NLP"],
+  "example": "A general language model is adapted to the legal domain by fine-tuning it on legal documents, improving its ability to understand contracts and regulations.",
+  "see_also": ["Fine-Tuning", "Transfer Learning", "Prompt Tuning", "Domain Adaptation"]
+},
+{
+  "term": "Prompt / Prompting",
+  "definition": "The process of providing input or instructions to a language model to guide its output generation. A prompt can be a question, statement, command, or structured input that sets the context or task for the model.",
+  "tags": ["language models", "input design", "instruction tuning", "contextualization"],
+  "example": "To generate a poem about the ocean, the user provides the prompt: 'Write a short poem describing the beauty of the ocean at sunset.'",
+  "see_also": ["Prompt Engineering", "Instruction Tuning", "Few-Shot Learning", "Conditional Generation"]
+}
+,{
+  "term": "Teacher Forcing",
+  "definition": "A training technique used in sequence-to-sequence models where the ground truth output from the previous time step is provided as input to the current time step, instead of using the model’s own prediction. This helps the model learn more effectively by staying close to the correct sequence during training.",
+  "tags": ["training strategy", "sequence modeling", "RNN", "decoder", "supervised learning"],
+  "example": "In a language translation model, during training, the correct word in the target language is fed into the decoder at each step, instead of the word predicted by the model.",
+  "see_also": ["Sequence-to-Sequence", "Autoregressive Models", "Exposure Bias", "Scheduled Sampling"]
+}
+,
+{
+  "term": "Exposure Bias",
+  "definition": "A discrepancy that arises during training and inference in sequence generation models. During training, models are exposed to the ground truth sequence (via techniques like teacher forcing), but during inference, they must rely on their own predictions. This mismatch can lead to compounding errors during generation.",
+  "tags": ["sequence generation", "training vs inference", "model robustness", "teacher forcing", "bias"],
+  "example": "A language model trained with teacher forcing might generate incoherent sentences at inference time because it has never learned to recover from its own mistakes.",
+  "see_also": ["Teacher Forcing", "Scheduled Sampling", "Autoregressive Models", "Sequence-to-Sequence"]
+},
+{
+  "term": "Scheduled Sampling",
+  "definition": "A training strategy designed to reduce exposure bias in sequence generation models by gradually mixing model-generated predictions with ground truth tokens during training. Over time, the model becomes more robust to its own errors by learning to recover from imperfect inputs.",
+  "tags": ["training strategy", "sequence generation", "exposure bias", "teacher forcing", "robustness"],
+  "example": "Instead of always feeding the ground truth word during training, a model using scheduled sampling sometimes uses its own previous prediction, helping it prepare for inference-time conditions.",
+  "see_also": ["Exposure Bias", "Teacher Forcing", "Sequence-to-Sequence", "Reinforcement Learning"]
+}
+,
+{
+  "term": "Sequence-to-Sequence",
+  "definition": "A neural network architecture designed to transform one sequence into another, typically used in tasks like machine translation, summarization, and dialogue generation. It consists of an encoder that processes the input sequence and a decoder that generates the output sequence.",
+  "tags": ["architecture", "encoder-decoder", "sequence modeling", "translation", "NLP"],
+  "example": "In machine translation, a Sequence-to-Sequence model encodes an English sentence and decodes it into its French equivalent.",
+  "see_also": ["Encoder-Decoder", "Transformer", "Conditional Generation", "Teacher Forcing"]
+},
+{
+  "term": "Self-Attention",
+  "definition": "A mechanism that allows a model to weigh and relate different positions of a single input sequence in order to capture contextual relationships. It computes attention scores between all tokens in the sequence, enabling the model to consider the entire context when encoding each token.",
+  "tags": ["attention mechanism", "transformer", "context modeling", "sequence modeling", "deep learning"],
+  "example": "In a sentence like 'The cat sat on the mat', self-attention helps the model understand that 'cat' is the subject related to the verb 'sat', even though they are not adjacent.",
+  "see_also": ["Transformer", "Multi-Head Attention", "Contextual Embeddings", "Encoder-Decoder"]
+},
+{
+  "term": "Embedding",
+  "definition": "A dense vector representation of discrete items (such as words, tokens, or characters) in a continuous vector space, capturing semantic or syntactic relationships. Embeddings are used to convert symbolic input into numerical format suitable for neural network processing.",
+  "tags": ["representation", "vector space", "neural networks", "word embeddings", "NLP"],
+  "example": "The words 'king' and 'queen' may have embeddings that are close in the vector space and differ primarily along the gender dimension, reflecting their semantic similarity.",
+  "see_also": ["Word2Vec", "GloVe", "Positional Encoding", "Contextual Embedding", "Transformer"]
+}
+,
+{
+  "term": "Transformer",
+  "definition": "A neural network architecture introduced to handle sequence-to-sequence tasks without relying on recurrence. It uses self-attention mechanisms to model dependencies between all elements of a sequence simultaneously, allowing for efficient parallel computation and long-range context handling.",
+  "tags": ["architecture", "attention mechanism", "NLP", "sequence modeling", "deep learning"],
+  "example": "In machine translation, a Transformer model can translate an English sentence to French by attending to all input words simultaneously, rather than processing them sequentially like RNNs.",
+  "see_also": ["Self-Attention", "Encoder-Decoder", "Sequence-to-Sequence", "BERT", "GPT"]
+}
+,
+  {
+  "term": "Encoder-Only Model",
+  "definition": "A type of neural network architecture in natural language processing that uses only the encoder component of a Transformer model. It processes input sequences to generate rich contextual embeddings or representations without generating output sequences directly.",
+  "tags": ["transformer", "encoder", "contextual embeddings", "representation learning"],
+  "example": "BERT is an encoder-only model that produces contextualized word embeddings used for various downstream tasks like classification and named entity recognition.",
+  "see_also": ["Transformer", "Encoder-Decoder Model", "Decoder-Only Model", "BERT"]
+},
+{
+  "term": "Decoder-Only Model",
+  "definition": "A neural network architecture that utilizes only the decoder part of a Transformer to generate text by predicting the next token in a sequence, often used for autoregressive language modeling and text generation tasks.",
+  "tags": ["transformer", "decoder", "autoregressive", "text generation", "language modeling"],
+  "example": "GPT (Generative Pre-trained Transformer) is a decoder-only model that generates coherent and contextually relevant text by predicting each next word based on the previous words.",
+  "see_also": ["Transformer", "Encoder-Only Model", "Encoder-Decoder Model", "Autoregressive Models"]
+}
+,
+{
+  "term": "Encoder-Decoder Model",
+  "definition": "A neural network architecture that combines an encoder and a decoder, where the encoder processes the input sequence into a latent representation, and the decoder generates the output sequence based on this representation. This structure is commonly used for tasks like machine translation and sequence-to-sequence learning.",
+  "tags": ["transformer", "encoder", "decoder", "sequence-to-sequence", "machine translation"],
+  "example": "The original Transformer model for machine translation uses an encoder-decoder architecture, encoding a source language sentence and decoding it into the target language.",
+  "see_also": ["Transformer", "Encoder-Only Model", "Decoder-Only Model", "Sequence-to-Sequence"]
+}
+,
+  {
+  "term": "Conditional Generation",
+  "definition": "A text generation approach where the output is generated based on specific input conditions, such as prompts, source texts, or structured data, guiding the model to produce contextually relevant responses.",
+  "tags": ["text generation", "conditioning", "context-aware"],
+  "example": "In machine translation, a model performs conditional generation by producing a sentence in one language based on its equivalent in another language.",
+  "see_also": ["Sequence-to-Sequence", "Prompt Engineering", "Controlled Generation"]
+},
+  {
+  "term": "Autoregressive",
+  "definition": "A type of model that generates each output token based on the previously generated tokens, using a sequential prediction approach where each step conditions on the past.",
+  "tags": ["sequence modeling", "language modeling", "prediction"],
+  "example": "GPT models are autoregressive; they predict the next word by looking only at the preceding context.",
+  "see_also": ["Causal Language Model", "Generation", "Decoder-Only Architecture"]
+},
+  {
+  "term": "Hidden State Vector",
+  "definition": "A hidden state vector is an internal representation of information in a neural network, particularly in recurrent or transformer-based models like LLMs. It captures the contextual understanding of the input up to a certain point and is passed through layers to influence the model's predictions.",
+  "tags": ["transformers", "context", "neural networks", "LLMs", "representations"],
+  "example": "In GPT-style models, after processing the first few tokens, the hidden state vector for the next token encodes the combined information from previous tokens to help predict the next word.",
+  "see_also": ["Token Embedding", "Self-Attention", "Transformer Architecture"]
+},
+{
+  "term": "Bias",
+  "definition": "In machine learning, bias refers to both a parameter in models (such as the intercept in linear regression or the additive term in neural networks) and a broader concept representing assumptions a model makes to learn from data. In parametric models, it adjusts outputs independently of input variables. In statistical learning, bias reflects the error introduced by approximating a real-world problem with a simplified model.",
+  "tags": ["machine learning", "model assumptions", "parameters", "bias-variance tradeoff"],
+  "example": "In linear regression, the bias term (often called the intercept) allows the regression line to fit data that does not pass through the origin, improving model accuracy.",
+  "see_also": ["Variance", "Bias-Variance Tradeoff", "Weights", "Regularization"]
+},
+{
+  "term": "Softmax",
+  "definition": "SoftMax is an activation function that converts a vector of raw scores (logits) into probabilities by exponentiating each value and normalizing by the sum of exponentials. It is commonly used in the output layer of classification models to represent the probability distribution over possible classes.",
+  "tags": ["activation function", "classification", "probabilities", "logits"],
+  "example": "In GPT, after computing the logits for the vocabulary, the SoftMax function is applied to obtain the probability of each token being the next word.",
+  "see_also": ["Logits", "Cross-Entropy Loss", "Argmax"]
+},
+{
+  "term": "Inference",
+  "definition": "Inference is the phase in which a trained model is used to make predictions or generate outputs on new, unseen data. During inference, model parameters such as weights and biases remain fixed, and the model processes input through its layers to produce outputs like probabilities or text.",
+  "tags": ["model prediction", "deployment", "serving", "neural networks"],
+  "example": "During inference with a large language model like GPT, the user provides a prompt, and the model generates a continuation by predicting one token at a time using its learned parameters.",
+  "see_also": ["Training", "Forward Pass", "Logits"]
+},
+{
+  "term": "Activation Function",
+  "definition": "An activation function is a mathematical operation applied to the output of a neural network layer to introduce non-linearity, enabling the network to model complex patterns. It transforms the weighted sum of inputs before passing the result to the next layer.",
+  "tags": ["neural networks", "non-linearity", "deep learning", "functions"],
+  "example": "ReLU (Rectified Linear Unit) is a widely used activation function that outputs zero for negative inputs and the input itself for positive values, allowing neural networks to learn non-linear relationships.",
+  "see_also": ["ReLU", "Sigmoid", "SoftMax", "Layer"]
+},
+  {
+  "term": "Weight",
+  "definition": "Weights are the trainable parameters within a neural network that store the knowledge learned from data. They are fixed during inference and are used to transform inputs through layers to produce outputs such as logits.",
+  "tags": ["neural network", "parameters", "training", "model weights"],
+  "example": "In GPT, the weight matrices are updated during training to better predict the next token in a sequence.",
+  "see_also": ["Logits", "Backpropagation", "Gradient Descent"]
+},
+{
+  "term": "Logit, Logits",
+  "definition": "Logits are the raw, unnormalized output scores produced by a neural network for each possible token before applying the softmax function to convert them into probabilities.",
+  "tags": ["neural network", "output", "probability", "softmax", "prediction"],
+  "example": "GPT outputs logits for each token in the vocabulary, which are then converted into probabilities to predict the next word.",
+  "see_also": ["Weights", "Softmax", "Probability Distribution"]
+},
+{
+  "term": "Generation",
+  "definition": "In the context of Large Language Models, 'generation' refers to the model's ability to produce text by predicting and outputting sequences of words based on given input, typically using probabilistic language modeling.",
+  "tags": ["language modeling", "text generation", "prediction"],
+  "example": "When you type a question into ChatGPT, the model generates a relevant response word by word.",
+  "see_also": ["Autoregressive Model", "Token Prediction", "Prompt"]
+},
+{
+    "term": "Corpus",
+    "definition": "A large and structured collection of texts (or speech data) used for linguistic analysis and training machine learning models.",
+    "tags": ["dataset", "text", "annotation"],
+    "example": "The Brown Corpus contains 1 million words of American English text from 1961.",
+    "see_also": ["CoNLL-2003", "NLTK"]
+  },
+  {
+    "term": "Word Embedding",
+    "definition": "A type of word representation that allows words to be represented as vectors in a continuous vector space, capturing semantic similarity.",
+    "tags": ["representation", "vector", "semantics"],
+    "example": "Word2Vec and GloVe are popular word embedding models.",
+    "see_also": ["Vector Space", "Word2Vec"]
+  },
+  {
+    "term": "Tokenization",
+    "definition": "The process of breaking a text into smaller units called tokens (words, subwords, or characters).",
+    "tags": ["preprocessing", "segmentation"],
+    "example": "I'm learning NLP. → [\"I\", \"'m\", \"learning\", \"NLP\", \".\"]",
+    "see_also": ["Normalization", "Sentence Splitting"]
+  },
+  {
+    "term": "Stemming",
+    "definition": "The process of reducing words to their base or root form by removing suffixes.",
+    "tags": ["preprocessing", "normalization"],
+    "example": "Running → run; Studies → studi",
+    "see_also": ["Lemmatization"]
+  },
+  {
+    "term": "Lemmatization",
+    "definition": "The process of reducing a word to its dictionary form (lemma) using vocabulary and morphological analysis.",
+    "tags": ["preprocessing", "normalization"],
+    "example": "Running → run; Better → good",
+    "see_also": ["Stemming"]
+  },
+  {
+    "term": "POS Tagging",
+    "definition": "Part-of-speech tagging assigns word classes (noun, verb, etc.) to each word in a sentence.",
+    "tags": ["morphology", "annotation"],
+    "example": "\"Cats sleep\" → Cats/NNS sleep/VBP",
+    "see_also": ["Corpus", "Dependency Parsing"]
+  },
+  {
+    "term": "Named Entity Recognition",
+    "definition": "The task of identifying named entities (like people, organizations, locations) in text.",
+    "tags": ["annotation", "NER", "information extraction"],
+    "example": "\"Barack Obama was born in Hawaii\" → [Person: Barack Obama, Location: Hawaii]",
+    "see_also": ["Information Extraction"]
+  },
+  {
+    "term": "Parsing",
+    "definition": "Analyzing the syntactic structure of a sentence according to a formal grammar.",
+    "tags": ["syntax", "tree", "dependency"],
+    "example": "The parse tree of \"The cat sat\" shows 'cat' as subject of 'sat'.",
+    "see_also": ["Constituency", "Dependency Parsing"]
+  },
+  {
+    "term": "Dependency Parsing",
+    "definition": "A syntactic parsing method that represents grammatical relations between words as dependencies.",
+    "tags": ["syntax", "dependency"],
+    "example": "Subject → Verb → Object dependencies are extracted.",
+    "see_also": ["Parsing", "POS Tagging"]
+  },
+  {
+    "term": "Language Model",
+    "definition": "A model that assigns probabilities to sequences of words or predicts the next word.",
+    "tags": ["model", "generation", "probability"],
+    "example": "GPT is a transformer-based language model.",
+    "see_also": ["Transformer", "GPT"]
+  },
+  {
+    "term": "Attention",
+    "definition": "A mechanism that helps models focus on relevant parts of the input when producing output.",
+    "tags": ["neural network", "transformer", "alignment"],
+    "example": "The attention mechanism scores words based on relevance.",
+    "see_also": ["Transformer", "Self-Attention"]
+  },
+  {
+    "term": "BERT",
+    "definition": "Bidirectional Encoder Representations from Transformers, a pre-trained deep language model.",
+    "tags": ["pretrained", "transformer", "contextual embedding"],
+    "example": "BERT improves performance on many NLP tasks with fine-tuning.",
+    "see_also": ["Transformer", "Embedding"]
+  },
+  {
+    "term": "GPT",
+    "definition": "Generative Pre-trained Transformer, an autoregressive language model developed by OpenAI.",
+    "tags": ["transformer", "generation", "pretrained"],
+    "example": "ChatGPT is a variant of GPT optimized for dialogue.",
+    "see_also": ["BERT", "Transformer"]
+  },
+  {
+    "term": "Stop Words",
+    "definition": "Common words that are often removed before processing text as they carry little semantic weight.",
+    "tags": ["preprocessing", "text cleaning"],
+    "example": "Words like 'the', 'is', and 'and' are typically stop words.",
+    "see_also": ["Tokenization", "Filtering"]
+  },
+  {
+    "term": "TF-IDF",
+    "definition": "Term Frequency-Inverse Document Frequency, a statistical measure to evaluate the importance of a word in a document.",
+    "tags": ["feature extraction", "text representation"],
+    "example": "TF-IDF helps downweight common words in document classification.",
+    "see_also": ["Bag of Words", "Text Classification"]
+  },
+  {
+    "term": "Bag of Words",
+    "definition": "A simple text representation model where text is represented as an unordered collection of word frequencies.",
+    "tags": ["feature extraction", "text representation"],
+    "example": "A document is converted to a frequency vector without word order.",
+    "see_also": ["TF-IDF"]
+  },
+  {
+    "term": "Sentence Embedding",
+    "definition": "Vector representations of entire sentences capturing semantics beyond individual words.",
+    "tags": ["embedding", "representation"],
+    "example": "Sentence-BERT is used for semantic textual similarity.",
+    "see_also": ["Word Embedding", "BERT"]
+  },
+  {
+    "term": "Zero-shot Learning",
+    "definition": "The ability of a model to perform tasks without having seen task-specific examples during training.",
+    "tags": ["learning", "generalization"],
+    "example": "GPT-3 can translate languages without being explicitly trained on that pair.",
+    "see_also": ["Few-shot Learning", "Transfer Learning"]
+  },
+  {
+    "term": "Transfer Learning",
+    "definition": "Reusing a pre-trained model on a new task, often with minimal training data.",
+    "tags": ["learning", "fine-tuning"],
+    "example": "Fine-tuning BERT for sentiment analysis.",
+    "see_also": ["Pretraining", "Fine-tuning"]
+  },
+  {
+    "term": "Fine-tuning",
+    "definition": "Adjusting the weights of a pre-trained model on a specific task using task-specific data.",
+    "tags": ["training", "customization"],
+    "example": "Fine-tuning BERT on a medical Q&A dataset.",
+    "see_also": ["Transfer Learning", "BERT"]
+  },
+  {
+  "term": "Vector Space Model",
+  "definition": "A mathematical model for representing text documents (and queries) as vectors in a multi-dimensional space, typically used in information retrieval and NLP tasks.",
+  "tags": ["Information Retrieval", "Mathematical Model", "NLP", "IR"],
+  "example": "In a vector space model, a query and a set of documents are converted to vectors, and their relevance is measured using cosine similarity.",
+  "see_also": ["TF-IDF", "Cosine Similarity", "Bag of Words"]
+  }
+]
