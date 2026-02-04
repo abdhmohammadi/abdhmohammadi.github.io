@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friedman Test Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.5/dist/jstat.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0KOVEMeaMurLxlpHCzUZdJxnojOMrJNotYksj4MBzOpAUDaT5lIYBe" crossorigin="anonymous">
+    <!-- jStat library -->
+    <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.5/dist/jstat.min.js"></script>
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMeaMurLxlpHCzUZdJxnojOMrJNotYksj4MBzOpAUDaT5lIYBe" crossorigin="anonymous">
+    <!-- KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIOOTenSvveiH92YdKowVFjephsnMpg3eKWxvaEhBC/pxOupVIb" crossorigin="anonymous"></script>
+    <!-- Auto-render extension for KaTeX -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+
+   <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f4f7f6;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="file"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #results {
+            margin-top: 30px;
+            display: none; /* Initially hidden */
+        }
+        .result-section {
+             margin-top: 20px;
+             padding: 20px;
+             background-color: #ecf0f1;
+             border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        .conclusion {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .conclusion.success {
+            background-color: #e8f6f3;
+            color: #1abc9c;
+            border-left: 5px solid #1abc9c;
+        }
+        .conclusion.warning {
+            background-color: #fef9e7;
+            color: #f39c12;
+            border-left: 5px solid #f39c12;
+        }
+        .katex-display {
+            margin: 1em 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div style="display: flex; flex-direction: column;">
+        <h1>🔬 Friedman Test Calculator</h1>
+            <a href="F-Steps-Example.html">Help</a>
+        </div>
+        <p>Upload a CSV file where rows represent subjects and columns represent related groups to compare.</p>
+        
+        <div class="input-group">
+            <label for="alpha">1. Significance Level $\alpha$</label>
+            <input type="number" id="alpha" value="0.05" step="0.01" min="0.001" max="0.5">
+        </div>
+
+        <div class="input-group">
+            <label for="csvFile">2. Upload your CSV Data</label>
+            <input type="file" id="csvFile" accept=".csv">
+        </div>
+
+        <div class="input-group">
+            <input type="checkbox" id="hasHeader" checked>
+            <label for="hasHeader" style="display: inline-block;">File has a header row</label>
+        </div>
+        
+        <div class="input-group">
+            <input type="checkbox" id="excludeFirstCol" checked>
+            <label for="excludeFirstCol" style="display: inline-block;">Exclude first column from test (e.g., an 'ID' column)</label>
+        </div>
+
+        <button id="calculateBtn">Run Full Analysis</button>
+
+        <div id="results">
+            </div>
+    </div>
+
+    <script>
+         document.addEventListener('DOMContentLoaded', () => {
+            renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            // Add these for single dollar inline math
+            {left: "$", right: "$", display: false}
+        ]
+    });
+         });
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const fileInput = document.getElementById('csvFile');
+            const alpha = parseFloat(document.getElementById('alpha').value);
+            const hasHeader = document.getElementById('hasHeader').checked;
+            const excludeFirstCol = document.getElementById('excludeFirstCol').checked;
+
+            if (fileInput.files.length === 0) 
+            {
+                alert('Please upload a CSV file.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            
+            reader.onload = function(event) {
+                try {
+                    const csv = event.target.result;
+                    let data = parseCSV(csv, hasHeader, excludeFirstCol);
+                    for (const row of data) {
+                        for (const cell of row) {
+                             if (isNaN(cell)) {
+                                throw new Error("CSV contains non-numeric data. Please ensure the data to be tested is numeric.");
+                            }
+                        }
+                    }
+                    const headers = hasHeader ? getHeaders(csv, excludeFirstCol) : null;
+                    const analysisResults = fullFriedmanAnalysis(data);
+                    displayResults(analysisResults, alpha, headers);
+                    //renderMathInElement(document.getElementById('results')); // Re-render LaTeX
+                    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            // Add these for single dollar inline math
+            {left: "$", right: "$", display: false}
+        ]
+    });
+                } catch (e) {
+                    alert('Error: ' + e.message);
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function parseCSV(csv, hasHeader, excludeFirstCol) {
+            const lines = csv.trim().split('\n');
+            if (hasHeader) lines.shift(); 
+            return lines.map(line => {
+                const row = line.split(',').map(item => parseFloat(item.trim()));
+                return excludeFirstCol ? row.slice(1) : row;
+            });
+        }
+        
+        function getHeaders(csv, excludeFirstCol){
+             const headers = csv.trim().split('\n')[0].split(',').map(h => h.trim());
+             return excludeFirstCol ? headers.slice(1) : headers;
+        }
+
+        function fullFriedmanAnalysis(data) {
+            const N = data.length;
+            const k = data[0].length;
+            if (N === 0 || k < 2) throw new Error("Data must have at least 2 columns and at least one row.");
+            const ranks = data.map(row => {
+                const indexedRow = row.map((value, index) => ({ value, index }));
+                indexedRow.sort((a, b) => a.value - b.value);
+                const rowRanks = new Array(k);
+                for (let i = 0; i < indexedRow.length; ) {
+                    let ties = [indexedRow[i]];
+                    let j = i + 1;
+                    while (j < indexedRow.length && indexedRow[j].value === ties[0].value) {
+                        ties.push(indexedRow[j]); j++;
+                    }
+                    const avgRank = (i + 1 + (i + ties.length)) / 2;
+                    ties.forEach(tie => rowRanks[tie.index] = avgRank);
+                    i += ties.length;
+                }
+                return rowRanks;
+            });
+            const rankSums = new Array(k).fill(0);
+            for (let j = 0; j < k; j++) {
+                for (let i = 0; i < N; i++) {
+                    rankSums[j] += ranks[i][j];
+                }
+            }
+            const averageRanks = rankSums.map(sum => sum / N);
+            const sumOfSquaredRankSums = rankSums.reduce((sum, r) => sum + r * r, 0);
+            const chi2_F = (12 / (N * k * (k + 1))) * sumOfSquaredRankSums - 3 * N * (k + 1);
+            const df_chi2 = k - 1;
+            const pValue_chi2 = 1 - jStat.chisquare.cdf(chi2_F, df_chi2);
+            const F_F = ((N - 1) * chi2_F) / (N * (k - 1) - chi2_F);
+            const df1_F = k - 1;
+            const df2_F = (N - 1) * (k - 1);
+            const pValue_F = 1 - jStat.centralF.cdf(F_F, df1_F, df2_F);
+            const kendallsW = chi2_F / (N * (k - 1));
+            return { N, k, averageRanks, chi2_F, df_chi2, pValue_chi2, F_F, df1_F, df2_F, pValue_F, kendallsW };
+        }
+
+        function displayResults(results, alpha, headers) {
+            const { N, k, averageRanks, chi2_F, df_chi2, pValue_chi2, F_F, df1_F, df2_F, pValue_F, kendallsW } = results;
+            const resultsDiv = document.getElementById('results');
+            const displayHeaders = headers || Array.from({length: k}, (_, i) => `Group ${i + 1}`);
+
+            let rankTableHTML = '<h3>Average Rank Table</h3><p>Lower ranks indicate better performance/higher values.</p><table><thead><tr><th>Group</th><th>Average Rank</th></tr></thead><tbody>';
+            const sortedRanks = averageRanks.map((rank, i) => ({name: displayHeaders[i], rank})).sort((a,b) => a.rank - b.rank);
+            sortedRanks.forEach(item => {
+                rankTableHTML += `<tr><td>${item.name}</td><td>${item.rank.toFixed(2)}</td></tr>`;
+            });
+            rankTableHTML += '</tbody></table>';
+
+            let statsHTML = `
+                <h3>Test Statistics</h3>
+                <p>Where \\(N=\\text{${N}}\\), \\(k=\\text{${k}}\\), and \\(R_j\\) is the sum of ranks for group \\(j\\).</p>
+                <h4>Friedman Chi-Squared Test (\\(\\chi^2_F\\))</h4>
+                $$ \\chi^2_F = \\frac{12N}{k(k+1)} \\left( \\sum_{j=1}^{k} R_j^2 \\right) - 3N(k+1) $$
+                <p><strong>Statistic (\\(\\chi^2\\)):</strong> ${chi2_F.toFixed(4)}</p>
+                <p><strong>Degrees of Freedom (df):</strong> ${df_chi2}</p>
+                <p><strong>P-value:</strong> ${pValue_chi2.toFixed(4)}</p>
+                <hr>
+                <h4>Iman-Davenport F-Test (\\(F_F\\))</h4>
+                <p>This test is generally more robust than the standard Chi-Squared test.</p>
+                $$ F_F = \\frac{(N-1) \\chi^2_F}{N(k-1) - \\chi^2_F} $$
+                <p><strong>Statistic (F):</strong> ${F_F.toFixed(4)}</p>
+                <p><strong>Degrees of Freedom (df1, df2):</strong> (${df1_F}, ${df2_F})</p>
+                <p><strong>P-value:</strong> ${pValue_F.toFixed(4)}</p>
+            `;
+
+            const effectSizeInterpretation = kendallsW < 0.1 ? "Negligible" : kendallsW < 0.3 ? "Weak" : kendallsW < 0.5 ? "Moderate" : "Strong";
+            let effectSizeHTML = `
+                <h3>Effect Size (Kendall's W)</h3>
+                $$ W = \\frac{\\chi^2_F}{N(k-1)} $$
+                <p><strong>Kendall's W:</strong> ${kendallsW.toFixed(4)}</p>
+                <p>This value represents the degree of agreement in ranks across groups. Based on the calculated value, the effect size is considered <strong>${effectSizeInterpretation}</strong>.</p>
+            `;
+            
+            let conclusionHTML = '<h3>Overall Conclusion</h3>';
+            if (pValue_F < alpha) {
+                conclusionHTML += `
+                    <div class="conclusion success">
+                        <strong>Reject the null hypothesis.</strong>
+                        <p>The F-test p-value (${pValue_F.toFixed(4)}) is less than your alpha (${alpha}), indicating a statistically significant difference exists somewhere among the groups.</p>
+                        <p><strong>Next Step:</strong> You should perform post-hoc tests to determine which specific pairs of groups are different.</p>
+                    </div>`;
+            } else {
+                conclusionHTML += `
+                    <div class="conclusion warning">
+                        <strong>Fail to reject the null hypothesis.</strong>
+                        <p>The F-test p-value (${pValue_F.toFixed(4)}) is not less than your alpha (${alpha}), indicating no evidence of a statistically significant difference among the groups.</p>
+                    </div>`;
+            }
+            
+            resultsDiv.innerHTML = `
+                <div class="result-section">${rankTableHTML}</div>
+                <div class="result-section">${statsHTML}</div>
+                <div class="result-section">${effectSizeHTML}</div>
+                <div class="result-section">${conclusionHTML}</div>
+            `;
+            resultsDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nemenyi Test Calculator (Friedman Post-Hoc)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.5/dist/jstat.min.js"></script>
+    <!-- integrity="sha384-n8MVd4RsNIU0KOVEMeaMurLxlpHCzUZdJxnojOMrJNotYksj4MBzOpAUDaT5lIYBe"
+     integrity="sha384-XjKyOOlGwcjNTAIOOTenSvveiH92YdKowVFjephsnMpg3eKWxvaEhBC/pxOupVIb"
+     integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"  crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" 
+     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+     crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f4f7f6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for longer content */
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #34495e;
+        }
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #2c3e50;
+            box-sizing: border-box; /* Ensures padding doesn't increase total width */
+        }
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .btn-toggle-group-data {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            display: block; /* Make it a block element to take full width or align */
+            width: fit-content; /* Adjust width to content */
+        }
+        .btn-toggle-group-data:hover {
+            background-color: #5a6268;
+        }
+        .results-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+        .results-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            display: none; /* Hidden by default */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            overflow: hidden; /* For rounded corners */
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dfe6e9;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            font-weight: 600;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:nth-child(even) {
+            background-color: #f7f9fa;
+        }
+        .significant {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        .not-significant {
+            color: #e74c3c;
+        }
+        .group-input-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .group-input-item button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background-color 0.3s ease;
+        }
+        .group-input-item button:hover {
+            background-color: #c0392b;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+            margin-bottom: 0;
+        }
+        .checkbox-container label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .group-input-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .group-input-item textarea {
+                width: calc(100% - 20px); /* Adjust for padding/margin of button */
+            }
+            .group-input-item button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center p-4">
+    <div class="container mx-auto p-8 bg-white rounded-xl shadow-lg">
+        <h1 class="text-3xl font-bold text-center mb-6">Nemenyi Test Calculator (Friedman Post-Hoc)</h1>
+
+        <div id="messageBox" class="message"></div>
+
+        <p class="mb-4 text-gray-700">
+            This calculator performs the Nemenyi post-hoc test, typically used after a significant Friedman test for related samples (blocked designs).
+            Each row in your input data (manual or CSV) is treated as a "block" or "dataset", and each column is a "group" or "algorithm".
+            The calculator will rank data *within each block*.
+            For more accurate q-values for degrees of freedom not listed below, please refer to a Studentized Range Q table.
+        </p>
+
+        <div class="mb-6 border-b pb-4 border-gray-200">
+            <h2 class="text-xl font-semibold mb-3 text-gray-800">Upload Data from CSV</h2>
+            <p class="text-sm text-gray-600 mb-4">
+                Select a CSV file. The first row is assumed to be group headers (e.g., algorithm names), and the first column is assumed to be block/dataset names.
+            </p>
+            <div class="flex items-center gap-4 mb-4">
+                <input type="file" id="csvFileInput" accept=".csv" class="block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-blue-50 file:text-blue-700
+                    hover:file:bg-blue-100 cursor-pointer"/>
+            </div>
+            <div class="flex flex-col md:flex-row md:gap-6">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="useHeaderRow" checked>
+                    <label for="useHeaderRow">Use first row as group names</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="excludeFirstColumn" checked>
+                    <label for="excludeFirstColumn">Exclude first column (dataset names)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label for="alpha" class="block text-gray-700 text-sm font-bold mb-2">Significance Level $\alpha$:</label>
+            <select id="alpha" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                <option value="0.01">0.01</option>
+                <option value="0.05">0.05</option>
+                <option value="0.1">0.10</option>
+            </select>
+        </div>
+
+        <div id="groupInputsContainer" class="mb-6">
+           <div class="flex justify-start gap-4 mb-4">
+                <button id="addGroupBtn" class="btn-primary">Add Group</button>
+                <button id="toggleGroupDataBtn" class="btn-toggle-group-data">Hide Group Data</button>
+            </div> 
+            <div id="groupInputs">
+                <!-- Group input fields will be added here by JavaScript -->
+            </div>
+        </div>
+
+        <div class="flex justify-center mt-6">
+            <button id="calculateBtn" class="btn-primary w-full max-w-xs">Calculate Nemenyi Test</button>
+        </div>
+
+        <div id="results" class="results-section hidden">
+            <h2 class="text-2xl font-semibold mb-4">Results</h2>
+            <p id="qAlphaDisplay" class="text-lg font-medium text-gray-800 mb-2"></p>
+            <p id="criticalDifference" class="text-lg font-medium text-gray-800 mb-4"></p>
+
+            <div id="rankingSummaryResults" class="mb-8">
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Average Ranks and Group Rank Sums</h3>
+                <div class="overflow-x-auto">
+                    <table id="averageRanksTable" class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3">Algorithm</th>
+                                <th class="px-6 py-3">Average Rank</th>
+                                <th class="px-6 py-3">Group Rank Sum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Average ranks and rank sums will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-sm text-gray-600 mt-2">
+                    These are the average rank and total sum of ranks for each group (algorithm) after ranking has been performed independently within each row (dataset).
+                </p>
+            </div>
+
+            <div id="pairwiseComparisonResults" class="mb-8">
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Pairwise Comparisons</h3>
+                <div class="overflow-x-auto">
+                    <table id="pairwiseComparisons" class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3">Comparison</th>
+                                <th class="px-6 py-3">Absolute Difference in Rank Sums</th>
+                                <th class="px-6 py-3">Critical Difference (CD)</th>
+                                <th class="px-6 py-3">Significance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Results will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">
+                    *Pairs where the absolute difference in rank sums is greater than the Critical Difference (CD) are considered statistically significant at the chosen $\alpha$ level.
+                </p>
+            </div>
+
+            <div id="significantComparisonsSection" class="mb-8 p-6 bg-green-50 rounded-lg border border-green-200 hidden">
+                <h3 class="text-xl font-semibold mb-3 text-green-800">Statistically Significant Differences</h3>
+                <div class="overflow-x-auto">
+                    <table id="significantComparisonsTable" class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3">Comparison</th>
+                                <th class="px-6 py-3">Absolute Difference in Rank Sums</th>
+                                <th class="px-6 py-3">Critical Difference (CD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Significant comparisons will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="noSignificantDifferencesMessage" class="text-base text-gray-700 mt-4 hidden">
+                    No statistically significant differences were found between any pairs of algorithms at the chosen $\alpha$ level.
+                </p>
+            </div>
+
+
+            <div id="interpretation" class="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+                <h3 class="text-xl font-semibold mb-3 text-blue-800">Interpretation of Results</h3>
+                <div id="interpretationText" class="text-gray-800 leading-relaxed">
+                    <!-- Interpretation will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for studentized range (q) values for df = infinity
+        // Source: Based on common statistical tables for studentized range distribution
+        // Values here are q_alpha,k
+        const qValues = {
+            '0.05': {
+                2: 2.77, 3: 3.31, 4: 3.63, 5: 3.86, 6: 4.03,
+                7: 4.17, 8: 4.28, 9: 4.39, 10: 4.47
+            },
+            '0.01': {
+                2: 3.64, 3: 4.12, 4: 4.47, 5: 4.72, 6: 4.92,
+                7: 5.07, 8: 5.20, 9: 5.32, 10: 5.42
+            },
+            '0.1': { // Added values for alpha = 0.1
+                2: 2.33, 3: 2.90, 4: 3.24, 5: 3.49, 6: 3.68,
+                7: 3.84, 8: 3.98, 9: 4.10, 10: 4.20
+            }
+        };
+
+        let groupIdCounter = 0; // To ensure unique IDs for new groups and manage group additions/removals
+        let groupNamesFromCsv = []; // Stores group names parsed from CSV, to be used in calculateNemenyi
+
+        document.addEventListener('DOMContentLoaded', () => {
+            addGroup(); // Add initial group input on load
+            setupFileUpload(); // Setup file upload listeners
+            toggleGroupDataVisibility();
+            document.getElementById('addGroupBtn').addEventListener('click', addGroup);
+            document.getElementById('calculateBtn').addEventListener('click', calculateNemenyi);
+            document.getElementById('toggleGroupDataBtn').addEventListener('click', toggleGroupDataVisibility);
+
+            renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            // Add these for single dollar inline math
+            {left: "$", right: "$", display: false}
+        ]
+    });
+        });
+
+        /**
+         * Displays a message in the message box.
+         * @param {string} message - The message to display.
+         * @param {string} type - The type of message (e.g., 'error', 'success').
+         */
+        function showMessage(message, type = 'error') {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.className = `message mt-4 mb-4 p-4 rounded-lg text-sm ${type === 'error' ? 'bg-red-100 text-red-700 border-red-400' : 'bg-green-100 text-green-700 border-green-400'}`;
+            messageBox.style.display = 'block';
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 5000); // Hide after 5 seconds
+        }
+
+        /**
+         * Toggles the visibility of the group input fields.
+         */
+        function toggleGroupDataVisibility() {
+            const groupInputsDiv = document.getElementById('groupInputs');
+            const toggleBtn = document.getElementById('toggleGroupDataBtn');
+            if (groupInputsDiv.classList.contains('hidden')) 
+            {
+                groupInputsDiv.classList.remove('hidden');
+                toggleBtn.textContent = 'Hide Group Data';
+            } 
+            else 
+            {
+                groupInputsDiv.classList.add('hidden');
+                toggleBtn.textContent = 'Show Group Data';
+            }
+        }
+
+        /**
+         * Adds a new group input field to the form.
+         * @param {string} initialData - Optional initial data for the textarea.
+         * @param {string} groupName - Optional name for the group (e.g., from CSV header).
+         */
+        function addGroup(initialData = '', groupName = '') {
+            groupIdCounter++; // Increment counter for unique ID
+            const groupInputsDiv = document.getElementById('groupInputs');
+
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'group-input-item bg-gray-50 p-4 rounded-lg shadow-sm mb-4';
+            groupDiv.id = `group-item-${groupIdCounter}`; // Use a unique ID for the div
+
+            // Determine the display group name
+            const currentManualGroupCount = document.querySelectorAll('.group-input-item').length + 1;
+            const displayGroupName = groupName || `Group ${currentManualGroupCount}`;
+
+            groupDiv.innerHTML = `
+                <label for="groupData-${groupIdCounter}" class="block text-gray-700 text-sm font-bold mb-2">
+                    ${displayGroupName} Data (comma-separated numbers):
+                </label>
+                <textarea id="groupData-${groupIdCounter}"
+                          class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="e.g., 10, 12, 15, 11"></textarea>
+                <button type="button" class="remove-group-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+                    Remove Group
+                </button>
+            `;
+            // Set initialData after element is created to ensure value property is set
+            groupDiv.querySelector('textarea').value = initialData;
+
+            groupInputsDiv.appendChild(groupDiv);
+
+            // Add event listener to the new remove button
+            groupDiv.querySelector('.remove-group-btn').addEventListener('click', () => {
+                removeGroup(groupDiv.id);
+            });
+        }
+
+        /**
+         * Removes a group input field.
+         * @param {string} groupId - The ID of the group div to remove.
+         */
+        function removeGroup(groupId) {
+            const groupDiv = document.getElementById(groupId);
+            if (groupDiv) {
+                groupDiv.remove();
+            }
+            // After removal, if no groups remain, add one back to prevent an empty state.
+            if (document.querySelectorAll('.group-input-item').length === 0) {
+                groupIdCounter = 0; // Reset counter if all removed
+                addGroup(); // Add an initial group
+            } else {
+                // Re-label existing groups if any are removed to keep numbering sequential
+                // Only relabel if it was a manually added group (i.e., doesn't have "from CSV")
+                document.querySelectorAll('.group-input-item').forEach((item, index) => {
+                    const label = item.querySelector('label');
+                    if (label && !label.textContent.includes('(from CSV)')) {
+                        label.textContent = `Group ${index + 1} Data (comma-separated numbers):`;
+                    }
+                });
+            }
+        }
+
+        /**
+         * Collects and parses data from all group input fields.
+         * @returns {Array<Array<number>>} An array of arrays, where each inner array is data for a group.
+         * This data is "transposed" from the UI, meaning each inner array is a group's data across all blocks.
+         * Returns null if validation fails.
+         */
+        function getGroupData() {
+            const textareas = document.querySelectorAll('[id^="groupData-"]'); // These are columns (groups/algorithms)
+
+            if (textareas.length < 2) {
+                showMessage("Please add at least two groups (algorithms) to perform the Nemenyi test.", "error");
+                return null;
+            }
+
+            // Data for each group (algorithm) across all blocks (datasets)
+            const groupData = Array.from({ length: textareas.length }, () => []);
+            let consistentBlockSize = -1; // Number of blocks (datasets)
+
+            // Iterate through each textarea (which represents a group/algorithm's values)
+            for (let i = 0; i < textareas.length; i++) {
+                const dataString = textareas[i].value.trim();
+                if (!dataString) {
+                    const groupLabel = textareas[i].previousElementSibling ? textareas[i].previousElementSibling.textContent.split(' Data')[0] : `Group ${i + 1}`;
+                    showMessage(`${groupLabel} data is empty. Please enter values for all blocks.`, "error");
+                    return null;
+                }
+                const data = dataString.split(',').map(s => parseFloat(s.trim()));
+                if (data.some(isNaN)) {
+                    const groupLabel = textareas[i].previousElementSibling ? textareas[i].previousElementSibling.textContent.split(' Data')[0] : `Group ${i + 1}`;
+                    showMessage(`${groupLabel} contains non-numeric data. Please enter valid numbers.`, "error");
+                    return null;
+                }
+
+                if (consistentBlockSize === -1) {
+                    consistentBlockSize = data.length;
+                } else if (data.length !== consistentBlockSize) {
+                    showMessage("All groups (algorithms) must have the same number of observations (datasets/blocks). Please ensure equal sample sizes for all groups.", "error");
+                    return null;
+                }
+                groupData[i] = data; // Store the data for this group
+            }
+            return groupData;
+        }
+
+        /**
+         * Ranks data *within each row/block* (Friedman ranking).
+         * @param {Array<Array<number>>} dataMatrix - The data, where rows are blocks/datasets and columns are groups/algorithms.
+         * @returns {{rankedBlocks: Array<Array<number>>}} The ranks for each value within its block.
+         */
+        function friedmanRankData(dataMatrix) {
+            const rankedBlocks = [];
+
+            // Iterate over each block (row)
+            dataMatrix.forEach(blockValues => {
+                // Pair values with their original indices within the block
+                const indexedValues = blockValues.map((value, index) => ({ value, originalIndex: index }));
+                
+                // Sort within the block to assign ranks
+                indexedValues.sort((a, b) => a.value - b.value);
+
+                const currentBlockRanks = Array(blockValues.length).fill(0);
+                let currentRank = 1;
+                let i = 0;
+                while (i < indexedValues.length) {
+                    let j = i;
+                    const tieGroup = [];
+                    while (j < indexedValues.length && indexedValues[j].value === indexedValues[i].value) {
+                        tieGroup.push(indexedValues[j]);
+                        j++;
+                    }
+
+                    const avgRank = (currentRank + (currentRank + tieGroup.length - 1)) / 2;
+                    tieGroup.forEach(item => {
+                        currentBlockRanks[item.originalIndex] = avgRank;
+                    });
+
+                    currentRank += tieGroup.length;
+                    i = j;
+                }
+                rankedBlocks.push(currentBlockRanks);
+            });
+            return { rankedBlocks };
+        }
+
+        /**
+         * Calculates the Critical Difference (CD) for the Nemenyi test (Friedman post-hoc).
+         * CD = q * sqrt( (k * (k + 1)) / (6 * N) ) where N is the number of blocks.
+         * @param {number} alpha - Significance level.
+         * @param {number} k - Number of groups (algorithms).
+         * @param {number} N - Number of blocks (datasets).
+         * @returns {object|null} An object containing the calculated CD and q_alpha, or null if q-value is not found.
+         */
+        function calculateCriticalDifference(alpha, k, N) {
+            const q = qValues[alpha][k];
+            if (!q) {
+                showMessage(`Nemenyi Test: Critical q-value for k=${k} (number of groups) and \\(\\alpha\\)=${alpha} not found in lookup table. Please refer to a Studentized Range Q table for more values or use a different \\(\\alpha\\)/number of groups.`, "error");
+                return null;
+            }
+            // Corrected Formula for Nemenyi test after Friedman (comparing rank sums)
+            // CD = q_alpha,k,infinity * sqrt( (k * (k + 1)) / (6 * N) )
+            const cdValue = q * Math.sqrt((k * (k + 1)) / (6 * N));
+            return { cd: cdValue, qAlpha: q };
+        }
+
+        /**
+         * Performs the Nemenyi test calculation (Friedman post-hoc) and displays results.
+         */
+        function calculateNemenyi() {
+            // Get data as columns (groups) across rows (blocks)
+            const groupDataRaw = getGroupData(); // This returns Array<Array<number>> where each inner array is one group's data.
+            if (!groupDataRaw) {
+                document.getElementById('results').classList.add('hidden');
+                return;
+            }
+
+            const alpha = parseFloat(document.getElementById('alpha').value);
+            const k = groupDataRaw.length; // Number of groups (algorithms)
+            const N = groupDataRaw[0].length; // Number of blocks (datasets)
+
+            if (k < 2) {
+                showMessage("Nemenyi Test requires at least two groups (algorithms).", "error");
+                document.getElementById('results').classList.add('hidden');
+                return;
+            }
+            if (N < 2) {
+                 showMessage("Each group (algorithm) must have at least two observations (datasets/blocks) for meaningful ranking and comparison.", "error");
+                 document.getElementById('results').classList.add('hidden');
+                 return;
+             }
+            
+            // To perform Friedman ranking, we need data organized by blocks (rows)
+            // Transpose groupDataRaw from columns-as-arrays to rows-as-arrays
+            const dataMatrixByBlocks = Array.from({ length: N }, (_, rowIndex) =>
+                Array.from({ length: k }, (_, colIndex) => groupDataRaw[colIndex][rowIndex])
+            );
+
+            const { rankedBlocks } = friedmanRankData(dataMatrixByBlocks);
+
+            // Calculate rank sums for each group (algorithm) across all blocks
+            const rankSums = Array.from({ length: k }, () => 0);
+            for (let blockIdx = 0; blockIdx < N; blockIdx++) {
+                for (let groupIdx = 0; groupIdx < k; groupIdx++) {
+                    rankSums[groupIdx] += rankedBlocks[blockIdx][groupIdx];
+                }
+            }
+
+            // Get current group names from labels for results display
+            const currentGroupNames = Array.from(document.querySelectorAll('[id^="groupData-"]')).map((textarea, index) => {
+                if (groupNamesFromCsv.length > index) {
+                    return groupNamesFromCsv[index];
+                }
+                const label = textarea.previousElementSibling;
+                return label ? label.textContent.split(' Data')[0] : `Group ${textarea.id.split('-')[1]}`;
+            });
+
+            const groupStats = rankSums.map((sum, index) => ({
+                name: currentGroupNames[index],
+                sum: sum,
+                average: sum / N // Calculate average rank here
+            }));
+
+            const cdResult = calculateCriticalDifference(alpha, k, N);
+            if (cdResult === null) {
+                document.getElementById('results').classList.add('hidden');
+                return;
+            }
+            const cd = cdResult.cd;
+            const qAlpha = cdResult.qAlpha;
+
+            // Display q_alpha and Critical Difference
+            document.getElementById('qAlphaDisplay').textContent = `Studentized Range q-value \\(q_{\\alpha},k\\): ${qAlpha.toFixed(3)}`;
+            document.getElementById('criticalDifference').textContent = `Calculated Critical Difference (CD): ${cd.toFixed(3)}`;
+
+            // Populate Average Ranks and Group Rank Sums Table
+            const averageRanksTableBody = document.getElementById('averageRanksTable').getElementsByTagName('tbody')[0];
+            averageRanksTableBody.innerHTML = ''; // Clear previous results
+            groupStats.forEach(gs => {
+                const row = averageRanksTableBody.insertRow();
+                row.insertCell(0).textContent = gs.name;
+                row.insertCell(1).textContent = gs.average.toFixed(2);
+                row.insertCell(2).textContent = gs.sum.toFixed(2);
+            });
+
+
+            // Perform pairwise comparisons
+            const pairwiseTableBody = document.getElementById('pairwiseComparisons').getElementsByTagName('tbody')[0];
+            pairwiseTableBody.innerHTML = ''; // Clear previous results
+
+            const comparisons = [];
+            for (let i = 0; i < k; i++) {
+                for (let j = i + 1; j < k; j++) {
+                    const diff = Math.abs(groupStats[i].sum - groupStats[j].sum); // Still comparing sums for Nemenyi
+                    const isSignificant = diff > cd;
+                    comparisons.push({
+                        group1: groupStats[i].name,
+                        group2: groupStats[j].name,
+                        diff: diff,
+                        isSignificant: isSignificant
+                    });
+                }
+            }
+
+            // Sort comparisons by significance (significant first) and then by difference
+            comparisons.sort((a, b) => {
+                if (a.isSignificant && !b.isSignificant) return -1;
+                if (!a.isSignificant && b.isSignificant) return 1;
+                return b.diff - a.diff; // Descending by difference for tied significance
+            });
+
+            // Populate the pairwise comparison table
+            comparisons.forEach(comp => {
+                const row = pairwiseTableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+
+                cell1.textContent = `${comp.group1} vs. ${comp.group2}`;
+                cell2.textContent = comp.diff.toFixed(3);
+                cell3.textContent = cd.toFixed(3);
+                cell4.textContent = comp.isSignificant ? 'Significant' : 'Not Significant';
+                cell4.classList.add(comp.isSignificant ? 'significant' : 'not-significant');
+            });
+
+            // Populate Statistically Significant Differences Table
+            const significantComparisonsTableBody = document.getElementById('significantComparisonsTable').getElementsByTagName('tbody')[0];
+            significantComparisonsTableBody.innerHTML = ''; // Clear previous results
+            const significantPairs = comparisons.filter(c => c.isSignificant);
+
+            const significantSection = document.getElementById('significantComparisonsSection');
+            const noSignificantMessage = document.getElementById('noSignificantDifferencesMessage');
+
+            if (significantPairs.length > 0) {
+                significantPairs.forEach(comp => {
+                    const row = significantComparisonsTableBody.insertRow();
+                    row.insertCell(0).textContent = `${comp.group1} vs. ${comp.group2}`;
+                    row.insertCell(1).textContent = comp.diff.toFixed(3);
+                    row.insertCell(2).textContent = cd.toFixed(3);
+                });
+                significantSection.classList.remove('hidden');
+                noSignificantMessage.classList.add('hidden');
+            } else {
+                significantSection.classList.remove('hidden');
+                noSignificantMessage.classList.remove('hidden');
+            }
+
+
+            // Generate Interpretation Text
+            generateInterpretation(alpha, k, N, cd, comparisons);
+
+            document.getElementById('results').classList.remove('hidden');
+            showMessage("Calculation complete!", "success");
+            
+            renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            // Add these for single dollar inline math
+            {left: "$", right: "$", display: false}
+        ]
+    });
+            // THIS IS THE CRITICAL LINE:
+   
+
+            // Hide group inputs after calculation to clean up the view
+            document.getElementById('groupInputs').classList.add('hidden');
+            document.getElementById('toggleGroupDataBtn').textContent = 'Show Group Data';
+        }
+
+        /**
+         * Generates and displays the interpretation text.
+         * @param {number} alpha - Significance level.
+         * @param {number} k - Number of groups (algorithms).
+         * @param {number} N - Number of blocks (datasets).
+         * @param {number} cd - Calculated Critical Difference.
+         * @param {Array<Object>} comparisons - Array of pairwise comparison results.
+         */
+        function generateInterpretation(alpha, k, N, cd, comparisons) {
+            const interpretationTextDiv = document.getElementById('interpretationText');
+            let text = `
+                <p class="mb-3">The Nemenyi test, in this context, is used as a non-parametric post-hoc test following a significant Friedman test. The Friedman test is appropriate for comparing <strong>${k} related groups (e.g., algorithms)</strong> across <strong>${N} blocks (e.g., datasets)</strong>. It is used when the data does not meet the assumptions for parametric tests like repeated measures ANOVA (e.g., non-normal data or ordinal scale).</p>
+
+                <p class="mb-3">The Friedman test first ranks the data *independently within each block (dataset)*. Then, for each group (algorithm), the ranks across all blocks are summed. The Nemenyi test then uses these rank sums to perform pairwise comparisons between groups to determine which specific pairs are significantly different.</p>
+
+                <p class="mb-3">In this analysis, we compared <strong>${k} algorithms</strong> across <strong>${N} datasets</strong>, at a significance level $\\alpha$ of <strong>${alpha}</strong>.</p>
+
+                <h4 class="text-lg font-semibold mb-2">Critical Difference (CD):</h4>
+                <p class="mb-3">The calculated <strong>Critical Difference (CD) is approximately ${cd.toFixed(3)}</strong>. This CD serves as a threshold. For any pair of algorithms, if the absolute difference between their total rank sums (across all datasets) is greater than this CD, then those algorithms are considered statistically significantly different at the chosen \\(\\alpha\\) level.</p>
+
+                <h4 class="text-lg font-semibold mb-2">Pairwise Comparison Interpretation:</h4>
+                <p class="mb-3">The "Pairwise Comparisons" table above displays the absolute difference in rank sums for every possible pair of algorithms. Here's how to interpret the "Significance" column:</p>
+                <ul class="list-disc pl-5 mb-3">
+                    <li><strong>Significant:</strong> This indicates that the absolute difference between the rank sums of the two compared algorithms is <strong>greater than the Critical Difference (${cd.toFixed(3)})</strong>. This leads to the conclusion that there is a statistically significant difference in performance between these two algorithms across the datasets.</li>
+                    <li><strong>Not Significant:</strong> This means that the absolute difference between the rank sums of the two compared algorithms is <strong>less than or equal to the Critical Difference (${cd.toFixed(3)})</strong>. In this case, there is insufficient evidence to conclude a statistically significant difference in performance between these two algorithms at the ${alpha} level.</li>
+                </ul>
+            `;
+
+            const significantPairs = comparisons.filter(c => c.isSignificant);
+            const nonSignificantPairs = comparisons.filter(c => !c.isSignificant);
+
+            // Updated to refer to the new table
+            if (significantPairs.length > 0) {
+                text += `<p class="mb-3"><strong>For a detailed list of statistically significant differences, please refer to the "Statistically Significant Differences" table above.</strong></p>`;
+            } else {
+                text += `<p class="mb-3"><strong>As indicated in the "Statistically Significant Differences" section above, no statistically significant differences were found between any pairs of algorithms at the ${alpha} level.</strong></p>`;
+            }
+
+            text += `<p class="mt-4 text-sm text-gray-700 italic"><strong>Important Note:</strong> This implementation assumes a complete block design where each algorithm is evaluated on every dataset, and there are no missing values. It also assumes that the performance measure is at least ordinal. The critical q-values are based on infinite degrees of freedom; for smaller sample sizes or different \\(\\alpha\\) values, consulting a specialized Studentized Range Q table is recommended.</p>`;
+
+            interpretationTextDiv.innerHTML = text;
+            interpretationTextDiv.style.display = 'block';
+        }
+
+        /**
+         * Sets up the event listeners for the CSV file input.
+         * The CSV is now processed automatically on file selection.
+         */
+        function setupFileUpload() {
+            const csvFileInput = document.getElementById('csvFileInput');
+            
+            // Set default checkbox states
+            document.getElementById('useHeaderRow').checked = true;
+            document.getElementById('excludeFirstColumn').checked = true;
+
+            csvFileInput.addEventListener('change', (event) => {
+                if (event.target.files.length === 0) {
+                    showMessage('No CSV file selected.', 'error');
+                    return;
+                }
+                const file = event.target.files[0];
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    try {
+                        const csvString = e.target.result;
+                        const parsedData = parseCsvData(csvString);
+
+                        if (parsedData) {
+                            populateGroupInputsFromCsv(parsedData);
+                            showMessage('CSV file loaded and processed automatically!', 'success');
+                            document.getElementById('results').classList.add('hidden'); // Hide results until new calculation
+                        }
+                    } catch (error) {
+                        showMessage(`Error processing CSV file: ${error.message}`, 'error');
+                    }
+                };
+
+                reader.onerror = () => {
+                    showMessage('Failed to read CSV file.', 'error');
+                };
+
+                reader.readAsText(file);
+            });
+        }
+
+        /**
+         * Parses a CSV string into an object containing headers and group data (columns as groups).
+         * Accounts for 'useHeaderRow' and 'excludeFirstColumn' checkboxes.
+         * @param {string} csvString - The content of the CSV file.
+         * @returns {{headers: string[], data: Array<Array<number>>}|null} Parsed data or null on error.
+         * The 'data' returned is transposed for UI, i.e., each inner array represents a column (group).
+         */
+        function parseCsvData(csvString) {
+            const useHeaderRow = document.getElementById('useHeaderRow').checked;
+            const excludeFirstColumn = document.getElementById('excludeFirstColumn').checked;
+
+            const lines = csvString.trim().split('\n').filter(line => line.trim() !== '');
+            if (lines.length === 0) {
+                showMessage('CSV file is empty or contains no valid data.', 'error');
+                return null;
+            }
+
+            let rawHeaders = []; // Headers as parsed from the CSV line (before exclusion)
+            let processedHeaders = []; // Headers after considering 'excludeFirstColumn'
+            let dataLinesToProcess = [];
+
+            if (useHeaderRow) {
+                rawHeaders = lines[0].split(',').map(h => h.trim());
+                dataLinesToProcess = lines.slice(1);
+            } else {
+                // If not using header row, treat all lines as data
+                dataLinesToProcess = lines;
+                // Generate temporary rawHeaders based on the first data row's column count
+                const tempValues = dataLinesToProcess[0].split(',').map(s => s.trim());
+                for (let i = 0; i < tempValues.length; i++) {
+                    rawHeaders.push(`Column ${i + 1}`);
+                }
+            }
+
+            // Apply excludeFirstColumn to rawHeaders to get the actual processedHeaders (group names)
+            processedHeaders = excludeFirstColumn ? rawHeaders.slice(1) : rawHeaders;
+
+            if (processedHeaders.length < 2) {
+                showMessage("After applying options, there are fewer than two groups (algorithms). Please ensure your CSV has at least two data columns (excluding any excluded first column).", "error");
+                return null;
+            }
+
+            const numberOfAlgorithms = processedHeaders.length;
+            // Initialize array where each sub-array will hold data for one algorithm (column)
+            const algorithmsData = Array.from({ length: numberOfAlgorithms }, () => []);
+
+            let numberOfDatasets = -1; // Number of blocks/datasets (rows)
+
+            if (dataLinesToProcess.length === 0) {
+                 showMessage('CSV file contains no data rows to process (after header if applicable).', 'error');
+                 return null;
+             }
+
+            for (let i = 0; i < dataLinesToProcess.length; i++) {
+                const row = dataLinesToProcess[i];
+                let valuesInRow = row.split(',').map(s => s.trim());
+
+                if (excludeFirstColumn) {
+                    if (valuesInRow.length === 0) {
+                        showMessage(`Row ${i + (useHeaderRow ? 2 : 1)} in CSV is empty after attempting to exclude first column.`, 'error');
+                        return null;
+                    }
+                    valuesInRow = valuesInRow.slice(1); // Exclude the first column
+                }
+
+                // Convert to numbers, checking for NaN
+                const numericValuesInRow = valuesInRow.map(s => parseFloat(s));
+                if (numericValuesInRow.some(isNaN)) {
+                    showMessage(`Row ${i + (useHeaderRow ? 2 : 1)} in CSV contains non-numeric data. Please ensure all data points are numbers.`, "error");
+                    return null;
+                }
+
+                // Check for consistent number of columns per row after exclusion
+                if (numericValuesInRow.length !== numberOfAlgorithms) {
+                    showMessage(`Inconsistent number of columns in CSV. Row ${i + (useHeaderRow ? 2 : 1)} has ${numericValuesInRow.length} data columns, expected ${numberOfAlgorithms}. Please ensure all algorithms have data for each dataset/block.`, "error");
+                    return null;
+                }
+                
+                // Add this row's values to their respective algorithm columns
+                numericValuesInRow.forEach((val, colIdx) => {
+                    algorithmsData[colIdx].push(val);
+                });
+            }
+
+            // Verify all algorithm columns have the same number of observations (datasets)
+            numberOfDatasets = algorithmsData[0] ? algorithmsData[0].length : 0;
+            if (numberOfDatasets === 0) {
+                showMessage('No valid numerical data found in CSV file after parsing.', 'error');
+                return null;
+            }
+            for (let i = 1; i < algorithmsData.length; i++) {
+                if (algorithmsData[i].length !== numberOfDatasets) {
+                    showMessage('Error: All algorithm columns must have the same number of observations (datasets/blocks) for this Nemenyi test (Friedman post-hoc) implementation. Please check your data.', "error");
+                    return null;
+                }
+            }
+
+            // Store processed headers globally for use in calculateNemenyi
+            groupNamesFromCsv = processedHeaders;
+
+            return { headers: processedHeaders, data: algorithmsData };
+        }
+
+        /**
+         * Populates the group input textareas with data parsed from a CSV.
+         * @param {{headers: string[], data: Array<Array<number>>}} parsedData - The parsed CSV data.
+         */
+        function populateGroupInputsFromCsv(parsedData) {
+            const groupInputsDiv = document.getElementById('groupInputs');
+            groupInputsDiv.innerHTML = ''; // Clear existing group inputs
+            groupIdCounter = 0; // Reset counter before adding new groups
+
+            parsedData.data.forEach((groupArray, index) => { // parsedData.data already holds columns (groups)
+                const groupName = parsedData.headers[index] ? `${parsedData.headers[index]} (from CSV)` : `Group ${index + 1} (from CSV)`;
+                const initialData = groupArray.join(', '); // Join the values for this column/group
+                addGroup(initialData, groupName);
+            });
+        }
+    </script>
+</body>
+</html>

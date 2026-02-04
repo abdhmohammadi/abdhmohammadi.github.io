@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friedman Test Results</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; line-height: 1.6; margin: 20px; background-color: #f8f9fa; color: #343a40; }
+        .container { max-width: 900px; margin: 40px auto; padding: 30px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        h1, h2, h3 { color: #0056b3; margin-bottom: 15px; border-bottom: 2px solid #e9ecef; padding-bottom: 8px; }
+        h1 { text-align: center; font-size: 2.2em; }
+        h2 { font-size: 1.8em; }
+        h3 { font-size: 1.5em; }
+        ul { list-style-type: disc; margin-left: 20px; margin-bottom: 15px; }
+        p { margin-bottom: 10px; }
+        table { border-collapse: separate; border-spacing: 0; width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        th, td { border: 1px solid #dee2e6; padding: 12px 15px; text-align: left; }
+        th { background-color: #e0f2f7; color: #0056b3; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f2f7fa; }
+        tr:hover { background-color: #e6f7ff; }
+        .math-formula { font-family: 'Times New Roman', serif; font-size: 1.1em; text-align: center; margin: 20px 0; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px dashed #ced4da; }
+        .highlight { background-color: #d4edda; } /* Green for significant */
+        .rejected { color: #dc3545; font-weight: bold; } /* Red for rejected null hypothesis */
+        .conclusion { padding: 15px; background-color: #e9f7ef; border-left: 5px solid #28a745; margin-top: 20px; border-radius: 8px; }
+        .info-box { padding: 15px; background-color: #e0f7fa; border-left: 5px solid #17a2b8; margin-top: 20px; border-radius: 8px; }
+        .example-data table, .example-ranks table { width: auto; margin-left: auto; margin-right: auto; }
+    </style>
+    <!-- MathJax script for rendering LaTeX formulas -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+        "HTML-CSS": { availableFonts: ["TeX"] }
+      });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Friedman Test: Full Guide with Example</h1>
+
+        <div class="info-box">
+            <p>The Friedman test is a non-parametric statistical test used to detect differences in treatments across multiple test attempts when the data are related (e.g., repeated measures on the same subjects or matched blocks). It is particularly useful when the assumptions for parametric tests like repeated-measures ANOVA (e.g., normality) are not met, or when the data are ordinal.</p>
+        </div>
+
+        <h2>Assumptions of the Friedman Test:</h2>
+        <ul>
+            <li><strong>Paired or Matched Data:</strong> The data must be organized in blocks (or subjects) where each block undergoes all treatment conditions.</li>
+            <li><strong>Ordinal or Continuous Data:</strong> The dependent variable should be measured on an ordinal scale or be continuous.</li>
+            <li><strong>Three or More Groups/Conditions:</strong> The test is designed for comparing three or more related groups. For two related groups, the Wilcoxon Signed-Rank Test is more appropriate.</li>
+            <li><strong>Independent Blocks:</strong> The observations within each block are related, but the blocks themselves must be independent of each other.</li>
+            <li><strong>No Interaction between Blocks and Treatments:</strong> This means that the effect of a treatment is consistent across all blocks.</li>
+        </ul>
+
+        <h2>Hypotheses:</h2>
+        <ul>
+            <li><strong>Null Hypothesis ($H_0$):</strong> The distributions of the dependent variable are the same across all treatment conditions. (i.e., there is no significant difference between the median treatment effects).</li>
+            <li><strong>Alternative Hypothesis ($H_1$):):</strong> At least one treatment condition has a different distribution from the others. (i.e., there is a significant difference in treatment effects).</li>
+        </ul>
+
+        <h2>Steps of the Friedman Test:</h2>
+
+        <h3>Step 1: Organize Your Data</h3>
+        <p>Arrange your data in a table where rows represent the subjects (or blocks) and columns represent the different treatment conditions.</p>
+
+        <h3>Step 2: Rank the Data within Each Block</h3>
+        <p>For each subject (row), rank the observations from lowest to highest across the different treatment conditions (columns). Assign a rank of 1 to the smallest value, 2 to the next smallest, and so on. If there are ties within a row, assign the average of the ranks that would have been assigned.</p>
+
+        <h3>Step 3: Calculate the Sum of Ranks for Each Treatment</h3>
+        <p>Sum the ranks for each treatment condition (column). Let $R_j$ be the sum of ranks for the $j$-th treatment.</p>
+
+        <h3>Step 4: Calculate the Friedman Test Statistic ($\chi^2_F$)</h3>
+        <p>The traditional Friedman test statistic, often denoted as $\chi^2_F$ or $Q$, is calculated using the following formula:</p>
+        <div class="math-formula">
+            $$\chi^2_F = \frac{12}{nk(k+1)} \sum_{j=1}^{k} R_j^2 - 3n(k+1)$$
+        </div>
+        <ul>
+            <li>$n$ = number of subjects (blocks)</li>
+            <li>$k$ = number of treatment conditions</li>
+            <li>$R_j$ = sum of ranks for the $j$-th treatment</li>
+        </ul>
+        <p>This statistic approximates a chi-square distribution with $df = k-1$ degrees of freedom.</p>
+
+        <h3>Step 5: Calculate the F-statistic ($F_F$) (Conover's F-statistic approximation)</h3>
+        <p>An F-statistic approximation can also be used, which follows an F-distribution with degrees of freedom $d1 = k-1$ and $d2 = (n-1)(k-1)$.</p>
+        <div class="math-formula">
+            $$F_F = \frac{(n-1)\chi^2_F}{n(k-1) - \chi^2_F}$$
+        </div>
+
+        <h3>Step 6: Determine the Critical Value or P-value</h3>
+        <p>Compare your calculated statistic ($\chi^2_F$ or $F_F$) to the appropriate critical value from a chi-square or F-distribution table, or obtain the p-value using statistical software.</p>
+
+        <h3>Step 7: Make a Decision</h3>
+        <ul>
+            <li>If the calculated test statistic is greater than the critical value, or if the p-value is less than the significance level ($\alpha$), <strong>reject the null hypothesis</strong>.</li>
+            <li>Otherwise, <strong>fail to reject the null hypothesis</strong>.</li>
+        </ul>
+
+        <h3>Step 8: Interpret the Results</h3>
+        <p>If you reject the null hypothesis, it means there is a statistically significant difference between at least two of the treatment conditions. Post-hoc tests are needed to identify which specific pairs differ.</p>
+
+        <h2>Example: Efficacy of Different Pain Relief Methods</h2>
+        <p>A pharmaceutical company wants to compare the effectiveness of three different pain relief methods (A, B, C) for chronic back pain. They recruit 10 patients, and each patient tries all three methods. Patients rate their pain on a scale of 1 to 10 (1 = no pain, 10 = extreme pain).</p>
+        <p><strong>Significance Level ($\alpha$):</strong> 0.05</p>
+
+        <h3>Original Patient Pain Ratings:</h3>
+        <div class="example-data">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Method A</th>
+                        <th>Method B</th>
+                        <th>Method C</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>7</td><td>5</td><td>4</td></tr>
+                    <tr><td>2</td><td>8</td><td>6</td><td>7</td></tr>
+                    <tr><td>3</td><td>6</td><td>4</td><td>3</td></tr>
+                    <tr><td>4</td><td>9</td><td>7</td><td>6</td></tr>
+                    <tr><td>5</td><td>5</td><td>3</td><td>2</td></tr>
+                    <tr><td>6</td><td>7</td><td>6</td><td>5</td></tr>
+                    <tr><td>7</td><td>8</td><td>5</td><td>4</td></tr>
+                    <tr><td>8</td><td>6</td><td>5</td><td>3</td></tr>
+                    <tr><td>9</td><td>7</td><td>4</td><td>3</td></tr>
+                    <tr><td>10</td><td>8</td><td>6</td><td>4</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Step 1: Study Information</h3>
+        <ul>
+            <li>Number of Subjects (n): 10</li>
+            <li>Number of Treatment Conditions (k): 3</li>
+        </ul>
+
+        <h3>Step 2: Ranks within Each Patient (Row)</h3>
+        <div class="example-ranks">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Method A (Rank)</th>
+                        <th>Method B (Rank)</th>
+                        <th>Method C (Rank)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>3</td><td>2</td><td>1</td></tr>
+                    <tr><td>2</td><td>3</td><td>1</td><td>2</td></tr>
+                    <tr><td>3</td><td>3</td><td>2</td><td>1</td></tr>
+                    <tr><td>4</td><td>3</td><td>2</td><td>1</td></tr>
+                    <tr><td>5</td><td>3</td><td>2</td><td>1</td></tr>
+                    <tr><td>6</td><td>3</td><td>2</td><td>1</td></tr>
+                    <tr><td>7</td><td>3</td><td>2</td><td>1</td></tr>
+                    <tr><td>8</td><td>3</td><td>2</td><td>1</td></tr>
+                    <tr><td>9</td><td>3</td><td>2</td><td>1</td></tr>
+                    <tr><td>10</td><td>3</td><td>2</td><td>1</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Step 3: Sum of Ranks for Each Treatment ($R_j$)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Treatment</th>
+                    <th>Sum of Ranks (R<sub>j</sub>)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Method A</td><td>30</td></tr>
+                <tr><td>Method B</td><td>19</td></tr>
+                <tr><td>Method C</td><td>11</td></tr>
+            </tbody>
+        </table>
+        <p><em>Check: $30 + 19 + 11 = 60$. Expected sum: $n \times k(k+1)/2 = 10 \times 3(4)/2 = 60$. (Correct)</em></p>
+
+        <h3>Step 4: Calculate $\chi^2_F$</h3>
+        <p>$$\chi^2_F = \frac{12}{10 \times 3 \times (3+1)} (30^2 + 19^2 + 11^2) - 3 \times 10 \times (3+1)$$</p>
+        <p>$$\chi^2_F = \frac{12}{120} (900 + 361 + 121) - 120$$</p>
+        <p>$$\chi^2_F = 0.1 \times (1382) - 120 = 138.2 - 120 = \mathbf{18.2}$$</p>
+
+        <h3>Step 5: Calculate $F_F$</h3>
+        <p>Degrees of Freedom: $d1 = k-1 = 3-1 = 2$, $d2 = (n-1)(k-1) = (10-1)(3-1) = 9 \times 2 = 18$</p>
+        <p>$$F_F = \frac{(10-1) \times 18.2}{10(3-1) - 18.2}$$</p>
+        <p>$$F_F = \frac{9 \times 18.2}{20 - 18.2} = \frac{163.8}{1.8} = \mathbf{91.0}$$</p>
+
+        <h3>Step 6 & 7: Determine P-values and Make Decision</h3>
+        <ul>
+            <li><strong>For $\chi^2_F = 18.2$:</strong>
+                <ul>
+                    <li>Degrees of Freedom ($df$): 2</li>
+                    <li>Critical $\chi^2$ value ($\alpha=0.05, df=2$): 5.991</li>
+                    <li>Approximate p-value: 0.00011</li>
+                    <li><strong>Decision:</strong> Since $18.2 > 5.991$ (or p-value $0.00011 < 0.05$), we <strong>reject the null hypothesis</strong>.</li>
+                </ul>
+            </li>
+            <li><strong>For $F_F = 91.0$:</strong>
+                <ul>
+                    <li>Degrees of Freedom ($d1, d2$): (2, 18)</li>
+                    <li>Critical F value ($\alpha=0.05, d1=2, d2=18$): 3.55</li>
+                    <li>Approximate p-value: &lt; 0.001</li>
+                    <li><strong>Decision:</strong> Since $91.0 > 3.55$ (or p-value $\ll 0.001 < 0.05$), we <strong>reject the null hypothesis</strong>.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Step 8: Interpret the Results</h3>
+        <div class="conclusion">
+            <p class="rejected">Based on the Friedman test (p-value $\approx 0.0001$), we reject the null hypothesis. There is a statistically significant difference in pain relief among the three methods (A, B, and C).</p>
+        </div>
+
+        <h2>Post-Hoc Analysis (Nemenyi's Test Example)</h2>
+        <p>Since the overall test was significant, we conduct Nemenyi's post-hoc test to see which pairs differ.</p>
+        <ul>
+            <li>Critical Difference (CD) for $\alpha=0.05, k=3, d2=18$: $\approx 1.126$</li>
+            <li>Mean Ranks: Method A = 3.0, Method B = 1.9, Method C = 1.1</li>
+        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Comparison</th>
+                    <th>Absolute Difference in Mean Ranks</th>
+                    <th>Significance (Difference > CD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="">
+                    <td>Method A vs. Method B</td>
+                    <td>$|3.0 - 1.9| = 1.1$</td>
+                    <td>No</td>
+                </tr>
+                <tr class="highlight">
+                    <td>Method A vs. Method C</td>
+                    <td>$|3.0 - 1.1| = 1.9$</td>
+                    <td>Yes</td>
+                </tr>
+                <tr class="">
+                    <td>Method B vs. Method C</td>
+                    <td>$|1.9 - 1.1| = 0.8$</td>
+                    <td>No</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>Conclusion from Post-Hoc:</strong> Only Method A and Method C show a statistically significant difference in pain relief. Method C provides significantly more pain relief than Method A.</p>
+    </div>
+</body>
+</html>
