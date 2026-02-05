@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Resource Editor - User Documentation</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+    <header>
+        <div style="display: flex;">
+             <a href="../../user-manual.html" class="project-link" style="font-size: large;color:#d1ecf1; margin: auto 10px auto 10px;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+            <h1  style="margin:auto auto auto 5px;">Educational Resource Editor</h1>
+            <span class="version-badge">Page Version: 1.0</span>
+        </div>
+    </header>
+    <p style="text-align: justify;">
+        The Educational Resource Editor is a powerful, multi-format content creation and management tool designed specifically for educators. 
+        It supports a wide range of document types including Plain Text, Rich Text (RTF), HTML, LaTeX, Images, PDFs, and Word documents. 
+        The editor provides a unified interface where teachers can create, edit, format, and manage educational content with precise control 
+        over layout and formatting to ensure compatibility with standard A4 paper output.
+    </p>
+
+    <!-- Screenshot Placeholder: Main Editor Interface -->
+    <div class="screenshot-placeholder">
+        <img src="../images/12.png" alt="Educational Resource Editor Main Interface">
+        <p>Educational Resource Editor Interface</p>
+    </div>
+
+    <h2>Table of Contents</h2>
+    <div class="toc-grid">
+        <a href="#interface-overview">Interface Overview</a>
+        <a href="#supported-formats">Supported Formats</a>
+        <a href="#content-creation">Content Creation</a>
+        <a href="#file-management">File Management</a>
+        <a href="#database-operations">Database Operations</a>
+        <a href="#paper-layout">Paper Layout System</a>
+        <a href="#advanced-features">Advanced Features</a>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="interface-overview">Interface Overview</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3>Primary Workspace</h3>
+            <p>The editor is organized into two main content areas:</p>
+            <ul>
+                <li><strong>Content Section:</strong> Primary area for creating and editing educational questions, problems, or learning materials</li>
+                <li><strong>Answer Section:</strong> Dedicated area for creating answer keys, solutions, or explanatory notes</li>
+            </ul>
+        </div>
+        
+        <div>
+            <h3>Control Panels</h3>
+            <ul>
+                <li><strong>Content Toolbar:</strong> Formatting and import tools specific to the content section</li>
+                <li><strong>Answer Toolbar:</strong> Formatting and import tools specific to the answer section</li>
+                <li><strong>Metadata Panel:</strong> Right-side panel for resource metadata and navigation</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Universal Width Constraint:</strong> All content areas are fixed to a width of <code>6.19 inches</code> (converted to pixels based on DPI settings). This ensures all content fits properly within the A4 paper layout during printing or PDF generation.
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h3>Key Interface Components</h3>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Navigation Controls</h3>
+            <ul>
+                <li><strong>Previous/Next:</strong> Arrow buttons to navigate between existing resources</li>
+                <li><strong>ID Display:</strong> Shows current resource ID or "(New item)" for new content</li>
+                <li><strong>Database Search:</strong> Search field to load specific resources by ID</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Metadata Panel</h3>
+            <ul>
+                <li><strong>Source:</strong> Origin or category of the educational resource</li>
+                <li><strong>Score:</strong> Maximum points for the resource (default: 1)</li>
+                <li><strong>Additional Details:</strong> Notes, remarks, or special instructions</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Action Buttons</h3>
+            <ul>
+                <li><strong>Delete:</strong> Permanently remove current resource from database</li>
+                <li><strong>Save:</strong> Save or update resource in the database</li>
+                <li><strong>Clear:</strong> Start a new resource (clears all fields)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="supported-formats">Supported Document Formats</h2>
+    
+    <p>The editor supports multiple document formats, each with specific handling characteristics:</p>
+    
+    <div class="feature-grid">
+        <div class="data-type-card">
+            <h4>📝 Plain Text</h4>
+            <ul>
+                <li><strong>Extension:</strong> <code>.txt</code></li>
+                <li><strong>Editing:</strong> Direct text editing in QTextEdit</li>
+                <li><strong>Storage:</strong> Converted to HTML format using <code>toHtml()</code></li>
+                <li><strong>Restoration:</strong> Loaded using <code>setHtml()</code></li>
+                <li><strong>Best For:</strong> Simple questions, instructions, notes</li>
+            </ul>
+        </div>
+
+        <div class="data-type-card">
+            <h4>🎨 Rich Text (RTF)</h4>
+            <ul>
+                <li><strong>Extension:</strong> <code>.rtf</code></li>
+                <li><strong>Editing:</strong> Full rich text formatting support</li>
+                <li><strong>Storage:</strong> Converted to HTML format using <code>toHtml()</code></li>
+                <li><strong>Restoration:</strong> Loaded using <code>setHtml()</code></li>
+                <li><strong>Features:</strong> Formatting, images, tables, advanced layout</li>
+            </ul>
+        </div>
+
+        <div class="data-type-card">
+            <h4>🌐 HTML</h4>
+            <ul>
+                <li><strong>Extension:</strong> <code>.html</code>, <code>.htm</code></li>
+                <li><strong>Editing:</strong> Direct HTML source code editing</li>
+                <li><strong>Storage:</strong> Saved as plain text using <code>toPlainText()</code></li>
+                <li><strong>Restoration:</strong> Loaded using <code>setPlainText()</code></li>
+                <li><strong>Processing:</strong> Use "Run HTML" to render in editor</li>
+            </ul>
+        </div>
+
+        <div class="data-type-card">
+            <h4>📐 LaTeX</h4>
+            <ul>
+                <li><strong>Extension:</strong> <code>.tex</code></li>
+                <li><strong>Editing:</strong> Direct LaTeX source code editing</li>
+                <li><strong>Storage:</strong> Saved as plain text using <code>toPlainText()</code></li>
+                <li><strong>Restoration:</strong> Loaded using <code>setPlainText()</code></li>
+                <li><strong>Processing:</strong> Use "Run LaTeX" to compile and render</li>
+            </ul>
+        </div>
+
+        <div class="data-type-card">
+            <h4>🖼️ Image</h4>
+            <ul>
+                <li><strong>Extensions:</strong> <code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.bmp</code>, <code>.gif</code></li>
+                <li><strong>Handling:</strong> Converted to Base64 and embedded in HTML</li>
+                <li><strong>Storage:</strong> Saved as HTML with <code>&lt;img&gt;</code> tag</li>
+                <li><strong>Resizing:</strong> Automatically scaled to 6.19 inches width</li>
+                <li><strong>Insertion:</strong> Can insert into existing content or replace</li>
+            </ul>
+        </div>
+
+        <div class="data-type-card">
+            <h4>📄 PDF</h4>
+            <ul>
+                <li><strong>Extension:</strong> <code>.pdf</code></li>
+                <li><strong>Modes:</strong> Editable (HTML extraction) or Read-only (image)</li>
+                <li><strong>Editable Mode:</strong> Extracts text as HTML for editing</li>
+                <li><strong>Read-only Mode:</strong> Converts first page to Base64 image</li>
+                <li><strong>Limitation:</strong> Only first page is processed</li>
+            </ul>
+        </div>
+
+        <div class="data-type-card">
+            <h4>📘 Word (DOCX)</h4>
+            <ul>
+                <li><strong>Extension:</strong> <code>.docx</code></li>
+                <li><strong>Processing:</strong> Converted to HTML using pypandoc</li>
+                <li><strong>Limitation:</strong> Some formatting may be lost in conversion</li>
+                <li><strong>Status:</strong> Basic support (may require additional setup)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong>Important Note:</strong> LaTeX and HTML documents are saved as raw source code. They must be processed ("Run LaTeX" or "Run HTML") before they can be properly displayed or distributed. Unprocessed LaTeX/HTML will appear as source code in generated materials.
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="content-creation">Content Creation Tools</h2>
+    
+    <h3>Toolbar Icons and Functions</h3>
+    
+    <div class="icon-list">
+        <div class="icon-item"><strong>TeX</strong> - LaTeX tools (new script, compile)</div>
+        <div class="icon-item"><strong>🌐</strong> - HTML tools (new script, render)</div>
+        <div class="icon-item"><strong>🖼️+</strong> - Insert image into existing content</div>
+        <div class="icon-item"><strong>✂️</strong> - Screen capture/snipping tool</div>
+        <div class="icon-item"><strong>📤</strong> - Upload file (replaces content)</div>
+        <div class="icon-item"><strong>🔍</strong> - Search database by ID</div>
+        <div class="icon-item"><strong>📝</strong> - Clear content (start new)</div>
+        <div class="icon-item"><strong>🔖</strong> - Add [MARKED] bookmark</div>
+    </div>
+
+    <h3>Content Toolbar (Top)</h3>
+    <p>Located above the Content Editor, provides tools specifically for the main content area:</p>
+    <ul>
+        <li><strong>LaTeX Menu:</strong> Create new LaTeX document or compile existing LaTeX</li>
+        <li><strong>HTML Menu:</strong> Create new HTML template or render existing HTML</li>
+        <li><strong>Image Insert:</strong> Add image to current cursor position</li>
+        <li><strong>Screen Capture:</strong> Capture area from screen and insert as image</li>
+        <li><strong>Upload Menu:</strong> Replace entire content with uploaded file</li>
+        <li><strong>Database Search:</strong> Load existing resource by ID</li>
+        <li><strong>New Content:</strong> Clear all fields for new resource</li>
+        <li><strong>Bookmark:</strong> Add [MARKED] tag to Additional Details</li>
+    </ul>
+
+    <h3>Answer Toolbar (Bottom)</h3>
+    <p>Located above the Answer Editor, provides identical tools for the answer section:</p>
+    <ul>
+        <li>Same toolset as Content Toolbar but applies to Answer Editor</li>
+        <li>Independent operation - changes in Content don't affect Answer</li>
+        <li>Useful for creating separate answer keys or solution notes</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Screen Capture Tip:</strong> The snipping tool automatically hides the main window, allowing you to capture any part of your screen. The captured image is automatically inserted at the current cursor position and resized to fit the 6.19-inch content width.
+    </div>
+
+    <!-- Screenshot Placeholder: Toolbars -->
+    <div class="screenshot-placeholder">
+        <img src="../images/13.png" alt="Content and Answer Toolbars">
+        <p>Content (Top) and Answer (Bottom) Toolbars</p>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="file-management">File Management</h2>
+    
+    <h3>Uploading Files</h3>
+    <p>The Upload menu (<code>📤</code> button) provides access to all supported file types:</p>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Image Upload</h3>
+            <ul>
+                <li><strong>Insert Mode (+):</strong> Adds image at cursor position</li>
+                <li><strong>Replace Mode:</strong> Replaces entire content with image</li>
+                <li><strong>Auto-resize:</strong> Images scaled to 6.19 inches width</li>
+                <li><strong>Format:</strong> Converted to Base64 and embedded in HTML</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>PDF Upload</h3>
+            <ul>
+                <li><strong>Editable Mode:</strong> Extracts text as HTML (for editing)</li>
+                <li><strong>Read-only Mode:</strong> Converts to image (for display)</li>
+                <li><strong>Page Limit:</strong> Only first page is processed</li>
+                <li><strong>Best Practice:</strong> Use editable for text, read-only for complex layouts</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Text-based Formats</h3>
+            <ul>
+                <li><strong>Plain Text:</strong> Loaded and converted to HTML</li>
+                <li><strong>RTF:</strong> Preserves formatting through HTML conversion</li>
+                <li><strong>LaTeX/HTML:</strong> Loaded as raw source code</li>
+                <li><strong>Word (DOCX):</strong> Converted to HTML (basic support)</li>
+            </ul>
+        </div>
+ 
+        <div class="feature-card">
+            <div class="screenshot-placeholder">
+                <img height="300" src="../images/14.png" alt="Content and Answer Toolbars">
+                <p>Uploading Files options</p>
+            </div>
+        </div>
+    </div>
+    
+    <h3>File Type Detection and Handling</h3>
+    <p>The editor automatically detects file types and applies appropriate processing:</p>
+    <ul>
+        <li><strong>Extension-based:</strong> File handling determined by extension</li>
+        <li><strong>Smart Conversion:</strong> Plain text and RTF converted to HTML for editing</li>
+        <li><strong>Raw Mode:</strong> LaTeX and HTML preserved as source code</li>
+        <li><strong>Image Processing:</strong> Automatic Base64 encoding and width constraint</li>
+    </ul>
+
+    <div class="warning-box">
+        <strong>PDF Limitations:</strong> Only the first page of PDF files is processed. For multi-page documents, consider splitting into separate resources or using image mode for specific pages.
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="database-operations">Database Operations</h2>
+    
+    <h3>Navigation and Search</h3>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Record Navigation</h3>
+            <ul>
+                <li><strong>Previous (◀):</strong> Load previous resource in database</li>
+                <li><strong>Next (▶):</strong> Load next resource in database</li>
+                <li><strong>ID Display:</strong> Shows current resource ID or "New item"</li>
+                <li><strong>Auto-detection:</strong> Smart format detection on load</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Database Search</h3>
+            <ul>
+                <li><strong>Search Field:</strong> Enter specific resource ID</li>
+                <li><strong>Quick Access:</strong> Dropdown menu with search field</li>
+                <li><strong>Format Detection:</strong> Automatic detection of stored format</li>
+                <li><strong>Error Handling:</strong> Clear messages for missing records</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Data Management</h3>
+            <ul>
+                <li><strong>Save:</strong> Insert new or update existing records</li>
+                <li><strong>Delete:</strong> Remove current record with confirmation</li>
+                <li><strong>Clear:</strong> Reset all fields for new content</li>
+                <li><strong>Auto-ID:</strong> New records receive auto-generated ID</li>
+            </ul>
+        </div>
+
+         <div class="feature-card">
+            <div class="screenshot-placeholder">
+                <img src="../images/15.png" alt="Content and Answer Toolbars">
+                <p>Database Operations</p>
+            </div>
+        </div>
+    </div>
+
+    <h3>Storage Strategy</h3>
+    <p>The editor uses intelligent storage based on content type:</p>
+    
+    <div class="technical-box">
+        <strong>Storage Logic:</strong><br>
+        1. Plain Text & RTF → Converted to HTML using toHtml()<br>
+        2. HTML & LaTeX → Saved as raw text using toPlainText()<br>
+        3. Images → Converted to Base64 and embedded in HTML<br>
+        4. All content → Stored with fixed width constraint (6.19 inches)<br>
+        5. Format detection → Uses helper.is_rtf() on load
+    </div>
+    <div style="display: flex;">
+        <div style="margin-right: auto;">
+            <h3>Bookmark Feature</h3>
+            <p>The <code>🔖</code> bookmark button adds a <code>[MARKED]</code> tag to Additional Details:</p>
+            <ul>
+                <li><strong>Purpose:</strong> Flag resources needing review before distribution</li>
+                <li><strong>Usage:</strong> Click to insert <code>[MARKED]</code> at beginning of Additional Details</li>
+                <li><strong>Workflow:</strong> Resources with <code>[MARKED]</code> should be reviewed before use</li>
+                <li><strong>Visibility:</strong> The tag is visible in Educational Resources View</li>
+            </ul>
+        </div>
+        
+        <div class="screenshot-placeholder">
+                <img  width="400px" src="../images/16.png" alt="Content and Answer Toolbars">
+                <p>Bookmark</p>
+        </div>
+    </div>
+    <div class="info-box">
+        <strong>Data Integrity:</strong> The editor maintains data integrity through automatic format detection. When loading resources, it checks if content contains RTF/HTML formatting and applies the appropriate restoration method (<code>setHtml()</code> for formatted content, <code>setPlainText()</code> for raw source code).
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="paper-layout">Paper Layout System</h2>
+    
+    <h3>A4 Paper Constraints</h3>
+    <p>All content is designed to fit within A4 paper dimensions with proper margins:</p>
+    
+    <div class="paper-layout">
+        <div style="text-align: center; margin-bottom: 10px;"><strong>A4 Paper Layout (210mm × 297mm / 8.27in × 11.69in)</strong></div>
+        <div class="margin" style="text-align: center;">0.5 inch Margins (Left & Right)</div>
+        <div style="display: flex; margin: 10px 0;">
+            <div class="margin" style="flex: 0.54; text-align: center;">Column 1<br>0.54 in</div>
+            <div class="content" style="flex: 6.19; text-align: center;">
+                <strong>CONTENT AREA</strong><br>
+                6.19 inches (157mm)<br>
+                Fixed width for all educational content
+            </div>
+            <div class="margin" style="flex: 0.54; text-align: center;">Column 3<br>0.54 in</div>
+        </div>
+        <div class="margin" style="text-align: center;">0.5 inch Margins (Left & Right)</div>
+    </div>
+
+    <h3>Width Calculation</h3>
+    <p>The content width is calculated based on DPI (Dots Per Inch) settings:</p>
+    <ul>
+        <li><strong>Paper Width:</strong> 8.27 inches (210mm)</li>
+        <li><strong>Margins:</strong> 0.5 inches each side (total 1 inch)</li>
+        <li><strong>Side Columns:</strong> 0.54 inches each (total 1.08 inches)</li>
+        <li><strong>Content Width:</strong> 8.27 - 1.0 - 1.08 = 6.19 inches</li>
+        <li><strong>Pixel Conversion:</strong> 6.19 × DPI = content width in pixels</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Consistent Output:</strong> The fixed 6.19-inch width ensures all educational resources maintain consistent formatting when printed or converted to PDF. Images and other content are automatically scaled to this width, guaranteeing proper alignment in the final output.
+    </div>
+
+    <h3>HTML Template Structure</h3>
+    <p>Generated HTML content includes proper width constraints:</p>
+    
+    <div class="technical-box">
+        &lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;<br>
+        &lt;html lang="en"&gt;<br>
+        &lt;head&gt;<br>
+        &nbsp;&nbsp;&lt;meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+        &lt;/head&gt;<br>
+        &lt;body style="width:<strong>{app_context.EDU_ITEM_PIXELS}px</strong>;"&gt;<br>
+        &nbsp;&nbsp;&lt;main&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;b&gt;Add here main content.&lt;/b&gt;<br>
+        &nbsp;&nbsp;&lt;/main&gt;<br>
+        &lt;/body&gt;<br>
+        &lt;/html&gt;
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="advanced-features">Advanced Features</h2>
+    
+    <h3>LaTeX Processing</h3>
+    <p>The editor includes built-in LaTeX compilation capabilities:</p>
+    <ul>
+        <li><strong>Template Generation:</strong> Creates properly structured LaTeX documents</li>
+        <li><strong>Compilation:</strong> Uses xepersian engine for Persian/English support</li>
+        <li><strong>Output:</strong> Generates PDF and converts to HTML for display</li>
+        <li><strong>Font Support:</strong> Default Yas font for Persian text</li>
+        <li><strong>Error Handling:</strong> Compilation errors are captured and displayed</li>
+    </ul>
+
+    <h3>Screen Capture Integration</h3>
+    <p>The snipping tool provides seamless screen capture functionality:</p>
+    <ul>
+        <li><strong>Full-screen Mode:</strong> Temporarily hides editor for clean capture</li>
+        <li><strong>Automatic Insertion:</strong> Captured image inserted at cursor position</li>
+        <li><strong>Auto-scaling:</strong> Images resized to fit content width</li>
+        <li><strong>Base64 Encoding:</strong> Direct embedding without file saving</li>
+        <li><strong>Cancellation Support:</strong> Can cancel capture without insertion</li>
+    </ul>
+
+    <h3>Format Detection Algorithm</h3>
+    <p>Intelligent detection of content format on load:</p>
+    
+    <div class="technical-box">
+        <strong>Detection Logic (helpers.is_rtf()):</strong><br>
+        1. Check for HTML meta tags (qrichtext, viewport)<br>
+        2. Look for HTML/XML doctype declarations<br>
+        3. Detect RTF formatting markers<br>
+        4. Identify LaTeX document structure<br>
+        5. Fallback: Plain text detection<br>
+        <br>
+        <strong>Result:</strong> Apply setHtml() for formatted content, setPlainText() for raw source
+    </div>
+
+    <h3>Error Handling and User Feedback</h3>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Notification System</h3>
+            <ul>
+                <li><strong>Success Messages:</strong> Green notifications for successful operations</li>
+                <li><strong>Error Messages:</strong> Red notifications with specific error details</li>
+                <li><strong>Warning Dialogs:</strong> Confirmation prompts for destructive actions</li>
+                <li><strong>Position:</strong> Bottom-right corner notifications</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Validation</h3>
+            <ul>
+                <li><strong>Score Validation:</strong> Numeric score checking</li>
+                <strong>File Format Validation:</strong> Supported format checking</li>
+                <li><strong>Database Validation:</strong> Connection and query error handling</li>
+                <li><strong>Content Validation:</strong> Empty content warnings</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong>Prerequisites for Advanced Features:</strong><br>
+        1. <strong>LaTeX:</strong> Requires LaTeX distribution (TeX Live, MiKTeX) with xepersian package<br>
+        2. <strong>Word Documents:</strong> Requires pypandoc and Pandoc installation<br>
+        3. <strong>PDF Processing:</strong> Requires PyMuPDF (fitz) library<br>
+        4. <strong>Screen Capture:</strong> Requires proper screen permissions
+    </div>
+
+    <div class="success-box">
+        <strong>Best Practices:</strong><br>
+        1. Use Plain Text for simple questions and instructions<br>
+        2. Use RTF for formatted text with images and tables<br>
+        3. Use LaTeX for mathematical content and formal documents<br>
+        4. Use HTML for web-based content and complex layouts<br>
+        5. Always "Run LaTeX" or "Run HTML" before saving if using those formats<br>
+        6. Use the [MARKED] bookmark for resources needing review<br>
+        7. Regularly save work to avoid data loss
+    </div>
+
+    <footer>
+        <div class="section-separator"></div>
+        <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+            Educational Resource Editor - Part of Classroom Management System<br>
+            Document last updated: February 2026 | Multi-format content creation and management tool
+        </p>
+    </footer>
+
+</body>
+</html>

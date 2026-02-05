@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List Page - User Documentation</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+   <header> 
+       
+        <div style="display: flex;">
+            <a href="../../user-manual.html" class="project-link" style="font-size: large;color:#d1ecf1; margin: auto 10px auto 10px;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+            <h1 style="margin:auto auto auto 5px;">Student List</h1>
+            <p class="version-badge">Page Version: 1.0</p>
+        </div>
+    </header>
+    <p style="text-align: justify;">This page is one of the central working areas of the application. 
+        It provides a comprehensive tabular view of student profiles, including photos, contact details, 
+        and recent behavioral observations. It allows teacher to view, organize, analyze, and manage student records efficiently.
+        This page is designed for both daily operational tasks (such as writing observations)
+        and long-term academic management (such as grouping students, tracking progress, and assigning educational resources).
+    </p>
+    <!-- Screenshot Placeholder: Main View -->
+    <div class="screenshot-placeholder">
+        <img height="400" src="../images/01.png" >
+        <p>Main View</p>
+    </div>
+
+    <h2>Table of Contents</h2>
+    <div style="columns: 4;display: flex; gap: 25px; flex-direction:row; width: 100%;">
+        <a href="#interface-overview">Interface Overview</a>
+        <a href="#filtering-search">Filtering and Searching</a>
+        <a href="#global-options">Global Options Menu</a>
+        <a href="#student-actions">Student-Specific Actions</a>
+    </div>
+
+    <hr>
+
+    <h2 id="interface-overview">Overview</h2>
+    <p>The page is divided into three main sections:</p>
+    <ol>
+        <li><strong>Header Bar:</strong> Contains the page title, a search input, a group/class filter dropdown, 
+            and a main "Options" button.</li>
+        <li><strong>Student Table:</strong> Displays students in rows with four specific columns.</li>
+        <li><strong>Footer:</strong> Displays the total count of students currently visible in the list.</li>
+    </ol>
+
+    <h3>Table Columns</h3>
+    <ul>
+        <li><strong>PHOTO:</strong> Displays the student's profile picture. If no photo is available, it shows a placeholder text.</li>
+        <li><strong>INFO:</strong> Shows the Student ID and their full name (First Name, Last Name) in bold.</li>
+        <li><strong>ADDRESS:</strong> Shows the residential address and phone number.</li>
+        <li><strong>LAST NOTE:</strong> Displays the most recent observed behavior entry, including the date and time. 
+            This column also contains the <strong>Action Menu</strong> button for the specific student.</li>
+    </ul>
+
+    <!-- Screenshot Placeholder: Columns Detail -->
+    <div class="screenshot-placeholder">
+         <img height="130px" src="../images/02.png" >
+    </div>
+
+    <hr>
+
+    <h2 id="filtering-search">Filtering and Searching</h2>
+    
+    <div style="display: flex;">
+        <p>This figure shows three tools. <code>Search</code> input, classroom <code>filters</code> and global option <code>menu</code>. 
+                You can quickly find specific students using the search box, make filter on the list by dropdown menu and do more 
+                tasks using hamburger menu options.<br>
+                When the user enters the text into search box, the system searches through the table. Search function loops through the list. 
+                Pressing <code>Enter</code> searchs repeatedly through matches.<br>
+                Use the dropdown menu to filter the list based on specific classroom groups. Select <code>"All"</code> to view every student in the database.
+                If the student does not included into a group, we say he/she is <code>"ungrouped"</code>. and is filtered by this keyword.
+                expect these keywords, the user can define classrom groups that is shown in the dropdown list.
+        </p>
+
+        <div class="screenshot-placeholder" style="width: 1000px;">
+                <p>Header tools</p>
+                <img src="../images/03.png">
+                 <img src="../images/04.png">
+                 <p>Dropdown menu</p>
+        </div>
+    </div>
+    
+    <hr>
+
+    <div style="display: flex;">
+        <div>
+            <h2 id="global-options">Global Options Menu</h2>
+            <p>Clicking the <strong>Options Menu</strong> button (hamburger icon) in the top right corner reveals actions that affect the whole list or selected students.</p>
+            <h3>Data Management</h3>
+            <ul>
+                <li><strong>Add New Student:</strong> Opens a blank form to register a new student in the database.</li>
+                <li><strong>Import from CSV File:</strong> Allows bulk importing of student data.</li>
+            </ul>
+    
+            <h3>Selection Mode</h3>
+            <ul>
+                <li><strong>Enable Multi-selection:</strong> Toggle this switch to select multiple rows in the table simultaneously. This is required for bulk operations like assigning items to specific students.</li>
+            </ul>
+    
+        </div>
+        <!-- Screenshot Placeholder: Options Menu -->
+        <div class="screenshot-placeholder">
+            <img src="../images/05.png">
+        </div>
+    </div>
+     <div class="warning-box">
+                <strong>CSV Import Warning:</strong><br>
+                The CSV import feature requires strict column formatting. Ensure your CSV file matches the following column order exactly:
+                <br><code>ID, First Name, Last Name, Parent Name, Phone, Address, Parent Phone, Additional Details, Gender, Date</code>
+                <br><em>Photos cannot be imported via CSV and must be added individually via the profile editor.</em>
+            </div>
+    <h3>Educational & Group Operations</h3>
+    <p>These operations allow you to assign resources or organize students into groups.</p>
+    <ul>
+        <li><strong>Set Edu-Item to group/selected/all:</strong> Opens the Educational Resources view to assign tasks or learning materials to the selected students or the entire group.</li>
+        <li><strong>Group selected/all:</strong> Opens a dialog to add the selected (or all) students to a specific classroom group.</li>
+        <li><strong>Manage Groups:</strong> Opens a dedicated dialog to create, edit, or delete classroom groups entirely.</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="student-actions">Student-Specific Actions</h2>
+    <p>Each student row has a <strong>Menu Button</strong> (hamburger icon) located in the "Last Note" column. Clicking this button opens a context menu with specific actions for that individual student.</p>
+    <div class="screenshot-placeholder">
+            <img src="../images/06.png">
+        </div>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Academic & Progress</h3>
+            <ul>
+                <li><strong>Learning Progress:</strong> Opens a detailed activity tracking page for the student.</li>
+                <li><strong>Assign Edu-item:</strong> Assigns specific educational resources to this single student.</li>
+                <li><strong>Add Custom Score:</strong> Allows adding a custom score/assignment not linked to a specific Edu-Item.</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Records & Behavior</h3>
+            <ul>
+                <li><strong>Write Behavioral Observation:</strong> Opens a text editor to log a new behavior note for the student.</li>
+                <li><strong>Personal Data:</strong> Opens the student's full profile where you can edit details, addresses, and upload photos.</li>
+            </ul>
+        </div>
+        <div class="info-box">
+            <strong>Tip:</strong> The "Last Note" column automatically scrolls if the text is too long. The date of the observation is always pinned to the top of the note area.
+        </div>
+
+        <div class="feature-card">
+            <h3>Management</h3>
+            <ul>
+                <li><strong>Remove from Group:</strong> Removes the student from the currently filtered group (does not delete the student from the database).</li>
+                <li><strong>Remove from Database:</strong> <span style="color:var(--accent-color); font-weight:bold;">Permanently deletes</span> the student record and all associated behavior logs.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <div class="section-separator"></div>
+        <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+            Student List dasboard - Part of Classroom Management System<br>
+            Document last updated: February 2026
+        </p>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Activity Tracking - User Documentation</title>
+     <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+ </head>
+<body>
+
+<header>
+    <div style="display: flex;">
+     <a href="../../user-manual.html" class="project-link" style="font-size: large;color:#d1ecf1; margin: auto 10px auto 10px;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+            <h1 style="margin:auto auto auto 5px;">Activity Tracking</h1>
+        <span class="version-badge">Page Version: 1.0</span>
+    </div>
+    </header>
+    <p style="text-align: justify;">
+        The Student Activity Tracking page provides a comprehensive overview of a student's academic progress, behavioral observations, 
+        and learning activities. This integrated dashboard combines visual analytics with detailed record-keeping, allowing the 
+        educator to monitor student performance, track assignment completion, and maintain behavioral notes in a single, unified 
+        interface. The page features interactive charts, status indicators, and detailed activity logs for complete student 
+        progress monitoring.
+    </p>
+    <p>This page is available for each student from <code> > Learning Progress</code> option in the 
+        <a style="text-decoration-line: none;" href="student-list.html">Student List</a> page. 
+    </p>
+    
+    <h2>Table of Contents</h2>
+    <div class="toc-grid">
+        <a href="#interface-overview">Interface Overview</a>
+        <a href="#student-information">Student Information</a>
+        <a href="#analytics-charts">Analytics Charts</a>
+        <a href="#behavioral-observations">Behavioral Observations</a>
+        <a href="#learning-activities">Learning Activities</a>
+        <a href="#activity-status">Activity Status System</a>
+        <a href="#navigation-controls">Navigation Controls</a>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="interface-overview">Interface Overview</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3>Layout Structure</h3>
+            <p>The page is organized into three main sections:</p>
+            <ol>
+                <li><strong>Header Section:</strong> Student information and analytical charts (top section)</li>
+                <li><strong>Navigation Bar:</strong> Section switcher and action buttons (middle section)</li>
+                <li><strong>Content Area:</strong> Behavioral observations or learning activities (bottom section)</li>
+            </ol>
+        </div>
+        
+        <div>
+            <h3>Content Switching</h3>
+            <p>The page uses a stacked widget system to toggle between two main views:</p>
+            <ul>
+                <li><strong>Behavioral Observations:</strong> Teacher notes and analysis of student behavior</li>
+                <li><strong>Learning Activities:</strong> Educational assignments, scores, and feedback</li>
+            </ul>
+            <p>Use the left/right arrows to switch between these views.</p>
+        </div>
+    </div>
+
+    <!-- Screenshot Placeholder: Student Info -->
+    <div class="screenshot-placeholder">
+        <img  src="../images/07.png" alt="Student Information Panel">
+        <p>Student Information Panel with Details</p>
+    </div>
+
+    <div class="info-box">
+        <strong>Automatic Updates:</strong> All charts and statistics are automatically calculated and updated when you add, edit, or remove observations or activities. The system processes data in real-time to provide accurate analytics.
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="student-information">Student Information Panel</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3>Student Details</h3>
+            <p>The left side of the header displays key student information:</p>
+            <ul>
+                <li><strong>Profile Photo:</strong> Official student photo (35mm × 45mm format)</li>
+                <li><strong>Student ID:</strong> Unique identifier with culture-appropriate digit formatting</li>
+                <li><strong>Full Name:</strong> First and last name in large, prominent text</li>
+                <li><strong>Phone Number:</strong> Student contact number</li>
+                <li><strong>Parent/Guardian:</strong> Parent name and contact phone</li>
+            </ul>
+        </div>
+        
+        <div>
+            <h3>Analytics</h3>
+            <ul>
+                <li><strong>Line chart:</strong> displays the changes of score obtained so far.</li>
+                <li><strong>donut chart:</strong> Left donut chart displays comulative score.</li>
+                <li><strong>donut chart:</strong> second donut chart displays avarage of the scores.</li>
+                <li><strong>Pi chart:</strong> The Pi chart displays current activity status of the student</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Screenshot Placeholder: Student Info -->
+    <div class="screenshot-placeholder">
+        <img  src="../images/08.png" alt="Student Information Panel">
+        <p>Student Information Panel with Photo and Contact Details</p>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="analytics-charts">Analytics Charts</h2>
+    
+    <p>The header section includes four charts that provide visual insights into student performance:</p>
+    
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h4>📈 Progress Line Chart</h4>
+            <ul>
+                <li><strong>Purpose:</strong> Track score changes over time</li>
+                <li><strong>Data:</strong> Historical scores from all activities</li>
+                <li><strong>X-axis:</strong> Activity sequence (1, 2, 3, ...)</li>
+                <li><strong>Y-axis:</strong> Normalized scores (0-1 scale)</li>
+                <li><strong>Size:</strong> 283 × 170 pixels</li>
+                <li><strong>Tooltip:</strong> "Changes in scores obtained so far"</li>
+            </ul>
+        </div>
+
+        <div class="chart-card">
+            <h4>🍩 Cumulative Score Donut</h4>
+            <ul>
+                <li><strong>Purpose:</strong> Show overall achievement level</li>
+                <li><strong>Calculation:</strong> Sum of all scores converted to 20-point scale</li>
+                <li><strong>Scale:</strong> 0-20 points (standard grading scale)</li>
+                <li><strong>Size:</strong> 140 × 140 pixels</li>
+                <li><strong>Tooltip:</strong> "Cumulative score: The sum of all scores obtained so far, converted to a 20-point scale"</li>
+            </ul>
+        </div>
+
+        <div class="chart-card">
+            <h4>🍩 Average Score Donut</h4>
+            <ul>
+                <li><strong>Purpose:</strong> Display average performance</li>
+                <li><strong>Calculation:</strong> Average of scores converted to 20-point scale</li>
+                <li><strong>Formula:</strong> (Σ scores / count) × 20</li>
+                <li><strong>Size:</strong> 140 × 140 pixels</li>
+                <li><strong>Tooltip:</strong> "Average score: The average of the scores obtained so far, converted to a 20-point scale"</li>
+            </ul>
+        </div>
+
+        <div class="chart-card">
+            <h4>🥧 Activity Status Pie Chart</h4>
+            <ul>
+                <li><strong>Purpose:</strong> Visualize activity completion status</li>
+                <li><strong>Categories:</strong> Replied, Waiting, Delayed, Lost</li>
+                <li><strong>Labels:</strong> Status names with count (e.g., "Replied(5)")</li>
+                <li><strong>Columns:</strong> 2-column legend layout</li>
+                <li><strong>Size:</strong> 145 × 140 pixels</li>
+                <li><strong>Tooltip:</strong> Defined in application context</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Real-time Chart Updates:</strong> All charts are generated dynamically from the latest data. When you add, edit, or remove activities or observations, the charts automatically recalculate and redraw to reflect current statistics.
+    </div>
+
+    <div class="warning-box">
+        <strong>Data Ordering:</strong> The progress line chart reverses the activity order (newest to oldest) to create a proper time-series visualization. Activities are initially loaded in descending date order (newest first) but are reversed for chart display to show progression from first to most recent activity.
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="navigation-controls">Navigation and Action Controls</h2>
+    
+    <div class="icon-list">
+        <div class="icon-item"><strong>◀</strong> - Switch to Behavioral Observations view</div>
+        <div class="icon-item"><strong>▶</strong> - Switch to Learning Activities view</div>
+        <div class="icon-item"><strong>🖨️</strong> - Export menu (currently disabled)</div>
+        <div class="icon-item"><strong>✏️</strong> - Add new behavioral observation</div>
+        <div class="icon-item"><strong>📐</strong> - Assign new educational item to student</div>
+        <div class="icon-item"><strong>⋮</strong> - Context menu on individual items</div>
+    </div>
+<!-- Screenshot Placeholder: Navigation Bar -->
+    <div class="screenshot-placeholder">
+        <img height="80" src="../images/09.png" alt="Navigation and Action Bar">
+        <p>Navigation Bar with View Switching and Action Controls</p>
+    </div>
+    <h3>Navigation Bar</h3>
+    <p>The central navigation bar provides view switching and action controls:</p>
+    <ul>
+        <li><strong>View Title:</strong> "Activity and behaviours" indicates current context</li>
+        <li><strong>Navigation Arrows:</strong> Left for observations, right for activities</li>
+        <li><strong>Action Cluster:</strong> Three buttons for common operations on right side</li>
+    </ul>
+
+    <h3>Action Buttons</h3>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Export Menu (🖨️)</h3>
+            <ul>
+                <li><strong>Current Status:</strong> Options disabled in current version</li>
+                <li><strong>Planned Features:</strong> Export activities or observations</li>
+                <li><strong>Future Use:</strong> PDF, CSV, or report generation</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Add Observation (✏️)</h3>
+            <ul>
+                <li><strong>Function:</strong> Opens behavioral observation editor</li>
+                <li><strong>Workflow:</strong> Two-step entry (observation + analysis)</li>
+                <li><strong>Auto-save:</strong> Timestamped and added to top of list</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Assign Edu-Item (📐)</h3>
+            <ul>
+                <li><strong>Function:</strong> Opens Educational Resources View</li>
+                <li><strong>Target:</strong> Pre-selects current student for assignment</li>
+                <li><strong>Integration:</strong> Direct link to resource distribution</li>
+                <li><strong>Result:</strong> New activity appears in Learning Activities view</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Context-Sensitive Navigation:</strong> The navigation arrows change the entire content area below, allowing you to focus on either behavioral tracking or academic progress monitoring. The current view is not indicated by the arrows themselves, but by the content displayed.
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="behavioral-observations">Behavioral Observations</h2>
+    
+    <p>The Behavioral Observations view (accessed with the left arrow button) displays all teacher notes about student behavior:</p>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Observation Structure</h3>
+            <ul>
+                <li><strong>ID & Date:</strong> Unique record ID and timestamp</li>
+                <li><strong>Observed Behavior:</strong> Teacher's factual observations</li>
+                <li><strong>Teacher Analysis:</strong> Professional interpretation and notes</li>
+                <li><strong>Read-only Display:</strong> Content displayed in non-editable text areas</li>
+                <li><strong>Fixed Height:</strong> 100 pixels per text area for consistent layout</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Observation Actions</h3>
+            <ul>
+                <li><strong>Update:</strong> Edit existing observation content</li>
+                <li><strong>Remove:</strong> Delete observation from database</li>
+                <li><strong>Context Menu:</strong> Access actions via right-click</li>
+                <li><strong>Confirmation:</strong> Warning dialog for deletion operations</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Adding New Observations</h3>
+    <p>Click the <code>✏️</code> (pencil) button on the navigation bar to add a new behavioral observation:</p>
+    <ol>
+        <li><strong>Open Dialog:</strong> Click pencil icon to open observation editor</li>
+        <li><strong>Enter Observation:</strong> Describe the observed behavior in first text area</li>
+        <li><strong>Add Analysis:</strong> Provide professional analysis in second text area</li>
+        <li><strong>Save:</strong> Click "Save" to store or "Reject" to cancel</li>
+        <li><strong>Automatic Update:</strong> New observation appears at top of list</li>
+    </ol>
+
+    <div class="info-box">
+        <strong>Timestamping:</strong> All new observations are automatically timestamped with the current date and time when saved. This ensures accurate chronological tracking of behavioral patterns over time.
+    </div>
+
+    <!-- Screenshot Placeholder: Behavioral Observations -->
+    <div class="screenshot-placeholder">
+        <img height="300" src="../images/10.png" alt="Behavioral Observations List">
+        <p>Behavioral Observations View with Edit and Delete Options</p>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="learning-activities">Learning Activities</h2>
+    
+    <p>The Learning Activities view (accessed with the right arrow button) displays all educational assignments and their status:</p>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Activity Information</h3>
+            <ul>
+                <li><strong>Activity ID:</strong> Unique identifier for tracking</li>
+                <li><strong>Content Description:</strong> Educational resource content (HTML)</li>
+                <li><strong>Student Answer:</strong> HTML content of student response</li>
+                <li><strong>Teacher Feedback:</strong> HTML feedback provided to student</li>
+                <li><strong>Scores:</strong> Maximum points and earned points</li>
+                <li><strong>Dates:</strong> Assignment, deadline, and reply dates</li>
+                <li><strong>Status:</strong> Visual status indicator (Replied, Waiting, Delayed, Lost)</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Activity Management</h3>
+            <ul>
+                <li><strong>Edit Responses:</strong> Update student answers or teacher feedback</li>
+                <li><strong>Delete Activities:</strong> Remove activities with confirmation</li>
+                <li><strong>Real-time Updates:</strong> Changes immediately affect analytics</li>
+                <li><strong>Status Recalculation:</strong> Activity status updates based on dates</li>
+            </ul>
+        </div>
+    </div>
+<!--
+    <h3>HTML Content Processing</h3>
+    <p>Activity content uses HTML processing for rich display:</p>
+    <ul>
+        <li><strong>Content Extraction:</strong> Uses <code>text_processing.get_html_body_content()</code></li>
+        <li><strong>HTML Support:</strong> Rich text, images, formatting preserved</li>
+        <li><strong>Widget Integration:</strong> <code>EduItemStudentWidget</code> for consistent display</li>
+        <li><strong>Signal Handling:</strong> Data updates trigger notifications and UI refresh</li>
+    </ul>
+
+    <div class="technical-box">
+        <strong>Data Source Integration:</strong><br>
+        Activities are loaded from a JOIN between <code>quests</code> and <code>educational_resources</code> tables:<br>
+        <code>SELECT quests.id, quests.max_point_, quests.earned_point_, quests.assign_date_,<br>
+        quests.deadline_, quests.answer_, quests.reply_date_, quests.feedback_,<br>
+        educational_resources.content_description_<br>
+        FROM quests LEFT JOIN educational_resources<br>
+        ON quests.qb_id = educational_resources.id<br>
+        WHERE quests.student_id = %s<br>
+        ORDER BY quests.assign_date_ DESC;</code>
+    </div>
+-->
+    <!-- Screenshot Placeholder: Learning Activities -->
+    <div class="screenshot-placeholder">
+        <img height="300" src="../images/11.png" alt="Learning Activities List">
+        <p>Learning Activities View with Status Indicators and Scores</p>
+    </div>
+    
+    <div class="section-separator"></div>
+
+    <h2 id="activity-status">Activity Status System</h2>
+    
+    <p>The system automatically categorizes activities into four status types based on dates and responses:</p>
+    
+    <div class="status-grid">
+        <div class="status-item status-replied">Replied</div>
+        <div class="status-item status-waiting">Waiting</div>
+        <div class="status-item status-delayed">Delayed</div>
+        <div class="status-item status-lost">Lost</div>
+    </div>
+
+    <div class="three-column">
+        <div>
+            <h4>✅ Replied</h4>
+            <ul>
+                <li><strong>Condition:</strong> Answer submitted AND reply date ≤ deadline</li>
+                <li><strong>Score:</strong> Earned points counted toward cumulative total</li>
+                <li><strong>Chart Impact:</strong> Included in progress line chart</li>
+                <li><strong>Color:</strong> Green (success)</li>
+            </ul>
+        </div>
+        
+        <div>
+            <h4>⏳ Waiting</h4>
+            <ul>
+                <li><strong>Condition:</strong> No answer submitted AND current date ≤ deadline</li>
+                <li><strong>Score:</strong> Not yet counted (pending)</li>
+                <li><strong>Chart Impact:</strong> Not included in progress chart</li>
+                <li><strong>Color:</strong> Yellow (pending)</li>
+            </ul>
+        </div>
+        
+        <div>
+            <h4>⚠️ Delayed</h4>
+            <ul>
+                <li><strong>Condition:</strong> Answer submitted BUT reply date > deadline</li>
+                <li><strong>Score:</strong> Earned points counted (but marked as late)</li>
+                <li><strong>Chart Impact:</strong> Included in progress chart</li>
+                <li><strong>Color:</strong> Red (late submission)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Status: Lost</strong><br>
+        <strong>Condition:</strong> No answer submitted AND current date > deadline<br>
+        <strong>Score:</strong> Zero points automatically assigned<br>
+        <strong>Chart Impact:</strong> Included in progress chart as zero score<br>
+        <strong>Color:</strong> Gray (missed opportunity)<br>
+        <strong>Note:</strong> Lost activities automatically receive a score of 0, which affects the cumulative and average score calculations.
+    </div>
+
+    <h3>Status Calculation Logic</h3>
+    <div class="technical-box">
+        <strong>Status Determination Algorithm:</strong><br>
+        1. Check if reply_date is NULL (no answer submitted)<br>
+        2. If NULL → Check if today ≤ deadline → Waiting<br>
+        3. If NULL → Check if today > deadline → Lost (score = 0)<br>
+        4. If NOT NULL → Check if reply_date ≤ deadline → Replied<br>
+        5. If NOT NULL → Check if reply_date > deadline → Delayed<br>
+        <br>
+        <strong>Score Tracking:</strong><br>
+        • Replied/Delayed: Add earned_score/max_score to progress array<br>
+        • Lost: Add 0 to progress array (affects average negatively)<br>
+        • Waiting: Not added to progress array (doesn't affect statistics yet)
+    </div>
+
+    <div class="section-separator"></div>
+<!--
+    <h2 id="data-management">Data Management</h2>
+    
+    <h3>Database Operations</h3>
+    <p>The page performs several database operations for data management:</p>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Data Loading</h3>
+            <ul>
+                <li><strong>Behavioral Data:</strong> Loaded with <code>ORDER BY date_time_ DESC</code></li>
+                <li><strong>Activity Data:</strong> Loaded with <code>ORDER BY assign_date_ DESC</code></li>
+                <li><strong>Student Info:</strong> Retrieved from <code>personal_info</code> table</li>
+                <li><strong>Photo Handling:</strong> Bytea to QPixmap conversion for display</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Data Modification</h3>
+            <ul>
+                <li><strong>Add Observations:</strong> <code>INSERT</code> with timestamp and auto-ID</li>
+                <li><strong>Update Observations:</strong> <code>UPDATE</code> with record ID</li>
+                <li><strong>Delete Operations:</strong> <code>DELETE</code> with confirmation dialog</li>
+                <li><strong>Activity Updates:</strong> Signal-based updates through widgets</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Error Handling and Notifications</h3>
+    <ul>
+        <li><strong>Popup Notifications:</strong> Success/error messages in bottom-right corner</li>
+        <li><strong>Confirmation Dialogs:</strong> Warning before destructive operations</li>
+        <li><strong>Database Errors:</strong> Specific error messages with details</li>
+        <li><strong>Visual Feedback:</strong> Green success, red error notifications</li>
+        <li><strong>Delay Settings:</strong> 3000ms for success, variable for errors</li>
+    </ul>
+
+    <div class="warning-box">
+        <strong>Data Deletion Warning:</strong> All delete operations include a confirmation dialog with the warning "ARE YOU SURE TO DELETE THE RECORD?" This prevents accidental data loss. Once deleted, records cannot be recovered through the application interface.
+    </div>
+
+    <h3>Performance Considerations</h3>
+    <ul>
+        <li><strong>Lazy Loading:</strong> Data loaded only when viewing specific sections</li>
+        <li><strong>Chart Generation:</strong> Charts generated on-demand from current data</li>
+        <li><strong>Widget Recycling:</strong> List widgets reuse items for memory efficiency</li>
+        <li><strong>Database Optimization:</strong> Efficient JOIN queries for activity data</li>
+        <li><strong>Image Processing:</strong> Photo scaling performed once on load</li>
+    </ul>
+-->
+
+    <div class="success-box">
+        <strong>Best Practices for Use:</strong><br>
+        1. <strong>Regular Updates:</strong> Add behavioral observations soon after events occur for accurate tracking<br>
+        2. <strong>Status Monitoring:</strong> Check the Activity Status pie chart regularly to identify students needing follow-up<br>
+        3. <strong>Progress Analysis:</strong> Use the line chart to identify trends in student performance over time<br>
+        4. <strong>Comprehensive Notes:</strong> Include both observations (facts) and analysis (interpretation) in behavioral notes<br>
+        5. <strong>Timely Feedback:</strong> Update activity status promptly to maintain accurate statistics<br>
+        6. <strong>Chart Interpretation:</strong> Remember that "Lost" activities negatively impact average scores with zeros
+    </div>
+
+    <footer>
+        <div class="section-separator"></div>
+        <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+            Student Activity Tracking - Part of Classroom Management System<br>
+            Document last updated: February 2026 | Comprehensive student progress monitoring and analytics
+        </p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Resources View - User Documentation</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<header>
+    <div style="display: flex;">
+        <a href="../../user-manual.html" class="project-link" style="font-size: large;color:#d1ecf1; margin: auto 10px auto 10px;">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 style="margin:auto auto auto 5px;">Educational Resources View</h1>
+        <span class="version-badge">Page Version: 1.0</span>
+    </div>
+    </header>
+    <p style="text-align: justify;">
+        This page serves as the central hub for managing, distributing, and publishing educational content. 
+        It provides a comprehensive interface where teachers can browse educational resources (Edu-Items), 
+        assign them to students, and generate formatted educational materials using customizable templates. 
+        The page supports both immediate distribution to specific students and bulk content generation for 
+        classroom-wide use.
+    </p>
+
+    <!-- Screenshot Placeholder: Main Interface -->
+    <div class="screenshot-placeholder">
+        <img src="../images/17.png" alt="Educational Resources Main Interface">
+        <p>Main Educational Resources Interface</p>
+    </div>
+
+    <h2>Table of Contents</h2>
+    <div class="toc-grid">
+        <a href="#interface-overview">Interface Overview</a>
+        <a href="#navigation-operations">Navigation & Operations</a>
+        <a href="#resource-management">Resource Management</a>
+        <a href="#distribution-workflow">Distribution Workflow</a>
+        <a href="#template-system">Template System</a>
+        <a href="#advanced-features">Advanced Features</a>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="interface-overview">Interface Overview</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3>Layout Structure</h3>
+            <p>The interface is organized into a 3×2 grid layout:</p>
+            <ul>
+                <li><strong>Column 1 (Primary Workspace):</strong> Contains the main resource browsing area with filtering capabilities</li>
+                <li><strong>Column 2 (Actions & Configuration):</strong> Houses distribution controls, template settings, and action buttons</li>
+            </ul>
+        </div>
+        
+        <div>
+            <h3>Default Display Settings</h3>
+            <ul>
+                <li><strong>Display Columns:</strong> 2-column grid layout for resource cards</li>
+                <li><strong>Page Size:</strong> 50 items per page for efficient browsing</li>
+                <li><strong>Paper Standard:</strong> A4 format (210mm / 8.27 inches width)</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Header Components</h3>
+    <ul>
+        <li><strong>Page Title:</strong> "RESOURCE COLLECTION" - indicates the current view</li>
+        <li><strong>Source Filter:</strong> Text input field for filtering resources by source metadata</li>
+        <li><strong>Distribution Button:</strong> Dropdown menu for distributing selected resources to students</li>
+    </ul>
+
+    <!-- Screenshot Placeholder: Header Section -->
+    <div class="screenshot-placeholder">
+        <img src="../images/18.png" alt="Header Section with Filters">
+        <p>Header Section with Filtering Tools</p>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="navigation-operations">Navigation & Operations</h2>
+    
+    <h3>Resource Browsing</h3>
+    <p>The main display area shows educational resources in a card-based grid. Each card represents an individual Edu-Item with the following information:</p>
+    <ul>
+        <li><strong>Resource ID:</strong> Unique identifier for the educational item</li>
+        <li><strong>Content Description:</strong> Brief summary of the educational content</li>
+        <li><strong>Score/Points:</strong> Maximum achievable points for the item</li>
+        <li><strong>Source:</strong> Origin or category of the resource</li>
+        <li><strong>Additional Details:</strong> Supplementary information about the resource</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Tip:</strong> Click on any resource card to select it. Selected cards are highlighted with a visible title bar. Multiple cards can be selected for batch operations.
+    </div>
+
+    <h3>Card Operations</h3>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Selection & Interaction</h3>
+            <ul>
+                <li><strong>Single Click:</strong> Selects a resource card and displays its details</li>
+                <li><strong>Multiple Selection:</strong> Hold <code>Ctrl</code> (or <code>Cmd</code> on Mac) to select multiple cards</li>
+                <li><strong>Card Removal:</strong> Right-click on a card to access removal options</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Grid Navigation</h3>
+            <ul>
+                <li><strong>Scroll:</strong> Navigate through pages of resources</li>
+                <li><strong>Auto-loading:</strong> Additional resources load automatically as you scroll</li>
+                <li><strong>Filter Responsive:</strong> Grid updates in real-time as filters are applied</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2 id="resource-management">Resource Management</h2>
+    
+    <h3>Filtering System</h3>
+    <p>The <code>Source Filter</code> input field allows you to search through educational resources using various criteria:</p>
+    <ul>
+        <li><strong>Source Name:</strong> Filter by the source field of resources</li>
+        <li><strong>Content Description:</strong> Search within resource descriptions</li>
+        <li><strong>Additional Details:</strong> Filter by supplementary information</li>
+        <li><strong>Resource ID:</strong> Search by specific resource identifiers</li>
+    </ul>
+
+    <div class="warning-box">
+        <strong>Note:</strong> Filtering is case-insensitive and supports partial matching. The system searches across multiple fields simultaneously for comprehensive results.
+    </div>
+
+    <h3>Data Loading Strategy</h3>
+    <p>The system implements efficient data loading to handle large resource collections:</p>
+    <ul>
+        <li><strong>Pagination:</strong> Resources load in pages of 50 items each</li>
+        <li><strong>Lazy Loading:</strong> Additional pages load automatically as you scroll</li>
+        <li><strong>Background Processing:</strong> Data loading occurs in background threads to maintain UI responsiveness</li>
+        <li><strong>Memory Efficient:</strong> Only currently displayed resources are kept in memory</li>
+    </ul>
+
+    <div class="section-separator"></div>
+
+    <h2 id="distribution-workflow">Distribution Workflow</h2>
+    <div style="display: flex;">
+    <div>
+    <h3>Direct Distribution to Students</h3>
+    <p>When accessed from the Student List page with pre-selected students, the distribution process is streamlined:</p>
+    
+    <ol>
+        <li><strong>Select Resources:</strong> Choose one or more educational items from the grid</li>
+        <li><strong>Configure Distribution:</strong> Click the <code>distribute</code> button to open distribution options</li>
+        <li><strong>Set Timeline:</strong>
+            <ul>
+                <li><strong>Distribution Time:</strong> Defaults to current date (editable)</li>
+                <li><strong>Deadline:</strong> Defaults to 7 days from current date (editable)</li>
+            </ul>
+        </li>
+        <li><strong>Review & Confirm:</strong> System shows a summary of selected items and target students</li>
+        <li><strong>Execute Distribution:</strong> Confirm to assign items to all selected students</li>
+    </ol>
+    </div>
+    <!-- Screenshot Placeholder: Distribution Menu -->
+    <div class="screenshot-placeholder">
+        <img height="250" src="../images/19.png" alt="Distribution Options Menu">
+        <p>Distribution Configuration Dialog</p>
+    </div>
+</div>
+    <div class="success-box">
+        <strong>Success Confirmation:</strong> After successful distribution, the system displays a notification showing the number of items assigned and the number of students who received them.
+    </div>
+
+    <h3>Bulk Content Generation</h3>
+    <p>When accessed without pre-selected students, the system shifts to bulk content generation mode:</p>
+    <ul>
+        <li><strong>Template Selection:</strong> Opens a template selection dialog</li>
+        <li><strong>Content Customization:</strong> Fill in template-specific fields</li>
+        <li><strong>PDF Generation:</strong> Create formatted educational materials for printing or digital distribution</li>
+    </ul>
+
+    <div class="section-separator"></div>
+
+    <h2 id="template-system">Template System</h2>
+    
+    <h3>Available Templates</h3>
+    <p>The system includes two primary templates for educational content generation:</p>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>01 - Classroom Quiz</h3>
+            <ul>
+                <li><strong>Purpose:</strong> Informal classroom assessments</li>
+                <li><strong>Required Fields:</strong>
+                    <ul>
+                        <li>Student Name</li>
+                        <li>Book/Grade Information</li>
+                        <li>Date</li>
+                    </ul>
+                </li>
+                <li><strong>Format:</strong> Simple, clean layout focused on content</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="screenshot-placeholder">
+                <img src="../images/20.png" alt="Template Configuration Dialog">
+                <p>Classroom quiz configuration Dialog</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="screenshot-placeholder">
+        <img src="../images/22.png" alt="output of classroom quiz">
+        <p>output of classroom quiz</p>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>02 - Formal Exam</h3>
+            <h3>Comprehensive examination papers</h3>
+            <ul>
+                <li><strong>Required Fields:</strong>
+                    <ul>
+                        <li>Student Name & ID</li>
+                        <li>Teacher Name</li>
+                        <li>Organization Information</li>
+                        <li>Academic Year/Term</li>
+                        <li>Field of Study</li>
+                        <li>Date, Time, and Duration</li>
+                        <li>Author Information</li>
+                    </ul>
+                </li>
+                <li><strong>Format:</strong> Professional, formal layout suitable for official assessments</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <!-- Screenshot Placeholder: Template Dialog -->
+            <div class="screenshot-placeholder">
+                <img src="../images/21.png" alt="Formal exam configuration Dialog">
+                <p>Formal exam configuration Dialog</p>
+            </div>
+        </div>
+    </div>
+    <div class="screenshot-placeholder">
+        <img src="../images/23.png" alt="output of formal exam">
+        <p>output of formal exam</p>
+    </div>
+    
+    <h3>Template Configuration</h3>
+    <p>Each template supports language-specific configuration and automatic dimension calculation:</p>
+    <ul>
+        <li><strong>Language Support:</strong> Templates adapt to the application's current language setting</li>
+        <li><strong>Automatic Sizing:</strong> Content width automatically adjusts to A4 paper dimensions</li>
+        <li><strong>Font & Direction:</strong> Template respects language-appropriate text direction (LTR/RTL) and font families</li>
+        <li><strong>Custom Placeholders:</strong> Support for institution-specific information and branding</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Template Location:</strong> Template files are stored in <code>\resources\templates\</code> directory. Each template consists of an HTML file and a JSON configuration file.
+    </div>
+
+    <h3>Content Generation Process</h3>
+    <ol>
+        <li><strong>Template Validation:</strong> System checks template file existence and integrity</li>
+        <li><strong>HTML Generation:</strong> Selected content is formatted according to template rules</li>
+        <li><strong>Placeholder Replacement:</strong> All template variables are replaced with actual content</li>
+        <li><strong>Dimension Calculation:</strong> Pixel dimensions are calculated based on DPI settings</li>
+        <li><strong>PDF Preview:</strong> Generated content is displayed in a preview window</li>
+        <li><strong>Export Options:</strong> Content can be saved as PDF or printed directly</li>
+    </ol>
+
+    <div class="section-separator"></div>
+
+    <h2 id="advanced-features">Advanced Features</h2>
+    
+    <h3>Database Integration</h3>
+    <p>The Educational Resources View integrates seamlessly with the application database:</p>
+    <ul>
+        <li><strong>Resource Storage:</strong> Edu-Items are stored in the <code>educational_resources</code> table</li>
+        <li><strong>Assignment Tracking:</strong> Student assignments are recorded in the <code>quests</code> table</li>
+        <li><strong>Transaction Safety:</strong> Distribution operations are performed within database transactions</li>
+        <li><strong>Error Handling:</strong> Comprehensive error reporting for database operations</li>
+    </ul>
+
+    <h3>Performance Optimizations</h3>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Loading Efficiency</h3>
+            <ul>
+                <li><strong>Background Threading:</strong> Data loading in separate threads</li>
+                <li><strong>Chunked Processing:</strong> Large datasets processed in manageable chunks</li>
+                <li><strong>Memory Management:</strong> Efficient resource handling to prevent memory leaks</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>UI Responsiveness</h3>
+            <ul>
+                <li><strong>Progressive Loading:</strong> UI remains responsive during data operations</li>
+                <li><strong>Visual Feedback:</strong> Loading indicators and progress feedback</li>
+                <li><strong>Error Recovery:</strong> Graceful error handling with user notifications</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Accessibility Features</h3>
+    <ul>
+        <li><strong>Keyboard Navigation:</strong> Full keyboard support for all operations</li>
+        <li><strong>Screen Reader Compatibility:</strong> Proper ARIA labels and semantic HTML</li>
+        <li><strong>High Contrast Support:</strong> UI elements designed for visibility</li>
+        <li><strong>Internationalization:</strong> Support for multiple languages and text directions</li>
+    </ul>
+
+    <div class="warning-box">
+        <strong>Important:</strong> When generating PDF content, ensure all template fields are properly filled. Missing required information may result in incomplete or incorrectly formatted output.
+    </div>
+
+    <div class="info-box">
+        <strong>Best Practice:</strong> For large distributions, consider using the bulk generation feature first to create materials, then distribute physical or digital copies. This approach reduces database load and provides consistent materials to all students.
+    </div>
+
+    <footer>
+        <div class="section-separator"></div>
+        <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+            Educational Resources View - Part of Classroom Management System<br>
+            Document last updated: February 2026 | For technical support, contact system administrator
+        </p>
+    </footer>
+
+</body>
+</html>
