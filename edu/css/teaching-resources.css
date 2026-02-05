@@ -1,0 +1,422 @@
+body {
+    display: flex; /* Enable flexbox for the body */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    margin: 0; /* Add this to remove default body margin, good for mobile */
+    padding: 0; /* Add this to remove default body padding */
+}
+
+/* --- Gallery Styles (Default/Desktop: 4 columns) --- */
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 equal columns */
+    gap: 20px; /* Adjust spacing between items */
+    width: 90%; /* Increase width slightly for better use of space on all screens */
+    max-width: 1200px; /* Set a maximum width for larger screens */
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto; /* Center the gallery block */
+}
+
+/* --- Exam Gallery Styles (Default/Desktop: 4 columns) --- */
+.exam-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 15px; /* Adjust spacing between items */
+    width: 95%; /* Increase width slightly for better use of space */
+    max-width: 1400px; /* Set a maximum width for larger screens */
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto; /* Center the gallery block */
+}
+
+/* Medium screens - 3 columns */
+@media screen and (max-width: 1200px) and (min-width: 769px) {
+    .exam-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
+
+/* For very large screens, allow 5 columns */
+@media screen and (min-width: 1600px) {
+    .exam-gallery {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* --- Card Sizing (Default/Desktop) --- */
+.card-container {
+    width: 300px;
+    height: 190px;
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+    border-radius: 10px;
+    border: 1px solid darkblue;
+    background-color: #6763a1a8;
+    padding-bottom: 20px;
+}
+
+.card-container img {
+    width: 300px;
+    height: 170px;
+    object-fit: fill;
+    display: block;
+    margin: 0px;
+}
+
+.exam-card-container {
+    width: 240px;
+    height: 330px;
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+    border-radius: 10px;
+    border: 1px solid darkblue;
+    background-color: red;
+    padding-bottom: 20px;
+}
+
+.exam-card-container img {
+    width: 240px;
+    height: 300px;
+    object-fit: fill;
+    display: block;
+    margin: 0px;
+}
+
+
+/* --- General Content Styles (No Changes Needed for Responsiveness) --- */
+.gallery-header {
+    font-family: Vazirmatn;
+    margin: 5px;
+}
+
+.exam-card-container a {
+    position: absolute;
+    bottom: 93%;
+    left: 50%; /* Changed from 7% to 50% for better centering */
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.exam-card-container p {
+    font-family: 'Vazirmatn';
+    font-size: 14px;
+    text-align: center;
+    background-color: red;
+    margin: 0px;
+    padding-top: 8px;
+    padding-bottom: auto;
+}
+
+.card-container a {
+    position: absolute;
+    top: 2.5%;
+    left: 8%; /* Changed from 5% to 50% for better centering */
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:x-large;
+    font-weight: bold;
+}
+
+.card-container p {
+    font-family: 'Vazirmatn';
+    font-size: 14px;
+    text-align: center;
+    background-color: red;
+    margin: 0px;
+    padding-top: 8px;
+    padding-bottom: 10px;
+}
+
+.card-container i {
+    color: rgb(91, 89, 89);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 10px 0;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 50%;
+    padding: 0px;
+    font-size: 2rem;
+    color: var(--secondary);
+    text-decoration: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.social-icons a:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    color: blue;
+    background: var(--secondary);
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+
+/*
+=====================================
+  MOBILE RESPONSIVENESS STYLES
+  Max-width of 768px covers most tablets and phones
+=====================================
+*/
+@media screen and (max-width: 768px) {
+
+    /* --- General Gallery Layout Change --- */
+    .gallery, .exam-gallery {
+        /* On screens 768px and smaller, change both galleries to a 2-column layout */
+        grid-template-columns: 1fr 1fr;
+        /* Increase the gap for better spacing on mobile */
+        gap: 15px; 
+    }
+
+    /* --- Card Sizing Adjustment for Mobile --- */
+    .card-container, .card-container img {
+        /* Use 100% of the grid column space */
+        width: 100%; 
+        max-width: 350px; /* Optional: Set a max size if needed */
+        height: auto; /* Allow height to adjust naturally */
+    }
+    
+    .exam-card-container, .exam-card-container img {
+        /* Use 100% of the grid column space */
+        width: 100%;
+        max-width: 280px; /* Optional: Set a max size if needed */
+        height: auto;
+    }
+    
+    /* Make sure the text elements scale properly */
+    .card-container p, .exam-card-container p {
+        font-size: 16px; /* Slightly larger text for easier reading */
+    }
+
+    /* Adjust social icon size for mobile */
+    .social-icons a {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+/*
+=====================================
+  SMALL SCREEN/PHONE STYLES
+  Max-width of 480px ensures a single column for very small devices
+=====================================
+*/
+@media screen and (max-width: 480px) {
+    /* For smaller phones, switch to a single-column layout */
+    .gallery, .exam-gallery {
+        grid-template-columns: 1fr; /* 1 card per row */
+        width: 95%; /* Use almost the full width */
+    }
+    
+    /* Center the card containers on very small screens */
+    .card-container, .exam-card-container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/*
+body {
+            display: flex; /* Enable flexbox for the body *
+            flex-direction: column; /* Stack items vertically *
+            align-items: center; /* Center items horizontally *
+            
+        }
+.gallery 
+{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr; /* 3 equal columns *
+        gap: 20px; /* Adjust spacing between items *
+        width: 80%; /* Adjust the width of the gallery as needed *
+        max-width: 1200px; /* Set a maximum width for larger screens *
+        justify-content: center; /* Center items horizontally within the gallery *
+        align-items: center; /* Center items vertically within each row *
+        margin: 20px; /* Space around the gallery *
+    }
+.gallery-header
+{
+    font-family: Vazirmatn;
+    margin: 5px;
+}
+.card-container
+{
+  width: 300px;
+  height: 190px;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid darkblue;
+  background-color: #6763a1a8;
+  padding-bottom: 20px;
+
+}
+
+.card-container img 
+{
+  width: 300px;
+  height: 170px;
+  object-fit:fill;
+  display: block;
+  margin: 0px;
+
+}
+.exam-gallery 
+{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* 3 equal columns *
+        gap: 20px; /* Adjust spacing between items *
+        width: 80%; /* Adjust the width of the gallery as needed *
+        max-width: 1200px; /* Set a maximum width for larger screens *
+        justify-content: center; /* Center items horizontally within the gallery *
+        align-items: center; /* Center items vertically within each row *
+        margin: 20px; /* Space around the gallery *
+    }
+
+.exam-card-container
+{
+  width: 240px;
+  height: 330px;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid darkblue;
+  background-color: red;
+  padding-bottom: 20px;
+
+}
+
+.exam-card-container img 
+{
+  width: 240px;
+  height: 300px;
+  object-fit:fill;
+  display: block;
+  margin: 0px;
+
+}
+
+.exam-card-container a
+{
+  position: absolute;
+  bottom: 93%;
+  left: 7%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.exam-card-container p
+{
+  font-family: 'Vazirmatn';
+  font-size: 14px;
+  text-align: center;
+  background-color: red;
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: auto;
+}
+.card-container a
+{
+  position: absolute;
+  bottom: 90%;
+  left: 5%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+.card-container p
+{
+  font-family: 'Vazirmatn';
+  font-size: 14px;
+  text-align: center;
+  background-color: red;
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+}
+.card-container i
+{
+  color: rgb(91, 89, 89);
+}
+  .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 10px 0;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            padding: 0px;
+            font-size: 2rem;
+            color: var(--secondary);
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            color: blue;
+            background: var(--secondary);
+        }
+ @keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+      
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+*/
