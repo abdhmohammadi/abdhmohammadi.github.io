@@ -1,3 +1,67 @@
+/**
+ * Portfolio Website Main Script
+ * 
+ * This script provides core functionality for the personal portfolio website including:
+ * 
+ * 1. THEME MANAGEMENT
+ *    - Toggles between light and dark themes
+ *    - Persists user theme preference to localStorage
+ *    - Respects system color scheme preferences as default
+ *    - Updates ARIA labels for accessibility
+ * 
+ * 2. MOBILE NAVIGATION
+ *    - Handles hamburger menu toggle for mobile devices
+ *    - Opens and closes navigation menu based on screen size
+ *    - Manages dropdown menus on mobile platforms
+ *    - Automatically closes menu on link clicks
+ *    - Closes menu when clicking outside of it
+ *    - Handles window resize to reset mobile state on desktop
+ * 
+ * 3. DROPDOWN MENU HANDLING
+ *    - Manages dropdown menu interactions for mobile and desktop
+ *    - Prevents default link behavior on mobile dropdowns
+ *    - Closes other dropdowns when opening a new one
+ *    - Supports submenu navigation on mobile
+ * 
+ * 4. SMOOTH SCROLLING
+ *    - Implements smooth scrolling for anchor links (#)
+ *    - Accounts for fixed navbar height when calculating scroll position
+ *    - Updates URL history without page reload
+ *    - Closes mobile menu after smooth scroll navigation
+ * 
+ * 5. CONTACT FORM
+ *    - Handles form submission with validation
+ *    - Displays success notification with user's name
+ *    - Shows form validation error messages
+ *    - Validates email format and required fields
+ *    - Resets form after successful submission
+ * 
+ * 6. SCROLL ANIMATIONS
+ *    - Uses Intersection Observer to trigger animations on cards
+ *    - Animates publication cards, project cards, and blog cards
+ *    - Adds visual feedback when elements enter the viewport
+ * 
+ * 7. ACCESSIBILITY FEATURES
+ *    - Sets ARIA labels and attributes for screen readers
+ *    - Handles keyboard events (Escape key to close menu)
+ *    - Manages focus management for dropdown menus
+ *    - Updates ARIA attributes for dropdown states
+ * 
+ * 8. TOUCH AND DEVICE HANDLING
+ *    - Prevents double-tap zoom on dropdown links
+ *    - Handles touch events for better mobile experience
+ *    - Detects mobile viewport and adjusts behavior accordingly
+ * 
+ * 9. FOOTER AND PAGE INITIALIZATION
+ *    - Automatically updates the current year in footer
+ *    - Adds page load animations with fade-in effect
+ * 
+ * 10. RESPONSIVE BEHAVIOR
+ *     - Adjusts functionality based on viewport width (768px breakpoint)
+ *     - Resets mobile state when resizing to desktop view
+ *     - Responsive form error handling and styling
+ */
+
 // Theme Toggle Functionality
 const themeToggle = document.getElementById('theme-toggle');
 const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
@@ -167,8 +231,6 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-// Set current year in footer
-document.getElementById('currentYear').textContent = new Date().getFullYear();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -199,53 +261,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form submission handler
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(contactForm);
-        const name = formData.get('name') || 'User';
-        
-        // In a real application, you would send the form data to a server
-        // For now, we'll just show a success message
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        //submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-        //submitBtn.disabled = true;
-        
-        setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            contactForm.reset();
-            
-            // Show a more subtle notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: var(--primary-color);
-                color: white;
-                padding: 12px 20px;
-                border-radius: var(--radius-md);
-                box-shadow: var(--shadow-lg);
-                z-index: 10000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.innerHTML = `<i class="fas fa-check-circle"></i> Thank you for your message, ${name}!`;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }, 1500);
-    });
-}
 
 // Add CSS for notifications
 const notificationStyles = document.createElement('style');
@@ -347,46 +362,3 @@ window.addEventListener('load', () => {
     `;
     document.head.appendChild(style);
 });
-
-// Handle contact form validation
-if (contactForm) {
-    const inputs = contactForm.querySelectorAll('input, textarea');
-    
-    inputs.forEach(input => {
-        input.addEventListener('invalid', (e) => {
-            e.preventDefault();
-            
-            // Add error styling
-            input.style.borderColor = '#ef4444';
-            
-            // Show error message
-            let errorMsg = input.nextElementSibling;
-            if (!errorMsg || !errorMsg.classList.contains('error-message')) {
-                errorMsg = document.createElement('div');
-                errorMsg.className = 'error-message';
-                errorMsg.style.cssText = `
-                    color: #ef4444;
-                    font-size: 0.875rem;
-                    margin-top: 4px;
-                `;
-                input.parentNode.appendChild(errorMsg);
-            }
-            
-            if (input.validity.valueMissing) {
-                errorMsg.textContent = 'This field is required';
-            } else if (input.validity.typeMismatch) {
-                errorMsg.textContent = 'Please enter a valid email address';
-            }
-        });
-        
-        input.addEventListener('input', () => {
-            // Remove error styling when user starts typing
-            input.style.borderColor = '';
-            
-            const errorMsg = input.nextElementSibling;
-            if (errorMsg && errorMsg.classList.contains('error-message')) {
-                errorMsg.remove();
-            }
-        });
-    });
-}

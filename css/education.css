@@ -1,0 +1,174 @@
+@import url('theme.css');
+
+.education-card 
+{
+            background: var(--card-bg, #ffffff);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.education-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--bg-tertiary);
+        }
+
+        .degree-info h2 {
+            color: var(--text-primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .degree-info .specialization {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .degree-info .specialization::before {
+            content: "🏆";
+        }
+
+        .university {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .university::before {
+            content: "🏛️";
+        }
+
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    padding-left: 10px;
+}
+
+.timeline::before 
+{
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+
+    border-radius: 2px;
+}
+
+.timeline-item 
+{
+    display: flex;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.timeline-item:last-child 
+{
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: relative;
+    width: 50px;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.marker-icon {
+    width: 25px;
+    height: 25px;
+    background: #d1d5db9c;
+    border: 2px solid #2563eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #2563eb;
+    font-size: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-line 
+{
+    position: absolute;
+    left: 37px;
+    top: 25px;
+    bottom: -15px;
+    width: 2px;
+    background: #d1d5db;
+    z-index: 1;
+}
+
+.timeline-item:last-child .timeline-line {
+    display: none;
+}
+
+.timeline-content {
+    flex: 1;
+    background: transparent;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.244);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #2563eb;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.timeline-year {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.timeline-desc {
+    color: #6b7280;
+    margin: 0 0 8px 0;
+    font-size: 14px;
+}
+
+.timeline-status {
+    display: inline-block;
+    background: rgba(6, 182, 212, 0.1);
+    color: #0891b2;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}

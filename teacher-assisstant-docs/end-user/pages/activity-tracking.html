@@ -6,7 +6,8 @@
     <title>Student Activity Tracking - User Documentation</title>
      <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CSS -->
+    <!-- Global base styles + page CSS -->
+    <link rel="stylesheet" href="../../../css/styles.css">
     <link rel="stylesheet" href="styles.css">
  </head>
 <body>
@@ -119,7 +120,7 @@
     <p>The header section includes four charts that provide visual insights into student performance:</p>
     
     <div class="chart-grid">
-        <div class="chart-card">
+        <div class="chart-card card">
             <h4>📈 Progress Line Chart</h4>
             <ul>
                 <li><strong>Purpose:</strong> Track score changes over time</li>
@@ -131,7 +132,7 @@
             </ul>
         </div>
 
-        <div class="chart-card">
+        <div class="chart-card card">
             <h4>🍩 Cumulative Score Donut</h4>
             <ul>
                 <li><strong>Purpose:</strong> Show overall achievement level</li>
@@ -142,7 +143,7 @@
             </ul>
         </div>
 
-        <div class="chart-card">
+        <div class="chart-card card">
             <h4>🍩 Average Score Donut</h4>
             <ul>
                 <li><strong>Purpose:</strong> Display average performance</li>
@@ -153,7 +154,7 @@
             </ul>
         </div>
 
-        <div class="chart-card">
+        <div class="chart-card card">
             <h4>🥧 Activity Status Pie Chart</h4>
             <ul>
                 <li><strong>Purpose:</strong> Visualize activity completion status</li>
@@ -201,7 +202,7 @@
 
     <h3>Action Buttons</h3>
     <div class="feature-grid">
-        <div class="feature-card">
+        <div class="feature-card card">
             <h3>Export Menu (🖨️)</h3>
             <ul>
                 <li><strong>Current Status:</strong> Options disabled in current version</li>
@@ -210,7 +211,7 @@
             </ul>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card card">
             <h3>Add Observation (✏️)</h3>
             <ul>
                 <li><strong>Function:</strong> Opens behavioral observation editor</li>
@@ -219,7 +220,7 @@
             </ul>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card card">
             <h3>Assign Edu-Item (📐)</h3>
             <ul>
                 <li><strong>Function:</strong> Opens Educational Resources View</li>
@@ -241,7 +242,7 @@
     <p>The Behavioral Observations view (accessed with the left arrow button) displays all teacher notes about student behavior:</p>
     
     <div class="feature-grid">
-        <div class="feature-card">
+        <div class="feature-card card">
             <h3>Observation Structure</h3>
             <ul>
                 <li><strong>ID & Date:</strong> Unique record ID and timestamp</li>
@@ -252,7 +253,7 @@
             </ul>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card card">
             <h3>Observation Actions</h3>
             <ul>
                 <li><strong>Update:</strong> Edit existing observation content</li>
@@ -290,7 +291,7 @@
     <p>The Learning Activities view (accessed with the right arrow button) displays all educational assignments and their status:</p>
     
     <div class="feature-grid">
-        <div class="feature-card">
+        <div class="feature-card card">
             <h3>Activity Information</h3>
             <ul>
                 <li><strong>Activity ID:</strong> Unique identifier for tracking</li>
@@ -418,7 +419,7 @@
     <p>The page performs several database operations for data management:</p>
     
     <div class="feature-grid">
-        <div class="feature-card">
+        <div class="feature-card card">
             <h3>Data Loading</h3>
             <ul>
                 <li><strong>Behavioral Data:</strong> Loaded with <code>ORDER BY date_time_ DESC</code></li>
@@ -428,7 +429,7 @@
             </ul>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card card">
             <h3>Data Modification</h3>
             <ul>
                 <li><strong>Add Observations:</strong> <code>INSERT</code> with timestamp and auto-ID</li>

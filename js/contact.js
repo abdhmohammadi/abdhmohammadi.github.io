@@ -1,7 +1,8 @@
 // Contact Form Handler for Google Apps Script
 // Version: 2.0
 
-class ContactFormHandler {
+class ContactFormHandler 
+{
     constructor() {
         this.scriptURL = 'https://script.google.com/macros/s/AKfycbyxF1T6CT4OoIaz9_p6jcACEe-0TJxRMlfeXIffHPzk-yYb6suh6nCkpIL6D-reoZw2hw/exec';
         this.form = document.getElementById('contactForm');
@@ -238,6 +239,101 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Export برای استفاده در ماژول‌ها
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== 'undefined' && module.exports) 
+{
     module.exports = ContactFormHandler;
+}
+
+// Form submission handler
+const contactForm = document.getElementById('contactForm');
+if (contactForm) 
+{
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(contactForm);
+        const name = formData.get('name') || 'User';
+        
+        // In a real application, you would send the form data to a server
+        // For now, we'll just show a success message
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        //submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+        //submitBtn.disabled = true;
+        
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            contactForm.reset();
+            
+            // Show a more subtle notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--primary-color);
+                color: white;
+                padding: 12px 20px;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> Thank you for your message, ${name}!`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }, 1500);
+    });
+}
+
+
+// Handle contact form validation
+if (contactForm) 
+{
+    const inputs = contactForm.querySelectorAll('input, textarea');
+    
+    inputs.forEach(input => {
+        input.addEventListener('invalid', (e) => {
+            e.preventDefault();
+            
+            // Add error styling
+            input.style.borderColor = '#ef4444';
+            
+            // Show error message
+            let errorMsg = input.nextElementSibling;
+            if (!errorMsg || !errorMsg.classList.contains('error-message')) {
+                errorMsg = document.createElement('div');
+                errorMsg.className = 'error-message';
+                errorMsg.style.cssText = `
+                    color: #ef4444;
+                    font-size: 0.875rem;
+                    margin-top: 4px;
+                `;
+                input.parentNode.appendChild(errorMsg);
+            }
+            
+            if (input.validity.valueMissing) {
+                errorMsg.textContent = 'This field is required';
+            } else if (input.validity.typeMismatch) {
+                errorMsg.textContent = 'Please enter a valid email address';
+            }
+        });
+        
+        input.addEventListener('input', () => {
+            // Remove error styling when user starts typing
+            input.style.borderColor = '';
+            
+            const errorMsg = input.nextElementSibling;
+            if (errorMsg && errorMsg.classList.contains('error-message')) {
+                errorMsg.remove();
+            }
+        });
+    });
 }
