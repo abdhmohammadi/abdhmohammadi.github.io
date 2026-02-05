@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List Page - Complete Technical Documentation</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-color: #bdc3c7;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #2980b9;
+        }
+        a
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        header {
+            text-align: center;
+            padding-bottom: 30px;
+            border-bottom: 3px solid var(--secondary-color);
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 8px;
+            margin-top: -20px;
+        }
+        
+        h1 {
+            color: white;
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            margin: 40px 0 25px 0;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 30px 0 18px 0;
+            padding-left: 15px;
+            border-left: 4px solid var(--secondary-color);
+            font-size: 1.4em;
+        }
+        
+        h4 {
+            color: var(--info-color);
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.2em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 50%;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.95em;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .code-comment {
+            color: #6a9955;
+        }
+        
+        .code-keyword {
+            color: #569cd6;
+        }
+        
+        .code-string {
+            color: #ce9178;
+        }
+        
+        .code-number {
+            color: #b5cea8;
+        }
+        
+        .ui-section {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+        
+        th {
+            background: linear-gradient(to bottom, var(--primary-color), #34495e);
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+        
+        td {
+            border: 1px solid var(--border-color);
+            padding: 14px 15px;
+            text-align: left;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e8f4fd;
+        }
+        
+        .note {
+            background: linear-gradient(to right, #fff8e1, #fff3cd);
+            border-left: 5px solid var(--warning-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning {
+            background: linear-gradient(to right, #ffebee, #ffcdd2);
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .info-box {
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+            border-left: 5px solid var(--info-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .constant-table {
+            font-size: 0.92em;
+        }
+        
+        .menu-actions {
+            background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+            border: 1px solid #a5d6a7;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .action-item {
+            padding: 10px 0 10px 20px;
+            border-bottom: 1px dashed #a5d6a7;
+            position: relative;
+        }
+        
+        .action-item:before {
+            content: '▶';
+            color: var(--success-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .action-item:last-child {
+            border-bottom: none;
+        }
+        
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 70px 40px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+            border: 3px dashed rgba(255,255,255,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screenshot-placeholder:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+        }
+        
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin: 35px 0;
+        }
+        
+        .screenshot-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        
+        .screenshot-header {
+            background: linear-gradient(to right, var(--primary-color), #415b76);
+            color: white;
+            padding: 18px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .screenshot-body {
+            padding: 30px;
+            text-align: center;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+        }
+        
+        .screenshot-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .screenshot-desc {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        
+        .method-details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--info-color);
+        }
+        
+        .method-signature {
+            font-family: 'Consolas', monospace;
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .parameter-table {
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        .parameter-table th {
+            background: #e9ecef;
+            color: var(--primary-color);
+            padding: 12px;
+        }
+        
+        .parameter-table td {
+            padding: 12px;
+        }
+        
+        .architecture-diagram {
+            background: linear-gradient(to right, #f0f7ff, #e1f0ff);
+            border: 2px solid #bbdefb;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .flow-chart {
+            background: white;
+            border: 2px dashed #90a4ae;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            font-style: italic;
+            color: #546e7a;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid var(--border-color);
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .toc ul {
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc li {
+            margin-bottom: 10px;
+            break-inside: avoid;
+        }
+        
+        .toc a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 1100px) {
+            .toc ul {
+                columns: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid, .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student List Page - Complete Technical Documentation</h1>
+            <p class="subtitle">PySide6-based Student Management Interface for Educational Applications</p>
+            <p style="margin-top: 20px; color: rgba(255,255,255,0.85);">Comprehensive analysis of the StudentListPage class including architecture, data flow, UI components, and implementation details</p>
+        </header>
+
+        <section id="toc">
+            <div class="toc">
+                <h2>📑 Table of Contents</h2>
+                <ul>
+                    <li><a href="#overview">1. Overview and Architecture</a></li>
+                    <li><a href="#architecture">2. System Architecture</a></li>
+                    <li><a href="#ui-detailed">3. Detailed UI Components</a></li>
+                    <li><a href="#data-flow">4. Data Flow and State Management</a></li>
+                    <li><a href="#methods-detailed">5. Core Method Analysis</a></li>
+                    <li><a href="#database-detailed">6. Database Integration Details</a></li>
+                    <li><a href="#error-detailed">7. Comprehensive Error Handling</a></li>
+                    <li><a href="#performance">8. Performance Considerations</a></li>
+                    <li><a href="#extensibility">9. Extensibility and Customization</a></li>
+                    <li><a href="#api-reference">10. API Reference</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="overview">
+            <h2>🔍 1. Comprehensive Overview and Architecture Analysis</h2>
+            <p>The <strong>StudentListPage</strong> class is a sophisticated PySide6 widget that serves as the central hub for student management in an educational software system. It implements the Model-View-Controller pattern with Qt's Model/View architecture, providing a robust interface for managing student records, observations, groups, and educational resources.</p>
+            
+            <div class="info-box">
+                <strong>Architectural Pattern:</strong> Model-View with QtStandardItemModel for data representation and QTableView for visualization. The controller logic is embedded within the widget's methods, handling user interactions, data persistence, and UI updates.
+            </div>
+            
+            <h3>Core Architectural Components</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h4>Data Model Layer</h4>
+                    <p><strong>QStandardItemModel</strong> with custom data storage in UserRole. Each row represents a student, with columns for photo, info, address, and notes. The model stores complete student records as tuples in the first column's UserRole.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <h4>View Layer</h4>
+                    <p><strong>QTableView</strong> with custom widgets per cell using <code>setIndexWidget()</code>. This hybrid approach combines model benefits with custom widget flexibility. Uses QScrollArea for notes and custom QLabel widgets for photo display.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h4>Controller Layer</h4>
+                    <p>Event-driven architecture with signal/slot connections. Handles database operations, CSV imports, group management, and educational resource assignment through dedicated dialog classes.</p>
+                </div>
+            </div>
+            
+            <h3>Class Inheritance and Dependencies</h3>
+            <div class="code-block">
+<span class="code-keyword">class</span> <span class="code-string">StudentListPage</span>(<span class="code-string">QWidget</span>):  <span class="code-comment"># Inherits from QWidget</span>
+    <span class="code-comment"># Primary dependencies:</span>
+    <span class="code-comment"># - PySide6.QtWidgets (UI components)</span>
+    <span class="code-comment"># - PySide6.QtGui (Model/Item classes)</span>
+    <span class="code-comment"># - pandas (CSV processing)</span>
+    <span class="code-comment"># - app_context (Database and settings)</span>
+    <span class="code-comment"># - Various custom dialog/view classes</span></div>
+            
+            <div class="note">
+                <strong>Design Principle:</strong> The class follows separation of concerns by delegating specific functionalities to specialized dialog classes (PersonalInfoDialog, GroupsManagerDialog, etc.) while maintaining core student list management logic.
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>🏗️ 2. System Architecture and Data Flow</h2>
+            
+            <div class="architecture-diagram">
+                <h3>System Architecture Diagram</h3>
+                <div class="flow-chart">
+                    [ARCHITECTURE DIAGRAM: Multi-layered system showing:<br>
+                    1. Presentation Layer (StudentListPage UI)<br>
+                    2. Business Logic Layer (Event handlers, Data processing)<br>
+                    3. Data Access Layer (Database operations, CSV import)<br>
+                    4. External Services (PopupNotifier, Dialog windows)]
+                </div>
+            </div>
+            
+            <h3>State Management Pattern</h3>
+            <p>The widget maintains several key states:</p>
+            <ul style="margin-left: 30px; margin-bottom: 20px;">
+                <li><strong>_multi_select_enabled:</strong> Toggles between single and multi-selection modes</li>
+                <li><strong>_current_group_id:</strong> Tracks currently selected group for contextual operations</li>
+                <li><strong>search_index:</strong> Maintains search position for iterative search functionality</li>
+                <li><strong>Model data in UserRole:</strong> Student records stored in model items rather than separate data structures</li>
+            </ul>
+            
+            <h3>Data Flow for Student Loading</h3>
+            <div class="method-details">
+                <h4>Sequence: <code>load_students()</code> → <code>_update_table_display()</code> → <code>_create_student_row()</code></h4>
+                <ol style="margin-left: 25px;">
+                    <li>Group selection triggers <code>load_students()</code></li>
+                    <li>SQL query built dynamically based on group selection (parameterized for safety)</li>
+                    <li>Data fetched from database via <code>app_context.database.fetchall()</code></li>
+                    <li>Table cleared using <code>_clear_table()</code> (proper widget cleanup)</li>
+                    <li>New model populated with data stored in UserRole of first column items</li>
+                    <li>Custom widgets created for each cell using <code>_create_student_row()</code></li>
+                    <li>Footer updated with student count</li>
+                </ol>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Data Flow Visualization</h3>
+                <p style="color: rgba(255,255,255,0.9); font-size: 1.1em;">[DATA FLOW DIAGRAM: Sequential diagram showing:<br>
+                User Action → Signal Emission → Method Execution → Database Query →<br>
+                Data Processing → Model Update → Widget Creation → UI Refresh]</p>
+                <p style="font-size: 0.95em; color: rgba(255,255,255,0.8); margin-top: 25px; line-height: 1.6;">
+                    Illustrates the complete journey from user interaction to UI update, highlighting<br>
+                    the asynchronous nature of database operations and widget creation.
+                </p>
+            </div>
+        </section>
+
+        <section id="ui-detailed">
+            <h2>🎨 3. Detailed UI Components and Layout Analysis</h2>
+            
+            <h3>Header Section - Complex Layout Structure</h3>
+            <div class="ui-section">
+                <p>The header uses a <strong>QHBoxLayout</strong> with strategic stretching to create a responsive interface:</p>
+                <div class="code-block">
+<span class="code-comment"># Header construction in initUI():</span>
+command_layout = QHBoxLayout()
+command_layout.addWidget(page_title)     <span class="code-comment"># Left-aligned title</span>
+command_layout.addStretch()              <span class="code-comment"># Pushes subsequent widgets to right</span>
+command_layout.addWidget(search_input)   <span class="code-comment"># 200px fixed width</span>
+command_layout.addWidget(class_filter_combo)  <span class="code-comment"># Group filter dropdown</span>
+command_layout.addWidget(edu_btn)        <span class="code-comment"># Options menu button</span></div>
+                
+                <p><strong>Responsive Behavior:</strong> The stretch element ensures search and filter components remain right-aligned regardless of window width, while the title stays left-aligned.</p>
+            </div>
+            
+            <h3>Table Configuration - Advanced QTableView Setup</h3>
+            <p>The table is configured with specific policies for optimal user experience:</p>
+            <div class="code-block">
+<span class="code-comment"># Table configuration with detailed policies:</span>
+self.table.setAlternatingRowColors(True)        <span class="code-comment"># Zebra striping for readability</span>
+self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+self.table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+self.table.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContentsOnFirstShow)
+self.table.setShowGrid(False)                   <span class="code-comment"># Clean, modern look</span>
+
+<span class="code-comment"># Column resize policies:</span>
+header.setSectionResizeMode(COL_PHOTO, QHeaderView.ResizeMode.Fixed)
+header.setSectionResizeMode(COL_INFO, QHeaderView.ResizeMode.ResizeToContents)
+header.setSectionResizeMode(COL_ADDRESS, QHeaderView.ResizeMode.ResizeToContents)
+header.setSectionResizeMode(COL_LAST_NOTE, QHeaderView.ResizeMode.Stretch)</div>
+            
+            <h3>Custom Widget Creation for Table Cells</h3>
+            <p>Each cell uses custom widgets instead of standard item rendering:</p>
+            <div class="method-details">
+                <h4><code>_create_student_row()</code> - Complex Widget Assembly</h4>
+                <p>This method creates a composite interface for each student row:</p>
+                <ul>
+                    <li><strong>Photo Column:</strong> QLabel with conditional pixmap loading using <code>bytea_to_pixmap()</code></li>
+                    <li><strong>Info Column:</strong> QLabel with HTML formatting for ID and bold name</li>
+                    <li><strong>Address Column:</strong> Multi-line QLabel with address and phone</li>
+                    <li><strong>Notes Column:</strong> QScrollArea containing QLabel with note text, plus context menu button</li>
+                </ul>
+                <div class="note">
+                    <strong>Performance Note:</strong> Using <code>setIndexWidget()</code> for each cell is memory-intensive but provides maximum customization flexibility. For large datasets, consider delegate-based rendering.
+                </div>
+            </div>
+            
+            <div class="screenshot-grid">
+                <div class="screenshot-card">
+                    <div class="screenshot-header">Photo Column Implementation</div>
+                    <div class="screenshot-body">
+                        <div class="screenshot-icon">🖼️</div>
+                        <div class="screenshot-desc">
+                            <strong>Smart Image Handling:</strong><br>
+                            • Uses <code>bytea_to_pixmap()</code> for database BLOB conversion<br>
+                            • Automatic scaling with aspect ratio preservation<br>
+                            • Fallback to "No Photo" text with styled background<br>
+                            • Error handling with exception logging
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="screenshot-card">
+                    <div class="screenshot-header">Notes Column Complex Widget</div>
+                    <div class="screenshot-body">
+                        <div class="screenshot-icon">📝</div>
+                        <div class="screenshot-desc">
+                            <strong>Multi-component Widget:</strong><br>
+                            • QScrollArea for long note content<br>
+                            • Fixed height (120px) for consistent row sizing<br>
+                            • Context menu button overlaid with absolute positioning<br>
+                            • RTL text detection using <code>is_mostly_rtl()</code><br>
+                            • Dynamic alignment based on text direction
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="screenshot-card">
+                    <div class="screenshot-header">Search Implementation</div>
+                    <div class="screenshot-body">
+                        <div class="screenshot-icon">🔍</div>
+                        <div class="screenshot-desc">
+                            <strong>Intelligent Search Algorithm:</strong><br>
+                            • Iterative search with wrap-around<br>
+                            • Searches both displayed text and underlying record data<br>
+                            • Case-insensitive matching<br>
+                            • Visual feedback via row selection and scrolling<br>
+                            • Search index persistence between searches
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-flow">
+            <h2>📊 4. Data Flow and State Management Analysis</h2>
+            
+            <h3>Student Record Storage Strategy</h3>
+            <p>The system uses a sophisticated dual-layer data storage approach:</p>
+            
+            <div class="code-block">
+<span class="code-comment"># Primary storage: Complete records in model UserRole</span>
+item = QStandardItem()
+item.setData(record, Qt.ItemDataRole.UserRole)  <span class="code-comment"># Store full tuple</span>
+self.model.setItem(row, COL_PHOTO, item)        <span class="code-comment"># In first column</span>
+
+<span class="code-comment"># Retrieval method:</span>
+<span class="code-keyword">def</span> _get_record_from_row(self, row: int):
+    <span class="code-keyword">if</span> 0 <= row < self.model.rowCount():
+        item = self.model.item(row, COL_PHOTO)
+        <span class="code-keyword">if</span> item:
+            <span class="code-keyword">return</span> item.data(Qt.ItemDataRole.UserRole)
+    <span class="code-keyword">return</span> <span class="code-keyword">None</span></div>
+            
+            <div class="info-box">
+                <strong>Design Advantage:</strong> This approach keeps the data model synchronized with displayed widgets. Records are stored once in the model, eliminating duplication and ensuring consistency between search operations and data display.
+            </div>
+            
+            <h3>Group Management Data Flow</h3>
+            <p>Group operations involve complex string manipulation for member lists:</p>
+            
+            <div class="method-details">
+                <h4>Member String Format: ",id1,id2,id3,id4"</h4>
+                <p>The system uses a comma-separated string format with a leading comma for easier parsing and manipulation:</p>
+                <div class="code-block">
+<span class="code-comment"># Adding members - string concatenation with leading comma</span>
+id_list = ',' + ','.join(student_ids)
+
+<span class="code-comment"># Removing members - list filtering</span>
+members_list = [m.strip() for m in str(members).split(',') 
+                if m.strip() and m.strip() != student_id]
+updated_members = ',' + ','.join(members_list) if members_list else ''</div>
+                
+                <div class="warning">
+                    <strong>Performance Consideration:</strong> String manipulation for member lists becomes inefficient with large groups. Consider migrating to a proper junction table or array field for production use with thousands of students.
+                </div>
+            </div>
+            
+            <h3>CSV Import Data Pipeline</h3>
+            <div class="flow-chart">
+                [DATA PIPELINE DIAGRAM: CSV Import Process<br>
+                1. File Selection → 2. Header Validation → 3. Column Mapping →<br>
+                4. Chunked Reading (1000 rows) → 5. Type Conversion →<br>
+                6. Bulk Database Insert → 7. UI Refresh → 8. User Notification]
+            </div>
+            
+            <p>The CSV import implements several sophisticated features:</p>
+            <ul style="margin-left: 30px; margin-bottom: 20px;">
+                <li><strong>Dynamic Column Mapping:</strong> Validates CSV headers against database schema</li>
+                <li><strong>Chunked Processing:</strong> Processes 1000 rows at a time to manage memory usage</li>
+                <li><strong>Null-aware Data Types:</strong> Uses <code>dtype_backend='numpy_nullable'</code> for proper null handling</li>
+                <li><strong>User Preference Storage:</strong> Remembers "Don't show again" setting for warnings</li>
+            </ul>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">CSV Import Data Validation Flow</h3>
+                <p style="color: rgba(255,255,255,0.9);">[FLOWCHART: Step-by-step validation process showing:<br>
+                File selection → Header extraction → Schema comparison →<br>
+                Column mapping validation → Data type checking →<br>
+                Chunk size calculation → Database compatibility check]</p>
+            </div>
+        </section>
+
+        <section id="methods-detailed">
+            <h2>⚙️ 5. Core Method Analysis and Implementation Details</h2>
+            
+            <h3>Critical Public Methods</h3>
+            
+            <div class="method-details">
+                <h4><code>load_students(sender: QComboBox)</code></h4>
+                <p><strong>Primary Responsibility:</strong> Load and display students based on group filter selection</p>
+                
+                <div class="code-block">
+<span class="code-comment"># Complex SQL Query with LEFT JOIN for latest observation</span>
+base_query = (<span class="code-string">'SELECT t1.Id, t1.fname_, t1.lname_, t1.phone_, t1.address_, t1.photo_, '</span>
+              <span class="code-string">'t2.date_time_, t2.observed_behaviour_, t1.parent_name_, t1.parent_phone_, '</span>
+              <span class="code-string">'t1.additional_details_, t1.birth_date_, t1.gender_ '</span>
+              <span class="code-string">'FROM personal_info t1 '</span>
+              <span class="code-string">'LEFT JOIN ('</span>
+              <span class="code-string">' SELECT t2.* FROM observed_behaviours t2'</span>
+              <span class="code-string">' INNER JOIN ('</span>
+              <span class="code-string">'   SELECT student_id, MAX(date_time_) AS max_created_at'</span>
+              <span class="code-string">'   FROM observed_behaviours'</span>
+              <span class="code-string">'   GROUP BY student_id'</span>
+              <span class="code-string">' ) last_records ON t2.student_id = last_records.student_id'</span>
+              <span class="code-string">' AND t2.date_time_ = last_records.max_created_at'</span>
+              <span class="code-string">') t2 ON t1.id = t2.student_id'</span>)</div>
+                
+                <p><strong>Query Optimization:</strong> Uses a derived table with MAX() aggregation to fetch only the most recent observation per student, reducing data transfer for students with many observations.</p>
+                
+                <div class="parameter-table">
+                    <table>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Usage</th>
+                        </tr>
+                        <tr>
+                            <td>sender</td>
+                            <td>QComboBox</td>
+                            <td>Group filter dropdown</td>
+                            <td>Extracts selected group to determine filtering logic</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="method-details">
+                <h4><code>find_in_list(search_text: str)</code></h4>
+                <p><strong>Intelligent Search Algorithm:</strong> Implements multi-source, iterative searching</p>
+                
+                <ul style="margin-left: 25px; margin-bottom: 15px;">
+                    <li><strong>Source 1:</strong> Widget text extraction (QLabel.text(), toPlainText(), etc.)</li>
+                    <li><strong>Source 2:</strong> Underlying record data concatenation</li>
+                    <li><strong>Algorithm:</strong> Row-by-row with column priority, wrap-around from current position</li>
+                    <li><strong>Feedback:</strong> Visual selection, auto-scrolling, and notification for no matches</li>
+                </ul>
+                
+                <div class="code-block">
+<span class="code-comment"># Multi-source text extraction strategy:</span>
+<span class="code-keyword">if</span> widget:
+    <span class="code-keyword">if</span> isinstance(widget, QLabel):
+        cell_text = widget.text()
+    <span class="code-keyword">elif</span> hasattr(widget, <span class="code-string">"text"</span>):
+        cell_text = widget.text()
+    <span class="code-keyword">elif</span> hasattr(widget, <span class="code-string">"toPlainText"</span>):
+        cell_text = widget.toPlainText()
+    <span class="code-keyword">else</span>:
+        lbl = widget.findChild(QLabel)
+        <span class="code-keyword">if</span> lbl:
+            cell_text = lbl.text()
+
+<span class="code-comment"># Fallback to record data for comprehensive search</span>
+<span class="code-keyword">if</span> <span class="code-keyword">not</span> cell_text:
+    record = self._get_record_from_row(row)
+    <span class="code-keyword">if</span> record:
+        searchable_text = <span class="code-string">' '</span>.join([str(record[REC_ID]), ...]).lower()</div>
+                
+                <div class="note">
+                    <strong>Search Complexity:</strong> O(n × m) where n is row count and m is average columns searched. For large datasets, consider implementing indexed search or moving to database-level search.
+                </div>
+            </div>
+            
+            <div class="method-details">
+                <h4><code>show_csv_load_message()</code></h4>
+                <p><strong>User Experience Design:</strong> Implements smart warning system with user preference storage</p>
+                
+                <div class="code-block">
+<span class="code-comment"># Check user preference before showing message</span>
+option = app_context.settings_manager.find_value(<span class="code-string">'csv_show_option_message'</span>)
+<span class="code-keyword">if</span> option:  <span class="code-comment"># User chose "Don't show again"</span>
+    <span class="code-keyword">return</span> QMessageBox.StandardButton.Ok
+
+<span class="code-comment"># Create custom message box with checkbox</span>
+msg_box = QMessageBox(self)
+checkbox = QCheckBox(<span class="code-string">"Don't show again"</span>)
+msg_box.setCheckBox(checkbox)
+btn = msg_box.exec()
+
+<span class="code-comment"># Store preference in settings</span>
+app_context.settings_manager.write({<span class="code-string">"csv_show_option_message"</span>: checkbox.isChecked()})</div>
+                
+                <p><strong>Design Pattern:</strong> Implements the "Memento" pattern for user preferences, storing dialog state across application sessions.</p>
+            </div>
+            
+            <h3>Private Helper Methods</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Access</th>
+                            <th>Purpose</th>
+                            <th>Complexity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>_clear_table()</code></td>
+                            <td>Private</td>
+                            <td>Proper cleanup of table widgets and model reset</td>
+                            <td>O(n) - iterates through all rows</td>
+                        </tr>
+                        <tr>
+                            <td><code>_update_table_display()</code></td>
+                            <td>Private</td>
+                            <td>Main display refresh with widget creation</td>
+                            <td>O(n) - creates widgets for each row</td>
+                        </tr>
+                        <tr>
+                            <td><code>_create_student_row()</code></td>
+                            <td>Private</td>
+                            <td>Individual row widget construction</td>
+                            <td>O(1) - per row</td>
+                        </tr>
+                        <tr>
+                            <td><code>_get_record_from_row()</code></td>
+                            <td>Private</td>
+                            <td>Data retrieval from model UserRole</td>
+                            <td>O(1) - direct model access</td>
+                        </tr>
+                        <tr>
+                            <td><code>_get_all_records()</code></td>
+                            <td>Private</td>
+                            <td>Batch record retrieval</td>
+                            <td>O(n) - iterates all rows</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="database-detailed">
+            <h2>💾 6. Database Integration and Data Layer Analysis</h2>
+            
+            <h3>Database Schema Integration</h3>
+            <p>The class interacts with four primary database tables:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Primary Key</th>
+                            <th>Fields Used</th>
+                            <th>Relationship</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>personal_info</code></td>
+                            <td>Id</td>
+                            <td>13 fields (REC_ID to REC_GENDER)</td>
+                            <td>Master student record table</td>
+                        </tr>
+                        <tr>
+                            <td><code>observed_behaviours</code></td>
+                            <td>student_id + date_time_</td>
+                            <td>student_id, date_time_, observed_behaviour_</td>
+                            <td>One-to-many with personal_info</td>
+                        </tr>
+                        <tr>
+                            <td><code>groups</code></td>
+                            <td>id</td>
+                            <td>7 fields including members_ (CSV list)</td>
+                            <td>Many-to-many via members_ string</td>
+                        </tr>
+                        <tr>
+                            <td><code>quests</code></td>
+                            <td>qb_Id + student_id</td>
+                            <td>9 fields for assignment tracking</td>
+                            <td>Educational item assignments</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Complex Query Patterns</h3>
+            
+            <div class="method-details">
+                <h4>Parameterized Query Building for Security</h4>
+                <p>All database queries use parameterized statements to prevent SQL injection:</p>
+                
+                <div class="code-block">
+<span class="code-comment"># Safe parameterized query with IN clause</span>
+members_list = [m.strip() for m in str(selected.members).split(<span class="code-string">','</span>) if m.strip()]
+placeholders = <span class="code-string">','</span>.join([<span class="code-string">'%s'</span>] * len(members_list))
+query = base_query + <span class="code-string">f' WHERE t1.Id IN ({placeholders}) ORDER BY t1.fname_, t1.lname_;'</span>
+params = tuple(members_list)
+data = app_context.database.fetchall(query, params)</div>
+                
+                <div class="warning">
+                    <strong>Security Critical:</strong> Never use string formatting for SQL queries with user input. The parameterized approach shown above is essential for preventing SQL injection attacks.
+                </div>
+            </div>
+            
+            <h3>Bulk Operations and Transaction Management</h3>
+            <p>The CSV import implements chunked bulk operations:</p>
+            
+            <div class="code-block">
+<span class="code-comment"># Chunked CSV processing for memory efficiency</span>
+data = pd.read_csv(csv_file[<span class="code-number">0</span>], chunksize=CSV_CHUNK_SIZE, dtype_backend=<span class="code-string">'numpy_nullable'</span>)
+app_context.database.bulk_insert_csv(data, <span class="code-string">'personal_info'</span>, valid_mapping)</div>
+            
+            <p><strong>Chunked Processing Benefits:</strong></p>
+            <ul style="margin-left: 30px; margin-bottom: 20px;">
+                <li><strong>Memory Efficiency:</strong> Processes 1000 rows at a time regardless of file size</li>
+                <li><strong>Progress Tracking:</strong> Enables potential progress bar implementation</li>
+                <li><strong>Error Containment:</strong> Failures affect only current chunk</li>
+                <li><strong>Transaction Management:</strong> Each chunk can be committed independently</li>
+            </ul>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Database Transaction Flow</h3>
+                <p style="color: rgba(255,255,255,0.9);">[SEQUENCE DIAGRAM: Database transaction flow showing:<br>
+                Begin Transaction → Query Execution → Result Processing →<br>
+                Error Checking → Commit/Rollback → Connection Management →<br>
+                Result Set Handling → Memory Cleanup]</p>
+            </div>
+            
+            <h3>Data Type Mapping and Conversion</h3>
+            <p>The system handles complex data type conversions:</p>
+            
+            <div class="code-block">
+<span class="code-comment"># Photo data: Database bytea → QPixmap</span>
+<span class="code-keyword">if</span> record[REC_PHOTO]:
+    pixmap = bytea_to_pixmap(record[REC_PHOTO])  <span class="code-comment"># Custom conversion</span>
+    scaled_pixmap = pixmap.scaled(photo_label.size(), 
+        Qt.AspectRatioMode.KeepAspectRatio, 
+        Qt.TransformationMode.SmoothTransformation)
+
+<span class="code-comment"># Date/time formatting with fallback</span>
+date_str = <span class="code-string">''</span>
+<span class="code-keyword">if</span> record[REC_DATE_TIME]:
+    <span class="code-keyword">try</span>:
+        date_str = record[REC_DATE_TIME].strftime(<span class="code-string">"%Y-%m-%d %H:%M:%S"</span>)
+    <span class="code-keyword">except</span> (AttributeError, ValueError):
+        date_str = str(record[REC_DATE_TIME])  <span class="code-comment"># Fallback to string</span></div>
+        </section>
+
+        <section id="error-detailed">
+            <h2>⚠️ 7. Comprehensive Error Handling and Validation</h2>
+            
+            <h3>Multi-Layer Error Handling Strategy</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Preventive Validation</h4>
+                    <p>Input validation, CSV format checking, and database schema verification before operations.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚨</div>
+                    <h4>Try-Catch Wrapping</h4>
+                    <p>All external operations (DB, file I/O, image processing) wrapped in try-catch blocks.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📢</div>
+                    <h4>User Feedback</h4>
+                    <p>Non-intrusive PopupNotifier messages for errors, with detailed context for debugging.</p>
+                </div>
+            </div>
+            
+            <h3>Specific Error Handling Patterns</h3>
+            
+            <div class="method-details">
+                <h4>Database Operation Error Handling</h4>
+                
+                <div class="code-block">
+<span class="code-keyword">try</span>:
+    <span class="code-comment"># Attempt database operation</span>
+    app_context.database.execute(cmd, (qb_Id, stu_id, ...))
+    status = <span class="code-keyword">True</span>
+    message = <span class="code-string">f'Custom assignment for student {stu_id} was saved successfully.'</span>
+<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+    status = <span class="code-keyword">False</span>
+    message = <span class="code-string">f'Error saving assignment: {str(e)}'</span>
+    <span class="code-comment"># Log full exception for debugging</span>
+    <span class="code-keyword">import</span> traceback
+    traceback.print_exc()
+<span class="code-keyword">return</span> status, message  <span class="code-comment"># Return both status and message for caller</span></div>
+                
+                <p><strong>Pattern:</strong> All database methods follow this pattern - return tuple (status, message) for comprehensive error reporting.</p>
+            </div>
+            
+            <div class="method-details">
+                <h4>File Operation Error Handling</h4>
+                
+                <div class="code-block">
+<span class="code-keyword">try</span>:
+    <span class="code-comment"># Read CSV headers dynamically</span>
+    csv_headers = pd.read_csv(csv_file[<span class="code-number">0</span>], nrows=<span class="code-number">0</span>).columns.tolist()
+    
+    <span class="code-comment"># Validate mapping exists</span>
+    valid_mapping = {csv_col: sql_col <span class="code-keyword">for</span> csv_col, sql_col <span class="code-keyword">in</span> column_mapping.items() 
+                     <span class="code-keyword">if</span> csv_col <span class="code-keyword">in</span> csv_headers <span class="code-keyword">and</span> sql_col <span class="code-keyword">in</span> table_columns}
+    
+    <span class="code-keyword">if</span> <span class="code-keyword">not</span> valid_mapping:
+        PopupNotifier.Notify(self, <span class="code-string">"Error"</span>, <span class="code-string">"No valid column mapping found..."</span>)
+        <span class="code-keyword">return</span>
+    
+    <span class="code-comment"># Process data in chunks</span>
+    data = pd.read_csv(csv_file[<span class="code-number">0</span>], chunksize=CSV_CHUNK_SIZE, dtype_backend=<span class="code-string">'numpy_nullable'</span>)
+    app_context.database.bulk_insert_csv(data, <span class="code-string">'personal_info'</span>, valid_mapping)
+    
+<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+    msg = <span class="code-string">f'Error loading CSV: {str(e)}'</span>
+    PopupNotifier.Notify(self, <span class="code-string">"Error"</span>, msg, <span class="code-string">'bottom-right'</span>, delay=<span class="code-number">5000</span>)</div>
+                
+                <p><strong>Defensive Programming:</strong> Multiple validation points with early returns on failure, preventing cascading errors.</p>
+            </div>
+            
+            <h3>Recovery Strategies</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Failure Scenario</th>
+                            <th>Detection Method</th>
+                            <th>Recovery Action</th>
+                            <th>User Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Database connection lost</td>
+                            <td>Exception on execute()</td>
+                            <td>Abort operation, notify user</td>
+                            <td>Error popup with retry option</td>
+                        </tr>
+                        <tr>
+                            <td>Invalid CSV format</td>
+                            <td>Column mapping validation</td>
+                            <td>Reject file, show format requirements</td>
+                            <td>Detailed format error message</td>
+                        </tr>
+                        <tr>
+                            <td>Image loading failure</td>
+                            <td>Exception in bytea_to_pixmap()</td>
+                            <td>Show placeholder, log error</td>
+                            <td>Silent failure with placeholder</td>
+                        </tr>
+                        <tr>
+                            <td>Missing group selection</td>
+                            <td>Check _current_group_id</td>
+                            <td>Show error, abort operation</td>
+                            <td>"No group selected" message</td>
+                        </tr>
+                        <tr>
+                            <td>Empty search results</td>
+                            <td>No matches found</td>
+                            <td>Reset search index, notify</td>
+                            <td>"No match found" notification</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="warning">
+                <strong>Critical Error: Student Deletion</strong>
+                <p>The <code>delete_person()</code> method performs cascading deletion without transaction rollback capability. If deletion fails midway, data integrity may be compromised. Consider implementing transactional delete with proper rollback.</p>
+            </div>
+        </section>
+
+        <section id="performance">
+            <h2>⚡ 8. Performance Considerations and Optimization</h2>
+            
+            <h3>Memory Management Analysis</h3>
+            <p>The widget uses several memory-intensive techniques:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h4>Widget Proliferation</h4>
+                    <p><strong>Issue:</strong> Creates 4+ widgets per student row (QLabel, QScrollArea, QPushButton, etc.)<br>
+                    <strong>Impact:</strong> Memory grows linearly with student count<br>
+                    <strong>Solution:</strong> Consider QStyledItemDelegate for custom rendering</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h4>Data Duplication</h4>
+                    <p><strong>Issue:</strong> Student records stored in both database and model<br>
+                    <strong>Impact:</strong> Double memory usage for student data<br>
+                    <strong>Solution:</strong> Implement lazy loading or pagination</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h4>Image Storage</h4>
+                    <p><strong>Issue:</strong> Photos loaded as QPixmap for each student<br>
+                    <strong>Impact:</strong> High memory usage with many/large photos<br>
+                    <strong>Solution:</strong> Implement thumbnail caching and lazy loading</p>
+                </div>
+            </div>
+            
+            <h3>Time Complexity Analysis</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Method</th>
+                            <th>Time Complexity</th>
+                            <th>Bottleneck</th>
+                            <th>Optimization Potential</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Load all students</td>
+                            <td><code>load_students()</code></td>
+                            <td>O(n) + O(n × w)</td>
+                            <td>Widget creation per row</td>
+                            <td>High - Use delegates</td>
+                        </tr>
+                        <tr>
+                            <td>Search</td>
+                            <td><code>find_in_list()</code></td>
+                            <td>O(n × m)</td>
+                            <td>Widget text extraction</td>
+                            <td>Medium - Pre-index text</td>
+                        </tr>
+                        <tr>
+                            <td>Table refresh</td>
+                            <td><code>_update_table_display()</code></td>
+                            <td>O(n) + O(n × w)</td>
+                            <td>Widget deletion/creation</td>
+                            <td>High - Incremental updates</td>
+                        </tr>
+                        <tr>
+                            <td>Group filtering</td>
+                            <td>SQL query + display</td>
+                            <td>O(n) database + O(n) UI</td>
+                            <td>IN clause with many IDs</td>
+                            <td>Medium - Use temp table</td>
+                        </tr>
+                        <tr>
+                            <td>CSV import</td>
+                            <td><code>load_from_csv()</code></td>
+                            <td>O(f) file read + O(n) insert</td>
+                            <td>Chunk processing overhead</td>
+                            <td>Low - Already optimized</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Optimization Recommendations</h3>
+            
+            <div class="method-details">
+                <h4>Immediate Improvements (Low Hanging Fruit)</h4>
+                <ol style="margin-left: 25px;">
+                    <li><strong>Implement Thumbnail Cache:</strong> Store resized photo pixmaps to avoid repeated scaling</li>
+                    <li><strong>Add Pagination:</strong> Load students in pages of 50-100 to reduce initial widget count</li>
+                    <li><strong>Optimize Search:</strong> Pre-index searchable text in model items</li>
+                    <li><strong>Lazy Photo Loading:</strong> Load photos only when row becomes visible</li>
+                </ol>
+            </div>
+            
+            <div class="method-details">
+                <h4>Architectural Improvements (Long-term)</h4>
+                <ol style="margin-left: 25px;">
+                    <li><strong>Migrate to QTableView + Delegate:</strong> Replace <code>setIndexWidget()</code> with custom delegate painting</li>
+                    <li><strong>Implement Data Virtualization:</strong> Only keep current viewport rows in memory</li>
+                    <li><strong>Database Query Optimization:</strong> Add indexes on frequently searched columns</li>
+                    <li><strong>Background Loading:</strong> Load data in separate thread to prevent UI freezing</li>
+                </ol>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Performance Profiling Results</h3>
+                <p style="color: rgba(255,255,255,0.9);">[PERFORMANCE CHART: Showing execution time vs student count for:<br>
+                • Initial Load • Search Operation • Filter by Group • CSV Import<br>
+                Highlighting breakpoints where performance degrades significantly]</p>
+            </div>
+        </section>
+
+        <section id="extensibility">
+            <h2>🔧 9. Extensibility and Customization Points</h2>
+            
+            <h3>Extension Points for Custom Development</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h4>Plugin System Integration</h4>
+                    <p><strong>Extension Point:</strong> Options menu creation<br>
+                    <strong>How to Extend:</strong> Override <code>create_more_option_menu()</code> to add custom actions<br>
+                    <strong>Use Case:</strong> Add custom reporting, export formats, or integration hooks</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h4>Custom Display Renderers</h4>
+                    <p><strong>Extension Point:</strong> <code>_create_student_row()</code> method<br>
+                    <strong>How to Extend:</strong> Subclass and override row creation with custom widgets<br>
+                    <strong>Use Case:</strong> Different visual themes, additional data columns</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h4>Data Source Abstraction</h4>
+                    <p><strong>Extension Point:</strong> Database query methods<br>
+                    <strong>How to Extend:</strong> Implement custom data provider interface<br>
+                    <strong>Use Case:</strong> Support different database backends or REST APIs</p>
+                </div>
+            </div>
+            
+            <h3>Configuration Hooks and Settings</h3>
+            <p>The class already implements several configuration points:</p>
+            
+            <div class="code-block">
+<span class="code-comment"># UI Constants - Easy to modify for different display needs</span>
+PHOTO_WIDTH = <span class="code-number">90</span>      <span class="code-comment"># Adjust based on display density</span>
+PHOTO_HEIGHT = <span class="code-number">130</span>     <span class="code-comment"># Aspect ratio can be changed</span>
+NOTES_SCROLL_HEIGHT = <span class="code-number">120</span>  <span class="code-comment"># Customize for note visibility</span>
+CSV_CHUNK_SIZE = <span class="code-number">1000</span>   <span class="code-comment"># Tune based on available memory</span>
+
+<span class="code-comment"># User Preferences - Stored across sessions</span>
+app_context.settings_manager.write({<span class="code-string">"csv_show_option_message"</span>: checkbox.isChecked()})</div>
+            
+            <h3>Subclassing Patterns</h3>
+            
+            <div class="method-details">
+                <h4>Basic Subclass Example</h4>
+                
+                <div class="code-block">
+<span class="code-keyword">class</span> <span class="code-string">EnhancedStudentListPage</span>(StudentListPage):
+    <span class="code-keyword">def</span> __init__(self, parent):
+        <span class="code-keyword">super</span>().__init__(parent)
+        self.additional_data = {}  <span class="code-comment"># Add custom data storage</span>
+    
+    <span class="code-keyword">def</span> create_more_option_menu(self, group_model=None):
+        <span class="code-comment"># Call parent to get base menu</span>
+        btn = <span class="code-keyword">super</span>().create_more_option_menu(group_model)
+        menu = btn.menu()
+        
+        <span class="code-comment"># Add custom actions</span>
+        custom_action = QAction(<span class="code-string">"Custom Report"</span>, menu)
+        custom_action.triggered.connect(self.generate_custom_report)
+        menu.addAction(custom_action)
+        
+        <span class="code-keyword">return</span> btn
+    
+    <span class="code-keyword">def</span> _create_student_row(self, row: int, record: tuple):
+        <span class="code-comment"># Enhanced row with additional data</span>
+        <span class="code-keyword">super</span>()._create_student_row(row, record)
+        <span class="code-comment"># Add custom widget or data display</span>
+        self._add_custom_widget(row, record)</div>
+                
+                <p><strong>Subclassing Benefits:</strong> Maintains all core functionality while allowing customization of specific components.</p>
+            </div>
+            
+            <h3>Internationalization and Localization</h3>
+            <p>The class has partial support for internationalization:</p>
+            
+            <div class="code-block">
+<span class="code-comment"># Current hardcoded strings that should be extracted for i18n</span>
+page_title = QLabel(<span class="code-string">'STUDENT LIST'</span>)  <span class="code-comment"># Should be tr('STUDENT LIST')</span>
+search_input.setPlaceholderText(<span class="code-string">'Search students...'</span>)  <span class="code-comment"># tr('Search students...')</span>
+self.model.setHorizontalHeaderLabels([<span class="code-string">'PHOTO'</span>, <span class="code-string">'INFO'</span>, <span class="code-string">'ADDRESS'</span>, <span class="code-string">'LAST NOTE'</span>])
+
+<span class="code-comment"># RTL text detection already implemented</span>
+rtl = is_mostly_rtl(last_note.text())
+alignment = (Qt.AlignmentFlag.AlignTop | 
+            (Qt.AlignmentFlag.AlignLeft <span class="code-keyword">if</span> rtl <span class="code-keyword">else</span> Qt.AlignmentFlag.AlignRight))</div>
+            
+            <div class="note">
+                <strong>Localization Readiness:</strong> The code is not fully internationalized but has the foundation (RTL support). To add full i18n, wrap all user-facing strings in <code>tr()</code> calls and implement translation files.
+            </div>
+        </section>
+
+        <section id="api-reference">
+            <h2>📚 10. Complete API Reference</h2>
+            
+            <h3>Public Methods Reference</h3>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Parameters</th>
+                            <th>Return Type</th>
+                            <th>Description</th>
+                            <th>Thread Safety</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>__init__(parent)</code></td>
+                            <td>parent: QWidget</td>
+                            <td>None</td>
+                            <td>Constructor, initializes UI and state</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_from_csv()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Opens file dialog and imports CSV data</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_students(sender)</code></td>
+                            <td>sender: QComboBox</td>
+                            <td>None</td>
+                            <td>Loads students based on group filter</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>find_in_list(search_text)</code></td>
+                            <td>search_text: str</td>
+                            <td>None</td>
+                            <td>Searches students and selects matches</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>delete_person(student_id, row_index)</code></td>
+                            <td>student_id: str, row_index: int</td>
+                            <td>None</td>
+                            <td>Deletes student after confirmation</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>open_personal_info_dialog(data)</code></td>
+                            <td>data: Iterable or None</td>
+                            <td>None</td>
+                            <td>Opens personal info dialog (edit/add)</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>send_edu_items(options)</code></td>
+                            <td>options: str ('selected-list' or 'all')</td>
+                            <td>None</td>
+                            <td>Opens educational resources view</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>show_group_dialog(model, option)</code></td>
+                            <td>model: QStandardItemModel, option: str</td>
+                            <td>None</td>
+                            <td>Shows dialog to assign students to groups</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>show_manage_groups_dialog()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Opens group management dialog</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>remove_from_group(stu)</code></td>
+                            <td>stu: dict with Id and Name</td>
+                            <td>None</td>
+                            <td>Removes student from current group</td>
+                            <td>UI thread only</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Signal/Slot Connections</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Signal Source</th>
+                            <th>Signal</th>
+                            <th>Slot/Method</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>search_input</td>
+                            <td>textChanged</td>
+                            <td>find_in_list</td>
+                            <td>Real-time search as user types</td>
+                        </tr>
+                        <tr>
+                            <td>class_filter_combo</td>
+                            <td>currentIndexChanged</td>
+                            <td>load_students</td>
+                            <td>Group filter change triggers reload</td>
+                        </tr>
+                        <tr>
+                            <td>Various QActions</td>
+                            <td>triggered</td>
+                            <td>Corresponding handlers</td>
+                            <td>Menu item selections</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-selection action</td>
+                            <td>triggered</td>
+                            <td>_toggle_multi (lambda)</td>
+                            <td>Toggles selection mode</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Dependencies and Requirements</h3>
+            
+            <div class="method-details">
+                <h4>Core Dependencies</h4>
+                <ul style="margin-left: 25px;">
+                    <li><strong>PySide6:</strong> >= 6.4.0 (UI framework)</li>
+                    <li><strong>pandas:</strong> >= 1.5.0 (CSV processing)</li>
+                    <li><strong>Python:</strong> >= 3.8 (Type hints support)</li>
+                </ul>
+                
+                <h4>Custom Module Dependencies</h4>
+                <ul style="margin-left: 25px;">
+                    <li><strong>app_context:</strong> Database and settings access</li>
+                    <li><strong>PopupNotifier:</strong> User notification system</li>
+                    <li><strong>processing.Imaging.Tools:</strong> Image conversion utilities</li>
+                    <li><strong>processing.text.text_processing:</strong> RTL text detection</li>
+                    <li><strong>view_models.EduItems:</strong> Data models for educational items</li>
+                    <li><strong>ui.widgets.widgets:</strong> Custom widget components</li>
+                    <li><strong>ui.dialogs.dialogs:</strong> Various dialog classes</li>
+                    <li><strong>ui.pages.*:</strong> Other page classes for navigation</li>
+                </ul>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Class Dependency Graph</h3>
+                <p style="color: rgba(255,255,255,0.9);">[DEPENDENCY GRAPH: Visual representation of all class dependencies showing:<br>
+                Core Dependencies → Custom Modules → Dialog Classes →<br>
+                Utility Functions → Data Models → External Services<br>
+                With arrows indicating import direction and usage frequency]</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>📄 Comprehensive Technical Documentation for StudentListPage Class</p>
+            <p>🔍 Analysis Depth: Complete code inspection with performance, security, and extensibility considerations</p>
+            <p>📅 Document Version: 2.0 | Generated: <span id="current-date"></span></p>
+            <p style="margin-top: 15px; font-size: 0.85em; color: #95a5a6;">
+                This documentation provides complete implementation understanding for developers,<br>
+                maintainers, and integrators. All analysis based on actual source code inspection.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current date in footer
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        // Enhanced smooth scrolling with offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Add visual feedback for current section
+                    document.querySelectorAll('h2, h3').forEach(h => {
+                        h.style.backgroundColor = 'transparent';
+                    });
+                    targetElement.querySelector('h2, h3').style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
+                    setTimeout(() => {
+                        targetElement.querySelector('h2, h3').style.backgroundColor = 'transparent';
+                    }, 2000);
+                }
+            });
+        });
+        
+        // Create interactive table of contents
+        const createEnhancedTOC = () => {
+            const tocContainer = document.querySelector('.toc ul');
+            if (!tocContainer) return;
+            
+            // Clear existing
+            tocContainer.innerHTML = '';
+            
+            // Find all h2 and h3 elements
+            const headings = document.querySelectorAll('h2, h3');
+            let currentH2 = null;
+            
+            headings.forEach((heading, index) => {
+                const id = heading.id || `section-${index}`;
+                heading.id = id;
+                
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = heading.textContent;
+                
+                if (heading.tagName === 'H2') {
+                    currentH2 = li;
+                    li.style.fontWeight = 'bold';
+                    li.style.marginTop = '15px';
+                    li.style.marginBottom = '5px';
+                } else if (heading.tagName === 'H3' && currentH2) {
+                    li.style.marginLeft = '20px';
+                    li.style.fontSize = '0.95em';
+                    li.style.marginBottom = '3px';
+                }
+                
+                li.appendChild(a);
+                tocContainer.appendChild(li);
+            });
+        };
+        
+        // Add copy code functionality
+        document.querySelectorAll('.code-block').forEach(block => {
+            const copyBtn = document.createElement('button');
+            copyBtn.innerHTML = '📋';
+            copyBtn.style.position = 'absolute';
+            copyBtn.style.right = '10px';
+            copyBtn.style.top = '10px';
+            copyBtn.style.background = '#2c3e50';
+            copyBtn.style.color = 'white';
+            copyBtn.style.border = 'none';
+            copyBtn.style.borderRadius = '3px';
+            copyBtn.style.padding = '5px 10px';
+            copyBtn.style.cursor = 'pointer';
+            copyBtn.style.fontSize = '12px';
+            copyBtn.title = 'Copy code';
+            
+            copyBtn.addEventListener('click', () => {
+                const code = block.textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = '✅';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '📋';
+                    }, 2000);
+                });
+            });
+            
+            block.style.position = 'relative';
+            block.appendChild(copyBtn);
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            createEnhancedTOC();
+            
+            // Add mobile navigation
+            if (window.innerWidth <= 768) {
+                const nav = document.createElement('div');
+                nav.innerHTML = `
+                    <select style="width: 100%; padding: 12px; margin: 20px 0; font-size: 16px; 
+                    background: var(--primary-color); color: white; border: 2px solid var(--secondary-color);
+                    border-radius: 8px;">
+                        <option value="">🔍 Navigate to section...</option>
+                        ${Array.from(document.querySelectorAll('h2')).map(h2 => 
+                            `<option value="#${h2.id}">${h2.textContent}</option>`
+                        ).join('')}
+                    </select>
+                `;
+                nav.style.position = 'sticky';
+                nav.style.top = '10px';
+                nav.style.zIndex = '1000';
+                nav.style.backgroundColor = 'white';
+                nav.style.padding = '10px';
+                nav.style.borderRadius = '8px';
+                nav.style.boxShadow = '0 3px 15px rgba(0,0,0,0.2)';
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(nav, container.firstChild);
+                
+                nav.querySelector('select').addEventListener('change', function() {
+                    if (this.value) {
+                        document.querySelector(this.value).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        this.value = '';
+                    }
+                });
+            }
+        });
+        
+        // Highlight current section on scroll
+        let currentSection = '';
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('h2');
+            let newSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    newSection = section.id;
+                }
+            });
+            
+            if (newSection !== currentSection) {
+                currentSection = newSection;
+                // Update TOC highlighting
+                document.querySelectorAll('.toc a').forEach(a => {
+                    a.style.fontWeight = a.getAttribute('href') === `#${currentSection}` ? 'bold' : 'normal';
+                    a.style.color = a.getAttribute('href') === `#${currentSection}` ? 
+                        'var(--accent-color)' : 'var(--secondary-color)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
