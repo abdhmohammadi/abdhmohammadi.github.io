@@ -74,7 +74,8 @@ function getCurrentTheme() {
 }
 
 // Set theme on page load
-function setTheme(theme) {
+function setTheme(theme) 
+{
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     
@@ -87,7 +88,8 @@ function setTheme(theme) {
 setTheme(getCurrentTheme());
 
 // Toggle theme on button click
-themeToggle.addEventListener('click', () => {
+themeToggle.addEventListener('click', () => 
+{
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
@@ -96,9 +98,30 @@ themeToggle.addEventListener('click', () => {
 // Mobile Menu Elements
 const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
+/*
+// Calculate and set navbar height dynamically
+function setNavbarHeight() 
+{
+    const navbar = document.querySelector('.navbar');
+    if (navbar) 
+        {
+        const navbarHeight = navbar.offsetHeight;
+        document.documentElement.style.setProperty('--navbar-height', `${navbarHeight}px`);
+    }
+}
 
+// Set navbar height on page load
+document.addEventListener('DOMContentLoaded', setNavbarHeight);
+
+// Update navbar height on window resize for responsive changes
+window.addEventListener('resize', setNavbarHeight);
+
+// Also update immediately in case DOM is already loaded
+setNavbarHeight();
+*/
 // Function to close mobile menu and dropdowns
-function closeMobileMenu() {
+function closeMobileMenu() 
+{
     navMenu.classList.remove('active');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.setAttribute('aria-label', 'Open navigation menu');
@@ -110,14 +133,16 @@ function closeMobileMenu() {
 }
 
 // Function to open mobile menu
-function openMobileMenu() {
+function openMobileMenu() 
+{
     navMenu.classList.add('active');
     menuToggle.setAttribute('aria-expanded', 'true');
     menuToggle.setAttribute('aria-label', 'Close navigation menu');
 }
 
 // Toggle mobile menu
-menuToggle.addEventListener('click', (e) => {
+menuToggle.addEventListener('click', (e) => 
+{
     e.stopPropagation();
     
     if (navMenu.classList.contains('active')) {
@@ -231,15 +256,18 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-
+/*
 // Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => 
+{
+    anchor.addEventListener('click', function (e) 
+    {
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
         
         const targetElement = document.querySelector(targetId);
-        if (targetElement) {
+        if (targetElement) 
+        {
             e.preventDefault();
             
             const headerHeight = document.querySelector('.navbar').offsetHeight;
@@ -251,7 +279,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
             
             // Close mobile menu if open
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 768) 
+            {
                 closeMobileMenu();
             }
             
@@ -260,7 +289,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-
+*/
 
 // Add CSS for notifications
 const notificationStyles = document.createElement('style');

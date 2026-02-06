@@ -16,8 +16,6 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
-    <!-- Site theme (light/dark) -->
-    <link rel="stylesheet" href="css/theme.css">
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
    
@@ -26,24 +24,20 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container nav-container">
+        <div class="nav-container">
             
             <a href="#" class="logo">
                 <span class="logo-text">Abdh. Mohammadi</span>
-                <span class="logo-subtitle">Math Educator | Meshine Learning Researcher</span>
+                <span class="logo-subtitle">Math Educator | Machine Learning Researcher</span>
             </a>
             
             <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#publications">Publications</a></li>
+
                 <li><a href="#projects">Projects</a></li>
                 <li class="dropdown">
-
                     <!-- <div style="display: flex; gap: 15px; margin: 0px;align-items: center;"> -->
-                        <a href="#blogs">Blogs <i class="fas fa-chevron-down"></i> </a>
+                    <a href="#blogs">Blogs <i class="fas fa-chevron-down"></i></a>
                     <!-- </div>-->
-                    
                     <ul class="dropdown-menu">
                         
                         <li><a href="#">Open Source Studies</a></li>
@@ -52,7 +46,24 @@
                         <li><a href="blogs/blogmanager.html">Managment(private)</a></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="#nlp" class="dropbtn">Machine Learning<i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://github.com/abdhmohammadi">Github repository</a></li>
+                        <li><a href="data-sciences/pages/nlp/nlp-sp-dic.html">dictionary</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Applications<i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="data-sciences/pages/Friedman-Test-Calculator.html">Friedman Test Calculator</a></li>
+                        <li><a href="data-sciences/pages/Nemenyi-Test-Calculator.html">Nemenyi Test Calculator (Friedman Post-Hoc)</a></li>
+                        <li><a href="data-sciences/pages/applications.html">More ==> </a></li>
+                    </ul>
+                </li>
+                <li><a href="#publications">Publications</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
             
             <div class="nav-actions" style="display: flex; gap: 10px;">
@@ -70,8 +81,8 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         
-        <div class="container hero-container">
-            <div style="margin-right: auto;">
+        <div class="hero-container">
+            <div style="margin-left: auto;">
 
                 <p class="hero-subtitle">Independent Machine Learning Researcher | Mathematics Educator</p>
  
@@ -95,10 +106,7 @@
                     <a href="https://github.com/abdhmohammadi" class="btn btn-outline">
                         <i class="fab fa-github"></i> GitHub
                     </a>
-
-                    <a href="data-sciences/index.html" class="btn btn-outline">
-                        <i class="fas fa-brain"></i> Machine Learning Page<i class="fas fa-arrow-right"></i>
-                    </a>                   
+                 
                     <a href="edu/index.html" class="btn btn-outline">
                         <i class="fas fa-graduation-cap"></i> Educational Resources <i class="fas fa-arrow-right"></i>
                     </a>
@@ -330,7 +338,7 @@
     <!-- Contact Section -->
     <section id="contact" class="section contact">
         
-        <div class="container">
+        <div>
             <h2 class="section-title">Get in Touch</h2>
             
             <div class="contact-content">
@@ -419,7 +427,7 @@
 
     <!-- Footer -->
      <footer class="footer">
-        <div class="container">
+        <div>
             <div class="footer-content">
                 <div class="footer-about">
                     <a href="#" class="footer-logo">Abdh. Mohammadi</a>
@@ -454,7 +462,7 @@
         </div>
     </footer>
     <!-- JavaScript -->
-    <script  src="js/script.js"></script>
+    <script  src="js/scripts.js"></script>
     <script src="js/contact.js"></script>
 </body>
 </html>
