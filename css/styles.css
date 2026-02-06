@@ -28,7 +28,7 @@ h1, h2, h3, h4
     font-weight: 700;
     line-height: 1.2;
 }
-
+a{font-family: 'Vazirmatn', sans-serif;}
 h1 { font-size: 3.5rem; }
 h2 { font-size: 2.5rem; }
 h3 { font-size: 1.75rem; }
@@ -203,7 +203,11 @@ p { margin-bottom: var(--space-sm);}
 .nav-menu a:hover::after {
     width: 100%;
 }
-
+.edu-meta {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: var(--space-xs) 0;
+}
 /* Shared card style (used across site & docs) */
 .card {
     background: var(--card-bg);
@@ -334,7 +338,6 @@ p { margin-bottom: var(--space-sm);}
 .hero-quote {
     font-style: italic;
     color: var(--text-secondary);
-    border-left: 3px solid var(--primary-color);
     padding-left: var(--space-md);
     margin-bottom: var(--space-lg);
 }
@@ -508,17 +511,19 @@ p { margin-bottom: var(--space-sm);}
     margin-bottom: var(--space-xs);
 }
 
-.pub-journal {
+.pub-journal 
+{
     color: var(--text-muted);
     font-size: 0.875rem;
     font-style: italic;
     margin-bottom: var(--space-md);
 }
 
-.pub-actions {
+.pub-actions 
+{
     display: flex;
     gap: var(--space-sm);
-    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
 }
 
 .pub-link {

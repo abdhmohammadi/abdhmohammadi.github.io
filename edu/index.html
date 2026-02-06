@@ -22,8 +22,9 @@
     <link rel="stylesheet" href="../css/theme.css">
     <!-- CSS -->
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="../css/education.css">
+    <link rel="stylesheet" href="css/styles.css">
+
 </head>
 <body dir="rtl">
 
@@ -70,7 +71,7 @@
                     
                     <li><a href="#publications"><i class="fas fa-newspaper"></i> مقالات</a></li>
                     <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu"><i class="fas fa-blog"></i> وبلاگ</a></li>
-                    <li><a href="#contact"><i class="fas fa-address-book"></i> تماس با من</a></li>
+                    <li><a href="#footer"><i class="fas fa-address-book"></i> تماس با من</a></li>
                     </ul>
                     
                     <div class="mobile-contact-info">
@@ -124,11 +125,11 @@
                     <a href="#publications" class="dropbtn">مقالات</a>
                     <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu">وبلاگ</a></li>
                    <!-- <li><a href="#research">تحقیقات</a></li> -->
-                    <li><a href="#contact">تماس با من</a></li>
+                    <li><a href="#footer">تماس با من</a></li>
             </ul>
 
             <a href="#" class="logo">
-                <span class="logo-text">محمدی | Abdh. Mohammadi</span>
+                <span class="logo-text">Abdh. Mohammadi</span>
                 <span class="logo-subtitle">Mathematics Educator</span>
             </a>
 
@@ -138,8 +139,8 @@
     <!-- Hero Section: Green rectangle-->
     <section class="hero" id="home">
         <div class="container hero-container">
-        
-            <div class="hero-bg-elements">
+        <!-- Background animation --><!--
+            <div class="hero-bg-elements" style="z-index: -1;">
                 <div class="math-element floating" style="font-size: 32pt; top: 10%; bottom: 40%; left: 5%; color:red;">π</div>
                 <div class="math-element floating" style="top: 15%; right: 15%; color: olive;">∞</div>
                 <div class="math-element floating" style="bottom: 20%; left: 20%; color: darkcyan;">∫</div>
@@ -147,10 +148,11 @@
                 <div class="math-element floating" style="top: 40%; left: 30%; color: black;">θ</div>
                 <div class="math-element rotating" style="top: 25%; right: 25%; color: green;">Δ</div>
             </div>
-            
-            <!-- Image Carousel -->
-            <div class="right">
+        -->
 
+            <!-- Image Carousel -->
+            <div class="hero-image">
+                <div class="image-container">
                 <div class="carousel-container">
                     <div class="carousel-inner">
                         
@@ -172,9 +174,11 @@
                         <div class="carousel-indicator" data-index="2"></div>
                     </div>
                 </div>
+                </div>
             </div>
 
-            <div class="right">
+            
+             <div style="margin-right:auto; margin-left: auto;">
                 <p class="hero-subtitle"></p>
  
                 <p class="hero-quote">آنچه باید بیاموزیم تا انجام دهیم، با انجام دادن می آموزیم.
@@ -193,16 +197,12 @@
                 </div>
 
                 <div class="hero-actions">
-                   
-                                     
                     <a href="tg://resolve?domain=abdhmohammadi" class="btn btn-outline">
                         <i class="fas fa-paper-plane"></i> تلگرام
                     </a> 
                     <a href="https://shad.ir/abdhmohammadi" class="btn btn-outline"><i class="fas fa-paper-plane"></i> تماس در شاد</a>
                 </div>
             </div>
-
-
         </div>
     </section>
         <!--
@@ -235,15 +235,25 @@
                 <div class="about-skills">
                     <h3>زمینه های مورد علاقه</h3>
                     <div class="skills-grid">
-
-                         <div class="skill-item">
+                        <div class="skill-item">
                             <i class="fas fa-brain"></i>
                             <span>ساخت گرایی</span>
                         </div>
+
                         <div class="skill-item">
                             <i class="fas fa-brain"></i>
                             <span>روانشناسی ریاضی</span>
                         </div>
+
+                        <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <span>پایتون</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-school"></i>
+                            <span>آموزش تعاملی</span>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -293,170 +303,118 @@
             </div>
 
         </article>
-        <h3>مقالات</h3>   
 
-        <article class="publication-card" style="text-align: left;">
-            <div class="pub-header">
-                <span class="pub-year">2026</span>
-                <span class="pub-type">Journal Article</span>
-            </div>
-            <h3 class="pub-title">Gravitational least squares twin support vector machine based on optimal angle for class imbalance learning</h3>
-            <p class="pub-authors">Abdullah Mohammadi, Jalal A. Nasiri, Sohrab Effati</p>
-            <p class="pub-journal">Journal of Applied Mathematics and Computation</p>
-            <div class="pub-actions">
-                <a href="https://doi.org/10.1016/j.amc.2025.129705" class="pub-link" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> View Paper
-                </a>
-            </div>
-        </article>
         
+        <div style="display: flex; align-content:center; gap: 20px; padding: 25px 25px 0px 0px;">
+            <h2>مقالات</h2>   
+            <a style="margin-top: auto; margin-bottom: auto;" href="../publications/publications.html">مشاهده سایر مقالات</a>
+        </div>
 
         <article class="publication-card">
             <div class="pub-header">
                 <span class="pub-year">1404</span>
                 <span class="pub-type">علمی-ترویجی</span>
             </div>
-            <h3 class="pub-title">
-            از تصمیم‌سازی تا طرحواره‌سازی: تلفیق ساخت و ساز گرایی، تصمیم‌سازی  و طرحواره‌های ذهنی در آموزش  ریاضی برای ارتقای تدریس و یادگیری ریاضی
-            </h3>
-            <p class="pub-authors">
-                عبدالله محمدی
-            </p>
-            <p class="pub-journal">
-                به سوی علوم ریاضی، 29/09/1404
-            </p>
-            <div class="pub-actions">
-            <a href="https://tmsj.um.ac.ir/article_47676.html" class="pub-link" target="_blank">
-                View Paper
-            </a>
-                        </div>
+            <h3 class="pub-title">از تصمیم‌سازی تا طرحواره‌سازی: تلفیق ساخت و ساز گرایی، تصمیم‌سازی  و طرحواره‌های ذهنی در آموزش  ریاضی برای ارتقای تدریس و یادگیری ریاضی</h3>
+            
+            <p class="pub-authors">عبدالله محمدی</p>
+            <div style="display: flex; gap: 40px;">
+                <p class="pub-journal">به سوی علوم ریاضی، 29/09/1404</p>
+                <div class="pub-actions">
+                    <a href="https://tmsj.um.ac.ir/article_47676.html" class="pub-link" target="_blank">مشاهده</a>
+                </div>
+            </div>
         </article>
 
         <article class="publication-card">
             <div class="pub-header">
-                        <span class="pub-year">1403</span>
-                        <span class="pub-type">پایان نامه</span>
+                <span class="pub-year">1403</span>
+                <span class="pub-type">پایان نامه</span>
             </div>
             <h3 class="pub-title">
             ماشین بردار پشتیبان دوقلو برای داده های نامتوازن
             </h3>
-           <p class="pub-authors">
-                عبدالله محمدی
-            </p>
             <p class="pub-authors">
-            اساتید راهنما: دکتر سهراب عفتی، دکتر جلال الدین نصیری
+                عبدالله محمدی<br>اساتید راهنما: دکتر سهراب عفتی، دکتر جلال الدین نصیری
             </p>
-            <br>
-            <p class="pub-journal">
-                پایان نامه کارشناسی ارشد، دانشگاه فردوسی مشهد 25/06/1403
-            </p>
-            <br>
+            <div style="display: flex; gap: 40px;">
+                <p class="pub-journal">پایان نامه کارشناسی ارشد، دانشگاه فردوسی مشهد 25/06/1403</p>
+                <!--
+                <div class="pub-actions">
+                    <a href="https://tmsj.um.ac.ir/article_47676.html" class="pub-link" target="_blank">مشاهده</a>
+                </div>
+                -->
+            </div>
            
         </article>
 
         <article class="publication-card">
              <div class="pub-header">
-                        <span class="pub-year">1403</span>
-                        <span class="pub-type">کنفرانس</span>
+                <span class="pub-year">1402</span>
+                <span class="pub-type">کنفرانس</span>
             </div>
-            <h3 class="pub-title">
-                پیش بینی بیماری های مزمن با داده های نامتوازن توسط ماشین بردار پشتیبان گرانشی
-            </h3>
-            <p class="pub-authors">
-                عبدالله محمدی، جلال الدین نصیری، سهراب عفتی
-            </p>
+            <h3 class="pub-title">پیش بینی بیماری های مزمن با داده های نامتوازن توسط ماشین بردار پشتیبان گرانشی</h3>
+            <p class="pub-authors">عبدالله محمدی، جلال الدین نصیری، سهراب عفتی</p>
             
-            <p class="pub-journal">
-                پنجمین کنفرانس ملی انفورماتیک ایران، 14 دی ماه 1402
-            </p>
-            <div class="pub-actions">
-            <a href="https://ecc.isc.ac/showJournal/39989/282326/3559496"  class="pub-link" target="_blank">
-                View Paper
-            </a>
+            <div style="display: flex; gap: 40px;">
+                <p class="pub-journal">پنجمین کنفرانس ملی انفورماتیک ایران، 14 دی ماه 1402</p>
+                <div class="pub-actions">
+                    <a href="https://ecc.isc.ac/showJournal/39989/282326/3559496"  class="pub-link" target="_blank">مشاهده</a>
+                </div>
             </div>
+
         </article>
 
     </section>
 
-    <!-- Social & Contact Section -->
-
-    <section id="contact" class="section contact">
-        <div class="container">
-            <h2 class="section-title">تماس با من</h2>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-
-                    <div class="contact-social">
-                        <div class="social-icons">
-                        <!--
-                        <a href="https://www.aparat.com/abdhmohammadi"
-                            class="floating"
-                            title="aparat channel"><img src="../images/aparat.svg"></a>
-                        -->
-                        <a href="tg://resolve?domain=abdhmohammadi"
-                            class="floating"
-                            title="Messaging with Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="https://shad.ir/abdhmohammadi" 
-                            class="floating"
-                            title="Open official social platform of Education Ministry of I.R.I"><img style="width:18px;height:20px;" src="../images/shad.png" alt="Shad icon"/></a>
-                        <a href="tel:+989372561238" title="Call abdhmohammadi"
-                            class="floating" aria-label="Phone"><i class="fas fa-phone-alt"></i></a>
-                        <a href="mailto:abdhmohammady@gmail.com" 
-                            class="floating"
-                            title="Send mail to abdhmohammady@gmail.com"><i class="fas fa-envelope"></i></a>
-                            </div>
-                    </div>
-           
-                    <!-- <div class="contact-info">
-                            <div class="contact-item">
-                                <i class="fas fa-envelope"></i>
-                                <h3>Email</h3>
-                                <p>abdhmohammady@gmail.com</p>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fas fa-school"></i>
-                                <h3>Institution</h3>
-                                <p>Tehran Advanced Mathematics Academy</p>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fas fa-book"></i>
-                                <h3>Publications</h3>
-                                <p>View my research papers</p>
-                            </div>
-                            
-                        </div>-->
-                    
-                </div>
-
-            </div>
-            
-        </div>
-    </section>
-    
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" id="footer">
         <div class="container">
             <div class="footer-content">
             
                 <div class="footer-about">
-                    <a href="#" class="footer-logo">Abdh. Mohammadi</a>
+                    <h4>راه های ارتباطی</h4>
+                    <!--
                     <p>Independent researcher in Data Science and Mathematics educator bridging education and AI through research and innovation.</p>
+                    -->
+                    <div class="contact-content">
+                        <div class="contact-info">
+                            <div class="contact-social">
+                                <div class="social-icons">
+                                    <!--
+                                    <a href="https://www.aparat.com/abdhmohammadi"
+                                        class="floating"
+                                        title="aparat channel"><img src="../images/aparat.svg"></a>
+                                    -->
+                                    <a href="tg://resolve?domain=abdhmohammadi"
+                                        class="floating"
+                                        title="Messaging with Telegram"><i class="fab fa-telegram"></i></a>
+                                    <a href="https://shad.ir/abdhmohammadi" 
+                                        class="floating"
+                                        title="Open official social platform of Education Ministry of I.R.I"><img style="width:18px;height:20px;" src="../images/shad.png" alt="Shad icon"/></a>
+                                    <a href="tel:+989372561238" title="Call abdhmohammadi"
+                                        class="floating" aria-label="Phone"><i class="fas fa-phone-alt"></i></a>
+                                    <a href="mailto:abdhmohammady@gmail.com" 
+                                        class="floating"
+                                        title="Send mail to abdhmohammady@gmail.com"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
+                    <h4>دسترسی سریع</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#publications">Publications</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="blogs/edu.html">Education Blog</a></li>
-                        <li><a href="blogs/ds.html">Data Science Blog</a></li>
+                        <li><a href="../index.html">صفحه اصلی</a></li>
+                        <li><a href="../publications/publications.html">مقالات</a></li>
+                        <li><a href="../blogs/edu.html">وبلاگ تجربیات آموزشی</a></li>
+                        <li><a href="../blogs/ds.html">وبلاگ علوم داده</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-license">
-                    <h4>License</h4>
+                    <h4>مجوز</h4>
                     <p>
                         <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
                             <img alt="مجوز کریتیو کامنز" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" />
@@ -466,7 +424,7 @@
                         <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>
                         منتشر شده است.
                         <br/>
-                        <i>برای استفاده تجاری، لطفاً به بخش <a href="#contact">تماس با من</a> در همین صفحه مراجعه کنید.</i>
+                        <i>برای استفاده تجاری، لطفاً تماس بگیرید.</i>
                     </p>
                 </div>
                 
