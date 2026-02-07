@@ -13,139 +13,55 @@
   <link rel="stylesheet" href="css/dashboard.css">
   <script src="../js/theme.js" defer></script>
 
-  <style>
-    :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --bg-color: #f4f7f6;
-            --text-color: #333;
-            --border-color: #ddd;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: var(--primary-color);
-            padding-bottom: 10px;
-        }
-
-        h2 {
-            color: var(--primary-color);
-            margin-top: 30px;
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 10px;
-        }
-
-        h3 {
-            color: #555;
-            margin-top: 20px;
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-
-        ul {
-            margin-bottom: 15px;
-        }
-
-        /* Dark-mode palette for docs (driven by html[data-theme] from /js/theme.js) */
-        [data-theme="dark"] {
-            --primary-color: #e5e7eb;
-            --secondary-color: #60a5fa;
-            --accent-color: #fb7185;
-            --bg-color: #020617;
-            --text-color: #e5e7eb;
-            --border-color: #1f2937;
-        }
-
-        [data-theme="dark"] body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-
-        [data-theme="dark"] .container {
-            background: #020617;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
-        }
-
-        [data-theme="dark"] .welcome {
-            background: rgba(22, 163, 74, 0.1);
-            border-left-color: #22c55e;
-        }
-
-        [data-theme="dark"] .link-card {
-            background: #020617;
-            border-color: #1f2937;
-        }
-    .welcome { background: #eef9ee; border-left: 4px solid #0a6; padding: 16px; margin: 16px 0; border-radius: 4px; }
-    .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 16px; }
-    .link-card { background: #f7f7f7; padding: 12px; border-radius: 6px; border: 1px solid #eee; }
-    .link-card strong { color: #06c; }
-  </style>
 </head> 
 
-<body>
-  <div class="container">
-  <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-    <h2>TeacherAssistant — documentation</h2>
-    <!-- Theme toggle (uses global /js/theme.js) -->
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" style="padding:6px 12px; border-radius:999px; border:1px solid rgba(148,163,184,0.7); background:rgba(255,255,255,0.9); cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
-      <i class="fas fa-moon"></i>
-      <i class="fas fa-sun"></i>
-    </button>
-  </div>
-   <!-- Contact info (replace placeholders with your real contact details) -->
-  <header style="margin-top:24px; border-top:1px solid #eee; padding-top:12px;">
-    <p style="margin:0;">Abdh. Mohammadi — <a href="mailto:abdhmohammady@gmail.com">abdhmohammady@gmail.com</a></p>
-    <p style="margin:6px 0 0 0;">Project: <a href="https://github.com/abdhmohammadi/TeacherAssistant" target="_blank" rel="noopener">https://github.com/abdhmohammadi/Teacher Assistant Project</a></p>
-  </header>
-  <div class="welcome">
-    <h2 style="margin-top: 0;">Welcome to the Documentation Hub</h2>
-    <p>TeacherAssistant is a digital assistant designed to simplify daily teaching tasks and improve learning outcomes. 
-       we started this project at 2025-03-17, and continue it's updates.</p>
-    <p><strong>Quick start:</strong> Browse the documentation list on the left to explore user guides, version history, and developer notes.</p>
-  </div>
-  <h2>Available Resources</h2>
-  <div class="links">
-    <div class="link-card card">
-      <a href="user-manual.html" style="text-decoration-line: none;"><strong>📖 User Manual</strong> <i class="fas fa-arrow-right"></i></a> 
-      <p>Learn how to use all features of TeacherAssistant.</p>
-    </div>
-    <div class="link-card card">
-      <a href="version-history.html" style="text-decoration-line: none;"><strong>📝 Version History</strong> <i class="fas fa-arrow-right"></i></a>
-      <p>View release notes and updates.</p>
-    </div>
+<body style="padding: 50px 10%;">
+    <div class="dashboard-basic">
+        <div class="dashboard-header">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <h2>Teacher Assistant — documentation</h2>
+            <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+            <!-- Theme toggle (uses global /js/theme.js) -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+        <!-- Contact info (replace placeholders with your real contact details) -->
+        <div class="welcome">
+            <h2 style="margin-top: 0;">Welcome to the Documentation Hub</h2>
+            <p>TeacherAssistant is a digital assistant designed to simplify daily teaching tasks and improve learning outcomes. 
+            we started this project at 2025-03-17, and continue it's updates.</p>
+            <p><strong>Quick start:</strong> Browse the documentation list on the left to explore user guides, version history, and developer notes.</p>
+        </div>
+        <h2>Available Resources</h2>
+        <div  class="resources-grid">
+            <div class="card">
+                <a href="end-user/pages/user-manual.html" style="text-decoration-line: none;"><strong>📖 User Manual</strong> <i class="fas fa-arrow-right"></i></a> 
+                <p>Learn how to use all features of TeacherAssistant.</p>
+            </div>
+            <div class="card">
+                <a href="end-user/pages/version-history.html" style="text-decoration-line: none;"><strong>📝 Version History</strong> <i class="fas fa-arrow-right"></i></a>
+                <p>View release notes and updates.</p>
+            </div>
 
-    <div class="link-card card">
-      <a href="technical-notes.html" style="text-decoration-line: none;"><strong>⚙️ Technical Notes</strong> <i class="fas fa-arrow-right"></i></a>
-      <p>Technical documentation for developers.</p>
-    </div>
+            <div class="card">
+                <a href="technical-notes.html" style="text-decoration-line: none;"><strong>⚙️ Technical Notes</strong> <i class="fas fa-arrow-right"></i></a>
+                <p>Technical documentation for developers.</p>
+            </div>
 
-    <div class="link-card card">
-      <a href="../LICENSE" style="text-decoration-line: none;"><strong>LICENSE</strong> <i class="fas fa-arrow-right"></i></a>
-      <p>Project license file</p>
+            <div class="card">
+                <a href="../LICENSE" style="text-decoration-line: none;"><strong>LICENSE</strong> <i class="fas fa-arrow-right"></i></a>
+                <p>Project license file</p>
+            </div>
+        </div>
+        
+        <div class="dashboard-footer">
+            <p>Classroom Management System - © 2026 Abdullah Mohammadi. All rights reserved.</p>
+        </div>
     </div>
-  </div>
-  </div>
+    
 </body>
 
-  </html>
+</html>

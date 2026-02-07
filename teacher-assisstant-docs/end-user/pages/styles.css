@@ -22,19 +22,16 @@
             box-shadow: 0 2px 30px rgba(0,0,0,0.1);
         }
         */
-        
-        .header 
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-md);
-    border-bottom: 2px solid var(--border-color);
-}
-
-    .container {
+     .version-card 
+    {
+      background-color: var(--bg-card);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    .container 
+    {
     background: var(--bg-card);
     border-radius: var(--radius-xl);
     padding: var(--space-xl);
@@ -44,7 +41,25 @@
     overflow: hidden;
     min-height: 100vh;
 }
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--border-color);
+}
 
+.header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
         .screenshot-placeholder 
         {
             border-radius: 8px;
@@ -52,7 +67,7 @@
             margin: 0px;
             text-align: center;
             color: #6c757d;
-        }
+        }info-box
         .screenshot-placeholder p
         {
             text-align: center;
@@ -63,7 +78,7 @@
             max-width: 100%;
             border-radius: 6px;
             margin-bottom: 10px;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(128, 128, 128, 0.16);
         }
 
         .feature-grid
@@ -135,9 +150,9 @@
         }
 
         .info-box {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+            background-color:#5bbeefde;
+            color: #0a4528;
+            border: 1px solid #5bbeefde;
             padding: 15px;
             border-radius: 5px;
             margin: 15px 0;

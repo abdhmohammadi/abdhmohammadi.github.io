@@ -1,0 +1,60 @@
+
+.version-section 
+    {
+      margin-top: 60px;
+      border-top: 1px solid #ddd;
+      padding-top: 30px;
+      gap: 50px;
+    }
+    .version-number 
+    {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .version-date 
+    {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .version-notes 
+    {
+      margin-left: 20px;
+    }
+    h1, h2 
+    {
+      color: #2c3e50;
+    }
+
+    ul 
+    {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .feature-title {
+      font-weight: bold;
+      color: #34495e;
+    }
+
+    p:last-of-type {
+      margin-top: 30px;
+      font-style: italic;
+    }
+
+  
+    .definitions 
+        {
+            width: fit-content;
+            min-width: 300px;
+            max-width: 400px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
