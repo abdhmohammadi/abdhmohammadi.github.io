@@ -2,7 +2,7 @@
 @import url('theme.css');
 
 /* Reset & Base Styles */
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -207,7 +207,8 @@ p { margin-bottom: var(--space-sm);}
     margin: var(--space-xs) 0;
 }
 /* Shared card style (used across site & docs) */
-.card {
+.card 
+{
     background: var(--card-bg);
     border-radius: var(--radius-md);
     padding: 1rem 1.25rem;
@@ -218,11 +219,32 @@ p { margin-bottom: var(--space-sm);}
         box-shadow var(--transition-fast),
         border-color var(--transition-fast);
 }
-
+.card a {
+    text-decoration: none;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+.card p {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+}
+.card a:hover {
+    color: var(--secondary-color);
+}
+.card a:hover i {
+    transform: translateX(4px);
+}
 .card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--secondary-color);
 }
 
 /* Dropdown */
