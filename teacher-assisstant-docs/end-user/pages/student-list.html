@@ -8,20 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Global base styles + page CSS -->
     <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/theme.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="../../../js/theme.js" defer></script>
 </head>
-<body>
-
-   <header> 
+<body style="padding:50px 20%;">
+   <div class="container">
+   
+    <div class="header">
+        <a href="../../user-manual.html"><i class="fas fa-arrow-left"></i></a>
+        
+        <h2 >Student List</h2>
        
-        <div style="display: flex;">
-            <a href="../../user-manual.html" class="project-link" style="font-size: large;color:#d1ecf1; margin: auto 10px auto 10px;">
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-            <h1 style="margin:auto auto auto 5px;">Student List</h1>
-            <p class="version-badge">Page Version: 1.0</p>
-        </div>
-    </header>
+        <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+        <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+        <a href="../../../index.html"><i class="fas fa-home"></i></a>
+        <!-- Theme toggle (uses global /js/theme.js) -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
     <p style="text-align: justify;">This page is one of the central working areas of the application. 
         It provides a comprehensive tabular view of student profiles, including photos, contact details, 
         and recent behavioral observations. It allows teacher to view, organize, analyze, and manage student records efficiently.
@@ -34,17 +42,15 @@
         <p>Main View</p>
     </div>
 
-    <h2>Table of Contents</h2>
+    <h3>Table of Contents</h3>
     <div style="columns: 4;display: flex; gap: 25px; flex-direction:row; width: 100%;">
         <a href="#interface-overview">Interface Overview</a>
         <a href="#filtering-search">Filtering and Searching</a>
         <a href="#global-options">Global Options Menu</a>
         <a href="#student-actions">Student-Specific Actions</a>
     </div>
-
-    <hr>
-
-    <h2 id="interface-overview">Overview</h2>
+    <br>
+    <h3 id="interface-overview">Interface Overview</h3>
     <p>The page is divided into three main sections:</p>
     <ol>
         <li><strong>Header Bar:</strong> Contains the page title, a search input, a group/class filter dropdown, 
@@ -67,9 +73,10 @@
          <img height="130px" src="../images/02.png" >
     </div>
 
-    <hr>
+    <br>
+    <br>
 
-    <h2 id="filtering-search">Filtering and Searching</h2>
+    <h3 id="filtering-search">Filtering and Searching</h3>
     
     <div style="display: flex;">
         <p>This figure shows three tools. <code>Search</code> input, classroom <code>filters</code> and global option <code>menu</code>. 
@@ -89,12 +96,12 @@
                  <p>Dropdown menu</p>
         </div>
     </div>
-    
-    <hr>
 
+    <br>
+    <br>
     <div style="display: flex;">
         <div>
-            <h2 id="global-options">Global Options Menu</h2>
+            <h3 id="global-options">Global Options Menu</h3>
             <p>Clicking the <strong>Options Menu</strong> button (hamburger icon) in the top right corner reveals actions that affect the whole list or selected students.</p>
             <h3>Data Management</h3>
             <ul>
@@ -113,12 +120,13 @@
             <img src="../images/05.png">
         </div>
     </div>
-     <div class="warning-box">
+    <div class="warning-box">
                 <strong>CSV Import Warning:</strong><br>
                 The CSV import feature requires strict column formatting. Ensure your CSV file matches the following column order exactly:
                 <br><code>ID, First Name, Last Name, Parent Name, Phone, Address, Parent Phone, Additional Details, Gender, Date</code>
                 <br><em>Photos cannot be imported via CSV and must be added individually via the profile editor.</em>
-            </div>
+    </div>
+    <br>
     <h3>Educational & Group Operations</h3>
     <p>These operations allow you to assign resources or organize students into groups.</p>
     <ul>
@@ -127,16 +135,16 @@
         <li><strong>Manage Groups:</strong> Opens a dedicated dialog to create, edit, or delete classroom groups entirely.</li>
     </ul>
 
-    <hr>
-
-    <h2 id="student-actions">Student-Specific Actions</h2>
+    <br>
+    <h3 id="student-actions">Student-Specific Actions</h3>
     <p>Each student row has a <strong>Menu Button</strong> (hamburger icon) located in the "Last Note" column. Clicking this button opens a context menu with specific actions for that individual student.</p>
     <div class="screenshot-placeholder">
             <img src="../images/06.png">
         </div>
     <div class="feature-grid">
-        <div class="feature-card card">
-            <h3>Academic & Progress</h3>
+        <h3 id="student-actions">Features</h3>
+        <div class="card">
+            <a>Academic & Progress</a>
             <ul>
                 <li><strong>Learning Progress:</strong> Opens a detailed activity tracking page for the student.</li>
                 <li><strong>Assign Edu-item:</strong> Assigns specific educational resources to this single student.</li>
@@ -144,33 +152,33 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>Records & Behavior</h3>
+        <div class="card">
+            <a>Records & Behavior</a>
             <ul>
                 <li><strong>Write Behavioral Observation:</strong> Opens a text editor to log a new behavior note for the student.</li>
                 <li><strong>Personal Data:</strong> Opens the student's full profile where you can edit details, addresses, and upload photos.</li>
             </ul>
         </div>
-        <div class="info-box">
-            <strong>Tip:</strong> The "Last Note" column automatically scrolls if the text is too long. The date of the observation is always pinned to the top of the note area.
-        </div>
 
-        <div class="feature-card card">
-            <h3>Management</h3>
+        <div class="card">
+            <a>Management</a>
             <ul>
                 <li><strong>Remove from Group:</strong> Removes the student from the currently filtered group (does not delete the student from the database).</li>
                 <li><strong>Remove from Database:</strong> <span style="color:var(--accent-color); font-weight:bold;">Permanently deletes</span> the student record and all associated behavior logs.</li>
             </ul>
         </div>
     </div>
-
+    <div class="info-box">
+            <strong>Tip:</strong> The "Last Note" column automatically scrolls if the text is too long. The date of the observation is always pinned to the top of the note area.
+        </div>
     <footer>
         <div class="section-separator"></div>
         <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
             Student List dasboard - Part of Classroom Management System<br>
-            Document last updated: February 2026
+            Page Version: 1.01 - Last update: February 2026<br>
+            © 2026 Abdullah Mohammadi. All rights reserved.
         </p>
     </footer>
-    
+</div>
 </body>
 </html>
