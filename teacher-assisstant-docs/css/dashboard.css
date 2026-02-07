@@ -1,5 +1,6 @@
 /* Dashboard Container */
-.dashboard-basic {
+.dashboard-basic 
+{
     background: var(--bg-card);
     border-radius: var(--radius-xl);
     padding: var(--space-xl);
@@ -21,8 +22,7 @@
 }
 
 /* Header Section */
-.dashboard-header 
-{
+.dashboard-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
