@@ -8,18 +8,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Global base styles + page CSS -->
     <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/theme.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="../../../js/theme.js" defer></script> 
 </head>
-<body>
-<header>
-    <div style="display: flex;">
-        <a href="../../user-manual.html" class="project-link" style="font-size: large;color:#d1ecf1; margin: auto 10px auto 10px;">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <h1 style="margin:auto auto auto 5px;">Educational Resources View</h1>
-        <span class="version-badge">Page Version: 1.0</span>
-    </div>
-    </header>
+<body style="padding:50px 15%;">
+    <div class="container">
+        <div class="header">
+            <a href="user-manual.html"><i class="fas fa-arrow-left"></i></a>
+            <h2>Educational Resources View</h2>
+        
+            <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+            <a href="../../../index.html"><i class="fas fa-home"></i></a>
+            <!-- Theme toggle (uses global /js/theme.js) -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    
     <p style="text-align: justify;">
         This page serves as the central hub for managing, distributing, and publishing educational content. 
         It provides a comprehensive interface where teachers can browse educational resources (Edu-Items), 
@@ -34,8 +42,8 @@
         <p>Main Educational Resources Interface</p>
     </div>
 
-    <h2>Table of Contents</h2>
-    <div class="toc-grid">
+    <h3>Table of Contents</h3>
+    <div style="columns: 4;display: flex; gap: 25px; flex-direction:row; width: 100%;">
         <a href="#interface-overview">Interface Overview</a>
         <a href="#navigation-operations">Navigation & Operations</a>
         <a href="#resource-management">Resource Management</a>
@@ -46,11 +54,11 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="interface-overview">Interface Overview</h2>
+    <h3 id="interface-overview">Interface Overview</h3>
     
     <div class="two-column">
         <div>
-            <h3>Layout Structure</h3>
+            <h4>Layout Structure</h4>
             <p>The interface is organized into a 3×2 grid layout:</p>
             <ul>
                 <li><strong>Column 1 (Primary Workspace):</strong> Contains the main resource browsing area with filtering capabilities</li>
@@ -59,7 +67,7 @@
         </div>
         
         <div>
-            <h3>Default Display Settings</h3>
+            <h4>Default Display Settings</h4>
             <ul>
                 <li><strong>Display Columns:</strong> 2-column grid layout for resource cards</li>
                 <li><strong>Page Size:</strong> 50 items per page for efficient browsing</li>
@@ -68,7 +76,7 @@
         </div>
     </div>
 
-    <h3>Header Components</h3>
+    <h4>Header Components</h4>
     <ul>
         <li><strong>Page Title:</strong> "RESOURCE COLLECTION" - indicates the current view</li>
         <li><strong>Source Filter:</strong> Text input field for filtering resources by source metadata</li>
@@ -83,9 +91,9 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="navigation-operations">Navigation & Operations</h2>
+    <h3 id="navigation-operations">Navigation & Operations</h3>
     
-    <h3>Resource Browsing</h3>
+    <h4>Resource Browsing</h4>
     <p>The main display area shows educational resources in a card-based grid. Each card represents an individual Edu-Item with the following information:</p>
     <ul>
         <li><strong>Resource ID:</strong> Unique identifier for the educational item</li>
@@ -95,14 +103,14 @@
         <li><strong>Additional Details:</strong> Supplementary information about the resource</li>
     </ul>
 
-    <div class="info-box card">
+    <div class="info-box">
         <strong>Tip:</strong> Click on any resource card to select it. Selected cards are highlighted with a visible title bar. Multiple cards can be selected for batch operations.
     </div>
 
     <h3>Card Operations</h3>
     <div class="feature-grid">
-        <div class="feature-card card">
-            <h3>Selection & Interaction</h3>
+        <div class="card">
+            <h4>Selection & Interaction</h4>
             <ul>
                 <li><strong>Single Click:</strong> Selects a resource card and displays its details</li>
                 <li><strong>Multiple Selection:</strong> Hold <code>Ctrl</code> (or <code>Cmd</code> on Mac) to select multiple cards</li>
@@ -110,8 +118,8 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>Grid Navigation</h3>
+        <div class="card">
+            <h4>Grid Navigation</h4>
             <ul>
                 <li><strong>Scroll:</strong> Navigate through pages of resources</li>
                 <li><strong>Auto-loading:</strong> Additional resources load automatically as you scroll</li>
@@ -122,9 +130,9 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="resource-management">Resource Management</h2>
+    <h3 id="resource-management">Resource Management</h3>
     
-    <h3>Filtering System</h3>
+    <h4>Filtering System</h4>
     <p>The <code>Source Filter</code> input field allows you to search through educational resources using various criteria:</p>
     <ul>
         <li><strong>Source Name:</strong> Filter by the source field of resources</li>
@@ -148,10 +156,10 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="distribution-workflow">Distribution Workflow</h2>
+    <h3 id="distribution-workflow">Distribution Workflow</h3>
     <div style="display: flex;">
     <div>
-    <h3>Direct Distribution to Students</h3>
+    <h4>Direct Distribution to Students</h4>
     <p>When accessed from the Student List page with pre-selected students, the distribution process is streamlined:</p>
     
     <ol>
@@ -187,14 +195,14 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="template-system">Template System</h2>
+    <h3 id="template-system">Template System</h3>
     
-    <h3>Available Templates</h3>
+    <h4>Available Templates</h4>
     <p>The system includes two primary templates for educational content generation:</p>
     
     <div class="feature-grid">
-        <div class="feature-card card">
-            <h3>01 - Classroom Quiz</h3>
+        <div class="card">
+            <h4>01 - Classroom Quiz</h4>
             <ul>
                 <li><strong>Purpose:</strong> Informal classroom assessments</li>
                 <li><strong>Required Fields:</strong>
@@ -208,7 +216,7 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
+        <div class="card">
             <div class="screenshot-placeholder">
                 <img src="../images/20.png" alt="Template Configuration Dialog">
                 <p>Classroom quiz configuration Dialog</p>
@@ -222,9 +230,9 @@
     </div>
 
     <div class="feature-grid">
-        <div class="feature-card card">
+        <div class="card">
             <h3>02 - Formal Exam</h3>
-            <h3>Comprehensive examination papers</h3>
+            <h4>Comprehensive examination papers</h4>
             <ul>
                 <li><strong>Required Fields:</strong>
                     <ul>
@@ -241,7 +249,7 @@
             </ul>
         </div>
 
-        <div class="feature-card">
+        <div class="card">
             <!-- Screenshot Placeholder: Template Dialog -->
             <div class="screenshot-placeholder">
                 <img src="../images/21.png" alt="Formal exam configuration Dialog">
@@ -279,9 +287,9 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="advanced-features">Advanced Features</h2>
+    <h3 id="advanced-features">Advanced Features</h3>
     
-    <h3>Database Integration</h3>
+    <h4>Database Integration</h4>
     <p>The Educational Resources View integrates seamlessly with the application database:</p>
     <ul>
         <li><strong>Resource Storage:</strong> Edu-Items are stored in the <code>educational_resources</code> table</li>
@@ -290,9 +298,9 @@
         <li><strong>Error Handling:</strong> Comprehensive error reporting for database operations</li>
     </ul>
 
-    <h3>Performance Optimizations</h3>
+    <h4>Performance Optimizations</h4>
     <div class="feature-grid">
-        <div class="feature-card card">
+        <div class="card">
             <h3>Loading Efficiency</h3>
             <ul>
                 <li><strong>Background Threading:</strong> Data loading in separate threads</li>
@@ -301,7 +309,7 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
+        <div class="card">
             <h3>UI Responsiveness</h3>
             <ul>
                 <li><strong>Progressive Loading:</strong> UI remains responsive during data operations</li>
@@ -311,7 +319,7 @@
         </div>
     </div>
 
-    <h3>Accessibility Features</h3>
+    <h4>Accessibility Features</h4>
     <ul>
         <li><strong>Keyboard Navigation:</strong> Full keyboard support for all operations</li>
         <li><strong>Screen Reader Compatibility:</strong> Proper ARIA labels and semantic HTML</li>
@@ -331,9 +339,10 @@
         <div class="section-separator"></div>
         <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
             Educational Resources View - Part of Classroom Management System<br>
-            Document last updated: February 2026 | For technical support, contact system administrator
+            01 - February 202Page Version: 1.6 | For technical support, contact system administrator<br>
+            © 2026 Abdullah Mohammadi. All rights reserved.
         </p>
     </footer>
-
+</div>
 </body>
 </html>

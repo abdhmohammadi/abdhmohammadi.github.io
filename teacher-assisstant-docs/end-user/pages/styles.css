@@ -90,8 +90,8 @@
         }
 
         .feature-card {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             padding: 20px;
             border-radius: 6px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -112,7 +112,7 @@
         }
 
         .chart-card {
-            background: white;
+            background: var(--bg-card);
             border: 1px solid #e3e3e3;
             padding: 15px;
             border-radius: 6px;
@@ -159,8 +159,8 @@
         }
 
         .success-box {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: rgb(0, 255, 98);
+            color: #155744;
             border: 1px solid #c3e6cb;
             padding: 15px;
             border-radius: 5px;
@@ -168,9 +168,9 @@
         }
 
         .technical-box {
-            background-color: #e8f4f8;
-            color: #0c5460;
-            border: 1px solid #b6e0f5;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            border: 1px solid var(--code-border);
             padding: 15px;
             border-radius: 5px;
             margin: 15px 0;

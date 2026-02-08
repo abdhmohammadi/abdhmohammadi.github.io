@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Educational Resource Editor - User Documentation</title>
-    <!-- Icons -->
+     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Global base styles + page CSS -->
     <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/theme.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="../../../js/theme.js" defer></script>
 </head>
-<body>
-
-    <header>
-        <div style="display: flex;">
-             <a href="../../user-manual.html" class="project-link" style="font-size: large;color:#d1ecf1; margin: auto 10px auto 10px;">
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-            <h1  style="margin:auto auto auto 5px;">Educational Resource Editor</h1>
-            <span class="version-badge">Page Version: 1.0</span>
+<body style="padding:50px 15%;">
+    <div class="container">
+        <div class="header">
+            <a href="user-manual.html"><i class="fas fa-arrow-left"></i></a>
+            <h2>Educational Resource Editor</h2>
+            
+            <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+            <a href="../../../index.html"><i class="fas fa-home"></i></a>
+            <!-- Theme toggle (uses global /js/theme.js) -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
         </div>
-    </header>
+    
     <p style="text-align: justify;">
         The Educational Resource Editor is a powerful, multi-format content creation and management tool designed specifically for educators. 
         It supports a wide range of document types including Plain Text, Rich Text (RTF), HTML, LaTeX, Images, PDFs, and Word documents. 
@@ -34,8 +41,8 @@
         <p>Educational Resource Editor Interface</p>
     </div>
 
-    <h2>Table of Contents</h2>
-    <div class="toc-grid">
+    <h3>Table of Contents</h3>
+    <div style="columns: 4;display: flex; gap: 25px; flex-direction:row; width: 100%;">
         <a href="#interface-overview">Interface Overview</a>
         <a href="#supported-formats">Supported Formats</a>
         <a href="#content-creation">Content Creation</a>
@@ -47,11 +54,11 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="interface-overview">Interface Overview</h2>
+    <h3 id="interface-overview">Interface Overview</h3>
     
     <div class="two-column">
         <div>
-            <h3>Primary Workspace</h3>
+            <h4>Primary Workspace</h4>
             <p>The editor is organized into two main content areas:</p>
             <ul>
                 <li><strong>Content Section:</strong> Primary area for creating and editing educational questions, problems, or learning materials</li>
@@ -60,7 +67,7 @@
         </div>
         
         <div>
-            <h3>Control Panels</h3>
+            <h4>Control Panels</h4>
             <ul>
                 <li><strong>Content Toolbar:</strong> Formatting and import tools specific to the content section</li>
                 <li><strong>Answer Toolbar:</strong> Formatting and import tools specific to the answer section</li>
@@ -77,8 +84,8 @@
 
     <h3>Key Interface Components</h3>
     <div class="feature-grid">
-        <div class="feature-card card">
-            <h3>Navigation Controls</h3>
+        <div class="card">
+            <h4>Navigation Controls</h4>
             <ul>
                 <li><strong>Previous/Next:</strong> Arrow buttons to navigate between existing resources</li>
                 <li><strong>ID Display:</strong> Shows current resource ID or "(New item)" for new content</li>
@@ -86,8 +93,8 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>Metadata Panel</h3>
+        <div class="card">
+            <h4>Metadata Panel</h4>
             <ul>
                 <li><strong>Source:</strong> Origin or category of the educational resource</li>
                 <li><strong>Score:</strong> Maximum points for the resource (default: 1)</li>
@@ -95,8 +102,8 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>Action Buttons</h3>
+        <div class="card">
+            <h4>Action Buttons</h4>
             <ul>
                 <li><strong>Delete:</strong> Permanently remove current resource from database</li>
                 <li><strong>Save:</strong> Save or update resource in the database</li>
@@ -107,12 +114,12 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="supported-formats">Supported Document Formats</h2>
+    <h3 id="supported-formats">Supported Document Formats</h3>
     
     <p>The editor supports multiple document formats, each with specific handling characteristics:</p>
     
     <div class="feature-grid">
-        <div class="data-type-card card">
+        <div class="card">
             <h4>📝 Plain Text</h4>
             <ul>
                 <li><strong>Extension:</strong> <code>.txt</code></li>
@@ -123,7 +130,7 @@
             </ul>
         </div>
 
-        <div class="data-type-card card">
+        <div class="card">
             <h4>🎨 Rich Text (RTF)</h4>
             <ul>
                 <li><strong>Extension:</strong> <code>.rtf</code></li>
@@ -134,7 +141,7 @@
             </ul>
         </div>
 
-        <div class="data-type-card card">
+        <div class="card">
             <h4>🌐 HTML</h4>
             <ul>
                 <li><strong>Extension:</strong> <code>.html</code>, <code>.htm</code></li>
@@ -145,7 +152,7 @@
             </ul>
         </div>
 
-        <div class="data-type-card card">
+        <div class="card">
             <h4>📐 LaTeX</h4>
             <ul>
                 <li><strong>Extension:</strong> <code>.tex</code></li>
@@ -156,7 +163,7 @@
             </ul>
         </div>
 
-        <div class="data-type-card card">
+        <div class="card">
             <h4>🖼️ Image</h4>
             <ul>
                 <li><strong>Extensions:</strong> <code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.bmp</code>, <code>.gif</code></li>
@@ -167,7 +174,7 @@
             </ul>
         </div>
 
-        <div class="data-type-card card">
+        <div class="card">
             <h4>📄 PDF</h4>
             <ul>
                 <li><strong>Extension:</strong> <code>.pdf</code></li>
@@ -178,7 +185,7 @@
             </ul>
         </div>
 
-        <div class="data-type-card card">
+        <div class="card">
             <h4>📘 Word (DOCX)</h4>
             <ul>
                 <li><strong>Extension:</strong> <code>.docx</code></li>
@@ -195,35 +202,22 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="content-creation">Content Creation Tools</h2>
+    <h3 id="content-creation">Content Creation Tools</h3>
     
-    <h3>Toolbar Icons and Functions</h3>
-    
-    <div class="icon-list">
-        <div class="icon-item"><strong>TeX</strong> - LaTeX tools (new script, compile)</div>
-        <div class="icon-item"><strong>🌐</strong> - HTML tools (new script, render)</div>
-        <div class="icon-item"><strong>🖼️+</strong> - Insert image into existing content</div>
-        <div class="icon-item"><strong>✂️</strong> - Screen capture/snipping tool</div>
-        <div class="icon-item"><strong>📤</strong> - Upload file (replaces content)</div>
-        <div class="icon-item"><strong>🔍</strong> - Search database by ID</div>
-        <div class="icon-item"><strong>📝</strong> - Clear content (start new)</div>
-        <div class="icon-item"><strong>🔖</strong> - Add [MARKED] bookmark</div>
-    </div>
-
-    <h3>Content Toolbar (Top)</h3>
+    <h4>Content Toolbar (Top)</h4>
     <p>Located above the Content Editor, provides tools specifically for the main content area:</p>
     <ul>
         <li><strong>LaTeX Menu:</strong> Create new LaTeX document or compile existing LaTeX</li>
-        <li><strong>HTML Menu:</strong> Create new HTML template or render existing HTML</li>
-        <li><strong>Image Insert:</strong> Add image to current cursor position</li>
-        <li><strong>Screen Capture:</strong> Capture area from screen and insert as image</li>
-        <li><strong>Upload Menu:</strong> Replace entire content with uploaded file</li>
-        <li><strong>Database Search:</strong> Load existing resource by ID</li>
-        <li><strong>New Content:</strong> Clear all fields for new resource</li>
-        <li><strong>Bookmark:</strong> Add [MARKED] tag to Additional Details</li>
+        <li><strong>🌐</strong> - <strong>HTML Menu:</strong> Create new HTML template or render existing HTML</li>
+        <li><strong>🖼️</strong> - <strong>Image Insert:</strong> Add image to current cursor position</li>
+        <li><strong>✂️</strong> - <strong>Screen Capture:</strong> Capture area from screen and insert as image</li>
+        <li><strong>📤</strong> - <strong>Upload Menu:</strong> Replace entire content with uploaded file</li>
+        <li><strong>🔍</strong> - <strong>Database Search:</strong> Load existing resource by ID</li>
+        <li><strong>📝</strong> - <strong>New Content:</strong> Clear all fields for new resource</li>
+        <li><strong>🔖</strong> - <strong>Bookmark:</strong> Add [MARKED] tag to Additional Details</li>
     </ul>
 
-    <h3>Answer Toolbar (Bottom)</h3>
+    <h4>Answer Toolbar (Bottom)</h4>
     <p>Located above the Answer Editor, provides identical tools for the answer section:</p>
     <ul>
         <li>Same toolset as Content Toolbar but applies to Answer Editor</li>
@@ -243,14 +237,14 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="file-management">File Management</h2>
+    <h3 id="file-management">File Management</h3>
     
-    <h3>Uploading Files</h3>
+    <h4>Uploading Files</h4>
     <p>The Upload menu (<code>📤</code> button) provides access to all supported file types:</p>
     
     <div class="feature-grid">
-        <div class="feature-card card">
-            <h3>Image Upload</h3>
+        <div class="card">
+            <h4>Image Upload</h4>
             <ul>
                 <li><strong>Insert Mode (+):</strong> Adds image at cursor position</li>
                 <li><strong>Replace Mode:</strong> Replaces entire content with image</li>
@@ -259,8 +253,8 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>PDF Upload</h3>
+        <div class="card">
+            <h4>PDF Upload</h4>
             <ul>
                 <li><strong>Editable Mode:</strong> Extracts text as HTML (for editing)</li>
                 <li><strong>Read-only Mode:</strong> Converts to image (for display)</li>
@@ -269,8 +263,8 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>Text-based Formats</h3>
+        <div class="card">
+            <h4>Text-based Formats</h4>
             <ul>
                 <li><strong>Plain Text:</strong> Loaded and converted to HTML</li>
                 <li><strong>RTF:</strong> Preserves formatting through HTML conversion</li>
@@ -279,7 +273,7 @@
             </ul>
         </div>
  
-        <div class="feature-card card">
+        <div class="card">
             <div class="screenshot-placeholder">
                 <img height="300" src="../images/14.png" alt="Content and Answer Toolbars">
                 <p>Uploading Files options</p>
@@ -302,13 +296,13 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="database-operations">Database Operations</h2>
+    <h3 id="database-operations">Database Operations</h3>
     
-    <h3>Navigation and Search</h3>
+    <h4>Navigation and Search</h4>
     
     <div class="feature-grid">
-        <div class="feature-card card">
-            <h3>Record Navigation</h3>
+        <div class="card">
+            <h4>Record Navigation</h4>
             <ul>
                 <li><strong>Previous (◀):</strong> Load previous resource in database</li>
                 <li><strong>Next (▶):</strong> Load next resource in database</li>
@@ -317,8 +311,8 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>Database Search</h3>
+        <div class="card">
+            <h4>Database Search</h4>
             <ul>
                 <li><strong>Search Field:</strong> Enter specific resource ID</li>
                 <li><strong>Quick Access:</strong> Dropdown menu with search field</li>
@@ -327,8 +321,8 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>Data Management</h3>
+        <div class="card">
+            <h4>Data Management</h4>
             <ul>
                 <li><strong>Save:</strong> Insert new or update existing records</li>
                 <li><strong>Delete:</strong> Remove current record with confirmation</li>
@@ -337,7 +331,7 @@
             </ul>
         </div>
 
-         <div class="feature-card">
+         <div class="card">
             <div class="screenshot-placeholder">
                 <img src="../images/15.png" alt="Content and Answer Toolbars">
                 <p>Database Operations</p>
@@ -379,12 +373,12 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="paper-layout">Paper Layout System</h2>
+    <h3 id="paper-layout">Paper Layout System</h3>
     
-    <h3>A4 Paper Constraints</h3>
+    <h4>A4 Paper Constraints</h4>
     <p>All content is designed to fit within A4 paper dimensions with proper margins:</p>
     
-    <div class="paper-layout">
+    <div style="border-top: 1px solid #777; border-bottom: 1px solid #777; margin: 25px;">
         <div style="text-align: center; margin-bottom: 10px;"><strong>A4 Paper Layout (210mm × 297mm / 8.27in × 11.69in)</strong></div>
         <div class="margin" style="text-align: center;">0.5 inch Margins (Left & Right)</div>
         <div style="display: flex; margin: 10px 0;">
@@ -399,7 +393,7 @@
         <div class="margin" style="text-align: center;">0.5 inch Margins (Left & Right)</div>
     </div>
 
-    <h3>Width Calculation</h3>
+    <h4>Width Calculation</h4>
     <p>The content width is calculated based on DPI (Dots Per Inch) settings:</p>
     <ul>
         <li><strong>Paper Width:</strong> 8.27 inches (210mm)</li>
@@ -413,7 +407,7 @@
         <strong>Consistent Output:</strong> The fixed 6.19-inch width ensures all educational resources maintain consistent formatting when printed or converted to PDF. Images and other content are automatically scaled to this width, guaranteeing proper alignment in the final output.
     </div>
 
-    <h3>HTML Template Structure</h3>
+    <h4>HTML Template Structure</h4>
     <p>Generated HTML content includes proper width constraints:</p>
     
     <div class="technical-box">
@@ -432,9 +426,9 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="advanced-features">Advanced Features</h2>
+    <h3 id="advanced-features">Advanced Features</h3>
     
-    <h3>LaTeX Processing</h3>
+    <h4>LaTeX Processing</h4>
     <p>The editor includes built-in LaTeX compilation capabilities:</p>
     <ul>
         <li><strong>Template Generation:</strong> Creates properly structured LaTeX documents</li>
@@ -444,7 +438,7 @@
         <li><strong>Error Handling:</strong> Compilation errors are captured and displayed</li>
     </ul>
 
-    <h3>Screen Capture Integration</h3>
+    <h4>Screen Capture Integration</h4>
     <p>The snipping tool provides seamless screen capture functionality:</p>
     <ul>
         <li><strong>Full-screen Mode:</strong> Temporarily hides editor for clean capture</li>
@@ -454,7 +448,7 @@
         <li><strong>Cancellation Support:</strong> Can cancel capture without insertion</li>
     </ul>
 
-    <h3>Format Detection Algorithm</h3>
+    <h4>Format Detection Algorithm</h4>
     <p>Intelligent detection of content format on load:</p>
     
     <div class="technical-box">
@@ -470,7 +464,7 @@
 
     <h3>Error Handling and User Feedback</h3>
     <div class="feature-grid">
-        <div class="feature-card">
+        <div class="card">
             <h3>Notification System</h3>
             <ul>
                 <li><strong>Success Messages:</strong> Green notifications for successful operations</li>
@@ -480,7 +474,7 @@
             </ul>
         </div>
 
-        <div class="feature-card">
+        <div class="card">
             <h3>Validation</h3>
             <ul>
                 <li><strong>Score Validation:</strong> Numeric score checking</li>
@@ -514,9 +508,10 @@
         <div class="section-separator"></div>
         <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
             Educational Resource Editor - Part of Classroom Management System<br>
-            Document last updated: February 2026 | Multi-format content creation and management tool
+            Page Version: 1.01 - February 2026 | Multi-format content creation and management tool.<br>
+            © 2026 Abdullah Mohammadi. All rights reserved.
         </p>
     </footer>
-
+</div>
 </body>
 </html>

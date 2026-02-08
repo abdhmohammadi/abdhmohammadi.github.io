@@ -4,23 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Activity Tracking - User Documentation</title>
-     <!-- Icons -->
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Global base styles + page CSS -->
     <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/theme.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="../../../js/theme.js" defer></script> 
  </head>
-<body>
+<body style="padding:50px 15%;">
+    <div class="container">
+        <div class="header">
+            <a href="user-manual.html"><i class="fas fa-arrow-left"></i></a>
+            <h2>Activity Tracking</h2>
+            <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+            <a href="../../../index.html"><i class="fas fa-home"></i></a>
+            <!-- Theme toggle (uses global /js/theme.js) -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
 
-<header>
-    <div style="display: flex;">
-     <a href="../../user-manual.html" class="project-link" style="font-size: large;color:#d1ecf1; margin: auto 10px auto 10px;">
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-            <h1 style="margin:auto auto auto 5px;">Activity Tracking</h1>
-        <span class="version-badge">Page Version: 1.0</span>
-    </div>
-    </header>
     <p style="text-align: justify;">
         The Student Activity Tracking page provides a comprehensive overview of a student's academic progress, behavioral observations, 
         and learning activities. This integrated dashboard combines visual analytics with detailed record-keeping, allowing the 
@@ -32,8 +38,8 @@
         <a style="text-decoration-line: none;" href="student-list.html">Student List</a> page. 
     </p>
     
-    <h2>Table of Contents</h2>
-    <div class="toc-grid">
+    <h3>Table of Contents</h3>
+    <div style="columns: 4;display: flex; gap: 25px; flex-direction:row; width: 100%;">
         <a href="#interface-overview">Interface Overview</a>
         <a href="#student-information">Student Information</a>
         <a href="#analytics-charts">Analytics Charts</a>
@@ -45,11 +51,11 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="interface-overview">Interface Overview</h2>
+    <h3 id="interface-overview">Interface Overview</h3>
     
     <div class="two-column">
         <div>
-            <h3>Layout Structure</h3>
+            <h4>Layout Structure</h4>
             <p>The page is organized into three main sections:</p>
             <ol>
                 <li><strong>Header Section:</strong> Student information and analytical charts (top section)</li>
@@ -59,7 +65,7 @@
         </div>
         
         <div>
-            <h3>Content Switching</h3>
+            <h4>Content Switching</h4>
             <p>The page uses a stacked widget system to toggle between two main views:</p>
             <ul>
                 <li><strong>Behavioral Observations:</strong> Teacher notes and analysis of student behavior</li>
@@ -81,11 +87,11 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="student-information">Student Information Panel</h2>
+    <h3 id="student-information">Student Information Panel</h3>
     
     <div class="two-column">
         <div>
-            <h3>Student Details</h3>
+            <h4>Student Details</h4>
             <p>The left side of the header displays key student information:</p>
             <ul>
                 <li><strong>Profile Photo:</strong> Official student photo (35mm × 45mm format)</li>
@@ -97,7 +103,7 @@
         </div>
         
         <div>
-            <h3>Analytics</h3>
+            <h4>Analytics</h4>
             <ul>
                 <li><strong>Line chart:</strong> displays the changes of score obtained so far.</li>
                 <li><strong>donut chart:</strong> Left donut chart displays comulative score.</li>
@@ -115,12 +121,12 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="analytics-charts">Analytics Charts</h2>
+    <h3 id="analytics-charts">Analytics Charts</h3>
     
     <p>The header section includes four charts that provide visual insights into student performance:</p>
     
     <div class="chart-grid">
-        <div class="chart-card card">
+        <div class="card">
             <h4>📈 Progress Line Chart</h4>
             <ul>
                 <li><strong>Purpose:</strong> Track score changes over time</li>
@@ -132,7 +138,7 @@
             </ul>
         </div>
 
-        <div class="chart-card card">
+        <div class="card">
             <h4>🍩 Cumulative Score Donut</h4>
             <ul>
                 <li><strong>Purpose:</strong> Show overall achievement level</li>
@@ -143,7 +149,7 @@
             </ul>
         </div>
 
-        <div class="chart-card card">
+        <div class="card">
             <h4>🍩 Average Score Donut</h4>
             <ul>
                 <li><strong>Purpose:</strong> Display average performance</li>
@@ -154,7 +160,7 @@
             </ul>
         </div>
 
-        <div class="chart-card card">
+        <div class="card">
             <h4>🥧 Activity Status Pie Chart</h4>
             <ul>
                 <li><strong>Purpose:</strong> Visualize activity completion status</li>
@@ -177,16 +183,16 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="navigation-controls">Navigation and Action Controls</h2>
+    <h3 id="navigation-controls">Navigation and Action Controls</h3>
     
-    <div class="icon-list">
+    <!--<div class="icon-list">
         <div class="icon-item"><strong>◀</strong> - Switch to Behavioral Observations view</div>
         <div class="icon-item"><strong>▶</strong> - Switch to Learning Activities view</div>
         <div class="icon-item"><strong>🖨️</strong> - Export menu (currently disabled)</div>
         <div class="icon-item"><strong>✏️</strong> - Add new behavioral observation</div>
         <div class="icon-item"><strong>📐</strong> - Assign new educational item to student</div>
         <div class="icon-item"><strong>⋮</strong> - Context menu on individual items</div>
-    </div>
+    </div>-->
 <!-- Screenshot Placeholder: Navigation Bar -->
     <div class="screenshot-placeholder">
         <img height="80" src="../images/09.png" alt="Navigation and Action Bar">
@@ -202,7 +208,7 @@
 
     <h3>Action Buttons</h3>
     <div class="feature-grid">
-        <div class="feature-card card">
+        <div class="card">
             <h3>Export Menu (🖨️)</h3>
             <ul>
                 <li><strong>Current Status:</strong> Options disabled in current version</li>
@@ -211,7 +217,7 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
+        <div class="card">
             <h3>Add Observation (✏️)</h3>
             <ul>
                 <li><strong>Function:</strong> Opens behavioral observation editor</li>
@@ -220,7 +226,7 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
+        <div class="card">
             <h3>Assign Edu-Item (📐)</h3>
             <ul>
                 <li><strong>Function:</strong> Opens Educational Resources View</li>
@@ -237,13 +243,13 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="behavioral-observations">Behavioral Observations</h2>
+    <h3 id="behavioral-observations">Behavioral Observations</h3>
     
     <p>The Behavioral Observations view (accessed with the left arrow button) displays all teacher notes about student behavior:</p>
     
     <div class="feature-grid">
-        <div class="feature-card card">
-            <h3>Observation Structure</h3>
+        <div class="card">
+            <h4>Observation Structure</h4>
             <ul>
                 <li><strong>ID & Date:</strong> Unique record ID and timestamp</li>
                 <li><strong>Observed Behavior:</strong> Teacher's factual observations</li>
@@ -253,8 +259,8 @@
             </ul>
         </div>
 
-        <div class="feature-card card">
-            <h3>Observation Actions</h3>
+        <div class="card">
+            <h4>Observation Actions</h4>
             <ul>
                 <li><strong>Update:</strong> Edit existing observation content</li>
                 <li><strong>Remove:</strong> Delete observation from database</li>
@@ -286,7 +292,7 @@
 
     <div class="section-separator"></div>
 
-    <h2 id="learning-activities">Learning Activities</h2>
+    <h3 id="learning-activities">Learning Activities</h3>
     
     <p>The Learning Activities view (accessed with the right arrow button) displays all educational assignments and their status:</p>
     
@@ -344,7 +350,7 @@
     
     <div class="section-separator"></div>
 
-    <h2 id="activity-status">Activity Status System</h2>
+    <h3 id="activity-status">Activity Status System</h3>
     
     <p>The system automatically categorizes activities into four status types based on dates and responses:</p>
     
@@ -473,13 +479,15 @@
         6. <strong>Chart Interpretation:</strong> Remember that "Lost" activities negatively impact average scores with zeros
     </div>
 
-    <footer>
+     <footer>
         <div class="section-separator"></div>
         <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
             Student Activity Tracking - Part of Classroom Management System<br>
-            Document last updated: February 2026 | Comprehensive student progress monitoring and analytics
+            Page Version: 1.01 - February 2026 | Comprehensive student progress monitoring and analytics
+            <br>
+            © 2026 Abdullah Mohammadi. All rights reserved.
         </p>
     </footer>
-
+</div>
 </body>
 </html>

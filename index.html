@@ -14,7 +14,7 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" href="images/abdh.png">
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
@@ -82,8 +82,7 @@
     <section id="home" class="hero">
         
         <div class="hero-container">
-            <div style="margin-left: auto;">
-
+            <div>
                 <p class="hero-subtitle">Independent Machine Learning Researcher | Mathematics Educator</p>
  
                 <p class="hero-quote">
@@ -124,7 +123,7 @@
 
     <!-- About Section -->
     <section id="about" class="section about">
-        <div class="container">
+        
             <h2 class="section-title">About Me</h2>
             
             <div class="about-content">
@@ -179,21 +178,20 @@
                     </div>
                 </div>
             </div>
-        </div>
+
     </section>
 
     <!-- Publications Section -->
     <section id="publications" class="section publications">
-        <div>
-            <h2 class="section-title">Publications</h2>
+
+        <h2 class="section-title">Publications</h2>
             
-            <div style="display: flex; align-content:center; gap: 20px;">
-                <p class="section-subtitle" style="margin-left: auto;">Latest Research papers and academic publications</p>
-                <a href="publications/publications.html" style="margin-right: auto;"> View all publications</a>
-            </div>
-            
-            <div>
-                <article class="publication-card">
+        <div style="display: flex; align-content:center; gap: 20px;">
+            <p class="section-subtitle" style="margin-left: auto;">Latest Research papers and academic publications</p>
+            <a href="publications/publications.html" style="margin-right: auto;"> View all publications</a>
+        </div>
+
+        <article class="publication-card">
                     <div class="pub-header">
                         <span class="pub-year">2026</span>
                         <span class="pub-type">Journal Article</span>
@@ -211,9 +209,9 @@
                         </a>
                         -->
                     </div>
-                </article>
+        </article>
                 
-                <article class="publication-card">
+        <article class="publication-card">
                     <div class="pub-header">
                         <span class="pub-year">1402</span>
                         <span class="pub-type">Conference Paper | Persian</span>
@@ -227,14 +225,13 @@
                             <i class="fas fa-external-link-alt"></i> View Paper
                         </a>
                     </div>
-                </article>
-            </div>
-        </div>
+        </article>
+ 
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="section projects">
-        <div class="container">
+
             <h2 class="section-title">Projects & Open Source</h2>
             <p class="section-subtitle">Personal studies and open source contributions for learning</p>
             
@@ -304,12 +301,12 @@
                     </a>
                 </div>
             </div>
-        </div>
+
     </section>
 
     <!-- Blogs Preview -->
     <section class="section blogs-preview">
-        <div class="container">
+        
             <h2 class="section-title">Latest from My Blogs</h2>
             
             <div class="blogs-grid">
@@ -332,13 +329,13 @@
                     <a href="#" class="blog-link" style="pointer-events: none; color: gray;">View Studies <i class="fas fa-arrow-right"></i></a>
                 </article>
             </div>
-        </div>
+
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="section contact">
         
-        <div>
+
             <h2 class="section-title">Get in Touch</h2>
             
             <div class="contact-content">
@@ -387,47 +384,46 @@
                     </div>
                 </div>
                 
-                <!-- در بخش Contact فرم -->
-<div class="contact-form">
-    <form id="contactForm">
-        <div class="form-group">
-            <input type="text" id="contactName" name="name" placeholder="Your Name" required>
-            <div class="error-message" id="nameError"></div>
-        </div>
+                <!-- در بخش Contact فرم 
+                <div class="contact-form">-->
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="contactName" name="name" placeholder="Your Name" required>
+                            <div class="error-message" id="nameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" id="contactEmail" name="email" placeholder="Your Email" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
         
-        <div class="form-group">
-            <input type="email" id="contactEmail" name="email" placeholder="Your Email" required>
-            <div class="error-message" id="emailError"></div>
-        </div>
+                        <div class="form-group">
+                            <input type="text" id="contactSubject" name="subject" placeholder="Subject" required>
+                            <div class="error-message" id="subjectError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="contactMessage" name="message" placeholder="Your Message" rows="5" required></textarea>
+                            <div class="error-message" id="messageError"></div>
+                        </div>
         
-        <div class="form-group">
-            <input type="text" id="contactSubject" name="subject" placeholder="Subject" required>
-            <div class="error-message" id="subjectError"></div>
-        </div>
+                        <div class="form-group" style="display: none;">
+                            <input type="text" id="contactBot" name="_bot">
+                        </div>
         
-        <div class="form-group">
-            <textarea id="contactMessage" name="message" placeholder="Your Message" rows="5" required></textarea>
-            <div class="error-message" id="messageError"></div>
-        </div>
-        
-        <div class="form-group" style="display: none;">
-            <input type="text" id="contactBot" name="_bot">
-        </div>
-        
-        <button type="submit" class="btn btn-primary" id="submitBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
-    </form>
-    
-    <div id="formMessage" class="form-message"></div>
-</div>
+                        <button type="submit" class="btn btn-primary" id="submitBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    </form>
+                    <!--<div id="formMessage" class="form-message"></div> -->
+               <!--</div>-->
 
             </div>
-        </div>
+
     </section>
 
 
     <!-- Footer -->
      <footer class="footer">
-        <div>
+        
             <div class="footer-content">
                 <div class="footer-about">
                     <a href="#" class="footer-logo">Abdh. Mohammadi</a>
@@ -457,9 +453,9 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy;2026 | Abdullah Mohammadi. All rights reserved.</p>
+                <p>&copy;2026 | Abdullah Mohammadi, All rights reserved.</p>
             </div>
-        </div>
+       
     </footer>
     <!-- JavaScript -->
      <script src="js/theme.js"></script>

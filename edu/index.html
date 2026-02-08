@@ -12,20 +12,17 @@
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" href="../images/abdh.png">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/education.css">
-   
 </head>
 
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container nav-container">
+        <div class="nav-container">
             
             <a href="#" class="logo">
                 <span class="logo-text">آموزش ریاضیات</span>
@@ -45,11 +42,11 @@
                             <li><a href="#paper2" class="disabled" >طرح درس</a></li>
                             <li><a href="#paper3" class="disabled" >تدریس خصوصی</a></li>
                         </ul>
-                    </li>
-                    <a href="#publications" class="dropbtn">مقالات</a>
-                    <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu">وبلاگ</a></li>
-                   <!-- <li><a href="#research">تحقیقات</a></li> -->
-                    <li><a href="#footer">تماس با من</a></li>
+                </li>
+                <a href="#publications" class="dropbtn">مقالات</a>
+                <li><a href="https://script.google.com/macros/s/AKfycbxwEuVNoCpVOEWp-QJPgg0s08z7vBAUS8w3amQsOaMkr9EiNQnsgFrrgE8iWWHkLCPT/exec?page=edu">وبلاگ</a></li>
+                <!-- <li><a href="#research">تحقیقات</a></li> -->
+                <li><a href="#footer">تماس با من</a></li>
             </ul>
             
             <div class="nav-actions" style="display: flex; gap: 10px;">
@@ -68,7 +65,14 @@
     <section id="home" class="hero">
         
         <div class="hero-container">
-            <div style="margin-left: auto;">
+            
+             <div class="hero-image">
+                <div class="image-container">
+                    <img src="../images/data.jpg" alt="Abdullah Mohammadi" class="profile-img">
+                    <div class="image-overlay"></div>
+                </div>
+            </div>
+            <div>
 
                 <p class="hero-subtitle"></p>
  
@@ -92,21 +96,15 @@
                 </div>
             </div>
             
-            <div class="hero-image">
-                <div class="image-container">
-                    <img src="../images/data.jpg" alt="Abdullah Mohammadi" class="profile-img">
-                    <div class="image-overlay"></div>
-                </div>
-            </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="section about">
-        <div>
-            <h2 class="section-title">بیوگرافی</h2>
+        
+        <h2 class="section-title">بیوگرافی</h2>
             
-            <div class="about-content">
+        <div class="about-content">
                <div class="about-text">
 
                     <!--<p>With over 10 years of experience in high school mathematics education, He brings a unique perspective to teaching that combines rigorous mathematical training with insights from cognitive psychology. His approach focuses on understanding how students process mathematical concepts and developing strategies to overcome learning obstacles.</p> -->
@@ -157,26 +155,24 @@
                         
                     </div>
                 </div>
-            </div>
         </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section id="publications" class="section publications">
         
-        <article class="education-card">
-                <div class="card-header">
+    </section>
+  
+    <section class="section">
+         <article class="education-card">
+            <div class="card-header">
                     <div class="degree-info">
                         <h2>کارشناسی ارشد ریاضیات کاربردی</h2>
                         <p class="university">دانشگاه فردوسی مشهد</p>
                         <p class="specialization">گرایش: علوم داده (الگوریتم‌های هوش مصنوعی)</p>
                     </div>
-                </div>
+            </div>
     
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-marker">
-                        <div class="marker-icon">M.Sc</div>
+                        <div class="marker-icon"></div>
                         <div class="timeline-line"></div>
                     </div>
                     <div class="timeline-content">
@@ -191,7 +187,7 @@
         
                 <div class="timeline-item">
                     <div class="timeline-marker">
-                        <div class="marker-icon">B.Sc</div>
+                        <div class="marker-icon"></div>
                         <div class="timeline-line"></div>
                     </div>
                     <div class="timeline-content">
@@ -205,13 +201,17 @@
             </div>
 
         </article>
-        
-
-            <div style="display: flex; align-content:center; gap: 20px; padding: 25px 25px 0px 0px;">
-            <h2>مقالات</h2>   
-            <a style="margin-top: auto; margin-bottom: auto;" href="../publications/publications.html">مشاهده سایر مقالات</a>
+    </section>
+    <!-- Publications Section -->
+    <section id="publications" class="section publications">
+         
+        <div style="display: flex; align-content:center; gap: 20px;">
+            <h2>مقالات</h2>
+            <p class="section-subtitle"></p>
+            <a style="margin: auto auto auto 25px; text-decoration: none;" href="../publications/publications.html">مشاهده سایر مقالات</a>
         </div>
-           <article class="publication-card">
+        
+        <article class="publication-card">
             <div class="pub-header">
                 <span class="pub-year">1404</span>
                 <span class="pub-type">علمی-ترویجی</span>
@@ -331,7 +331,7 @@
     </footer>
     
     <!-- JavaScript -->
-     <script src="../js/theme.js"/>
-    <script  src="../js/scripts.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/scripts.js"></script>
 </body>
 </html>

@@ -413,15 +413,18 @@ ul, ol {
     margin-top: auto;
 }
 
-.hero-image {
+.hero-image 
+{
     position: relative;
+    margin-left: auto;
 }
 
-.image-container {
+.image-container 
+{
     position: relative;
     width: 300px;
     height: auto;
-    margin: 25px auto;
+    margin: auto;
 }
 
 .profile-img 
@@ -446,10 +449,8 @@ ul, ol {
 }
 
 /* Sections */
-.section 
-{
-    padding: var(--space-2xl);
-}
+.section { padding: var(--space-md) var(--space-2xl);}
+
 
 /* About Section */
 .about-content {
@@ -696,6 +697,7 @@ ul, ol {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+    
 }
 
 .contact-item {
@@ -757,7 +759,11 @@ ul, ol {
     background-color: var(--card-bg);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
+ 
+
     box-shadow: var(--shadow-md);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    border: 1px solid var(--border-color);
 }
 
 .form-group {
@@ -986,19 +992,27 @@ ul, ol {
 /* Responsive Design */
 @media (max-width: 992px) 
 {
-    .navbar 
-    {
-        padding: var(--space-md);
-    }
+    .navbar { padding: var(--space-md); }
+
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
     }
     
-    .hero-image {
+    .hero-image 
+    {
         order: -1;
+        position: relative;
+        margin-left: auto;
     }
-    
+
+    .image-container 
+    {
+        position: relative;
+        width:300px;
+        height: auto;
+        margin: var(--space-2xl) auto;
+    }
     .about-content {
         grid-template-columns: 1fr;
     }
@@ -1026,6 +1040,26 @@ ul, ol {
     .quote-author,
     .hero-quote {text-align: left;}
     .footer-bottom {font-size: 0.6rem;}
+    .hero-subtitle
+    {
+        display: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .hero-image 
+    {
+        position: relative;
+        margin-left: auto;
+    }
+
+    .image-container 
+    {
+        position: relative;
+        width:auto;
+        height: auto;
+        margin: auto;
+    }
 .btn-primary 
 {
     background-color: var(--primary-color);
@@ -1118,7 +1152,10 @@ ul, ol {
         display: grid;
         grid-template-columns: 1fr;
         text-align: center;
+        padding-left: auto;
+        padding-right: auto;
     }
+    
     .hero-actions {
         justify-content: center;
     }
