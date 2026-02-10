@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduResourcesView Class - Technical Documentation</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global base styles + page CSS -->
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/theme.css">
+    <script src="../../../js/theme.js" defer></script>
+
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+            padding: 50px 10%;
+        }
+        
+        .container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .info-box {
+            background-color: #5bbeefde;
+            color: #0a4528;
+            border: 1px solid #5bbeefde;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .warning-box {
+            background-color: #ffeb3bde;
+            color: #856404;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .feature-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.2em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 50%;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.95em;
+            border-left: 4px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .code-comment {
+            color: #6a9955;
+        }
+        
+        .code-keyword {
+            color: #569cd6;
+        }
+        
+        .code-string {
+            color: #ce9178;
+        }
+        
+        .code-number {
+            color: #b5cea8;
+        }
+        
+        .method-details {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--info-color);
+        }
+        
+        .parameter-table {
+            width: 100%;
+            margin: 15px 0;
+            border-collapse: collapse;
+        }
+        
+        .parameter-table th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .parameter-table td {
+            padding: 12px;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 70px 40px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+            border: 3px dashed rgba(255,255,255,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screenshot-placeholder:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+        }
+        
+        .architecture-diagram {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .flow-chart {
+            background: var(--card-bg);
+            border: 2px dashed #90a4ae;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            font-style: italic;
+            color: #546e7a;
+        }
+        .toc {
+    background: var(--bg-primary);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+    border-left: 5px solid var(--secondary-color);
+}
+
+.toc ul {
+    columns: 3;  /* Changed from 2 to 3 columns */
+    column-gap: 30px;
+    column-rule: 1px solid var(--border-color);
+}
+
+.toc li {
+    margin-bottom: 10px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.toc a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+    padding: 3px 0;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+        
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .toc ul {
+        columns: 2;
+        column-gap: 25px;
+    }
+}
+
+@media (max-width: 900px) {
+    .toc ul {
+        columns: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .toc {
+        padding: 15px;
+    }
+    
+    .toc ul {
+        columns: 1;
+    }
+
+           
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+        .section-separator {
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="../technical-docs.html"><i class="fas fa-arrow-left"></i></a>
+            <div>
+                <h1>EduResourcesView Class</h1>
+                <p>Technical Documentation - Educational Resource Management and Distribution</p>
+            </div>
+            <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+            <a href="../../../index.html"><i class="fas fa-home"></i></a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+
+        <p style="text-align: justify;">
+            The <strong>EduResourcesView</strong> class is a PySide6 widget designed for managing, filtering, and distributing educational resources to students. It serves as the central hub for educators to browse educational content, assign activities to individual students or groups, and generate printable/exportable materials using customizable templates. The class implements a card-based grid interface with advanced filtering, template-based content generation, and student distribution capabilities.
+            <br><br>
+            This resource management system supports multiple template types (quiz, formal exam) with configurable layouts, internationalization support, and PDF generation capabilities. It integrates with the application's database to track resource assignments and student progress, creating a seamless workflow from resource selection to student distribution.
+        </p>
+
+        <section id="toc">
+            <div class="toc">
+                <h2>📑 Table of Contents</h2>
+                <ul>
+                    <li><a href="#overview">1. Overview and Purpose</a></li>
+                    <li><a href="#architecture">2. Architecture and Layout</a></li>
+                    <li><a href="#ui-structure">3. UI Components Structure</a></li>
+                    <li><a href="#distribution">4. Student Distribution System</a></li>
+                    <li><a href="#templates">5. Template Management</a></li>
+                    <li><a href="#content-generation">6. Content Generation Engine</a></li>
+                    <li><a href="#data-loading">7. Data Loading and Filtering</a></li>
+                    <li><a href="#methods">8. Core Method Analysis</a></li>
+                    <li><a href="#performance">9. Performance Considerations</a></li>
+                    <li><a href="#api">10. API Reference</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="overview">
+            <h2>🔍 1. Overview and Purpose</h2>
+            <p>The <strong>EduResourcesView</strong> class provides a comprehensive interface for managing educational resources within a teacher assistant application. It enables educators to:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h4>Resource Management</h4>
+                    <p>Browse, filter, and organize educational resources stored in the database with real-time search capabilities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Student Distribution</h4>
+                    <p>Assign selected educational items to individual students or groups with customizable deadlines and distribution times.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h4>Template-Based Generation</h4>
+                    <p>Generate printable educational materials using configurable templates for different assessment types (quizzes, exams).</p>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <strong>Primary Design Principle:</strong> All educational resources are formatted to A4 paper width (210mm/8.27 inches) for consistency in printed output. Template configurations are stored in JSON files within the <code>/resources/templates/</code> directory.
+            </div>
+            
+            <h3>Class Inheritance and Dependencies</h3>
+            <div class="code-block">
+                <span class="code-keyword">class</span> <span class="code-string">EduResourcesView</span>(<span class="code-string">QWidget</span>):
+                <span class="code-comment"># Primary dependencies:</span>
+                <span class="code-comment"># - PySide6.QtWidgets (UI components)</span>
+                <span class="code-comment"># - PySide6.QtCore (Threading, signals/slots)</span>
+                <span class="code-comment"># - PySideAbdhUI (Custom UI components)</span>
+                <span class="code-comment"># - data.loaders.DataLoaderWorker (Background data loading)</span>
+                <span class="code-comment"># - processing.utils.pdf.PdfGeneratorApp (PDF generation)</span>
+                <span class="code-comment"># - ui.widgets.widgets.EduItemWidget (Resource card widget)</span>
+                <span class="code-comment"># - core.app_context.app_context (Application configuration)</span>
+            </div>
+            
+            <div class="architecture-diagram">
+                <h3>System Architecture</h3>
+                <div class="flow-chart">
+                    [ARCHITECTURE DIAGRAM: Three-layer system showing:<br>
+                    1. Presentation Layer (Card Grid, Template Dialog, Distribution Menu)<br>
+                    2. Business Logic Layer (Filtering, Template Processing, Distribution Logic)<br>
+                    3. Data Layer (Database queries, Background loading, File I/O)<br>
+                    4. Output Layer (PDF Generation, Database updates)]
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>🏗️ 2. Architecture and Layout</h2>
+            
+            <h3>3×2 Grid Layout Structure</h3>
+            <div class="code-block">
+                <span class="code-comment"># Main Grid Layout (3 rows × 2 columns):</span>
+                <span class="code-comment"># Row 0: Header with title and filter controls (Column 0)</span>
+                <span class="code-comment"># Row 1: Card grid view showing educational resources (Column 0)</span>
+                <span class="code-comment"># Row 2: (Optional) Footer or additional controls</span>
+                <span class="code-comment"># Column 1: Reserved for template settings and actions</span>
+                
+                main_layout = QGridLayout(self)
+                main_layout.addWidget(header_widget, 0, 0)    <span class="code-comment"># Cell [0,0]</span>
+                main_layout.addWidget(self.card_grid, 1, 0)   <span class="code-comment"># Cell [1,0]</span>
+                main_layout.setRowStretch(1, 1)               <span class="code-comment"># Make row 1 stretchable</span>
+            </div>
+            
+            <h3>Card Grid View Integration</h3>
+            <p>The central component is a <code>CardGridView</code> that displays educational resources as interactive cards:</p>
+            <div class="code-block">
+                <span class="code-comment"># Initialize card grid with configurable columns:</span>
+                self.card_grid = CardGridView(self.disply_columns, parent=self)
+                
+                <span class="code-comment"># Connect signals for interactivity:</span>
+                self.card_grid.card_selected.connect(self.on_card_selected)
+                self.card_grid.card_removed.connect(self.on_card_removed)
+                
+                <span class="code-comment"># Default configuration:</span>
+                self.disply_columns = 2    <span class="code-comment"># Number of columns in grid</span>
+                self.page_size = 50        <span class="code-comment"># Items per page for pagination</span>
+            </div>
+            
+            <h3>Key Architectural Patterns</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Implementation</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Observer Pattern</td>
+                            <td>Signal/Slot connections</td>
+                            <td>Handle user interactions and data updates</td>
+                        </tr>
+                        <tr>
+                            <td>Worker Pattern</td>
+                            <td>DataLoaderWorker + QThreadPool</td>
+                            <td>Background data loading without UI freeze</td>
+                        </tr>
+                        <tr>
+                            <td>Template Method</td>
+                            <td>Configurable template system</td>
+                            <td>Generate different output formats</td>
+                        </tr>
+                        <tr>
+                            <td>Composite Pattern</td>
+                            <td>CardGridView with EduItemWidget children</td>
+                            <td>Manage complex UI hierarchies</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="ui-structure">
+            <h2>🎨 3. UI Components Structure</h2>
+            
+            <h3>Header Section Components</h3>
+            <div class="code-block">
+                <span class="code-comment"># Header contains:</span>
+                header = QHBoxLayout(header_widget)
+                
+                <span class="code-comment"># 1. Page title label</span>
+                page_title = QLabel('RESOURCE COLLECTION')
+                page_title.setProperty('class', 'heading2')
+                
+                <span class="code-comment"># 2. Filter input field</span>
+                self.source_input = QLineEdit()
+                self.source_input.setPlaceholderText("Filter data using 'Source' ...")
+                self.source_input.textChanged.connect(<span class="code-keyword">lambda</span> text: self.load_data(filter=text))
+                
+                <span class="code-comment"># 3. Distribution button with dropdown menu</span>
+                btn3 = QPushButton('distribute')
+                btn3.setMenu(self.create_distribution_options())
+            </div>
+            
+            <h3>Card Grid Configuration</h3>
+            <p>The <code>CardGridView</code> provides a responsive grid layout for educational resource cards:</p>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Default Columns</td>
+                            <td>2</td>
+                            <td>Number of cards per row</td>
+                        </tr>
+                        <tr>
+                            <td>Page Size</td>
+                            <td>50</td>
+                            <td>Items loaded per batch</td>
+                        </tr>
+                        <tr>
+                            <td>Card Width</td>
+                            <td><code>app_context.EDU_ITEM_PIXELS + 20</code></td>
+                            <td>Card width based on A4 paper dimensions</td>
+                        </tr>
+                        <tr>
+                            <td>Selection Mode</td>
+                            <td>Single/Multiple</td>
+                            <td>Supports selecting multiple resources</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>EduItemWidget Structure</h3>
+            <p>Each card in the grid is an <code>EduItemWidget</code> containing:</p>
+            <div class="code-block">
+                <span class="code-comment"># EduItemWidget displays:</span>
+                <span class="code-comment"># 1. Resource ID and description</span>
+                <span class="code-comment"># 2. Score/point value</span>
+                <span class="code-comment"># 3. Source information</span>
+                <span class="code-comment"># 4. Additional details</span>
+                <span class="code-comment"># 5. Selection checkbox</span>
+                <span class="code-comment"># 6. Titlebar with edit/remove options</span>
+                
+                edu_item = EduItemWidget(record, app_context.EDU_ITEM_PIXELS + 20, cursor=app_context.database)
+            </div>
+        </section>
+
+        <section id="distribution">
+            <h2>🎯 4. Student Distribution System</h2>
+            
+            <h3>Distribution Menu Structure</h3>
+            <p>The distribution system uses a custom <code>QMenu</code> with embedded widgets:</p>
+            <div class="code-block">
+                <span class="code-keyword">def</span> create_distribution_options(self):
+                    menu = QMenu(self)
+                    widget_action = QWidgetAction(self)
+                    widget = QWidget()
+                    
+                    <span class="code-comment"># Layout contains:</span>
+                    dist_options_layout = QGridLayout(widget)
+                    <span class="code-comment"># 1. Student list (QListView)</span>
+                    <span class="code-comment"># 2. Distribution time input (QLineEdit)</span>
+                    <span class="code-comment"># 3. Deadline input (QLineEdit)</span>
+                    <span class="code-comment"># 4. Distribute button (QPushButton)</span>
+            </div>
+            
+            <h3>Target Students Data Structure</h3>
+            <p>The class accepts target students as a list of dictionaries:</p>
+            <div class="code-block">
+                <span class="code-comment"># Constructor parameter:</span>
+                <span class="code-keyword">def</span> __init__(self, parent=None, target_students=[dict]):
+                    self.target_students = target_students
+                    
+                <span class="code-comment"># Expected dictionary format:</span>
+                student = {
+                    <span class="code-string">'Id'</span>: <span class="code-string">'student_123'</span>,      <span class="code-comment"># Student identifier</span>
+                    <span class="code-string">'Name'</span>: <span class="code-string">'John Doe'</span>       <span class="code-comment"># Student display name</span>
+                }
+            </div>
+            
+            <h3>Distribution Workflow</h3>
+            <div class="method-details">
+                <h4><code>distribute()</code> - Core Distribution Logic</h4>
+                <p>This method handles the complete distribution process:</p>
+                <ol>
+                    <li><strong>Validation:</strong> Checks if target students exist and items are selected</li>
+                    <li><strong>Confirmation:</strong> Shows confirmation dialog with item/student counts</li>
+                    <li><strong>Database Insertion:</strong> Creates <code>quests</code> records for each student-item pair</li>
+                    <li><strong>Notification:</strong> Provides user feedback on success/failure</li>
+                </ol>
+                
+                <div class="code-block">
+                    <span class="code-comment"># Database insertion for each student-item pair:</span>
+                    cmd = <span class="code-string">'INSERT INTO quests(qb_id, student_id, max_point_, earned_point_, assign_date_, deadline_, answer_, reply_date_, feedback_) '</span>
+                    cmd += <span class="code-string">'VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)'</span>
+                    
+                    values = (item[<span class="code-string">'Id'</span>], stu[<span class="code-string">'Id'</span>], item[<span class="code-string">'score'</span>], <span class="code-number">0</span>, 
+                             str(utc_time), str(future_time), <span class="code-keyword">None</span>, <span class="code-keyword">None</span>, <span class="code-keyword">None</span>)
+                    
+                    app_context.database.execute(cmd, values)
+                </div>
+                
+                <div class="info-box">
+                    <strong>Database Schema:</strong> The distribution system creates records in the <code>quests</code> table, which links educational resources (<code>qb_id</code>) to students (<code>student_id</code>) with assignment dates, deadlines, and scoring information.
+                </div>
+            </div>
+            
+            <h3>Date Management</h3>
+            <p>The system provides sensible defaults for distribution timing:</p>
+            <div class="code-block">
+                <span class="code-comment"># Default distribution time: current date</span>
+                self.dist_time_input = QLineEdit(datetime.now().strftime(<span class="code-string">"%Y-%m-%d"</span>))
+                
+                <span class="code-comment"># Default deadline: 7 days from current date</span>
+                self.deadline_input = QLineEdit((datetime.now() + timedelta(days=<span class="code-number">7</span>)).strftime(<span class="code-string">'%Y-%m-%d'</span>))
+            </div>
+        </section>
+
+        <section id="templates">
+            <h2>📄 5. Template Management</h2>
+            
+            <h3>Template File System</h3>
+            <p>Two primary template types are supported:</p>
+            <div class="code-block">
+                <span class="code-comment"># Available template files (stored in /resources/templates/):</span>
+                Edu_Template_Files = [<span class="code-string">'01-Quiz'</span>, <span class="code-string">'02-Formal-Exam'</span>]
+                
+                <span class="code-comment"># Each template consists of:</span>
+                <span class="code-comment"># 1. HTML template file: {template_name}-Template.html</span>
+                <span class="code-comment"># 2. Config file: {template_name}-config.json</span>
+                <span class="code-comment"># 3. Language-specific configurations</span>
+            </div>
+            
+            <h3>Template Configuration Structure</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Configuration Key</th>
+                            <th>Purpose</th>
+                            <th>Example Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Student name</code></td>
+                            <td>Placeholder for student name field</td>
+                            <td>"Student name", "نام دانش‌آموز"</td>
+                        </tr>
+                        <tr>
+                            <td><code>Book</code></td>
+                            <td>Textbook and grade information</td>
+                            <td>"Mathematics Grade 10"</td>
+                        </tr>
+                        <tr>
+                            <td><code>Date</code></td>
+                            <td>Exam/quiz date field</td>
+                            <td>"Date", "تاریخ"</td>
+                        </tr>
+                        <tr>
+                            <td><code>Font family</code></td>
+                            <td>Typography for generated content</td>
+                            <td>"'B Nazanin', Tahoma"</td>
+                        </tr>
+                        <tr>
+                            <td><code>Direction</code></td>
+                            <td>Text direction (RTL/LTR)</td>
+                            <td>"rtl", "ltr"</td>
+                        </tr>
+                        <tr>
+                            <td><code>Text align</code></td>
+                            <td>Content alignment</td>
+                            <td>"right", "left", "center"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Template Selection Dialog</h3>
+            <p>The <code>show_template_selector_dlg()</code> method creates a dynamic dialog based on selected template:</p>
+            <div class="code-block">
+                <span class="code-keyword">def</span> template_changed(self, sender: QComboBox):
+                    index = sender.currentIndex()
+                    
+                    <span class="code-keyword">if</span> index == <span class="code-number">0</span>:  <span class="code-comment"># Classroom quiz</span>
+                        <span class="code-comment"># Shows minimal fields: student name, book, date</span>
+                        self.stu_info_input.setVisible(True)
+                        self.book_grade_input.setVisible(True)
+                        self.date_input.setVisible(True)
+                        
+                    <span class="code-keyword">elif</span> index == <span class="code-number">1</span>:  <span class="code-comment"># Formal exam</span>
+                        <span class="code-comment"># Shows all fields including organization info, teacher, etc.</span>
+                        self.stu_id_input.setVisible(True)
+                        self.teacher_input.setVisible(True)
+                        self.author_input.setVisible(True)
+                        <span class="code-comment"># ... additional fields</span>
+            </div>
+            
+            <div class="info-box">
+                <strong>Internationalization Support:</strong> Template configurations support multiple languages through the <code>app_context.Language</code> setting. Each configuration key has language-specific values for consistent localization.
+            </div>
+            
+            <h3>Content Row Templates</h3>
+            <p>Each template type has a specific HTML structure for content rows:</p>
+            <div class="code-block">
+                <span class="code-comment"># Classroom quiz template (simplified):</span>
+                new_row_tmp =  <span class="code-string">'        &lt;tr&gt;\n'</span>
+                new_row_tmp += <span class="code-string">f'            &lt;td style="border-left:none;border-top:none;border-right:none; vertical-align:top;"&gt;{{}})&lt;/td&gt;\n'</span>
+                new_row_tmp += <span class="code-string">f'            &lt;td style="border-left:none;border-top:none;border-right:none; width:{app_context.EDU_ITEM_PIXELS}; text-align:{{}}"&gt;{{}}&lt;/td&gt;\n'</span>
+                new_row_tmp += <span class="code-string">'            &lt;td style="border-left:none;border-top:none;border-right:none; vertical-align:top"&gt;{{}}&lt;/td&gt;\n'</span>
+                new_row_tmp += <span class="code-string">'        &lt;/tr&gt;\n'</span>
+                <span class="code-comment"># Format: row index, text_align, content, point</span>
+                
+                <span class="code-comment"># Formal exam template (more detailed):</span>
+                new_row_tmp =  <span class="code-string">'        &lt;tr&gt;\n'</span>
+                new_row_tmp += <span class="code-string">'            &lt;td&gt;{{}}&lt;/td&gt;\n'</span>
+                new_row_tmp += <span class="code-string">f'            &lt;td style="width:{app_context.EDU_ITEM_PIXELS}; text-align:{{}}"&gt;{{}}&lt;/td&gt;\n'</span>
+                new_row_tmp += <span class="code-string">'            &lt;td&gt;{{}}&lt;/td&gt;\n'</span>
+                new_row_tmp += <span class="code-string">'        &lt;/tr&gt;\n'</span>
+            </div>
+        </section>
+
+        <section id="content-generation">
+            <h2>🔄 6. Content Generation Engine</h2>
+            
+            <h3>HTML Content Generation Workflow</h3>
+            <div class="method-details">
+                <h4><code>generate_edu_contents()</code> - Main Generation Method</h4>
+                <p>This method orchestrates the complete content generation process:</p>
+                <ol>
+                    <li><strong>Template Validation:</strong> Checks template selection and file existence</li>
+                    <li><strong>Content Selection:</strong> Retrieves selected educational resources</li>
+                    <li><strong>HTML Generation:</strong> Creates HTML content with template placeholders</li>
+                    <li><strong>PDF Preview:</strong> Opens PDF preview window for generated content</li>
+                </ol>
+            </div>
+            
+            <h3>Placeholder Replacement System</h3>
+            <p>The system replaces placeholders in template files with actual content:</p>
+            <div class="code-block">
+                <span class="code-comment"># Dimension placeholders (converted from inches to pixels):</span>
+                dimensions = {
+                    <span class="code-string">'-- 2.43 inches --'</span>: <span class="code-string">f'{2.43*app_context.DPI}px'</span>,
+                    <span class="code-string">'-- 2.42 Inches --'</span>: <span class="code-string">f'{2.42*app_context.DPI}px'</span>,
+                    <span class="code-string">'-- 0.54 Inches --'</span>: <span class="code-string">f'{0.54*app_context.DPI}px'</span>,
+                    <span class="code-string">'-- 6.19 Inches --'</span>: <span class="code-string">f'{app_context.EDU_ITEM_PIXELS}px'</span>,
+                }
+                
+                <span class="code-comment"># Content placeholders:</span>
+                replacements = {
+                    <span class="code-string">'-- Stu-Name --'</span>: self.stu_info_input.text(),
+                    <span class="code-string">'-- Stu-Id --'</span>: self.stu_id_input.text(),
+                    <span class="code-string">'-- Organisation Info --'</span>: self.org_info_input.toPlainText().replace(<span class="code-string">'\n'</span>, <span class="code-string">'&lt;br&gt;'</span>),
+                    <span class="code-string">'-- SUM --'</span>: str(selected_content[-<span class="code-number">1</span>][<span class="code-string">'total_points'</span>]),
+                    <span class="code-comment"># ... additional placeholders</span>
+                }
+            </div>
+            
+            <h3>PDF Generation Integration</h3>
+            <p>The class integrates with <code>PdfGeneratorApp</code> for PDF preview and generation:</p>
+            <div class="code-block">
+                <span class="code-keyword">def</span> ___show_pdf_preview__(self, html):
+                    <span class="code-comment"># Create PDF preview window</span>
+                    window = PdfGeneratorApp(html_content=html, parent=self.dialog)
+                    window.setWindowModality(Qt.WindowModality.WindowModal)
+                    
+                    <span class="code-comment"># Position window relative to template dialog</span>
+                    window.move(self.dialog.geometry().topRight() + QPoint(<span class="code-number">10</span>, <span class="code-number">0</span>))
+                    window.show()
+            </div>
+            
+            <h3>Selected Content Processing</h3>
+            <div class="method-details">
+                <h4><code>get_selected_contents()</code> - Content Aggregation</h4>
+                <p>This method collects and processes selected educational resources:</p>
+                <div class="code-block">
+                    selected_content = []
+                    total_points = <span class="code-number">0</span>
+                    row = <span class="code-number">0</span>
+                    
+                    <span class="code-keyword">for</span> card <span class="code-keyword">in</span> self.card_grid.get_cards():
+                        data = card.get_data()
+                        <span class="code-keyword">if</span> data[<span class="code-string">'selected'</span>]:
+                            row += <span class="code-number">1</span>
+                            content = {
+                                <span class="code-string">'Id'</span>: data[<span class="code-string">'Id'</span>],
+                                <span class="code-string">'row'</span>: row,
+                                <span class="code-string">'content'</span>: data[<span class="code-string">'content'</span>],
+                                <span class="code-string">'score'</span>: float(data[<span class="code-string">'score'</span>])
+                            }
+                            selected_content.append(content)
+                            total_points += content[<span class="code-string">'score'</span>]
+                    
+                    <span class="code-keyword">if</span> selected_content:
+                        selected_content.append({<span class="code-string">'total_points'</span>: total_points})
+                </div>
+                <div class="info-box">
+                    <strong>Note:</strong> The method returns a list where the last element contains the total points sum for all selected items. This sum is used in the generated output's footer.
+                </div>
+            </div>
+        </section>
+
+        <section id="data-loading">
+            <h2>📥 7. Data Loading and Filtering</h2>
+            
+            <h3>Background Data Loading</h3>
+            <p>The class uses <code>DataLoaderWorker</code> with <code>QThreadPool</code> for responsive data loading:</p>
+            <div class="code-block">
+                <span class="code-keyword">def</span> load_data(self, filter: str = <span class="code-string">''</span>):
+                    self.card_grid.reset()  <span class="code-comment"># clears grid, resets scroll</span>
+                    self.current_page = <span class="code-number">0</span>
+                    self.has_more = <span class="code-keyword">True</span>
+                    self.current_filter = filter
+                    
+                    <span class="code-comment"># Start background loading</span>
+                    self.load_next_page(filter)
+                
+                <span class="code-keyword">def</span> load_next_page(self, filter_text):
+                    <span class="code-keyword">if</span> <span class="code-keyword">not</span> self.has_more: <span class="code-keyword">return</span>
+                    
+                    <span class="code-comment"># Build search query</span>
+                    search = <span class="code-string">f"%{filter_text}%"</span>.strip()
+                    base_query = <span class="code-string">"SELECT Id, content_description_, score_, source_, additional_details_ FROM educational_resources"</span>
+                    
+                    <span class="code-comment"># Create worker for background loading</span>
+                    worker = DataLoaderWorker(query=full_query, page=self.current_page, page_size=self.page_size)
+                    worker.signals.batch_ready.connect(self.on_batch_received)
+                    worker.signals.finished.connect(self.on_load_finished)
+                    worker.signals.error.connect(self.on_load_error)
+                    
+                    QThreadPool.globalInstance().start(worker)
+            </div>
+            
+            <h3>Query Construction and Filtering</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Filter Field</th>
+                            <th>Search Logic</th>
+                            <th>Database Column</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Source</td>
+                            <td>ILIKE (case-insensitive)</td>
+                            <td><code>source_</code></td>
+                        </tr>
+                        <tr>
+                            <td>Content Description</td>
+                            <td>ILIKE (case-insensitive)</td>
+                            <td><code>content_description_</code></td>
+                        </tr>
+                        <tr>
+                            <td>Additional Details</td>
+                            <td>ILIKE (case-insensitive)</td>
+                            <td><code>additional_details_</code></td>
+                        </tr>
+                        <tr>
+                            <td>Resource ID</td>
+                            <td>TEXT conversion + ILIKE</td>
+                            <td><code>Id</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="warning-box">
+                <strong>Security Warning:</strong> The <code>load_next_page()</code> method constructs SQL queries with string concatenation for the WHERE clause (<code>f"(source_ ILIKE '%{search}' OR ...)"</code>), creating potential SQL injection vulnerabilities. This should be updated to use proper parameterized queries.
+            </div>
+            
+            <h3>Pagination Implementation</h3>
+            <p>The system implements server-side pagination with configurable page size:</p>
+            <div class="code-block">
+                <span class="code-comment"># Default pagination settings:</span>
+                self.page_size = <span class="code-number">50</span>      <span class="code-comment"># Items per page</span>
+                self.current_page = <span class="code-number">0</span>     <span class="code-comment"># Current page index</span>
+                self.has_more = <span class="code-keyword">True</span>     <span class="code-comment"># More data available</span>
+                
+                <span class="code-comment"># Sorting criteria:</span>
+                order_by = <span class="code-string">"ORDER BY score_ DESC NULLS LAST, Id DESC"</span>
+            </div>
+            
+            <h3>Signal Handling for Data Loading</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Signal</th>
+                            <th>Slot Method</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>batch_ready</code></td>
+                            <td><code>on_batch_received()</code></td>
+                            <td>Process received data batch</td>
+                        </tr>
+                        <tr>
+                            <td><code>finished</code></td>
+                            <td><code>on_load_finished()</code></td>
+                            <td>Handle loading completion</td>
+                        </tr>
+                        <tr>
+                            <td><code>error</code></td>
+                            <td><code>on_load_error()</code></td>
+                            <td>Handle loading errors</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="methods">
+            <h2>⚙️ 8. Core Method Analysis</h2>
+            
+            <h3>Initialization and Setup Methods</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Purpose</th>
+                            <th>Complexity</th>
+                            <th>Key Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>__init__(parent, target_students)</code></td>
+                            <td>Constructor with target students</td>
+                            <td>O(1)</td>
+                            <td>Store target students, initialize defaults</td>
+                        </tr>
+                        <tr>
+                            <td><code>initUI()</code></td>
+                            <td>Main UI construction</td>
+                            <td>O(1)</td>
+                            <td>Create layout, header, card grid, signals</td>
+                        </tr>
+                        <tr>
+                            <td><code>create_distribution_options()</code></td>
+                            <td>Build distribution menu</td>
+                            <td>O(n) for n students</td>
+                            <td>Create QMenu with embedded widgets</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Core Functional Methods</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Primary Function</th>
+                            <th>Performance</th>
+                            <th>Dependencies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>distribute()</code></td>
+                            <td>Distribute resources to students</td>
+                            <td>O(n×m) for n items × m students</td>
+                            <td>Database, target_students, selected items</td>
+                        </tr>
+                        <tr>
+                            <td><code>get_selected_contents()</code></td>
+                            <td>Collect selected resource data</td>
+                            <td>O(n) for n cards</td>
+                            <td>CardGridView, EduItemWidget</td>
+                        </tr>
+                        <tr>
+                            <td><code>___generate_html_content__()</code></td>
+                            <td>Generate HTML from template</td>
+                            <td>O(n) for n placeholders</td>
+                            <td>Template files, app_context</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_data()</code></td>
+                            <td>Initialize data loading</td>
+                            <td>O(1)</td>
+                            <td>DataLoaderWorker, QThreadPool</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Template Management Methods</h3>
+            <div class="method-details">
+                <h4><code>template_changed()</code> - Dynamic UI Updates</h4>
+                <p>This method dynamically updates the template dialog based on selected template type:</p>
+                <ul>
+                    <li><strong>Classroom Quiz:</strong> Shows minimal fields (student name, book, date)</li>
+                    <li><strong>Formal Exam:</strong> Shows comprehensive fields (organization info, teacher, author, etc.)</li>
+                    <li><strong>Config Loading:</strong> Loads language-specific configurations from JSON</li>
+                    <li><strong>UI Adjustment:</strong> Updates widget visibility and dialog size</li>
+                </ul>
+            </div>
+            
+            <div class="method-details">
+                <h4><code>___validate_template__()</code> - Template Validation</h4>
+                <p>Validates template selection and file existence before content generation:</p>
+                <div class="code-block">
+                    <span class="code-keyword">def</span> ___validate_template__(self) -> <span class="code-keyword">bool</span>:
+                        <span class="code-keyword">if</span> self.edu_template_file == <span class="code-string">''</span>:
+                            PopupNotifier.Notify(self, <span class="code-string">'Error'</span>, <span class="code-string">'The output template has not selected.'</span>)
+                            <span class="code-keyword">return</span> <span class="code-keyword">False</span>
+                        
+                        template_file = app_context.resource_path + <span class="code-string">f'\\templates\\{self.edu_template_file}-Template.html'</span>
+                        
+                        <span class="code-keyword">if</span> <span class="code-keyword">not</span> os.path.exists(template_file):
+                            PopupNotifier.Notify(self, <span class="code-string">'Error'</span>, <span class="code-string">f'The template file not found in the specified path --> {template_file}'</span>)
+                            <span class="code-keyword">return</span> <span class="code-keyword">False</span>
+                            
+                        self.template_file = template_file
+                        <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+                </div>
+            </div>
+            
+            <h3>Event Handling Methods</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Trigger</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>on_card_selected()</code></td>
+                            <td>Card selection in grid</td>
+                            <td>Update selected card, show/hide titlebars</td>
+                        </tr>
+                        <tr>
+                            <td><code>on_card_removed()</code></td>
+                            <td>Card removal from grid</td>
+                            <td>Handle card removal (currently placeholder)</td>
+                        </tr>
+                        <tr>
+                            <td><code>on_batch_received()</code></td>
+                            <td>DataLoaderWorker batch</td>
+                            <td>Add cards to grid for received data</td>
+                        </tr>
+                        <tr>
+                            <td><code>on_load_finished()</code></td>
+                            <td>Data loading complete</td>
+                            <td>Update pagination state, show/hide indicators</td>
+                        </tr>
+                        <tr>
+                            <td><code>on_load_error()</code></td>
+                            <td>Data loading error</td>
+                            <td>Display error message in grid</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="performance">
+            <h2>⚡ 9. Performance Considerations</h2>
+            
+            <h3>Memory Usage Analysis</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h4>Card Grid Memory</h4>
+                    <p><strong>Issue:</strong> Each <code>EduItemWidget</code> contains HTML content<br>
+                    <strong>Impact:</strong> Linear memory growth with resource count<br>
+                    <strong>Solution:</strong> Pagination (50 items per page) reduces memory load</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h4>Background Loading</h4>
+                    <p><strong>Benefit:</strong> <code>DataLoaderWorker</code> prevents UI freeze<br>
+                    <strong>Impact:</strong> Minimal main thread blocking<br>
+                    <strong>Optimization:</strong> Configurable page size (default: 50)</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h4>Template Processing</h4>
+                    <p><strong>Issue:</strong> HTML template loading and processing<br>
+                    <strong>Impact:</strong> File I/O and string manipulation overhead<br>
+                    <strong>Solution:</strong> Template caching could be implemented</p>
+                </div>
+            </div>
+            
+            <h3>Time Complexity Analysis</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Method</th>
+                            <th>Complexity</th>
+                            <th>Bottleneck</th>
+                            <th>Optimization Potential</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Initial data load</td>
+                            <td><code>load_data()</code></td>
+                            <td>O(n) + background loading</td>
+                            <td>Database query, widget creation</td>
+                            <td>Medium - Virtual scrolling</td>
+                        </tr>
+                        <tr>
+                            <td>Distribution to students</td>
+                            <td><code>distribute()</code></td>
+                            <td>O(n×m)</td>
+                            <td>Database inserts for each student-item pair</td>
+                            <td>High - Batch database operations</td>
+                        </tr>
+                        <tr>
+                            <td>HTML generation</td>
+                            <td><code>___generate_html_content__()</code></td>
+                            <td>O(p) for p placeholders</td>
+                            <td>String replacement operations</td>
+                            <td>Low - Already efficient</td>
+                        </tr>
+                        <tr>
+                            <td>Template switching</td>
+                            <td><code>template_changed()</code></td>
+                            <td>O(1) + file I/O</td>
+                            <td>JSON config loading</td>
+                            <td>Medium - Config caching</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Optimization Recommendations</h3>
+            
+            <div class="method-details">
+                <h4>Immediate Improvements</h4>
+                <ol>
+                    <li><strong>Fix SQL Injection Vulnerability:</strong> Parameterize the filter query in <code>load_next_page()</code></li>
+                    <li><strong>Batch Database Operations:</strong> Use batch inserts in <code>distribute()</code> for better performance</li>
+                    <li><strong>Template Caching:</strong> Cache loaded template files and configurations</li>
+                    <li><strong>Virtual Scrolling:</strong> Implement virtual scrolling for large resource collections</li>
+                </ol>
+            </div>
+            
+            <div class="method-details">
+                <h4>Architectural Improvements</h4>
+                <ol>
+                    <li><strong>Lazy Loading:</strong> Load HTML content in cards only when visible</li>
+                    <li><strong>Connection Pooling:</strong> Optimize database connection management</li>
+                    <li><strong>Memory Management:</strong> Implement proper cleanup of unused widgets</li>
+                    <li><strong>Progressive Enhancement:</strong> Load basic card data first, enhance with details later</li>
+                </ol>
+            </div>
+            
+            <div class="warning-box">
+                <strong>Critical Security Issue:</strong> The <code>load_next_page()</code> method uses string concatenation for SQL queries with user-provided filter text, creating a severe SQL injection vulnerability. This must be fixed immediately using parameterized queries.
+            </div>
+        </section>
+
+        <section id="api">
+            <h2>📚 10. API Reference</h2>
+            
+            <h3>Public Methods Reference</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Parameters</th>
+                            <th>Return</th>
+                            <th>Description</th>
+                            <th>Thread Safety</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>__init__(parent, target_students)</code></td>
+                            <td>parent: QWidget<br>target_students: list[dict]</td>
+                            <td>None</td>
+                            <td>Constructor with optional target students</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>distribute()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Distribute selected resources to target students</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>show_template_selector_dlg()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Display template selection dialog</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>generate_edu_contents()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Generate educational content using selected template</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_data(filter)</code></td>
+                            <td>filter: str (optional)</td>
+                            <td>None</td>
+                            <td>Load educational resources with optional filter</td>
+                            <td>UI thread (spawns worker)</td>
+                        </tr>
+                        <tr>
+                            <td><code>get_selected_contents()</code></td>
+                            <td>None</td>
+                            <td>list[dict]</td>
+                            <td>Get data for selected educational resources</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>remove_card()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Remove selected card from grid</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>clear_cards()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Clear all cards from grid</td>
+                            <td>UI thread only</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Signal/Slot Connections</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Signal Source</th>
+                            <th>Signal</th>
+                            <th>Slot/Method</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Source filter input</td>
+                            <td><code>textChanged</code></td>
+                            <td><code>load_data(filter=text)</code></td>
+                            <td>Real-time filtering of resources</td>
+                        </tr>
+                        <tr>
+                            <td>CardGridView</td>
+                            <td><code>card_selected</code></td>
+                            <td><code>on_card_selected</code></td>
+                            <td>Handle card selection</td>
+                        </tr>
+                        <tr>
+                            <td>CardGridView</td>
+                            <td><code>card_removed</code></td>
+                            <td><code>on_card_removed</code></td>
+                            <td>Handle card removal</td>
+                        </tr>
+                        <tr>
+                            <td>DataLoaderWorker</td>
+                            <td><code>batch_ready</code></td>
+                            <td><code>on_batch_received</code></td>
+                            <td>Process loaded data batches</td>
+                        </tr>
+                        <tr>
+                            <td>DataLoaderWorker</td>
+                            <td><code>finished</code></td>
+                            <td><code>on_load_finished</code></td>
+                            <td>Handle loading completion</td>
+                        </tr>
+                        <tr>
+                            <td>DataLoaderWorker</td>
+                            <td><code>error</code></td>
+                            <td><code>on_load_error</code></td>
+                            <td>Handle loading errors</td>
+                        </tr>
+                        <tr>
+                            <td>Template selector combo</td>
+                            <td><code>currentIndexChanged</code></td>
+                            <td><code>template_changed</code></td>
+                            <td>Update template configuration</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Dependencies and Requirements</h3>
+            <div class="method-details">
+                <h4>Core Dependencies</h4>
+                <ul>
+                    <li><strong>PySide6:</strong> >= 6.4.0 (UI framework)</li>
+                    <li><strong>Python:</strong> >= 3.8 (datetime, typing, f-strings)</li>
+                    <li><strong>Database:</strong> PostgreSQL/MySQL with specific schema</li>
+                </ul>
+                
+                <h4>Custom Module Dependencies</h4>
+                <ul>
+                    <li><strong>PySideAbdhUI.CardGridView:</strong> Card-based grid layout component</li>
+                    <li><strong>PySideAbdhUI.Notify:</strong> <code>PopupNotifier</code> for user notifications</li>
+                    <li><strong>data.loaders.DataLoaderWorker:</strong> Background data loading</li>
+                    <li><strong>ui.widgets.widgets.EduItemWidget:</strong> Resource card widget</li>
+                    <li><strong>processing.utils.pdf.PdfGeneratorApp:</strong> PDF generation and preview</li>
+                    <li><strong>core.app_context.app_context:</strong> Application configuration and database</li>
+                </ul>
+                
+                <h4>File System Dependencies</h4>
+                <ul>
+                    <li><strong>Template Files:</strong> <code>/resources/templates/{name}-Template.html</code></li>
+                    <li><strong>Config Files:</strong> <code>/resources/templates/{name}-config.json</code></li>
+                    <li><strong>Resource Path:</strong> Configured via <code>app_context.resource_path</code></li>
+                </ul>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Module Dependency Graph</h3>
+                <p style="color: rgba(255,255,255,0.9);">[DEPENDENCY GRAPH: Visual representation showing:<br>
+                Core PySide6 → Custom UI Framework (PySideAbdhUI) → Data Loading Layer →<br>
+                Widget Components → Template Engine → PDF Generation → Database Layer<br>
+                With bidirectional relationships and data flow directions]</p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="section-separator"></div>
+            <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+                Comprehensive Technical Documentation for EduResourcesView Class<br>
+                Document Version: 1.0 | Generated: February 2026<br>
+                © 2026 Abdullah Mohammadi. All rights reserved.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Enhanced smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+     
+        // Create interactive table of contents with 3-column support
+const createEnhancedTOC = () => {
+    const tocContainer = document.querySelector('.toc ul');
+    if (!tocContainer) return;
+    
+    tocContainer.innerHTML = '';
+    const headings = document.querySelectorAll('h2, h3');
+    let currentH2 = null;
+    let h2Count = 0;
+    
+    // Count H2 headings (for balancing columns)
+    const h2Headings = Array.from(headings).filter(h => 
+        h.tagName === 'H2' && !h.textContent.includes('Table of Contents')
+    );
+    
+    headings.forEach((heading, index) => {
+        // Skip headings containing "Table of Contents"
+        if (heading.textContent.includes('Table of Contents')) {
+            return; // Skip this heading
+        }
+        
+        const id = heading.id || `section-${index}`;
+        heading.id = id;
+        
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${id}`;
+        a.textContent = heading.textContent;
+        
+        if (heading.tagName === 'H2') {
+            currentH2 = li;
+            h2Count++;
+            
+            // Add visual separation for H2 items
+            li.style.fontWeight = 'bold';
+            li.style.marginTop = h2Count > 1 ? '20px' : '0';
+            li.style.marginBottom = '8px';
+            li.style.paddingTop = h2Count > 1 ? '10px' : '0';
+            li.style.borderTop = h2Count > 1 ? '1px solid var(--border-color)' : 'none';
+            
+            // Add number prefix for H2 items
+            a.textContent = `${h2Count}. ${heading.textContent}`;
+        } else if (heading.tagName === 'H3' && currentH2) {
+            li.style.marginLeft = '15px';
+            li.style.fontSize = '0.92em';
+            li.style.marginBottom = '5px';
+            li.style.listStyleType = 'circle';
+            
+            // Add sub-numbering for H3 items
+            const parentH2Number = h2Count;
+            const h3Siblings = Array.from(heading.parentElement.querySelectorAll('h3'))
+                .filter(h => !h.textContent.includes('Table of Contents'));
+            const h3Index = h3Siblings.indexOf(heading) + 1;
+            
+            a.textContent = `${parentH2Number}.${h3Index} ${heading.textContent}`;
+        }
+        
+        li.appendChild(a);
+        tocContainer.appendChild(li);
+    });
+    
+    // Add column balancing for better visual appearance
+    setTimeout(() => {
+        const items = tocContainer.querySelectorAll('li');
+        const columnCount = window.getComputedStyle(tocContainer).columnCount || 3;
+        
+        if (items.length > 0 && columnCount > 1) {
+            // Calculate items per column for better balancing
+            const itemsPerColumn = Math.ceil(items.length / columnCount);
+            let currentColumnItems = 0;
+            
+            items.forEach((item, index) => {
+                if (index % itemsPerColumn === 0 && index > 0) {
+                    // Add a visual separator between columns (optional)
+                    const separator = document.createElement('div');
+                    separator.style.breakAfter = 'column';
+                    separator.style.height = '0';
+                    tocContainer.insertBefore(separator, item);
+                }
+            });
+        }
+    }, 100);
+};
+        
+       
+        // Add copy code functionality
+        document.querySelectorAll('.code-block').forEach(block => {
+            const copyBtn = document.createElement('button');
+            copyBtn.innerHTML = '📋';
+            copyBtn.style.position = 'absolute';
+            copyBtn.style.right = '10px';
+            copyBtn.style.top = '10px';
+            copyBtn.style.background = '#2c3e50';
+            copyBtn.style.color = 'white';
+            copyBtn.style.border = 'none';
+            copyBtn.style.borderRadius = '3px';
+            copyBtn.style.padding = '5px 10px';
+            copyBtn.style.cursor = 'pointer';
+            copyBtn.style.fontSize = '12px';
+            copyBtn.title = 'Copy code';
+            
+            copyBtn.addEventListener('click', () => {
+                const code = block.textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = '✅';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '📋';
+                    }, 2000);
+                });
+            });
+            
+            block.style.position = 'relative';
+            block.appendChild(copyBtn);
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            createEnhancedTOC();
+            
+            // Add mobile navigation
+            if (window.innerWidth <= 768) {
+                const nav = document.createElement('div');
+                nav.innerHTML = `
+                    <select style="width: 100%; padding: 12px; margin: 20px 0; font-size: 16px; 
+                    background: var(--primary-color); color: white; border: 2px solid var(--secondary-color);
+                    border-radius: 8px;">
+                        <option value="">🔍 Navigate to section...</option>
+                        ${Array.from(document.querySelectorAll('h2')).map(h2 => 
+                            `<option value="#${h2.id}">${h2.textContent}</option>`
+                        ).join('')}
+                    </select>
+                `;
+                nav.style.position = 'sticky';
+                nav.style.top = '10px';
+                nav.style.zIndex = '1000';
+                nav.style.backgroundColor = 'white';
+                nav.style.padding = '10px';
+                nav.style.borderRadius = '8px';
+                nav.style.boxShadow = '0 3px 15px rgba(0,0,0,0.2)';
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(nav, container.firstChild);
+                
+                nav.querySelector('select').addEventListener('change', function() {
+                    if (this.value) {
+                        document.querySelector(this.value).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        this.value = '';
+                    }
+                });
+            }
+        });
+        
+        // Highlight current section on scroll
+        let currentSection = '';
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('h2');
+            let newSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    newSection = section.id;
+                }
+            });
+            
+            if (newSection !== currentSection) {
+                currentSection = newSection;
+                document.querySelectorAll('.toc a').forEach(a => {
+                    a.style.fontWeight = a.getAttribute('href') === `#${currentSection}` ? 'bold' : 'normal';
+                    a.style.color = a.getAttribute('href') === `#${currentSection}` ? 
+                        'var(--accent-color)' : 'var(--secondary-color)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

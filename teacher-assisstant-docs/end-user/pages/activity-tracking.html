@@ -15,7 +15,7 @@
 <body style="padding:50px 15%;">
     <div class="container">
         <div class="header">
-            <a href="user-manual.html"><i class="fas fa-arrow-left"></i></a>
+            <a href="../user-manual.html"><i class="fas fa-arrow-left"></i></a>
             <h2>Activity Tracking</h2>
             <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
             <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
@@ -320,28 +320,7 @@
             </ul>
         </div>
     </div>
-<!--
-    <h3>HTML Content Processing</h3>
-    <p>Activity content uses HTML processing for rich display:</p>
-    <ul>
-        <li><strong>Content Extraction:</strong> Uses <code>text_processing.get_html_body_content()</code></li>
-        <li><strong>HTML Support:</strong> Rich text, images, formatting preserved</li>
-        <li><strong>Widget Integration:</strong> <code>EduItemStudentWidget</code> for consistent display</li>
-        <li><strong>Signal Handling:</strong> Data updates trigger notifications and UI refresh</li>
-    </ul>
-
-    <div class="technical-box">
-        <strong>Data Source Integration:</strong><br>
-        Activities are loaded from a JOIN between <code>quests</code> and <code>educational_resources</code> tables:<br>
-        <code>SELECT quests.id, quests.max_point_, quests.earned_point_, quests.assign_date_,<br>
-        quests.deadline_, quests.answer_, quests.reply_date_, quests.feedback_,<br>
-        educational_resources.content_description_<br>
-        FROM quests LEFT JOIN educational_resources<br>
-        ON quests.qb_id = educational_resources.id<br>
-        WHERE quests.student_id = %s<br>
-        ORDER BY quests.assign_date_ DESC;</code>
-    </div>
--->
+  
     <!-- Screenshot Placeholder: Learning Activities -->
     <div class="screenshot-placeholder">
         <img height="300" src="../images/11.png" alt="Learning Activities List">

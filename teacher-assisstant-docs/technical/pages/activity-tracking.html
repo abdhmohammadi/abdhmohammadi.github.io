@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentActivityTrackingPage - Technical Documentation</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global base styles + page CSS -->
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/theme.css">
+    <script src="../../../js/theme.js" defer></script>
+
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+            padding: 50px 10%;
+        }
+        
+        .container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .info-box {
+            background-color: #5bbeefde;
+            color: #0a4528;
+            border: 1px solid #5bbeefde;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .warning-box {
+            background-color: #ffeb3bde;
+            color: #856404;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .feature-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.2em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 50%;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.95em;
+            border-left: 4px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .code-comment {
+            color: #6a9955;
+        }
+        
+        .code-keyword {
+            color: #569cd6;
+        }
+        
+        .code-string {
+            color: #ce9178;
+        }
+        
+        .code-number {
+            color: #b5cea8;
+        }
+        
+        .method-details {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--info-color);
+        }
+        
+        .parameter-table {
+            width: 100%;
+            margin: 15px 0;
+            border-collapse: collapse;
+        }
+        
+        .parameter-table th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .parameter-table td {
+            padding: 12px;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 70px 40px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+            border: 3px dashed rgba(255,255,255,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screenshot-placeholder:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+        }
+        
+        .architecture-diagram {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .flow-chart {
+            background: var(--card-bg);
+            border: 2px dashed #90a4ae;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            font-style: italic;
+            color: #546e7a;
+        }
+        
+        
+        
+.toc {
+    background: var(--bg-primary);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+    border-left: 5px solid var(--secondary-color);
+}
+
+.toc ul {
+    columns: 3;  /* Changed from 2 to 3 columns */
+    column-gap: 30px;
+    column-rule: 1px solid var(--border-color);
+}
+
+.toc li {
+    margin-bottom: 10px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.toc a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+    padding: 3px 0;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+        
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .toc ul {
+        columns: 2;
+        column-gap: 25px;
+    }
+}
+
+@media (max-width: 900px) {
+    .toc ul {
+        columns: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .toc {
+        padding: 15px;
+    }
+    
+    .toc ul {
+        columns: 1;
+    }
+
+           
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+        
+        .section-separator {
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="../technical-docs.html"><i class="fas fa-arrow-left"></i></a>
+            <div>
+                <h1>StudentActivityTrackingPage Class</h1>
+                <p>Technical Documentation - Student Progress Monitoring</p>
+            </div>
+            <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+            <a href="../../../index.html"><i class="fas fa-home"></i></a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+
+        <p style="text-align: justify;">
+            The StudentActivityTrackingPage class provides a comprehensive dashboard for monitoring individual student progress, combining behavioral observations with academic performance tracking. It serves as a detailed profile view for educators to track learning activities, behavioral patterns, and academic achievements in a unified interface. The page integrates multiple data visualization components including line charts, donut charts, and pie charts to provide actionable insights into student development.
+            <br><br>
+            This specialized widget implements a dual-view architecture with a stacked widget system that toggles between behavioral observations and educational activities. It features real-time data processing, interactive charts, and inline editing capabilities for both behavioral notes and academic assignments, creating a complete student progress monitoring solution.
+        </p>
+
+        <section id="toc">
+            <div class="toc">
+                <h2>📑 Table of Contents</h2>
+                <ul>
+                    <li><a href="#overview">1. Overview and Architecture</a></li>
+                    <li><a href="#ui-layout">2. UI Layout Structure</a></li>
+                    <li><a href="#data-visualization">3. Data Visualization Components</a></li>
+                    <li><a href="#behavior-tracking">4. Behavioral Observation System</a></li>
+                    <li><a href="#activity-tracking">5. Educational Activity Tracking</a></li>
+                    <li><a href="#methods">6. Core Method Analysis</a></li>
+                    <li><a href="#database">7. Database Integration</a></li>
+                    <li><a href="#performance">8. Performance Considerations</a></li>
+                    <li><a href="#api">9. API Reference</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="overview">
+            <h2>🔍 1. Overview and Architecture</h2>
+            <p>The <strong>StudentActivityTrackingPage</strong> is a PySide6 widget designed for comprehensive student progress monitoring. It combines student information display, behavioral observation tracking, and educational activity management in a single interface with advanced data visualization.</p>
+            
+            <div class="info-box">
+                <strong>Architectural Pattern:</strong> Composite widget with GridLayout header and StackedWidget body. Uses QListWidget for scrollable content areas and custom widgets for data display. Follows Model-View pattern with database-backed data models.
+            </div>
+            
+            <h3>Core Architectural Components</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4>Header Section</h4>
+                    <p><strong>QGridLayout (5x6)</strong> containing student information, photo, and three chart visualizations. Shows cumulative score, average score, and activity status distribution.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h4>Body Section</h4>
+                    <p><strong>StackedWidget</strong> with two pages: behavioral observations list and educational activities list. Uses navigation buttons to toggle between views.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h4>Chart Engine</h4>
+                    <p>Integrates with <code>analysis</code> module to generate line charts, donut charts, and pie charts from student performance data using Matplotlib/Plotly.</p>
+                </div>
+            </div>
+            
+            <h3>Class Inheritance and Dependencies</h3>
+            <div class="code-block">
+                <span class="code-keyword">class</span> <span class="code-string">StudentActivityTrackingPage</span>(<span class="code-string">QWidget</span>):
+                <span class="code-comment"># Primary dependencies:</span>
+                <span class="code-comment"># - PySide6.QtWidgets (UI components)</span>
+                <span class="code-comment"># - PySide6.QtGui (Icons, images)</span>
+                <span class="code-comment"># - analysis (Chart generation utilities)</span>
+                <span class="code-comment"># - processing.Imaging.Tools (Image conversion)</span>
+                <span class="code-comment"># - processing.text.text_processing (HTML/text processing)</span>
+                <span class="code-comment"># - app_context (Database access)</span>
+            </div>
+            
+            <div class="architecture-diagram">
+                <h3>System Architecture Diagram</h3>
+                <div class="flow-chart">
+                    [ARCHITECTURE DIAGRAM: Three-layer system showing:<br>
+                    1. Presentation Layer (Charts, Lists, Forms)<br>
+                    2. Business Logic Layer (Data processing, Status calculation)<br>
+                    3. Data Layer (Database queries, Image generation)<br>
+                    4. Navigation Layer (StackedWidget with dual views)]
+                </div>
+            </div>
+        </section>
+
+        <section id="ui-layout">
+            <h2>🎨 2. UI Layout Structure</h2>
+            
+            <h3>Grid Layout Organization (5x6 Grid)</h3>
+            <div class="code-block">
+                <span class="code-comment"># Header Grid Layout Structure:</span>
+                <span class="code-comment"># Row 0-3: Student photo (spans 4 rows, column 0)</span>
+                <span class="code-comment"># Row 4: Student ID (column 0)</span>
+                <span class="code-comment"># Column 1: Student info (name, phone, parent details)</span>
+                <span class="code-comment"># Column 2: Line chart (score progress over time)</span>
+                <span class="code-comment"># Column 3: Donut chart (cumulative score)</span>
+                <span class="code-comment"># Column 4: Donut chart (average score)</span>
+                <span class="code-comment"># Column 5: Pie chart (activity status distribution)</span>
+                <span class="code-comment"># Row 5: Navigation controls and action buttons</span>
+            </div>
+            
+            <h3>Stacked Widget Navigation System</h3>
+            <p>The page uses a dual-view system with smooth transitions:</p>
+            <div class="code-block">
+                <span class="code-comment"># StackedWidget setup with two pages:</span>
+                stacked_widget = StackedWidget()
+                stacked_widget.add_page(self.behav_list)      <span class="code-comment"># Page 1: Behavioral observations</span>
+                stacked_widget.add_page(self.quests_list)     <span class="code-comment"># Page 2: Educational activities</span>
+                
+                <span class="code-comment"># Navigation buttons:</span>
+                btn_left.clicked.connect(stacked_widget.go_back)   <span class="code-comment"># ← Button</span>
+                btn_right.clicked.connect(stacked_widget.go_next)  <span class="code-comment"># → Button</span>
+            </div>
+            
+            <h3>Action Toolbar Configuration</h3>
+            <p>Right-aligned action buttons provide quick access to key functions:</p>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Button</th>
+                            <th>Icon</th>
+                            <th>Tooltip</th>
+                            <th>Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Export Menu</td>
+                            <td>📋</td>
+                            <td>Export data</td>
+                            <td>Dropdown with export options (currently disabled)</td>
+                        </tr>
+                        <tr>
+                            <td>Add Note</td>
+                            <td>✏️</td>
+                            <td>Add new behaviour note</td>
+                            <td>Opens dialog to add behavioral observation</td>
+                        </tr>
+                        <tr>
+                            <td>New Edu-Item</td>
+                            <td>📐</td>
+                            <td>New Edu-Item</td>
+                            <td>Opens educational resources view for assignment</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="data-visualization">
+            <h2>📊 3. Data Visualization Components</h2>
+            
+            <h3>Three-Chart Dashboard System</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h4>Line Chart - Score Progression</h4>
+                    <p><strong>Purpose:</strong> Track score changes over time<br>
+                    <strong>Data:</strong> Reversed score progression list<br>
+                    <strong>Size:</strong> 283x170 pixels<br>
+                    <strong>Tooltip:</strong> "Changes in scores obtained so far."</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🍩</div>
+                    <h4>Donut Chart - Cumulative Score</h4>
+                    <p><strong>Purpose:</strong> Show overall performance (20-point scale)<br>
+                    <strong>Calculation:</strong> earned_score/total_score × 20<br>
+                    <strong>Size:</strong> 140x140 pixels<br>
+                    <strong>Tooltip:</strong> "Cumulative score: The sum of all scores..."</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4>Pie Chart - Activity Status</h4>
+                    <p><strong>Purpose:</strong> Visualize activity completion status<br>
+                    <strong>Categories:</strong> Replied, Waiting, Delayed, Lost<br>
+                    <strong>Size:</strong> 145x140 pixels<br>
+                    <strong>Tooltip:</strong> From app_context.ToolTips['Activity status']</p>
+                </div>
+            </div>
+            
+            <h3>Chart Generation Implementation</h3>
+            <div class="code-block">
+                <span class="code-comment"># Line chart for score progression</span>
+                scores.reverse()  <span class="code-comment"># Reverse for chronological order</span>
+                x_values = list(range(1, 1 + len(scores)))
+                bytes_ = analysis.create_line_chart_image(x_values, scores)
+                image = QImage.fromData(bytes_)
+                
+                <span class="code-comment"># Donut chart for cumulative score</span>
+                scaled_score = round(scaled_score, 2)
+                bytes_ = analysis.create_donut_image(scaled_score, 20)
+                
+                <span class="code-comment"># Pie chart for activity status</span>
+                bytes_ = analysis.create_pie_chart(
+                    values=items_status,
+                    labels=[f'Replied({items_status[0]})', f'Waiting({items_status[1]})',
+                            f'Delayed({items_status[2]})', f'Lost({items_status[3]})'],
+                    ncol=2
+                )
+            </div>
+            
+            <div class="info-box">
+                <strong>Data Processing Note:</strong> Scores are reversed before chart generation because database queries return records in DESC order (newest first). For time-series visualization, chronological order (oldest to newest) is required.
+            </div>
+            
+            <h3>Activity Status Classification</h3>
+            <p>The system classifies educational activities into four status categories:</p>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Condition</th>
+                            <th>Score Impact</th>
+                            <th>Color Coding</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Replied</td>
+                            <td>Answer submitted before deadline</td>
+                            <td>Full/partial score counted</td>
+                            <td>Green (success)</td>
+                        </tr>
+                        <tr>
+                            <td>Waiting</td>
+                            <td>Not replied, deadline not passed</td>
+                            <td>Not yet evaluated</td>
+                            <td>Blue (pending)</td>
+                        </tr>
+                        <tr>
+                            <td>Delayed</td>
+                            <td>Answer submitted after deadline</td>
+                            <td>Score counted (may be penalized)</td>
+                            <td>Orange (warning)</td>
+                        </tr>
+                        <tr>
+                            <td>Lost</td>
+                            <td>Not replied, deadline passed</td>
+                            <td>Zero score assigned</td>
+                            <td>Red (failure)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="behavior-tracking">
+            <h2>📝 4. Behavioral Observation System</h2>
+            
+            <h3>Observation Data Model</h3>
+            <p>Behavioral observations are stored with the following structure:</p>
+            <div class="code-block">
+                <span class="code-comment"># Database schema for observed_behaviours:</span>
+                <span class="code-comment"># Id: Primary key</span>
+                <span class="code-comment"># date_time_: Observation timestamp</span>
+                <span class="code-comment"># student_id: Foreign key to personal_info</span>
+                <span class="code-comment"># observed_behaviour_: Teacher's observation notes</span>
+                <span class="code-comment"># analysis_: Teacher's professional analysis</span>
+                
+                cmd = <span class="code-string">"SELECT Id, date_time_, observed_behaviour_, analysis_ "</span>
+                cmd += <span class="code-string">"FROM observed_behaviours WHERE student_id ='"</span> + self.student[0] + <span class="code-string">"' "</span>
+                cmd += <span class="code-string">"ORDER BY date_time_ DESC;"</span>
+            </div>
+            
+            <h3>Observation Widget Structure</h3>
+            <p>Each observation is displayed in a custom widget with editing capabilities:</p>
+            <div class="code-block">
+                <span class="code-comment"># ___create_observed_note_widget() creates:</span>
+                <span class="code-comment"># 1. Header label with ID, date, and menu button</span>
+                <span class="code-comment"># 2. QPlainTextEdit for observed behavior (read-only display)</span>
+                <span class="code-comment"># 3. QPlainTextEdit for teacher analysis (read-only display)</span>
+                <span class="code-comment"># 4. Context menu with Update and Remove actions</span>
+                
+                widget = QWidget()
+                layout = QGridLayout(widget)
+                <span class="code-comment"># Fixed heights: 100px for each text area</span>
+                <span class="code-comment"># Word wrap enabled for readability</span>
+            </div>
+            
+            <h3>CRUD Operations for Observations</h3>
+            <div class="method-details">
+                <h4>Create - <code>add_behaviour_note()</code></h4>
+                <p>Opens a dialog for adding new observations with separate fields for behavior description and teacher analysis.</p>
+                <div class="code-block">
+                    query = <span class="code-string">'INSERT INTO observed_behaviours(date_time_, student_id, observed_behaviour_, analysis_)'</span>
+                    query += <span class="code-string">'VALUES (%s, %s, %s,%s) RETURNING Id;'</span>
+                    now = datetime.now()
+                    id = app_context.database.fetchone(query, (now, self.student[0], behaviuor, analysis))
+                </div>
+            </div>
+            
+            <div class="method-details">
+                <h4>Update - <code>edit_behaviour_note()</code></h4>
+                <p>Allows inline editing of existing observations through context menu action.</p>
+                <div class="code-block">
+                    query = <span class="code-string">'UPDATE observed_behaviours SET observed_behaviour_=%s, analysis_=%s WHERE Id=%s;'</span>
+                    app_context.database.execute(query, (new_behaviour, new_analysis, record_id))
+                </div>
+            </div>
+            
+            <div class="method-details">
+                <h4>Delete - <code>delete_behaviour_note()</code></h4>
+                <p>Includes confirmation dialog before removal to prevent accidental deletion.</p>
+                <div class="code-block">
+                    button = QMessageBox.warning(self, <span class="code-string">'DELETE RECORD'</span>, <span class="code-string">'ARE YOU SURE TO DELETE THE RECORD ?'</span>,
+                                           QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Cancel)
+                    <span class="code-keyword">if</span> <span class="code-keyword">not</span> button == QMessageBox.StandardButton.Ok: <span class="code-keyword">return</span>
+                    
+                    query = <span class="code-string">'DELETE FROM observed_behaviours WHERE student_Id=%s AND Id =%s;'</span>
+                    app_context.database.execute(query, (self.student[0], record_Id))
+                </div>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Behavioral Observation Workflow</h3>
+                <p style="color: rgba(255,255,255,0.9);">[WORKFLOW DIAGRAM: Showing observation lifecycle:<br>
+                1. Teacher observes behavior → 2. Opens add dialog → 3. Enters observation + analysis<br>
+                4. Saves to database → 5. Appears in list → 6. Can edit/update later → 7. Optional deletion<br>
+                With real-time updates and user notifications at each step]</p>
+            </div>
+        </section>
+
+        <section id="activity-tracking">
+            <h2>📚 5. Educational Activity Tracking</h2>
+            
+            <h3>Activity Data Model and Relationships</h3>
+            <p>Educational activities (quests) are linked to educational resources:</p>
+            <div class="code-block">
+                <span class="code-comment"># Complex JOIN query for activity data:</span>
+                cmd = <span class="code-string">'SELECT quests.id, quests.max_point_, quests.earned_point_, quests.assign_date_, '</span>
+                cmd += <span class="code-string">'quests.deadline_, quests.answer_, quests.reply_date_, quests.feedback_ , '</span>
+                cmd += <span class="code-string">'educational_resources.content_description_ '</span>
+                cmd += <span class="code-string">'FROM quests LEFT JOIN educational_resources '</span>
+                cmd += <span class="code-string">'ON quests.qb_id = educational_resources.id WHERE quests.student_id = %s '</span>
+                cmd += <span class="code-string">'ORDER BY quests.assign_date_ DESC;'</span>
+                
+                <span class="code-comment"># Record structure (9 fields):</span>
+                <span class="code-comment"># [0] quests.id, [1] max_point_, [2] earned_point_, [3] assign_date_</span>
+                <span class="code-comment"># [4] deadline_, [5] answer_, [6] reply_date_, [7] feedback_</span>
+                <span class="code-comment"># [8] content_description_ (from educational_resources)</span>
+            </div>
+            
+            <h3>EduItemStudentWidget Integration</h3>
+            <p>Each activity is displayed using a specialized widget with rich functionality:</p>
+            <div class="code-block">
+                <span class="code-comment"># Widget creation with comprehensive data:</span>
+                item = EduItemStudentWidget(record[0], record[8], answer, feedback, record[1],
+                                            record[2], record[3], record[4], record[6], status)
+                
+                <span class="code-comment"># Signal connections for interactivity:</span>
+                item.data_updated.connect(<span class="code-keyword">lambda</span> _, message: PopupNotifier.Notify(self, <span class="code-string">''</span>, message))
+                item.delete_executed.connect(<span class="code-keyword">lambda</span> _, message: (
+                    self.quests_list.takeItem(row),
+                    PopupNotifier.Notify(self, <span class="code-string">''</span>, message)
+                ))
+            </div>
+            
+            <h3>Status Calculation Algorithm</h3>
+            <p>The system implements sophisticated status determination logic:</p>
+            <div class="code-block">
+                <span class="code-keyword">if</span> record[6] == <span class="code-keyword">None</span>:  <span class="code-comment"># No reply yet</span>
+                    <span class="code-keyword">if</span> today <= deadline:  <span class="code-comment"># Still within deadline</span>
+                        has_time += 1
+                        status = <span class="code-string">'Waiting'</span>
+                    <span class="code-keyword">else</span>:  <span class="code-comment"># Deadline passed without reply</span>
+                        lost += 1
+                        status = <span class="code-string">'Lost'</span>
+                        score_progress.append(record[2]/record[1])  <span class="code-comment"># Zero score included</span>
+                <span class="code-keyword">else</span>:  <span class="code-comment"># Reply exists</span>
+                    <span class="code-keyword">if</span> reply <= deadline:  <span class="code-comment"># On time</span>
+                        replied += 1
+                        status = <span class="code-string">'Replied'</span>
+                    <span class="code-keyword">else</span>:  <span class="code-comment"># Delayed submission</span>
+                        delayed += 1
+                        status = <span class="code-string">'Delayed'</span>
+                    score_progress.append(record[2]/record[1])  <span class="code-comment"># Actual score ratio</span>
+            </div>
+            
+            <div class="warning-box">
+                <strong>Score Calculation Note:</strong> "Lost" activities (deadline passed without reply) contribute zero scores to the progress calculation, affecting both cumulative and average score metrics. This ensures late or missing submissions properly impact performance metrics.
+            </div>
+            
+            <h3>HTML Content Processing</h3>
+            <p>The system extracts HTML body content for display in widgets:</p>
+            <div class="code-block">
+                answer = text_processing.get_html_body_content(record[5])    <span class="code-comment"># Student's answer</span>
+                feedback = text_processing.get_html_body_content(record[7])  <span class="code-comment"># Teacher's feedback</span>
+                
+                <span class="code-comment"># Uses text_processing module to safely extract</span>
+                <span class="code-comment"># HTML body content while stripping potentially</span>
+                <span class="code-comment"># unsafe tags and preserving formatting</span>
+            </div>
+        </section>
+
+        <section id="methods">
+            <h2>⚙️ 6. Core Method Analysis</h2>
+            
+            <h3>Initialization and Setup Methods</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Purpose</th>
+                            <th>Complexity</th>
+                            <th>Key Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>__init__(student)</code></td>
+                            <td>Constructor, stores student data</td>
+                            <td>O(1)</td>
+                            <td>Student data assignment, UI initialization</td>
+                        </tr>
+                        <tr>
+                            <td><code>initUI()</code></td>
+                            <td>Main UI construction</td>
+                            <td>O(1)</td>
+                            <td>Layout creation, widget assembly, signal connections</td>
+                        </tr>
+                        <tr>
+                            <td><code>init_StudentInfoUI()</code></td>
+                            <td>Student header creation</td>
+                            <td>O(1)</td>
+                            <td>Grid layout, photo display, info labels</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Data Loading Methods</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Data Source</th>
+                            <th>Performance</th>
+                            <th>Output</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>load_behav_data()</code></td>
+                            <td>observed_behaviours table</td>
+                            <td>O(n) + widget creation</td>
+                            <td>Populated QListWidget with observation widgets</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_quests_data()</code></td>
+                            <td>quests + educational_resources JOIN</td>
+                            <td>O(n) + complex calculations</td>
+                            <td>Populated QListWidget, returns scores and status counts</td>
+                        </tr>
+                        <tr>
+                            <td><code>___create_observed_note_widget()</code></td>
+                            <td>Individual observation record</td>
+                            <td>O(1) per widget</td>
+                            <td>Custom widget for display and editing</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Interactive Methods</h3>
+            <div class="method-details">
+                <h4><code>create_charts()</code> - Visualization Assembly</h4>
+                <p>Integrates multiple chart types into the header layout:</p>
+                <ul>
+                    <li><strong>Line Chart:</strong> Position (0,2), spans 5 rows, shows score progression</li>
+                    <li><strong>Cumulative Donut:</strong> Position (0,3), spans 4 rows, shows overall performance</li>
+                    <li><strong>Average Donut:</strong> Position (0,4), spans 4 rows, shows mean performance</li>
+                    <li><strong>Status Pie:</strong> Position (0,5), spans 5 rows, shows activity distribution</li>
+                </ul>
+                <div class="code-block">
+                    <span class="code-comment"># Column stretching for responsive layout:</span>
+                    header_layout.setColumnStretch(2, 1)
+                    header_layout.setColumnStretch(3, 1)
+                    header_layout.setColumnStretch(4, 1)
+                    header_layout.setColumnStretch(5, 1)
+                </div>
+            </div>
+            
+            <div class="method-details">
+                <h4><code>assign_edu_to_student()</code> - Navigation Integration</h4>
+                <p>Connects to the main application window to open educational resource assignment:</p>
+                <div class="code-block">
+                    window = QApplication.activeWindow()
+                    window.add_page(EduResourcesView(window, [stu]))
+                    
+                    <span class="code-comment"># Creates a student dictionary with required format:</span>
+                    stu = {<span class="code-string">'Id'</span>: self.student[0], <span class="code-string">'Name'</span>: <span class="code-string">f'{self.student[1]}  {self.student[2]}'</span>}
+                </div>
+            </div>
+        </section>
+
+        <section id="database">
+            <h2>💾 7. Database Integration</h2>
+            
+            <h3>Table Relationships and Joins</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Primary Key</th>
+                            <th>Fields Used</th>
+                            <th>Relationship Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>observed_behaviours</code></td>
+                            <td>Id</td>
+                            <td>4 fields (Id, date_time_, observed_behaviour_, analysis_)</td>
+                            <td>One-to-many with personal_info</td>
+                        </tr>
+                        <tr>
+                            <td><code>quests</code></td>
+                            <td>id</td>
+                            <td>9 fields including scores, dates, and content</td>
+                            <td>Many-to-one with educational_resources</td>
+                        </tr>
+                        <tr>
+                            <td><code>educational_resources</code></td>
+                            <td>id</td>
+                            <td>content_description_ (via JOIN)</td>
+                            <td>Parent of quests (qb_id foreign key)</td>
+                        </tr>
+                        <tr>
+                            <td><code>personal_info</code></td>
+                            <td>Id</td>
+                            <td>Student[0-12] tuple fields</td>
+                            <td>Parent of observed_behaviours and quests</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Query Patterns and Optimization</h3>
+            
+            <div class="method-details">
+                <h4>Behavioral Observations Query</h4>
+                <p>Simple SELECT with filtering and ordering:</p>
+                <div class="code-block">
+                    cmd = <span class="code-string">"SELECT Id, date_time_, observed_behaviour_, analysis_ "</span>
+                    cmd += <span class="code-string">"FROM observed_behaviours WHERE student_id ='"</span> + self.student[0] + <span class="code-string">"' "</span>
+                    cmd += <span class="code-string">"ORDER BY date_time_ DESC;"</span>
+                    
+                    <span class="code-comment"># Security Note: Uses string concatenation for student_id</span>
+                    <span class="code-comment"># Should be parameterized: WHERE student_id = %s</span>
+                    <span class="code-comment"># Potential SQL injection vulnerability</span>
+                </div>
+                <div class="warning-box">
+                    <strong>Security Warning:</strong> The behavioral observations query uses string concatenation instead of parameterized queries, creating a potential SQL injection vulnerability. Should be updated to use parameterized queries like the quests query.
+                </div>
+            </div>
+            
+            <div class="method-details">
+                <h4>Educational Activities Query</h4>
+                <p>Complex LEFT JOIN with proper parameterization:</p>
+                <div class="code-block">
+                    cmd = <span class="code-string">'SELECT quests.id, quests.max_point_, quests.earned_point_, quests.assign_date_, '</span>
+                    cmd += <span class="code-string">'quests.deadline_, quests.answer_, quests.reply_date_, quests.feedback_ , '</span>
+                    cmd += <span class="code-string">'educational_resources.content_description_ '</span>
+                    cmd += <span class="code-string">'FROM quests LEFT JOIN educational_resources '</span>
+                    cmd += <span class="code-string">'ON quests.qb_id = educational_resources.id WHERE quests.student_id = %s '</span>
+                    cmd += <span class="code-string">'ORDER BY quests.assign_date_ DESC;'</span>
+                    
+                    records = app_context.database.fetchall(cmd, (self.student[0],))  <span class="code-comment"># Parameterized</span>
+                </div>
+                <div class="info-box">
+                    <strong>Query Optimization:</strong> Uses LEFT JOIN to ensure quests without linked educational resources still appear in results. ORDER BY assign_date_ DESC shows most recent activities first.
+                </div>
+            </div>
+            
+            <h3>Transaction Management</h3>
+            <p>The class implements proper error handling for database operations:</p>
+            <div class="code-block">
+                <span class="code-keyword">try</span>:
+                    <span class="code-comment"># Attempt database operation</span>
+                    app_context.database.execute(query, (self.student[0], record_Id))
+                    msg = <span class="code-string">'The note with Id '</span> + str(record_Id) + <span class="code-string">' removed from database.'</span>
+                <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+                    msg = <span class="code-string">f'Database Error: {e}'</span>
+                
+                <span class="code-comment"># User feedback via notification system</span>
+                PopupNotifier.Notify(self, <span class="code-string">"Message"</span>, msg, <span class="code-string">'bottom-right'</span>, delay=3000)
+            </div>
+        </section>
+
+        <section id="performance">
+            <h2>⚡ 8. Performance Considerations</h2>
+            
+            <h3>Memory Usage Analysis</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h4>Observation Widgets</h4>
+                    <p><strong>Issue:</strong> Each observation creates 5+ widgets (QLabels, QPlainTextEdit, QPushButton)<br>
+                    <strong>Impact:</strong> Linear memory growth with observation count<br>
+                    <strong>Solution:</strong> Implement pagination or virtual scrolling</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h4>Activity Widgets</h4>
+                    <p><strong>Issue:</strong> EduItemStudentWidget is complex with HTML content<br>
+                    <strong>Impact:</strong> High per-item memory consumption<br>
+                    <strong>Solution:</strong> Lazy loading of HTML content</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h4>Chart Images</h4>
+                    <p><strong>Issue:</strong> Three chart images stored as QPixmap in memory<br>
+                    <strong>Impact:</strong> Fixed ~500KB memory usage<br>
+                    <strong>Solution:</strong> Already optimized with fixed sizes</p>
+                </div>
+            </div>
+            
+            <h3>Time Complexity Analysis</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Method</th>
+                            <th>Complexity</th>
+                            <th>Bottleneck</th>
+                            <th>Optimization Potential</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Initial data load</td>
+                            <td><code>load_quests_data()</code></td>
+                            <td>O(n) + O(n × w)</td>
+                            <td>Widget creation for each activity</td>
+                            <td>High - Virtual scrolling</td>
+                        </tr>
+                        <tr>
+                            <td>Status calculation</td>
+                            <td>Loop in <code>load_quests_data()</code></td>
+                            <td>O(n)</td>
+                            <td>Date comparisons and conditionals</td>
+                            <td>Low - Already efficient</td>
+                        </tr>
+                        <tr>
+                            <td>Chart generation</td>
+                            <td><code>create_charts()</code></td>
+                            <td>O(1) + image processing</td>
+                            <td>External chart library overhead</td>
+                            <td>Medium - Cache charts</td>
+                        </tr>
+                        <tr>
+                            <td>Observation loading</td>
+                            <td><code>load_behav_data()</code></td>
+                            <td>O(n) + O(n × w)</td>
+                            <td>Widget creation per observation</td>
+                            <td>High - Deferred rendering</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Optimization Recommendations</h3>
+            
+            <div class="method-details">
+                <h4>Immediate Improvements</h4>
+                <ol>
+                    <li><strong>Fix SQL Injection Vulnerability:</strong> Parameterize the behavioral observations query</li>
+                    <li><strong>Implement Pagination:</strong> Load observations and activities in batches of 20-50</li>
+                    <li><strong>Add Loading Indicators:</strong> Show progress during data loading operations</li>
+                    <li><strong>Cache Chart Images:</strong> Store generated charts to avoid regeneration on every view</li>
+                </ol>
+            </div>
+            
+            <div class="method-details">
+                <h4>Architectural Improvements</h4>
+                <ol>
+                    <li><strong>Virtual Scrolling:</strong> Replace QListWidget with QListView + custom delegate</li>
+                    <li><strong>Background Loading:</strong> Load data in separate thread to prevent UI freezing</li>
+                    <li><strong>Database Indexing:</strong> Ensure proper indexes on student_id, date_time_ columns</li>
+                    <li><strong>Lazy HTML Parsing:</strong> Parse HTML content only when widget becomes visible</li>
+                </ol>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Performance Profiling Results</h3>
+                <p style="color: rgba(255,255,255,0.9);">[PERFORMANCE CHART: Showing execution time vs data volume for:<br>
+                • Initial Page Load • Chart Generation • Observation Loading • Activity Loading<br>
+                Highlighting memory usage patterns and CPU utilization peaks]</p>
+            </div>
+        </section>
+
+        <section id="api">
+            <h2>📚 9. API Reference</h2>
+            
+            <h3>Public Methods Reference</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Parameters</th>
+                            <th>Return</th>
+                            <th>Description</th>
+                            <th>Thread Safety</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>__init__(student)</code></td>
+                            <td>student: tuple</td>
+                            <td>None</td>
+                            <td>Constructor with student data</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>add_behaviour_note(data)</code></td>
+                            <td>data: tuple or None</td>
+                            <td>None</td>
+                            <td>Opens dialog to add behavioral observation</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>edit_behaviour_note()</code></td>
+                            <td>record_id, behaviour_widget, analysis_widget</td>
+                            <td>None</td>
+                            <td>Updates existing observation</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>delete_behaviour_note()</code></td>
+                            <td>record_Id, record_index</td>
+                            <td>None</td>
+                            <td>Deletes observation after confirmation</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>assign_edu_to_student(stu)</code></td>
+                            <td>stu: dict</td>
+                            <td>None</td>
+                            <td>Navigates to educational resource assignment</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_behav_data()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Loads behavioral observations from database</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_quests_data()</code></td>
+                            <td>None</td>
+                            <td>tuple: (scaled_score, scores, items_status)</td>
+                            <td>Loads educational activities and calculates metrics</td>
+                            <td>UI thread only</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Signal/Slot Connections</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Signal Source</th>
+                            <th>Signal</th>
+                            <th>Slot/Method</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Left navigation button</td>
+                            <td>clicked</td>
+                            <td>stacked_widget.go_back</td>
+                            <td>Shows behavioral observations page</td>
+                        </tr>
+                        <tr>
+                            <td>Right navigation button</td>
+                            <td>clicked</td>
+                            <td>stacked_widget.go_next</td>
+                            <td>Shows educational activities page</td>
+                        </tr>
+                        <tr>
+                            <td>Add note button</td>
+                            <td>clicked</td>
+                            <td>add_behaviour_note</td>
+                            <td>Opens behavior note dialog</td>
+                        </tr>
+                        <tr>
+                            <td>New Edu-Item button</td>
+                            <td>clicked</td>
+                            <td>assign_edu_to_student</td>
+                            <td>Opens educational resources view</td>
+                        </tr>
+                        <tr>
+                            <td>EduItemStudentWidget</td>
+                            <td>data_updated</td>
+                            <td>PopupNotifier.Notify</td>
+                            <td>Shows update notifications</td>
+                        </tr>
+                        <tr>
+                            <td>EduItemStudentWidget</td>
+                            <td>delete_executed</td>
+                            <td>Item removal + notification</td>
+                            <td>Handles activity deletion</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Dependencies and Requirements</h3>
+            <div class="method-details">
+                <h4>Core Dependencies</h4>
+                <ul>
+                    <li><strong>PySide6:</strong> >= 6.4.0</li>
+                    <li><strong>Python:</strong> >= 3.8 (datetime, typing support)</li>
+                    <li><strong>analysis module:</strong> Custom chart generation utilities</li>
+                </ul>
+                
+                <h4>Custom Module Dependencies</h4>
+                <ul>
+                    <li><strong>app_context:</strong> Database access and application settings</li>
+                    <li><strong>PopupNotifier:</strong> User notification system</li>
+                    <li><strong>processing.Imaging.Tools:</strong> <code>bytea_to_pixmap()</code> for photo conversion</li>
+                    <li><strong>processing.text.text_processing:</strong> HTML parsing and text utilities</li>
+                    <li><strong>processing.text:</strong> <code>local_culture_digits()</code> for number formatting</li>
+                    <li><strong>ui.widgets.widgets:</strong> EduItemStudentWidget, ObservedBehaviourWidget</li>
+                    <li><strong>ui.pages.edu_resource_view:</strong> EduResourcesView for assignment</li>
+                    <li><strong>PySideAbdhUI.Widgets:</strong> StackedWidget, Separator (custom UI components)</li>
+                    <li><strong>PySideAbdhUI.Notify:</strong> PopupNotifier for user feedback</li>
+                </ul>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Module Dependency Graph</h3>
+                <p style="color: rgba(255,255,255,0.9);">[DEPENDENCY GRAPH: Visual representation showing:<br>
+                Core Qt Dependencies → Custom UI Framework → Data Processing Modules →<br>
+                Database Layer → Visualization Engine → External Widget Libraries<br>
+                With arrows indicating import relationships and usage frequency]</p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="section-separator"></div>
+            <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+                Comprehensive Technical Documentation for StudentActivityTrackingPage Class<br>
+                Document Version: 1.0 | Generated: February 2026<br>
+                © 2026 Abdullah Mohammadi. All rights reserved.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Enhanced smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Create interactive table of contents with 3-column support
+const createEnhancedTOC = () => {
+    const tocContainer = document.querySelector('.toc ul');
+    if (!tocContainer) return;
+    
+    tocContainer.innerHTML = '';
+    const headings = document.querySelectorAll('h2, h3');
+    let currentH2 = null;
+    let h2Count = 0;
+    
+    // Count H2 headings (for balancing columns)
+    const h2Headings = Array.from(headings).filter(h => 
+        h.tagName === 'H2' && !h.textContent.includes('Table of Contents')
+    );
+    
+    headings.forEach((heading, index) => {
+        // Skip headings containing "Table of Contents"
+        if (heading.textContent.includes('Table of Contents')) {
+            return; // Skip this heading
+        }
+        
+        const id = heading.id || `section-${index}`;
+        heading.id = id;
+        
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${id}`;
+        a.textContent = heading.textContent;
+        
+        if (heading.tagName === 'H2') {
+            currentH2 = li;
+            h2Count++;
+            
+            // Add visual separation for H2 items
+            li.style.fontWeight = 'bold';
+            li.style.marginTop = h2Count > 1 ? '20px' : '0';
+            li.style.marginBottom = '8px';
+            li.style.paddingTop = h2Count > 1 ? '10px' : '0';
+            li.style.borderTop = h2Count > 1 ? '1px solid var(--border-color)' : 'none';
+            
+            // Add number prefix for H2 items
+            a.textContent = `${h2Count}. ${heading.textContent}`;
+        } else if (heading.tagName === 'H3' && currentH2) {
+            li.style.marginLeft = '15px';
+            li.style.fontSize = '0.92em';
+            li.style.marginBottom = '5px';
+            li.style.listStyleType = 'circle';
+            
+            // Add sub-numbering for H3 items
+            const parentH2Number = h2Count;
+            const h3Siblings = Array.from(heading.parentElement.querySelectorAll('h3'))
+                .filter(h => !h.textContent.includes('Table of Contents'));
+            const h3Index = h3Siblings.indexOf(heading) + 1;
+            
+            a.textContent = `${parentH2Number}.${h3Index} ${heading.textContent}`;
+        }
+        
+        li.appendChild(a);
+        tocContainer.appendChild(li);
+    });
+    
+    // Add column balancing for better visual appearance
+    setTimeout(() => {
+        const items = tocContainer.querySelectorAll('li');
+        const columnCount = window.getComputedStyle(tocContainer).columnCount || 3;
+        
+        if (items.length > 0 && columnCount > 1) {
+            // Calculate items per column for better balancing
+            const itemsPerColumn = Math.ceil(items.length / columnCount);
+            let currentColumnItems = 0;
+            
+            items.forEach((item, index) => {
+                if (index % itemsPerColumn === 0 && index > 0) {
+                    // Add a visual separator between columns (optional)
+                    const separator = document.createElement('div');
+                    separator.style.breakAfter = 'column';
+                    separator.style.height = '0';
+                    tocContainer.insertBefore(separator, item);
+                }
+            });
+        }
+    }, 100);
+};
+        
+        // Add copy code functionality
+        document.querySelectorAll('.code-block').forEach(block => {
+            const copyBtn = document.createElement('button');
+            copyBtn.innerHTML = '📋';
+            copyBtn.style.position = 'absolute';
+            copyBtn.style.right = '10px';
+            copyBtn.style.top = '10px';
+            copyBtn.style.background = '#2c3e50';
+            copyBtn.style.color = 'white';
+            copyBtn.style.border = 'none';
+            copyBtn.style.borderRadius = '3px';
+            copyBtn.style.padding = '5px 10px';
+            copyBtn.style.cursor = 'pointer';
+            copyBtn.style.fontSize = '12px';
+            copyBtn.title = 'Copy code';
+            
+            copyBtn.addEventListener('click', () => {
+                const code = block.textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = '✅';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '📋';
+                    }, 2000);
+                });
+            });
+            
+            block.style.position = 'relative';
+            block.appendChild(copyBtn);
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            createEnhancedTOC();
+            
+            // Add mobile navigation
+            if (window.innerWidth <= 768) {
+                const nav = document.createElement('div');
+                nav.innerHTML = `
+                    <select style="width: 100%; padding: 12px; margin: 20px 0; font-size: 16px; 
+                    background: var(--primary-color); color: white; border: 2px solid var(--secondary-color);
+                    border-radius: 8px;">
+                        <option value="">🔍 Navigate to section...</option>
+                        ${Array.from(document.querySelectorAll('h2')).map(h2 => 
+                            `<option value="#${h2.id}">${h2.textContent}</option>`
+                        ).join('')}
+                    </select>
+                `;
+                nav.style.position = 'sticky';
+                nav.style.top = '10px';
+                nav.style.zIndex = '1000';
+                nav.style.backgroundColor = 'white';
+                nav.style.padding = '10px';
+                nav.style.borderRadius = '8px';
+                nav.style.boxShadow = '0 3px 15px rgba(0,0,0,0.2)';
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(nav, container.firstChild);
+                
+                nav.querySelector('select').addEventListener('change', function() {
+                    if (this.value) {
+                        document.querySelector(this.value).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        this.value = '';
+                    }
+                });
+            }
+        });
+        
+        // Highlight current section on scroll
+        let currentSection = '';
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('h2');
+            let newSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    newSection = section.id;
+                }
+            });
+            
+            if (newSection !== currentSection) {
+                currentSection = newSection;
+                document.querySelectorAll('.toc a').forEach(a => {
+                    a.style.fontWeight = a.getAttribute('href') === `#${currentSection}` ? 'bold' : 'normal';
+                    a.style.color = a.getAttribute('href') === `#${currentSection}` ? 
+                        'var(--accent-color)' : 'var(--secondary-color)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducationalResourceEditor Class - Technical Documentation</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global base styles + page CSS -->
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/theme.css">
+    <script src="../../../js/theme.js" defer></script>
+
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+            padding: 50px 10%;
+        }
+        
+        .container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .info-box {
+            background-color: #5bbeefde;
+            color: #0a4528;
+            border: 1px solid #5bbeefde;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .warning-box {
+            background-color: #ffeb3bde;
+            color: #856404;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .feature-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.2em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 50%;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.95em;
+            border-left: 4px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .code-comment {
+            color: #6a9955;
+        }
+        
+        .code-keyword {
+            color: #569cd6;
+        }
+        
+        .code-string {
+            color: #ce9178;
+        }
+        
+        .code-number {
+            color: #b5cea8;
+        }
+        
+        .method-details {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--info-color);
+        }
+        
+        .parameter-table {
+            width: 100%;
+            margin: 15px 0;
+            border-collapse: collapse;
+        }
+        
+        .parameter-table th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .parameter-table td {
+            padding: 12px;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 70px 40px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+            border: 3px dashed rgba(255,255,255,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screenshot-placeholder:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+        }
+        
+        .architecture-diagram {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .flow-chart {
+            background: var(--card-bg);
+            border: 2px dashed #90a4ae;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            font-style: italic;
+            color: #546e7a;
+        }
+        
+.toc {
+    background: var(--bg-primary);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+    border-left: 5px solid var(--secondary-color);
+}
+
+.toc ul {
+    columns: 3;  /* Changed from 2 to 3 columns */
+    column-gap: 30px;
+    column-rule: 1px solid var(--border-color);
+}
+
+.toc li {
+    margin-bottom: 10px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.toc a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+    padding: 3px 0;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+        
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .toc ul {
+        columns: 2;
+        column-gap: 25px;
+    }
+}
+
+@media (max-width: 900px) {
+    .toc ul {
+        columns: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .toc {
+        padding: 15px;
+    }
+    
+    .toc ul {
+        columns: 1;
+    }
+
+           
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+        
+        .section-separator {
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="../technical-docs.html"><i class="fas fa-arrow-left"></i></a>
+            <div>
+                <h1>EducationalResourceEditor Class</h1>
+                <p>Technical Documentation - Multi-Format Educational Content Editor</p>
+            </div>
+            <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+            <a href="../../../index.html"><i class="fas fa-home"></i></a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+
+        <p style="text-align: justify;">
+            The <strong>EducationalResourceEditor</strong> class is a sophisticated PySide6-based editor designed for creating and managing educational resources in multiple formats. It serves as a unified editing interface for plain text, rich text (RTF), HTML, LaTeX, images, PDF documents, and more. The editor implements a dual-content architecture with separate areas for educational content and answer sections, each supporting the full range of document formats.
+            <br><br>
+            This editor uses HTML as its underlying storage format, with specialized handling for different content types. All content is formatted to A4 paper width (6.19 inches after margins) to ensure consistency in printed output. The system intelligently detects content type and applies appropriate rendering and editing capabilities, making it a versatile tool for educators creating diverse learning materials.
+        </p>
+
+        <section id="toc">
+            <div class="toc">
+                <h2>📑 Table of Contents</h2>
+                <ul>
+                    <li><a href="#overview">1. Overview and Philosophy</a></li>
+                    <li><a href="#architecture">2. Architecture and Layout</a></li>
+                    <li><a href="#ui-structure">3. UI Components and Layout</a></li>
+                    <li><a href="#content-types">4. Supported Content Types</a></li>
+                    <li><a href="#content-processing">5. Content Processing Pipeline</a></li>
+                    <li><a href="#database-integration">6. Database Integration</a></li>
+                    <li><a href="#methods">7. Core Method Analysis</a></li>
+                    <li><a href="#format-handling">8. Format-Specific Handling</a></li>
+                    <li><a href="#performance">9. Performance Considerations</a></li>
+                    <li><a href="#api">10. API Reference</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="overview">
+            <h2>🔍 1. Overview and Philosophy</h2>
+            <p>The <strong>EducationalResourceEditor</strong> implements a comprehensive editing solution for educational materials with the following design principles:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📐</div>
+                    <h4>A4 Paper Standard</h4>
+                    <p>All content formatted to 6.19 inches width (A4 paper minus margins). Content width calculated as <code>6.19 × DPI</code> pixels for consistent printing.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h4>HTML as Universal Format</h4>
+                    <p>Uses HTML as underlying storage format with meta tags for type identification. Differentiates between raw content and processed HTML rendering.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Dual-Purpose Editing</h4>
+                    <p>Separate editing areas for educational content and answers. Each area supports full range of document formats with specialized toolbars.</p>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <strong>Content Width Specification:</strong> The editor uses 6.19 inches as the available space for educational content on A4 paper. This accounts for 0.5 inches left/right margins and 0.54 inches for columns 1 and 3 in a 3-column paper layout. The pixel equivalent is calculated as <code>app_context.EDU_ITEM_PIXELS = 6.19 × DPI</code>.
+            </div>
+            
+            <h3>Paper Layout Visualization</h3>
+            <div class="code-block">
+                <span class="code-comment"># A4 Paper Layout (inches):</span>
+│     ┌──────┬─────────────────────────────────────────────────────────────────────┬──────┐     │
+│ 0.5 │POINT │                              HEADER                                 │  ROW │ 0.5 │
+│     ├──────┼─────────────────────────────────────────────────────────────────────┼──────┤     │
+│     │ 0.54 │                       CONTENT - 6.19 INCHES                         │ 0.54 │     │
+│     ├──────┼─────────────────────────────────────────────────────────────────────┼──────┤     │
+│     │      │                               CONTENT                               │      │     │
+│     │      │                                                                     │      │     │
+│     │──────┼─────────────────────────────────────────────────────────────────────┼──────┤     │
+│     │  SUM │                               FOOTER                                │      │     │
+│     └──────┴─────────────────────────────────────────────────────────────────────┴──────┘     │
+            </div>
+            
+            <h3>Class Inheritance and Dependencies</h3>
+            <div class="code-block">
+                <span class="code-keyword">class</span> <span class="code-string">EducationalResourceEditor</span>(<span class="code-string">QWidget</span>):
+                <span class="code-comment"># Primary dependencies:</span>
+                <span class="code-comment"># - PySide6.QtWidgets (UI components, dialogs)</span>
+                <span class="code-comment"># - PySide6.QtGui (Text formatting, images, icons)</span>
+                <span class="code-comment"># - pymupdf (PDF processing and text extraction)</span>
+                <span class="code-comment"># - processing.Imaging.Tools (Image conversion utilities)</span>
+                <span class="code-comment"># - processing.Imaging.SnippingTool (Screen capture)</span>
+                <span class="code-comment"># - processing.utils.image_tools (PDF to image conversion)</span>
+                <span class="code-comment"># - ui.widgets.widgets.RichTextEdit (Enhanced text editor)</span>
+                <span class="code-comment"># - core.app_context.app_context (Configuration and constants)</span>
+                <span class="code-comment"># - utils.helpers (LaTeX processing and format detection)</span>
+                <span class="code-comment"># - PySideAbdhUI.Notify (User notification system)</span>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>🏗️ 2. Architecture and Layout</h2>
+            
+            <h3>5×6 Grid Layout Structure</h3>
+            <p>The editor uses a 5-row × 6-column grid layout for precise control over widget placement:</p>
+            <div class="code-block">
+                <span class="code-comment"># Grid Layout Structure (5 rows × 6 columns):</span>
+                <span class="code-comment"># Row 0: Page title (Column 0) and ID display (Columns 2-4)</span>
+                <span class="code-comment"># Row 1: Content command toolbar (Column 0)</span>
+                <span class="code-comment"># Row 2: Content editor (RichTextEdit, Column 0)</span>
+                <span class="code-comment"># Row 3: Answer command toolbar (Column 0)</span>
+                <span class="code-comment"># Row 4: Answer editor (QTextEdit, Column 0)</span>
+                <span class="code-comment"># Column 1-5: Right panel (source, details, score, navigation)</span>
+                
+                main_layout = QGridLayout(self)
+                main_layout.addWidget(page_title, <span class="code-number">0</span>, <span class="code-number">0</span>, <span class="code-number">1</span>, <span class="code-number">1</span>, Qt.AlignmentFlag.AlignTop)
+                main_layout.addWidget(self.content_description_input, <span class="code-number">2</span>, <span class="code-number">0</span>)
+                main_layout.addWidget(self.answer_input, <span class="code-number">4</span>, <span class="code-number">0</span>)
+            </div>
+            
+            <h3>Dual-Editor Architecture</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Editor Area</th>
+                            <th>Widget Type</th>
+                            <th>Width</th>
+                            <th>Purpose</th>
+                            <th>Supported Formats</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Content Editor</td>
+                            <td><code>RichTextEdit</code></td>
+                            <td><code>EDU_ITEM_PIXELS + 35</code></td>
+                            <td>Primary educational content</td>
+                            <td>All formats (text, HTML, LaTeX, images, PDF)</td>
+                        </tr>
+                        <tr>
+                            <td>Answer Editor</td>
+                            <td><code>QTextEdit</code></td>
+                            <td><code>EDU_ITEM_PIXELS + 35</code></td>
+                            <td>Answer/solution content</td>
+                            <td>All formats (text, HTML, LaTeX, images, PDF)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Width Calculation and Layout</h3>
+            <div class="code-block">
+                <span class="code-comment"># Width calculation for editor widgets:</span>
+                <span class="code-comment"># Base width: EDU_ITEM_PIXELS (6.19 × DPI)</span>
+                <span class="code-comment"># Additional space: 35 pixels (10+10 margins + 15 scrollbar)</span>
+                
+                content_width = app_context.EDU_ITEM_PIXELS + <span class="code-number">35</span>
+                self.content_description_input.setFixedWidth(content_width)
+                self.answer_input.setFixedWidth(content_width)
+            </div>
+            
+            <div class="info-box">
+                <strong>Design Note:</strong> The fixed width ensures all content fits within the printable area of A4 paper. The 35-pixel addition accounts for widget margins and scrollbar, ensuring the actual content area matches the 6.19-inch specification.
+            </div>
+        </section>
+
+        <section id="ui-structure">
+            <h2>🎨 3. UI Components and Layout</h2>
+            
+            <h3>Header and Navigation Section</h3>
+            <div class="code-block">
+                <span class="code-comment"># Header components (Row 0):</span>
+                <span class="code-comment"># 1. Page title: "RESOURCE EDITOR" (Column 0)</span>
+                page_title = QLabel(<span class="code-string">'RESOURCE EDITOR'</span>)
+                page_title.setProperty(<span class="code-string">'class'</span>, <span class="code-string">'heading2'</span>)
+                
+                <span class="code-comment"># 2. ID label: Shows current record ID or "(New item)"</span>
+                self.Id_label = QLabel()
+                self.Id_label.setProperty(<span class="code-string">'class'</span>, <span class="code-string">'caption'</span>)
+                
+                <span class="code-comment"># 3. Navigation buttons: Back and Next for record navigation</span>
+                back_button = QPushButton()
+                back_button.setIcon(QIcon(<span class="code-string">':icons/chevron-left.svg'</span>))
+                back_button.clicked.connect(<span class="code-keyword">lambda</span> _, direction=<span class="code-string">'<'</span>: self.load_record(direction))
+                
+                next_button = QPushButton()
+                next_button.setIcon(QIcon(<span class="code-string">':icons/chevron-right.svg'</span>))
+                next_button.clicked.connect(<span class="code-keyword">lambda</span> _, direction=<span class="code-string">'>'</span>: self.load_record(direction))
+            </div>
+            
+            <h3>Right Panel Components</h3>
+            <p>The right panel (columns 1-5) contains metadata and configuration fields:</p>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Type</th>
+                            <th>Purpose</th>
+                            <th>Row/Column</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Source Input</td>
+                            <td><code>QLineEdit</code></td>
+                            <td>Resource source/book reference</td>
+                            <td>Row 1, Columns 2-3</td>
+                        </tr>
+                        <tr>
+                            <td>Additional Details</td>
+                            <td><code>QTextEdit</code></td>
+                            <td>Notes, comments, metadata</td>
+                            <td>Row 2, Columns 1-4</td>
+                        </tr>
+                        <tr>
+                            <td>Score Input</td>
+                            <td><code>QLineEdit</code></td>
+                            <td>Point value for assessment</td>
+                            <td>Row 3, Column 2</td>
+                        </tr>
+                        <tr>
+                            <td>Delete Button</td>
+                            <td><code>QPushButton</code></td>
+                            <td>Remove current record</td>
+                            <td>Row 3, Column 3</td>
+                        </tr>
+                        <tr>
+                            <td>Save Button</td>
+                            <td><code>QPushButton</code></td>
+                            <td>Save to database</td>
+                            <td>Row 3, Column 4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Command Toolbars Structure</h3>
+            <p>Both content and answer sections have dedicated command toolbars with similar functionality:</p>
+            <div class="code-block">
+                <span class="code-comment"># Content Command Toolbar includes:</span>
+                <span class="code-comment"># 1. LaTeX button with New/Run options</span>
+                <span class="code-comment"># 2. HTML button with New/Run options</span>
+                <span class="code-comment"># 3. Insert Image button</span>
+                <span class="code-comment"># 4. Screen Snipping Tool button</span>
+                <span class="code-comment"># 5. Upload menu (multiple file types)</span>
+                <span class="code-comment"># 6. Database search widget</span>
+                <span class="code-comment"># 7. New Content button</span>
+                <span class="code-comment"># 8. Bookmark button for marking items</span>
+                
+                <span class="code-comment"># Answer Command Toolbar has identical structure</span>
+                <span class="code-comment"># but operates on the answer editor</span>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Editor Interface Layout</h3>
+                <p style="color: rgba(255,255,255,0.9);">[UI LAYOUT DIAGRAM: Showing the 5×6 grid structure:<br>
+                • Top row: Title and navigation • Rows 1-4: Content/Answer with toolbars<br>
+                • Right panel: Metadata fields • Bottom: Action buttons<br>
+                • Color-coded sections showing widget relationships]</p>
+            </div>
+        </section>
+
+        <section id="content-types">
+            <h2>📄 4. Supported Content Types</h2>
+            
+            <h3>Format Overview and Storage Strategy</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h4>Plain Text</h4>
+                    <p><strong>Storage:</strong> Converted to HTML via <code>toHtml()</code><br>
+                    <strong>Restoration:</strong> Loaded via <code>setHtml()</code><br>
+                    <strong>Limitations:</strong> No formatting, math, or images</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h4>Rich Text (RTF)</h4>
+                    <p><strong>Storage:</strong> Saved as HTML via <code>toHtml()</code><br>
+                    <strong>Restoration:</strong> Loaded via <code>setHtml()</code><br>
+                    <strong>Features:</strong> Formatting, images, tables</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📐</div>
+                    <h4>LaTeX</h4>
+                    <p><strong>Storage:</strong> Saved raw via <code>toPlainText()</code><br>
+                    <strong>Restoration:</strong> Loaded via <code>setPlainText()</code><br>
+                    <strong>Processing:</strong> Requires LaTeX engine</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h4>HTML</h4>
+                    <p><strong>Storage:</strong> Saved raw via <code>toPlainText()</code><br>
+                    <strong>Restoration:</strong> Loaded via <code>setPlainText()</code><br>
+                    <strong>Processing:</strong> Interpreted via <code>setHtml()</code></p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h4>Image</h4>
+                    <p><strong>Storage:</strong> Base64 encoded in HTML <code>&lt;img&gt;</code> tag<br>
+                    <strong>Restoration:</strong> Loaded via <code>setHtml()</code><br>
+                    <strong>Width:</strong> Fixed to <code>EDU_ITEM_PIXELS</code></p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h4>PDF</h4>
+                    <p><strong>Options:</strong> Editable (text) or Readonly (image)<br>
+                    <strong>Processing:</strong> PyMuPDF for extraction<br>
+                    <strong>Limitation:</strong> First page only for multi-page PDFs</p>
+                </div>
+            </div>
+            
+            <h3>Content Type Detection and Handling</h3>
+            <div class="method-details">
+                <h4><code>helpers.is_rtf()</code> - Format Detection</h4>
+                <p>The system uses <code>helpers.is_rtf()</code> to distinguish between raw text (HTML/LaTeX) and processed text (Plain Text/RTF):</p>
+                <div class="code-block">
+                    <span class="code-keyword">if</span> <span class="code-keyword">not</span> helpers.is_rtf(row[<span class="code-number">3</span>]):
+                        <span class="code-comment"># Raw content (HTML/LaTeX)</span>
+                        self.content_description_input.document().setPlainText(row[<span class="code-number">3</span>])
+                    <span class="code-keyword">else</span>:
+                        <span class="code-comment"># Processed content (Plain Text/RTF)</span>
+                        self.content_description_input.document().setHtml(row[<span class="code-number">3</span>])
+                </div>
+            </div>
+            
+            <h3>HTML Meta Tag Strategy</h3>
+            <p>The editor uses HTML meta tags to identify content types in the database:</p>
+            <div class="code-block">
+                <span class="code-comment"># Content identification via meta tags:</span>
+                <span class="code-comment"># - name='qrichtext': Processed content (rendered HTML)</span>
+                <span class="code-comment"># - name='viewport': Raw content (HTML/LaTeX source)</span>
+                
+                <span class="code-comment"># Example HTML structure with meta tags:</span>
+                <span class="code-string">&lt;!DOCTYPE HTML&gt;</span>
+                <span class="code-string">&lt;html&gt;&lt;head&gt;</span>
+                <span class="code-string">&lt;meta name="qrichtext" content="1" /&gt;</span>
+                <span class="code-string">&lt;meta charset="utf-8" /&gt;</span>
+                <span class="code-string">&lt;/head&gt;&lt;body&gt;...&lt;/body&gt;&lt;/html&gt;</span>
+            </div>
+            
+            <div class="info-box">
+                <strong>Storage Philosophy:</strong> Plain text and RTF are saved as HTML for easy rendering. HTML and LaTeX are saved as raw source code for editing. Images and PDFs are converted to base64 and embedded in HTML. This dual-strategy allows both WYSIWYG editing and source code manipulation.
+            </div>
+        </section>
+
+        <section id="content-processing">
+            <h2>🔄 5. Content Processing Pipeline</h2>
+            
+            <h3>Upload and Conversion Workflow</h3>
+            <div class="method-details">
+                <h4><code>upload_file()</code> - Unified File Processing</h4>
+                <p>This method handles all file uploads with type-specific processing:</p>
+                <div class="code-block">
+                    <span class="code-keyword">def</span> upload_file(self, sender: QTextEdit, arg: str = app_context.SupportedFileTypes.IMAGE, options=<span class="code-keyword">None</span>):
+                        <span class="code-comment"># 1. Open file dialog with type-specific filter</span>
+                        <span class="code-comment"># 2. Determine file type from 'arg' parameter</span>
+                        <span class="code-comment"># 3. Apply type-specific processing:</span>
+                        
+                        <span class="code-keyword">if</span> arg == app_context.SupportedFileTypes.IMAGE:
+                            <span class="code-comment"># Convert to base64, embed in HTML img tag</span>
+                            html_content = f'<span class="code-string">&lt;img src="data:image/png;base64,{base64_image}" width="{app_context.EDU_ITEM_PIXELS}"/&gt;</span>'
+                            
+                        <span class="code-keyword">elif</span> arg == app_context.SupportedFileTypes.PDF:
+                            <span class="code-keyword">if</span> options == <span class="code-string">'Editable'</span>:
+                                <span class="code-comment"># Extract text via PyMuPDF</span>
+                                self.upload_PDF_as_html(file_path, sender)
+                            <span class="code-keyword">else</span>:
+                                <span class="code-comment"># Convert to image, embed in HTML</span>
+                                html_content = f'<span class="code-string">&lt;img src="data:image/png;base64,{base64s[0]}" width="{app_context.EDU_ITEM_PIXELS}"/&gt;</span>'
+                                
+                        <span class="code-keyword">elif</span> arg <span class="code-keyword">in</span> [app_context.SupportedFileTypes.TEXT, app_context.SupportedFileTypes.LaTeX, ...]:
+                            <span class="code-comment"># Read as plain text</span>
+                            self.read_plain_text(sender, file_path)
+                </div>
+            </div>
+            
+            <h3>Image Processing Pipeline</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Processing</th>
+                            <th>Output</th>
+                            <th>Insertion Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>File Upload</td>
+                            <td><code>pixmap_to_base64()</code></td>
+                            <td>Base64 string</td>
+                            <td><code>setHtml()</code> or <code>insertHtml()</code></td>
+                        </tr>
+                        <tr>
+                            <td>Screen Capture</td>
+                            <td><code>SnippingWindow</code> → <code>pixmap_to_base64()</code></td>
+                            <td>Base64 string</td>
+                            <td><code>insertHtml()</code></td>
+                        </tr>
+                        <tr>
+                            <td>PDF Conversion</td>
+                            <td><code>pdf_to_base64()</code></td>
+                            <td>Base64 string array</td>
+                            <td><code>setHtml()</code> (first page only)</td>
+                        </tr>
+                        <tr>
+                            <td>LaTeX Rendering</td>
+                            <td><code>helpers.run_latex()</code></td>
+                            <td>HTML with embedded image</td>
+                            <td><code>insertHtml()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>LaTeX Processing System</h3>
+            <p>The editor provides comprehensive LaTeX support through multiple methods:</p>
+            <div class="code-block">
+                <span class="code-comment"># 1. Template creation:</span>
+                <span class="code-keyword">def</span> ___config_latex(self, sender: QTextEdit):
+                    <span class="code-comment"># Creates basic LaTeX template with Persian support</span>
+                    latex_content = (<span class="code-string">'\\documentclass{{article}}\n'</span>
+                                      <span class="code-string">'\\usepackage{{xepersian}}\n'</span>
+                                      <span class="code-string">'\\settextfont{{Yas}}\n'</span>
+                                      <span class="code-string">'\\begin{{document}}\n{}\n'</span>
+                                      <span class="code-string">'\\end{{document}}'</span>).format(<span class="code-string">'Add here main content'</span>)
+                
+                <span class="code-comment"># 2. Compilation and rendering:</span>
+                <span class="code-keyword">def</span> run_latex(self, sender: QTextEdit):
+                    html = helpers.run_latex(sender.toPlainText(), 
+                                             compile=<span class="code-string">'xepersian'</span>, 
+                                             output_PDF_name=<span class="code-string">'edu-resource.PDF'</span>)
+                    sender.clear()
+                    sender.insertHtml(html)  <span class="code-comment"># Embeds rendered PDF as image</span>
+            </div>
+            
+            <div class="warning-box">
+                <strong>LaTeX Dependency:</strong> The <code>run_latex()</code> method requires a working LaTeX installation with xepersian package. This is an external dependency that must be installed separately on the user's system.
+            </div>
+            
+            <h3>Screen Capture Integration</h3>
+            <p>The editor integrates a snipping tool for capturing screen content:</p>
+            <div class="code-block">
+                <span class="code-keyword">def</span> run_snipping_tool(self, target: QTextEdit):
+                    active = QApplication.activeWindow()
+                    active.hide()  <span class="code-comment"># Hide main window during capture</span>
+                    
+                    snipping_window = SnippingWindow(self)
+                    <span class="code-comment"># Connect capture signal to insertion handler</span>
+                    snipping_window.screen_captured.connect(<span class="code-keyword">lambda</span> data: (
+                        target.insertHtml(f'<span class="code-string">&lt;img src="data:image/png;base64,{pixmap_to_base64(data)}" width="{app_context.EDU_ITEM_PIXELS}"/&gt;</span>'),
+                        active.show()
+                    ))
+                    
+                    snipping_window.showFullScreen()  <span class="code-comment"># Fullscreen for complete coverage</span>
+            </div>
+        </section>
+
+        <section id="database-integration">
+            <h2>💾 6. Database Integration</h2>
+            
+            <h3>Database Schema and Fields</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Type</th>
+                            <th>Purpose</th>
+                            <th>Editor Widget</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Id</code></td>
+                            <td>Primary Key</td>
+                            <td>Unique resource identifier</td>
+                            <td><code>Id_label</code> (display only)</td>
+                        </tr>
+                        <tr>
+                            <td><code>source_</code></td>
+                            <td>Text</td>
+                            <td>Resource source/book reference</td>
+                            <td><code>source_input</code> (QLineEdit)</td>
+                        </tr>
+                        <tr>
+                            <td><code>score_</code></td>
+                            <td>Numeric</td>
+                            <td>Point value for assessment</td>
+                            <td><code>score_input</code> (QLineEdit)</td>
+                        </tr>
+                        <tr>
+                            <td><code>content_description_</code></td>
+                            <td>Text</td>
+                            <td>Primary educational content</td>
+                            <td><code>content_description_input</code> (RichTextEdit)</td>
+                        </tr>
+                        <tr>
+                            <td><code>answer_</code></td>
+                            <td>Text</td>
+                            <td>Answer/solution content</td>
+                            <td><code>answer_input</code> (QTextEdit)</td>
+                        </tr>
+                        <tr>
+                            <td><code>additional_details_</code></td>
+                            <td>Text</td>
+                            <td>Notes, comments, metadata</td>
+                            <td><code>additional_details_input</code> (QTextEdit)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>CRUD Operations Implementation</h3>
+            <div class="method-details">
+                <h4><code>save_to_database()</code> - Intelligent Save Logic</h4>
+                <p>This method handles both insert (new) and update (existing) operations:</p>
+                <div class="code-block">
+                    <span class="code-keyword">def</span> save_to_database(self):
+                        <span class="code-comment"># 1. Collect data from all widgets</span>
+                        source = self.source_input.text()
+                        score = self.score_input.text()
+                        <span class="code-comment"># ... additional fields</span>
+                        
+                        <span class="code-comment"># 2. Determine content type and format appropriately</span>
+                        content = self.content_description_input.document().toPlainText()
+                        <span class="code-keyword">if</span> helpers.is_rtf(content): 
+                            content = self.content_description_input.toHtml()
+                        
+                        <span class="code-comment"># 3. Choose INSERT or UPDATE based on ID</span>
+                        <span class="code-keyword">if</span> self.id &gt; <span class="code-number">0</span>:
+                            <span class="code-comment"># UPDATE existing record</span>
+                            query = <span class="code-string">"UPDATE educational_resources SET source_ = %s, score_= %s, ... WHERE Id= %s RETURNING id;"</span>
+                            variables = (source, score, content, answer, details, self.id)
+                        <span class="code-keyword">else</span>:
+                            <span class="code-comment"># INSERT new record</span>
+                            query = <span class="code-string">"INSERT INTO educational_resources (source_, score_, ...) VALUES (%s, %s, ...) RETURNING id;"</span>
+                            variables = (source, score, content, answer, details)
+                        
+                        <span class="code-comment"># 4. Execute query and update ID</span>
+                        self.db_cursor.execute(query, variables)
+                        self.id = self.db_cursor.fetchone()[<span class="code-number">0</span>]
+                </div>
+            </div>
+            
+            <div class="method-details">
+                <h4><code>load_record()</code> - Navigation and Loading</h4>
+                <p>Supports multiple navigation modes with intelligent content type detection:</p>
+                <div class="code-block">
+                    <span class="code-keyword">def</span> load_record(self, direction: str = <span class="code-string">' >'</span>):
+                        <span class="code-comment"># Build query based on navigation direction</span>
+                        <span class="code-keyword">if</span> direction == <span class="code-string">'<'</span>:
+                            order = <span class="code-string">'ORDER BY Id DESC'</span>
+                            where = f<span class="code-string">'WHERE Id &lt; {self.id} {order} LIMIT 1;'</span>
+                        <span class="code-keyword">elif</span> direction == <span class="code-string">'>'</span>:
+                            order = <span class="code-string">' ORDER BY Id ASC'</span>
+                            where = f<span class="code-string">'WHERE Id &gt; {self.id} {order} LIMIT 1;'</span>
+                        <span class="code-keyword">elif</span> direction == <span class="code-string">'='</span>:
+                            where = f<span class="code-string">'WHERE Id = {self.id};'</span>
+                        
+                        <span class="code-comment"># Execute query and load data</span>
+                        query = <span class="code-string">"SELECT Id, source_, score_, content_description_, ... FROM educational_resources "</span> + where
+                        row = app_context.database.fetchone(query)
+                        
+                        <span class="code-comment"># Apply content type detection for proper loading</span>
+                        <span class="code-keyword">if</span> <span class="code-keyword">not</span> helpers.is_rtf(row[<span class="code-number">3</span>]):
+                            <span class="code-comment"># Raw content (HTML/LaTeX)</span>
+                            self.content_description_input.document().setPlainText(row[<span class="code-number">3</span>])
+                        <span class="code-keyword">else</span>:
+                            <span class="code-comment"># Processed content (Plain Text/RTF)</span>
+                            self.content_description_input.document().setHtml(row[<span class="code-number">3</span>])
+                </div>
+            </div>
+            
+            <h3>Record Navigation System</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Direction</th>
+                            <th>Query Logic</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>'<'</code> (Back)</td>
+                            <td><code>Id &lt; current_id ORDER BY Id DESC</code></td>
+                            <td>Previous record (lower ID)</td>
+                        </tr>
+                        <tr>
+                            <td><code>'>'</code> (Next)</td>
+                            <td><code>Id &gt; current_id ORDER BY Id ASC</code></td>
+                            <td>Next record (higher ID)</td>
+                        </tr>
+                        <tr>
+                            <td><code>'='</code> (Specific)</td>
+                            <td><code>Id = specific_id</code></td>
+                            <td>Load specific record by ID</td>
+                        </tr>
+                        <tr>
+                            <td><code>''</code> (Empty)</td>
+                            <td><code>Id &gt; 0 ORDER BY Id DESC</code></td>
+                            <td>Most recent record</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="warning-box">
+                <strong>Security Warning:</strong> The <code>remove_record()</code> method uses string concatenation for the DELETE query (<code>f"DELETE FROM educational_resources WHERE id={self.id};"</code>). While the ID comes from internal state, this pattern should be replaced with parameterized queries for consistency and security best practices.
+            </div>
+        </section>
+
+        <section id="methods">
+            <h2>⚙️ 7. Core Method Analysis</h2>
+            
+            <h3>Initialization and Setup Methods</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Purpose</th>
+                            <th>Complexity</th>
+                            <th>Key Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>__init__(cursor)</code></td>
+                            <td>Constructor with database cursor</td>
+                            <td>O(1)</td>
+                            <td>Grid layout creation, widget initialization</td>
+                        </tr>
+                        <tr>
+                            <td><code>create_right_panel()</code></td>
+                            <td>Build right-side metadata panel</td>
+                            <td>O(1)</td>
+                            <td>Add source, details, score, navigation widgets</td>
+                        </tr>
+                        <tr>
+                            <td><code>create_content_commands()</code></td>
+                            <td>Build content command toolbar</td>
+                            <td>O(1)</td>
+                            <td>Create LaTeX, HTML, image, upload, search buttons</td>
+                        </tr>
+                        <tr>
+                            <td><code>create_answer_commands()</code></td>
+                            <td>Build answer command toolbar</td>
+                            <td>O(1)</td>
+                            <td>Mirror of content toolbar for answer editor</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Content Processing Methods</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Primary Function</th>
+                            <th>Performance</th>
+                            <th>Dependencies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>upload_file()</code></td>
+                            <td>Process file uploads of all types</td>
+                            <td>O(n) for file size</td>
+                            <td>File I/O, image conversion, PDF processing</td>
+                        </tr>
+                        <tr>
+                            <td><code>read_plain_text()</code></td>
+                            <td>Load plain text files</td>
+                            <td>O(n) for file size</td>
+                            <td>File I/O, text encoding detection</td>
+                        </tr>
+                        <tr>
+                            <td><code>upload_PDF_as_html()</code></td>
+                            <td>Extract text from PDFs</td>
+                            <td>O(p) for PDF pages</td>
+                            <td>PyMuPDF, HTML generation</td>
+                        </tr>
+                        <tr>
+                            <td><code>run_latex()</code></td>
+                            <td>Compile and render LaTeX</td>
+                            <td>External process</td>
+                            <td>LaTeX engine, helpers.run_latex()</td>
+                        </tr>
+                        <tr>
+                            <td><code>run_html()</code></td>
+                            <td>Interpret HTML source</td>
+                            <td>O(n) for HTML size</td>
+                            <td>HTML parser, Qt rendering</td>
+                        </tr>
+                        <tr>
+                            <td><code>run_snipping_tool()</code></td>
+                            <td>Capture screen content</td>
+                            <td>O(1) + image processing</td>
+                            <td>SnippingWindow, image conversion</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Template Generation Methods</h3>
+            <div class="method-details">
+                <h4><code>___config_basic_html()</code> - HTML Template Creation</h4>
+                <p>Creates a basic HTML template with proper document structure:</p>
+                <div class="code-block">
+                    html_template  = <span class="code-string">'&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;\n'</span>
+                    html_template += <span class="code-string">'&lt;html lang="en"&gt;\n'</span>
+                    html_template += <span class="code-string">'&lt;head&gt; &lt;meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"&gt;&lt;/head&gt;\n'</span>
+                    html_template += f<span class="code-string">'&lt;body style="width:{app_context.EDU_ITEM_PIXELS}px;"&gt;\n'</span>
+                    html_template += <span class="code-string">'   &lt;main&gt;\n'</span>
+                    html_template += <span class="code-string">'      &lt;b&gt;Add here main content.&lt;/b&gt;\n'</span>
+                    html_template += <span class="code-string">'   &lt;/main&gt;\n'</span>
+                    html_template += <span class="code-string">'&lt;/body&gt;\n'</span>
+                    html_template += <span class="code-string">'&lt;/html&gt;'</span>
+                    
+                    sender.document().setPlainText(html_template)
+                </div>
+            </div>
+            
+            <div class="method-details">
+                <h4><code>___config_latex()</code> - LaTeX Template Creation</h4>
+                <p>Creates a Persian-enabled LaTeX template with highlighting:</p>
+                <div class="code-block">
+                    latex_content = (<span class="code-string">'\\documentclass{{article}}\n'</span>
+                                      <span class="code-string">'\\usepackage{{xepersian}}\n'</span>
+                                      <span class="code-string">'\\settextfont{{Yas}}\n'</span>
+                                      <span class="code-string">'\\begin{{document}}\n{}\n'</span>
+                                      <span class="code-string">'\\end{{document}}'</span>).format(<span class="code-string">'Add here main content'</span>)
+                    
+                    sender.document().setPlainText(latex_content)
+                    self.___highlightText(sender, <span class="code-string">'Add here main content'</span>)
+                </div>
+            </div>
+            
+            <h3>Text Processing Utilities</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Purpose</th>
+                            <th>Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>___highlightText()</code></td>
+                            <td>Highlight specific text in editor</td>
+                            <td>Uses <code>QTextCursor</code> and <code>QTextCharFormat</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>clear_content()</code></td>
+                            <td>Reset all editor fields</td>
+                            <td>Calls <code>clear()</code> on all widgets</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_from_database()</code></td>
+                            <td>Load specific record by ID</td>
+                            <td>Wrapper for <code>load_record('=')</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>remove_record()</code></td>
+                            <td>Delete current record</td>
+                            <td>DELETE query with confirmation dialog</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="format-handling">
+            <h2>📋 8. Format-Specific Handling</h2>
+            
+            <h3>File Type Detection and Processing</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>File Extension</th>
+                            <th>Detection Method</th>
+                            <th>Processing Function</th>
+                            <th>Storage Format</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>.txt</code></td>
+                            <td>Extension check</td>
+                            <td><code>read_plain_text()</code> → <code>setHtml()</code></td>
+                            <td>HTML (via <code>toHtml()</code>)</td>
+                        </tr>
+                        <tr>
+                            <td><code>.tex</code></td>
+                            <td>Extension check</td>
+                            <td><code>read_plain_text()</code> → <code>setPlainText()</code></td>
+                            <td>Raw LaTeX</td>
+                        </tr>
+                        <tr>
+                            <td><code>.html</code></td>
+                            <td>Extension check</td>
+                            <td><code>read_plain_text()</code> → <code>setPlainText()</code></td>
+                            <td>Raw HTML</td>
+                        </tr>
+                        <tr>
+                            <td><code>.rtf</code></td>
+                            <td>Extension check</td>
+                            <td><code>pypandoc.convert_file()</code> (commented)</td>
+                            <td>HTML (converted)</td>
+                        </tr>
+                        <tr>
+                            <td>Image files</td>
+                            <td>MIME type filter</td>
+                            <td><code>pixmap_to_base64()</code> → HTML <code>&lt;img&gt;</code></td>
+                            <td>Base64 in HTML</td>
+                        </tr>
+                        <tr>
+                            <td><code>.pdf</code></td>
+                            <td>Extension check + options</td>
+                            <td><code>pdf_to_base64()</code> or <code>upload_PDF_as_html()</code></td>
+                            <td>Base64 image or HTML text</td>
+                        </tr>
+                        <tr>
+                            <td><code>.docx</code></td>
+                            <td>Extension check</td>
+                            <td><code>pypandoc.convert_file()</code> (commented)</td>
+                            <td>HTML (converted)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Image Processing Details</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📏</div>
+                    <h4>Dimension Control</h4>
+                    <p>All images resized to <code>EDU_ITEM_PIXELS</code> width via HTML <code>width</code> attribute. Maintains aspect ratio. Ensures print compatibility.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h4>Base64 Encoding</h4>
+                    <p>Images converted to base64 strings for direct embedding. No external file dependencies. Increases database size but improves portability.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Insertion Modes</h4>
+                    <p><strong>Replace:</strong> Clear editor, insert as new content.<br>
+                    <strong>Append:</strong> Insert at cursor position.<br>
+                    Controlled by <code>options</code> parameter.</p>
+                </div>
+            </div>
+            
+            <h3>LaTeX Processing Pipeline</h3>
+            <div class="code-block">
+                <span class="code-comment"># LaTeX processing steps:</span>
+                <span class="code-comment"># 1. User writes LaTeX source in editor</span>
+                <span class="code-comment"># 2. Run LaTeX via helpers.run_latex():</span>
+                html = helpers.run_latex(
+                    sender.toPlainText(),          <span class="code-comment"># LaTeX source</span>
+                    compile=<span class="code-string">'xepersian'</span>,          <span class="code-comment"># Compiler with Persian support</span>
+                    output_PDF_name=<span class="code-string">'edu-resource.PDF'</span>  <span class="code-comment"># Output file name</span>
+                )
+                <span class="code-comment"># 3. Clear editor and insert rendered HTML</span>
+                sender.clear()
+                sender.insertHtml(html)  <span class="code-comment"># HTML contains embedded PDF image</span>
+            </div>
+            
+            <h3>PDF Processing Options</h3>
+            <div class="method-details">
+                <h4>Editable vs Readonly PDF Processing</h4>
+                <p>The editor provides two PDF processing modes:</p>
+                <div class="code-block">
+                    <span class="code-keyword">if</span> options == <span class="code-string">'Editable'</span>:
+                        <span class="code-comment"># Text extraction mode (for editing)</span>
+                        <span class="code-comment"># Uses PyMuPDF to extract text as HTML</span>
+                        PDF_document = pymupdf.open(PDF_path)
+                        html = page.get_text(<span class="code-string">'html'</span>)
+                        sender.setHtml(html)
+                        
+                    <span class="code-keyword">else</span>:  <span class="code-comment"># 'ReadOnly' or None</span>
+                        <span class="code-comment"># Image conversion mode (for display)</span>
+                        <span class="code-comment"># Converts first page to base64 image</span>
+                        base64s = pdf_to_base64(file_path)
+                        html_content = f<span class="code-string">'&lt;img src="data:image/png;base64,{base64s[0]}" width="{app_context.EDU_ITEM_PIXELS}"/&gt;'</span>
+                        sender.setHtml(html_content)
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <strong>PDF Limitation:</strong> The editor only processes the first page of multi-page PDF documents. Additional pages are ignored. For educational resources, this is typically sufficient, but users should be aware of this limitation.
+            </div>
+            
+            <h3>Content Type Detection Logic</h3>
+            <p>The editor uses multiple strategies to determine content type:</p>
+            <div class="code-block">
+                <span class="code-comment"># 1. File upload: Based on file extension and user selection</span>
+                <span class="code-comment"># 2. Database loading: Uses helpers.is_rtf() to detect format</span>
+                <span class="code-comment"># 3. Manual creation: User selects template (HTML/LaTeX)</span>
+                <span class="code-comment"># 4. Content analysis: Regular expressions for LaTeX patterns</span>
+                
+                <span class="code-comment"># helpers.is_rtf() likely checks for:</span>
+                <span class="code-comment"># - HTML tags presence</span>
+                <span class="code-comment"># - LaTeX command patterns (\documentclass, \begin{document})</span>
+                <span class="code-comment"># - RTF formatting codes</span>
+            </div>
+        </section>
+
+        <section id="performance">
+            <h2>⚡ 9. Performance Considerations</h2>
+            
+            <h3>Memory Usage Analysis</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h4>Image and PDF Content</h4>
+                    <p><strong>Issue:</strong> Base64 encoding increases size by ~33%<br>
+                    <strong>Impact:</strong> Large images/PDFs consume significant memory<br>
+                    <strong>Solution:</strong> Fixed width limits, single-page PDF processing</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h4>HTML/LaTeX Source</h4>
+                    <p><strong>Issue:</strong> Large documents in text editors<br>
+                    <strong>Impact:</strong> Linear memory growth with document size<br>
+                    <strong>Solution:</strong> Qt's efficient text document management</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h4>External Process Calls</h4>
+                    <p><strong>Issue:</strong> LaTeX compilation is external process<br>
+                    <strong>Impact:</strong> High CPU/memory during compilation<br>
+                    <strong>Solution:</strong> Async processing, progress indicators</p>
+                </div>
+            </div>
+            
+            <h3>Time Complexity Analysis</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Method</th>
+                            <th>Complexity</th>
+                            <th>Bottleneck</th>
+                            <th>Optimization Potential</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>File upload (image)</td>
+                            <td><code>upload_file()</code></td>
+                            <td>O(n) for image size</td>
+                            <td>Base64 encoding, pixmap loading</td>
+                            <td>Medium - Thumbnail generation</td>
+                        </tr>
+                        <tr>
+                            <td>PDF processing</td>
+                            <td><code>upload_PDF_as_html()</code></td>
+                            <td>O(p) for PDF pages</td>
+                            <td>PyMuPDF text extraction</td>
+                            <td>Low - Already limited to first page</td>
+                        </tr>
+                        <tr>
+                            <td>LaTeX compilation</td>
+                            <td><code>run_latex()</code></td>
+                            <td>External process</td>
+                            <td>LaTeX engine startup and compilation</td>
+                            <td>Low - External dependency</td>
+                        </tr>
+                        <tr>
+                            <td>Database save/load</td>
+                            <td><code>save_to_database()</code></td>
+                            <td>O(1) + network</td>
+                            <td>Database connection, text size</td>
+                            <td>Medium - Connection pooling</td>
+                        </tr>
+                        <tr>
+                            <td>Screen capture</td>
+                            <td><code>run_snipping_tool()</code></td>
+                            <td>O(1) + image processing</td>
+                            <td>Fullscreen capture, base64 encoding</td>
+                            <td>Low - Already efficient</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Optimization Recommendations</h3>
+            
+            <div class="method-details">
+                <h4>Immediate Improvements</h4>
+                <ol>
+                    <li><strong>Fix SQL Injection:</strong> Parameterize the DELETE query in <code>remove_record()</code></li>
+                    <li><strong>Progress Indicators:</strong> Add progress bars for large file uploads</li>
+                    <li><strong>Image Compression:</strong> Implement quality settings for image conversion</li>
+                    <li><strong>Caching:</strong> Cache recently used templates and configurations</li>
+                </ol>
+            </div>
+            
+            <div class="method-details">
+                <h4>Architectural Improvements</h4>
+                <ol>
+                    <li><strong>Async Processing:</strong> Move LaTeX compilation to background thread</li>
+                    <li><strong>Lazy Loading:</strong> Defer image rendering until visible</li>
+                    <li><strong>Database Optimization:</strong> Implement BLOB storage for large content</li>
+                    <li><strong>Memory Management:</strong> Implement content paging for very large documents</li>
+                    <li><strong>Preview Mode:</strong> Add low-resolution previews for images/PDFs</li>
+                </ol>
+            </div>
+            
+            <div class="info-box">
+                <strong>Design Trade-off:</strong> The use of base64 encoding for images and PDFs increases storage requirements but eliminates external file dependencies. This simplifies deployment and backup at the cost of increased database size. For typical educational resources (small to medium images), this is an acceptable trade-off.
+            </div>
+            
+            <h3>External Dependencies Management</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dependency</th>
+                            <th>Purpose</th>
+                            <th>Impact</th>
+                            <th>Alternative</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PyMuPDF</td>
+                            <td>PDF text extraction</td>
+                            <td>Essential for editable PDFs</td>
+                            <td>PDFMiner, pdfplumber</td>
+                        </tr>
+                        <tr>
+                            <td>LaTeX Engine</td>
+                            <td>Formula rendering</td>
+                            <td>Critical for math content</td>
+                            <td>MathJax (web), KaTeX</td>
+                        </tr>
+                        <tr>
+                            <td>pypandoc</td>
+                            <td>Document conversion</td>
+                            <td>Optional (commented out)</td>
+                            <td>python-docx, mammoth</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="api">
+            <h2>📚 10. API Reference</h2>
+            
+            <h3>Public Methods Reference</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Parameters</th>
+                            <th>Return</th>
+                            <th>Description</th>
+                            <th>Thread Safety</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>__init__(cursor)</code></td>
+                            <td>cursor: database cursor</td>
+                            <td>None</td>
+                            <td>Constructor with database connection</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>upload_file(sender, arg, options)</code></td>
+                            <td>sender: QTextEdit<br>arg: file type<br>options: str or None</td>
+                            <td>None</td>
+                            <td>Upload and process file of specified type</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>run_latex(sender)</code></td>
+                            <td>sender: QTextEdit</td>
+                            <td>None</td>
+                            <td>Compile LaTeX source and insert result</td>
+                            <td>UI thread (spawns external process)</td>
+                        </tr>
+                        <tr>
+                            <td><code>run_html(sender)</code></td>
+                            <td>sender: QTextEdit</td>
+                            <td>None</td>
+                            <td>Interpret HTML source and render</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>run_snipping_tool(target)</code></td>
+                            <td>target: QTextEdit</td>
+                            <td>None</td>
+                            <td>Capture screen and insert as image</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>save_to_database()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Save current content to database</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_record(direction)</code></td>
+                            <td>direction: str ('<', '>', '=', '')</td>
+                            <td>None</td>
+                            <td>Load record based on navigation direction</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>load_from_database(sender)</code></td>
+                            <td>sender: QLineEdit</td>
+                            <td>None</td>
+                            <td>Load specific record by ID from input</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>remove_record()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Delete current record with confirmation</td>
+                            <td>UI thread only</td>
+                        </tr>
+                        <tr>
+                            <td><code>clear_content()</code></td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>Reset all editor fields to empty</td>
+                            <td>UI thread only</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Internal/Helper Methods</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Access</th>
+                            <th>Purpose</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>___config_basic_html()</code></td>
+                            <td>Private</td>
+                            <td>Create HTML template</td>
+                            <td>Called from HTML button menu</td>
+                        </tr>
+                        <tr>
+                            <td><code>___config_latex()</code></td>
+                            <td>Private</td>
+                            <td>Create LaTeX template</td>
+                            <td>Called from LaTeX button menu</td>
+                        </tr>
+                        <tr>
+                            <td><code>___highlightText()</code></td>
+                            <td>Private</td>
+                            <td>Highlight text in editor</td>
+                            <td>Used in template creation</td>
+                        </tr>
+                        <tr>
+                            <td><code>read_plain_text()</code></td>
+                            <td>Private</td>
+                            <td>Load plain text files</td>
+                            <td>Helper for upload_file()</td>
+                        </tr>
+                        <tr>
+                            <td><code>upload_PDF_as_html()</code></td>
+                            <td>Private</td>
+                            <td>Extract PDF text as HTML</td>
+                            <td>PDF editable mode processing</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Signal/Slot Connections</h3>
+            <div class="parameter-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Signal Source</th>
+                            <th>Signal</th>
+                            <th>Slot/Method</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Back navigation button</td>
+                            <td><code>clicked</code></td>
+                            <td><code>lambda: load_record('<')</code></td>
+                            <td>Load previous record</td>
+                        </tr>
+                        <tr>
+                            <td>Next navigation button</td>
+                            <td><code>clicked</code></td>
+                            <td><code>lambda: load_record('>')</code></td>
+                            <td>Load next record</td>
+                        </tr>
+                        <tr>
+                            <td>Save button</td>
+                            <td><code>clicked</code></td>
+                            <td><code>save_to_database</code></td>
+                            <td>Save current content</td>
+                        </tr>
+                        <tr>
+                            <td>Delete button</td>
+                            <td><code>clicked</code></td>
+                            <td><code>remove_record</code></td>
+                            <td>Delete current record</td>
+                        </tr>
+                        <tr>
+                            <td>SnippingWindow</td>
+                            <td><code>screen_captured</code></td>
+                            <td>Lambda inserting base64 image</td>
+                            <td>Insert captured screen image</td>
+                        </tr>
+                        <tr>
+                            <td>Database search button</td>
+                            <td><code>clicked</code></td>
+                            <td><code>load_from_database</code></td>
+                            <td>Load record by ID</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Dependencies and Requirements</h3>
+            <div class="method-details">
+                <h4>Core Dependencies</h4>
+                <ul>
+                    <li><strong>PySide6:</strong> >= 6.4.0 (UI framework)</li>
+                    <li><strong>Python:</strong> >= 3.8 (f-strings, typing)</li>
+                    <li><strong>Database:</strong> PostgreSQL/MySQL with educational_resources table</li>
+                </ul>
+                
+                <h4>Processing Dependencies</h4>
+                <ul>
+                    <li><strong>pymupdf (fitz):</strong> PDF text extraction and processing</li>
+                    <li><strong>LaTeX Distribution:</strong> Required for formula rendering (TeX Live, MiKTeX)</li>
+                    <li><strong>Persian LaTeX:</strong> xepersian package for Persian/arabic support</li>
+                </ul>
+                
+                <h4>Custom Module Dependencies</h4>
+                <ul>
+                    <li><strong>ui.widgets.widgets.RichTextEdit:</strong> Enhanced text editor widget</li>
+                    <li><strong>processing.Imaging.Tools:</strong> <code>pixmap_to_base64()</code></li>
+                    <li><strong>processing.Imaging.SnippingTool:</strong> <code>SnippingWindow</code> for screen capture</li>
+                    <li><strong>processing.utils.image_tools:</strong> <code>pdf_to_base64()</code></li>
+                    <li><strong>utils.helpers:</strong> <code>run_latex()</code>, <code>is_rtf()</code></li>
+                    <li><strong>core.app_context.app_context:</strong> Configuration, constants, tooltips</li>
+                    <li><strong>PySideAbdhUI.Notify:</strong> <code>PopupNotifier</code> for user feedback</li>
+                </ul>
+                
+                <h4>Optional Dependencies</h4>
+                <ul>
+                    <li><strong>pypandoc:</strong> Document format conversion (currently commented out)</li>
+                    <li><strong>Pandoc:</strong> Required if pypandoc is used</li>
+                </ul>
+            </div>
+            
+            <div class="screenshot-placeholder">
+                <h3 style="color: white; margin-bottom: 20px;">Content Processing Pipeline</h3>
+                <p style="color: rgba(255,255,255,0.9);">[FLOW DIAGRAM: Showing content processing pipeline:<br>
+                Input Sources → Format Detection → Type-Specific Processing →<br>
+                Storage Format Conversion → Database Integration → Output Rendering<br>
+                With parallel paths for different content types and conversion options]</p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="section-separator"></div>
+            <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+                Comprehensive Technical Documentation for EducationalResourceEditor Class<br>
+                Document Version: 1.0 | Generated: February 2026<br>
+                © 2026 Abdullah Mohammadi. All rights reserved.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Enhanced smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+// Create interactive table of contents with 3-column support
+const createEnhancedTOC = () => {
+    const tocContainer = document.querySelector('.toc ul');
+    if (!tocContainer) return;
+    
+    tocContainer.innerHTML = '';
+    const headings = document.querySelectorAll('h2, h3');
+    let currentH2 = null;
+    let h2Count = 0;
+    
+    // Count H2 headings (for balancing columns)
+    const h2Headings = Array.from(headings).filter(h => 
+        h.tagName === 'H2' && !h.textContent.includes('Table of Contents')
+    );
+    
+    headings.forEach((heading, index) => {
+        // Skip headings containing "Table of Contents"
+        if (heading.textContent.includes('Table of Contents')) {
+            return; // Skip this heading
+        }
+        
+        const id = heading.id || `section-${index}`;
+        heading.id = id;
+        
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${id}`;
+        a.textContent = heading.textContent;
+        
+        if (heading.tagName === 'H2') {
+            currentH2 = li;
+            h2Count++;
+            
+            // Add visual separation for H2 items
+            li.style.fontWeight = 'bold';
+            li.style.marginTop = h2Count > 1 ? '20px' : '0';
+            li.style.marginBottom = '8px';
+            li.style.paddingTop = h2Count > 1 ? '10px' : '0';
+            li.style.borderTop = h2Count > 1 ? '1px solid var(--border-color)' : 'none';
+            
+            // Add number prefix for H2 items
+            a.textContent = `${h2Count}. ${heading.textContent}`;
+        } else if (heading.tagName === 'H3' && currentH2) {
+            li.style.marginLeft = '15px';
+            li.style.fontSize = '0.92em';
+            li.style.marginBottom = '5px';
+            li.style.listStyleType = 'circle';
+            
+            // Add sub-numbering for H3 items
+            const parentH2Number = h2Count;
+            const h3Siblings = Array.from(heading.parentElement.querySelectorAll('h3'))
+                .filter(h => !h.textContent.includes('Table of Contents'));
+            const h3Index = h3Siblings.indexOf(heading) + 1;
+            
+            a.textContent = `${parentH2Number}.${h3Index} ${heading.textContent}`;
+        }
+        
+        li.appendChild(a);
+        tocContainer.appendChild(li);
+    });
+    
+    // Add column balancing for better visual appearance
+    setTimeout(() => {
+        const items = tocContainer.querySelectorAll('li');
+        const columnCount = window.getComputedStyle(tocContainer).columnCount || 3;
+        
+        if (items.length > 0 && columnCount > 1) {
+            // Calculate items per column for better balancing
+            const itemsPerColumn = Math.ceil(items.length / columnCount);
+            let currentColumnItems = 0;
+            
+            items.forEach((item, index) => {
+                if (index % itemsPerColumn === 0 && index > 0) {
+                    // Add a visual separator between columns (optional)
+                    const separator = document.createElement('div');
+                    separator.style.breakAfter = 'column';
+                    separator.style.height = '0';
+                    tocContainer.insertBefore(separator, item);
+                }
+            });
+        }
+    }, 100);
+};   
+        
+        // Add copy code functionality
+        document.querySelectorAll('.code-block').forEach(block => {
+            const copyBtn = document.createElement('button');
+            copyBtn.innerHTML = '📋';
+            copyBtn.style.position = 'absolute';
+            copyBtn.style.right = '10px';
+            copyBtn.style.top = '10px';
+            copyBtn.style.background = '#2c3e50';
+            copyBtn.style.color = 'white';
+            copyBtn.style.border = 'none';
+            copyBtn.style.borderRadius = '3px';
+            copyBtn.style.padding = '5px 10px';
+            copyBtn.style.cursor = 'pointer';
+            copyBtn.style.fontSize = '12px';
+            copyBtn.title = 'Copy code';
+            
+            copyBtn.addEventListener('click', () => {
+                const code = block.textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = '✅';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '📋';
+                    }, 2000);
+                });
+            });
+            
+            block.style.position = 'relative';
+            block.appendChild(copyBtn);
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            createEnhancedTOC();
+            
+            // Add mobile navigation
+            if (window.innerWidth <= 768) {
+                const nav = document.createElement('div');
+                nav.innerHTML = `
+                    <select style="width: 100%; padding: 12px; margin: 20px 0; font-size: 16px; 
+                    background: var(--primary-color); color: white; border: 2px solid var(--secondary-color);
+                    border-radius: 8px;">
+                        <option value="">🔍 Navigate to section...</option>
+                        ${Array.from(document.querySelectorAll('h2')).map(h2 => 
+                            `<option value="#${h2.id}">${h2.textContent}</option>`
+                        ).join('')}
+                    </select>
+                `;
+                nav.style.position = 'sticky';
+                nav.style.top = '10px';
+                nav.style.zIndex = '1000';
+                nav.style.backgroundColor = 'white';
+                nav.style.padding = '10px';
+                nav.style.borderRadius = '8px';
+                nav.style.boxShadow = '0 3px 15px rgba(0,0,0,0.2)';
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(nav, container.firstChild);
+                
+                nav.querySelector('select').addEventListener('change', function() {
+                    if (this.value) {
+                        document.querySelector(this.value).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        this.value = '';
+                    }
+                });
+            }
+        });
+        
+        // Highlight current section on scroll
+        let currentSection = '';
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('h2');
+            let newSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    newSection = section.id;
+                }
+            });
+            
+            if (newSection !== currentSection) {
+                currentSection = newSection;
+                document.querySelectorAll('.toc a').forEach(a => {
+                    a.style.fontWeight = a.getAttribute('href') === `#${currentSection}` ? 'bold' : 'normal';
+                    a.style.color = a.getAttribute('href') === `#${currentSection}` ? 
+                        'var(--accent-color)' : 'var(--secondary-color)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

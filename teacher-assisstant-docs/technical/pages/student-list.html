@@ -4,95 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student List Page - Complete Technical Documentation</title>
-
-    <!-- Site theme (light/dark) -->
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global base styles + page CSS -->
+    <link rel="stylesheet" href="../../../css/styles.css">
     <link rel="stylesheet" href="../../../css/theme.css">
-    <script src="../../../js/theme.js" defer></script>
+    <script src="../../../js/theme.js" defer></script> 
 
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --border-color: #bdc3c7;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --info-color: #2980b9;
-        }
-        /* CSS Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f7fa;
-            margin: 0 auto;
-            padding: 20px;
+body 
+{
+    font-family: 'Vazirmatn', sans-serif;
+    color: var(--text-primary);
+    background-color:var(--bg-primary);
+    line-height: 1.6;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+    .container 
+    {
+    background: var(--bg-secondary); 
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+.header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--border-color);
+}
+
+        .info-box {
+            background-color:#5bbeefde;
+            color: #0a4528;
+            border: 1px solid #5bbeefde;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
         }
-        
-        .container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 30px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin-bottom: 30px;
-        }
-        
-        header {
-            text-align: center;
-            padding-bottom: 30px;
-            border-bottom: 3px solid var(--secondary-color);
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
-            color: white;
-            padding: 40px 30px;
-            border-radius: 8px;
-            margin-top: -20px;
-        }
-        
-        h1 {
-            color: white;
-            font-size: 2.8em;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-        }
-        
-        .subtitle {
+.subtitle {
             color: rgba(255,255,255,0.9);
             font-size: 1.3em;
             margin-bottom: 25px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-        }
-        
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 12px;
-            margin: 40px 0 25px 0;
-            font-size: 1.8em;
-        }
-        
-        h3 {
-            color: var(--secondary-color);
-            margin: 30px 0 18px 0;
-            padding-left: 15px;
-            border-left: 4px solid var(--secondary-color);
-            font-size: 1.4em;
-        }
-        
-        h4 {
-            color: var(--info-color);
-            margin: 25px 0 15px 0;
-            font-size: 1.2em;
         }
         
         .feature-grid {
@@ -103,7 +68,6 @@
         }
         
         .feature-card {
-            background: #f8f9fa;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 25px;
@@ -169,7 +133,7 @@
         }
         
         .ui-section {
-            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            background: linear-gradient(to right, var(--bg-primary), var(--bg-secondary));
             border: 1px solid #dee2e6;
             border-radius: 10px;
             padding: 25px;
@@ -216,28 +180,13 @@
         }
         
         .note {
-            background: linear-gradient(to right, #fff8e1, #fff3cd);
+            background: var(--warning-bg);
             border-left: 5px solid var(--warning-color);
             padding: 20px;
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
         
-        .warning {
-            background: linear-gradient(to right, #ffebee, #ffcdd2);
-            border-left: 5px solid var(--accent-color);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .info-box {
-            background: linear-gradient(to right, #e3f2fd, #bbdefb);
-            border-left: 5px solid var(--info-color);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
         
         .constant-table {
             font-size: 0.92em;
@@ -318,7 +267,7 @@
         }
         
         .screenshot-header {
-            background: linear-gradient(to right, var(--primary-color), #415b76);
+            background: linear-gradient(to right, var(--primary-color),var(--secondary-color));
             color: white;
             padding: 18px;
             font-weight: bold;
@@ -349,7 +298,7 @@
         }
         
         .method-details {
-            background: #f8f9fa;
+            background: var(--bg-primary);
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
@@ -372,18 +321,21 @@
         }
         
         .parameter-table th {
-            background: #e9ecef;
-            color: var(--primary-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
             padding: 12px;
         }
         
-        .parameter-table td {
+        .parameter-table td , tr{
             padding: 12px;
+            color: var(--text-primary);
+             background: var(--bg-primary);
         }
         
         .architecture-diagram {
-            background: linear-gradient(to right, #f0f7ff, #e1f0ff);
-            border: 2px solid #bbdefb;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             padding: 30px;
             margin: 30px 0;
@@ -391,7 +343,7 @@
         }
         
         .flow-chart {
-            background: white;
+            background: var(--card-bg);
             border: 2px dashed #90a4ae;
             border-radius: 10px;
             padding: 40px;
@@ -410,46 +362,64 @@
             font-size: 0.95em;
         }
         
-        .toc {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin: 30px 0;
-            border-left: 5px solid var(--secondary-color);
-        }
+         .toc {
+    background: var(--bg-primary);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+    border-left: 5px solid var(--secondary-color);
+}
+
+.toc ul {
+    columns: 3;  /* Changed from 2 to 3 columns */
+    column-gap: 30px;
+    column-rule: 1px solid var(--border-color);
+}
+
+.toc li {
+    margin-bottom: 10px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.toc a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+    padding: 3px 0;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
         
-        .toc ul {
-            columns: 2;
-            column-gap: 40px;
-        }
-        
-        .toc li {
-            margin-bottom: 10px;
-            break-inside: avoid;
-        }
-        
-        .toc a {
-            color: var(--secondary-color);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .toc a:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 1100px) {
-            .toc ul {
-                columns: 1;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .feature-grid, .screenshot-grid {
-                grid-template-columns: 1fr;
-            }
-            
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .toc ul {
+        columns: 2;
+        column-gap: 25px;
+    }
+}
+
+@media (max-width: 900px) {
+    .toc ul {
+        columns: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .toc {
+        padding: 15px;
+    }
+    
+    .toc ul {
+        columns: 1;
+    }
+
+           
             body {
                 padding: 10px;
             }
@@ -457,22 +427,33 @@
             .container {
                 padding: 20px;
             }
-            
-            h1 {
-                font-size: 2.2em;
-            }
         }
     </style>
     
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Student List Page - Complete Technical Documentation</h1>
-            <p class="subtitle">PySide6-based Student Management Interface for Educational Applications</p>
-            <p style="margin-top: 20px; color: rgba(255,255,255,0.85);">Comprehensive analysis of the StudentListPage class including architecture, data flow, UI components, and implementation details</p>
-        </header>
-
+<body style="padding:50px 10%;">
+   <div class="container">
+   
+        <div class="header">
+            <a href="../technical-docs.html"><i class="fas fa-arrow-left"></i></a>
+            <div>
+            <h1>StudentList Class</h1>
+            <p>Technical Documentation</p>
+            </div>
+            <a href="mailto:abdhmohammady@gmail.com" style="margin-left: auto;"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/abdhmohammadi/TeacherAssistant"><i class="fab fa-github"></i></a>
+            <a href="../../../index.html"><i class="fas fa-home"></i></a>
+            <!-- Theme toggle (uses global /js/theme.js) -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+	    <p style="text-align: justify;">
+        The StudentListPage class serves as the comprehensive student management hub within an educational application, providing administrators and educators with a centralized interface for viewing, organizing, and interacting with student records. It implements a sophisticated table-based presentation layer that displays critical student information including photos, contact details, academic progress, and behavioral observations, while offering powerful filtering capabilities through classroom groups and real-time search functionality. This core component acts as the primary gateway for student data interaction, enabling bulk operations, individual student management, and seamless integration with other educational modules.
+        <br>
+        Beyond basic data presentation, the class embodies a complete student lifecycle management system with advanced features for academic administration. It facilitates educational resource assignment, behavioral observation tracking, CSV-based student import/export, classroom group organization, and progress monitoring through integrated analytics. The implementation demonstrates professional software architecture patterns including separation of concerns, model-view-controller principles, and reactive user interface design, creating a scalable foundation that balances rich functionality with performance considerations for institutional deployment.
+        </p>
         <section id="toc">
             <div class="toc">
                 <h2>📑 Table of Contents</h2>
@@ -522,14 +503,15 @@
             
             <h3>Class Inheritance and Dependencies</h3>
             <div class="code-block">
-<span class="code-keyword">class</span> <span class="code-string">StudentListPage</span>(<span class="code-string">QWidget</span>):  <span class="code-comment"># Inherits from QWidget</span>
-    <span class="code-comment"># Primary dependencies:</span>
-    <span class="code-comment"># - PySide6.QtWidgets (UI components)</span>
-    <span class="code-comment"># - PySide6.QtGui (Model/Item classes)</span>
-    <span class="code-comment"># - pandas (CSV processing)</span>
-    <span class="code-comment"># - app_context (Database and settings)</span>
-    <span class="code-comment"># - Various custom dialog/view classes</span></div>
-            
+                <span class="code-keyword">class</span> <span class="code-string">StudentListPage</span>(<span class="code-string">QWidget</span>):  <span class="code-comment"># Inherits from QWidget</span>
+                <span class="code-comment"># Primary dependencies:</span>
+                <span class="code-comment"># - PySide6.QtWidgets (UI components)</span>
+                <span class="code-comment"># - PySide6.QtGui (Model/Item classes)</span>
+                <span class="code-comment"># - pandas (CSV processing)</span>
+                <span class="code-comment"># - app_context (Database and settings)</span>
+                <span class="code-comment"># - Various custom dialog/view classes</span>
+            </div>
+                        
             <div class="note">
                 <strong>Design Principle:</strong> The class follows separation of concerns by delegating specific functionalities to specialized dialog classes (PersonalInfoDialog, GroupsManagerDialog, etc.) while maintaining core student list management logic.
             </div>
@@ -573,8 +555,8 @@
             </div>
             
             <div class="screenshot-placeholder">
-                <h3 style="color: white; margin-bottom: 20px;">Data Flow Visualization</h3>
-                <p style="color: rgba(255,255,255,0.9); font-size: 1.1em;">[DATA FLOW DIAGRAM: Sequential diagram showing:<br>
+                <h3>Data Flow Visualization</h3>
+                <p>[DATA FLOW DIAGRAM: Sequential diagram showing:<br>
                 User Action → Signal Emission → Method Execution → Database Query →<br>
                 Data Processing → Model Update → Widget Creation → UI Refresh]</p>
                 <p style="font-size: 0.95em; color: rgba(255,255,255,0.8); margin-top: 25px; line-height: 1.6;">
@@ -720,7 +702,7 @@ members_list = [m.strip() for m in str(members).split(',')
                 if m.strip() and m.strip() != student_id]
 updated_members = ',' + ','.join(members_list) if members_list else ''</div>
                 
-                <div class="warning">
+                <div class="warning-box">
                     <strong>Performance Consideration:</strong> String manipulation for member lists becomes inefficient with large groups. Consider migrating to a proper junction table or array field for production use with thousands of students.
                 </div>
             </div>
@@ -854,7 +836,7 @@ app_context.settings_manager.write({<span class="code-string">"csv_show_option_m
             </div>
             
             <h3>Private Helper Methods</h3>
-            <div class="table-container">
+            <div class="parameter-table">
                 <table>
                     <thead>
                         <tr>
@@ -906,7 +888,7 @@ app_context.settings_manager.write({<span class="code-string">"csv_show_option_m
             <h3>Database Schema Integration</h3>
             <p>The class interacts with four primary database tables:</p>
             
-            <div class="table-container">
+            <div class="parameter-table">
                 <table>
                     <thead>
                         <tr>
@@ -1082,7 +1064,7 @@ date_str = <span class="code-string">''</span>
             </div>
             
             <h3>Recovery Strategies</h3>
-            <div class="table-container">
+            <div class="parameter-table">
                 <table>
                     <thead>
                         <tr>
@@ -1166,7 +1148,7 @@ date_str = <span class="code-string">''</span>
             </div>
             
             <h3>Time Complexity Analysis</h3>
-            <div class="table-container">
+            <div class="parameter-table">
                 <table>
                     <thead>
                         <tr>
@@ -1347,7 +1329,7 @@ alignment = (Qt.AlignmentFlag.AlignTop |
             
             <h3>Public Methods Reference</h3>
             
-            <div class="table-container">
+            <div class="parameter-table">
                 <table>
                     <thead>
                         <tr>
@@ -1434,7 +1416,7 @@ alignment = (Qt.AlignmentFlag.AlignTop |
             </div>
             
             <h3>Signal/Slot Connections</h3>
-            <div class="table-container">
+            <div class="parameter-table">
                 <table>
                     <thead>
                         <tr>
@@ -1506,25 +1488,17 @@ alignment = (Qt.AlignmentFlag.AlignTop |
         </section>
 
         <footer>
-            <p>📄 Comprehensive Technical Documentation for StudentListPage Class</p>
-            <p>🔍 Analysis Depth: Complete code inspection with performance, security, and extensibility considerations</p>
-            <p>📅 Document Version: 2.0 | Generated: <span id="current-date"></span></p>
-            <p style="margin-top: 15px; font-size: 0.85em; color: #95a5a6;">
-                This documentation provides complete implementation understanding for developers,<br>
-                maintainers, and integrators. All analysis based on actual source code inspection.
+            <div class="section-separator"></div>
+            <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+                Comprehensive Technical Documentation for StudentListPage Class<br>
+                Document Version: 1.0 | Generated: February 2026<br>
+                © 2026 Abdullah Mohammadi. All rights reserved.
             </p>
         </footer>
     </div>
 
     <script>
-        // Set current date in footer
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
+        
         
         // Enhanced smooth scrolling with offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1555,44 +1529,92 @@ alignment = (Qt.AlignmentFlag.AlignTop |
                 }
             });
         });
+             
+        // Create interactive table of contents with 3-column support
+const createEnhancedTOC = () => {
+    const tocContainer = document.querySelector('.toc ul');
+    if (!tocContainer) return;
+    
+    tocContainer.innerHTML = '';
+    const headings = document.querySelectorAll('h2, h3');
+    let currentH2 = null;
+    let h2Count = 0;
+    
+    // Count H2 headings (for balancing columns)
+    const h2Headings = Array.from(headings).filter(h => 
+        h.tagName === 'H2' && !h.textContent.includes('Table of Contents')
+    );
+    
+    headings.forEach((heading, index) => {
+        // Skip headings containing "Table of Contents"
+        if (heading.textContent.includes('Table of Contents')) {
+            return; // Skip this heading
+        }
         
-        // Create interactive table of contents
-        const createEnhancedTOC = () => {
-            const tocContainer = document.querySelector('.toc ul');
-            if (!tocContainer) return;
+        const id = heading.id || `section-${index}`;
+        heading.id = id;
+        
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${id}`;
+        a.textContent = heading.textContent;
+        
+        if (heading.tagName === 'H2') {
+            currentH2 = li;
+            h2Count++;
             
-            // Clear existing
-            tocContainer.innerHTML = '';
+            // Add visual separation for H2 items
+            li.style.fontWeight = 'bold';
+            li.style.marginTop = h2Count > 1 ? '20px' : '0';
+            li.style.marginBottom = '8px';
+            li.style.paddingTop = h2Count > 1 ? '10px' : '0';
+            li.style.borderTop = h2Count > 1 ? '1px solid var(--border-color)' : 'none';
             
-            // Find all h2 and h3 elements
-            const headings = document.querySelectorAll('h2, h3');
-            let currentH2 = null;
+            // Add number prefix for H2 items
+            a.textContent = `${h2Count}. ${heading.textContent}`;
+        } else if (heading.tagName === 'H3' && currentH2) {
+            li.style.marginLeft = '15px';
+            li.style.fontSize = '0.92em';
+            li.style.marginBottom = '5px';
+            li.style.listStyleType = 'circle';
             
-            headings.forEach((heading, index) => {
-                const id = heading.id || `section-${index}`;
-                heading.id = id;
-                
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = `#${id}`;
-                a.textContent = heading.textContent;
-                
-                if (heading.tagName === 'H2') {
-                    currentH2 = li;
-                    li.style.fontWeight = 'bold';
-                    li.style.marginTop = '15px';
-                    li.style.marginBottom = '5px';
-                } else if (heading.tagName === 'H3' && currentH2) {
-                    li.style.marginLeft = '20px';
-                    li.style.fontSize = '0.95em';
-                    li.style.marginBottom = '3px';
+            // Add sub-numbering for H3 items
+            const parentH2Number = h2Count;
+            const h3Siblings = Array.from(heading.parentElement.querySelectorAll('h3'))
+                .filter(h => !h.textContent.includes('Table of Contents'));
+            const h3Index = h3Siblings.indexOf(heading) + 1;
+            
+            a.textContent = `${parentH2Number}.${h3Index} ${heading.textContent}`;
+        }
+        
+        li.appendChild(a);
+        tocContainer.appendChild(li);
+    });
+    
+    // Add column balancing for better visual appearance
+    setTimeout(() => {
+        const items = tocContainer.querySelectorAll('li');
+        const columnCount = window.getComputedStyle(tocContainer).columnCount || 3;
+        
+        if (items.length > 0 && columnCount > 1) {
+            // Calculate items per column for better balancing
+            const itemsPerColumn = Math.ceil(items.length / columnCount);
+            let currentColumnItems = 0;
+            
+            items.forEach((item, index) => {
+                if (index % itemsPerColumn === 0 && index > 0) {
+                    // Add a visual separator between columns (optional)
+                    const separator = document.createElement('div');
+                    separator.style.breakAfter = 'column';
+                    separator.style.height = '0';
+                    tocContainer.insertBefore(separator, item);
                 }
-                
-                li.appendChild(a);
-                tocContainer.appendChild(li);
             });
-        };
+        }
+    }, 100);
+};
         
+       
         // Add copy code functionality
         document.querySelectorAll('.code-block').forEach(block => {
             const copyBtn = document.createElement('button');
