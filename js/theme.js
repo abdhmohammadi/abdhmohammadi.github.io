@@ -4,7 +4,8 @@ const themeToggle = document.getElementById('theme-toggle');
 const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
 // Check for saved theme or use preferred scheme
-function getCurrentTheme() {
+function getCurrentTheme() 
+{
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) return savedTheme;
     return prefersDarkScheme.matches ? 'dark' : 'light';

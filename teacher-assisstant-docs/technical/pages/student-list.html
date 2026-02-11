@@ -247,12 +247,13 @@ body
         
         .screenshot-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 30px;
-            margin: 35px 0;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
         }
         
-        .screenshot-card {
+        .screenshot-card 
+        {
             background: white;
             border: 1px solid var(--border-color);
             border-radius: 10px;
@@ -276,24 +277,22 @@ body
         
         .screenshot-body {
             padding: 30px;
-            text-align: center;
             min-height: 220px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
             background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
         }
         
-        .screenshot-icon {
-            font-size: 60px;
+        .screenshot-icon
+        {
+            font-size: 40px;
             margin-bottom: 20px;
-            opacity: 0.8;
+            text-align: center;
         }
         
         .screenshot-desc {
             color: #555;
-            font-size: 0.95em;
+            font-size: 0.85em;
             line-height: 1.7;
         }
         
@@ -450,7 +449,7 @@ body
             </button>
         </div>
 	    <p style="text-align: justify;">
-        The StudentListPage class serves as the comprehensive student management hub within an educational application, providing administrators and educators with a centralized interface for viewing, organizing, and interacting with student records. It implements a sophisticated table-based presentation layer that displays critical student information including photos, contact details, academic progress, and behavioral observations, while offering powerful filtering capabilities through classroom groups and real-time search functionality. This core component acts as the primary gateway for student data interaction, enabling bulk operations, individual student management, and seamless integration with other educational modules.
+        The StudentListPage class serves as the comprehensive student management hub within an educational application, providing educators with a centralized interface for viewing, organizing, and interacting with student records. It implements a sophisticated table-based presentation layer that displays critical student information including photos, contact details, academic progress, and behavioral observations, while offering powerful filtering capabilities through classroom groups and real-time search functionality. This core component acts as the primary gateway for student data interaction, enabling bulk operations, individual student management, and seamless integration with other educational modules.
         <br>
         Beyond basic data presentation, the class embodies a complete student lifecycle management system with advanced features for academic administration. It facilitates educational resource assignment, behavioral observation tracking, CSV-based student import/export, classroom group organization, and progress monitoring through integrated analytics. The implementation demonstrates professional software architecture patterns including separation of concerns, model-view-controller principles, and reactive user interface design, creating a scalable foundation that balances rich functionality with performance considerations for institutional deployment.
         </p>
@@ -503,12 +502,12 @@ body
             
             <h3>Class Inheritance and Dependencies</h3>
             <div class="code-block">
-                <span class="code-keyword">class</span> <span class="code-string">StudentListPage</span>(<span class="code-string">QWidget</span>):  <span class="code-comment"># Inherits from QWidget</span>
-                <span class="code-comment"># Primary dependencies:</span>
-                <span class="code-comment"># - PySide6.QtWidgets (UI components)</span>
-                <span class="code-comment"># - PySide6.QtGui (Model/Item classes)</span>
-                <span class="code-comment"># - pandas (CSV processing)</span>
-                <span class="code-comment"># - app_context (Database and settings)</span>
+                <span class="code-keyword">class</span> <span class="code-string">StudentListPage</span>(<span class="code-string">QWidget</span>):  <span class="code-comment"># Inherits from QWidget</span><br>
+                <span class="code-comment"># Primary dependencies:</span><br>
+                <span class="code-comment"># - PySide6.QtWidgets (UI components)</span><br>
+                <span class="code-comment"># - PySide6.QtGui (Model/Item classes)</span><br>
+                <span class="code-comment"># - pandas (CSV processing)</span><br>
+                <span class="code-comment"># - app_context (Database and settings)</span><br>
                 <span class="code-comment"># - Various custom dialog/view classes</span>
             </div>
                         
@@ -573,13 +572,13 @@ body
             <div class="ui-section">
                 <p>The header uses a <strong>QHBoxLayout</strong> with strategic stretching to create a responsive interface:</p>
                 <div class="code-block">
-<span class="code-comment"># Header construction in initUI():</span>
-command_layout = QHBoxLayout()
-command_layout.addWidget(page_title)     <span class="code-comment"># Left-aligned title</span>
-command_layout.addStretch()              <span class="code-comment"># Pushes subsequent widgets to right</span>
-command_layout.addWidget(search_input)   <span class="code-comment"># 200px fixed width</span>
-command_layout.addWidget(class_filter_combo)  <span class="code-comment"># Group filter dropdown</span>
-command_layout.addWidget(edu_btn)        <span class="code-comment"># Options menu button</span></div>
+                    <span class="code-comment"># Header construction in initUI():</span><br>
+                    command_layout = QHBoxLayout()<br>
+                    command_layout.addWidget(page_title)     <span class="code-comment"># Left-aligned title</span><br>
+                    command_layout.addStretch()              <span class="code-comment"># Pushes subsequent widgets to right</span><br>
+                    command_layout.addWidget(search_input)   <span class="code-comment"># 200px fixed width</span><br>
+                    command_layout.addWidget(class_filter_combo)  <span class="code-comment"># Group filter dropdown</span><br>
+                    command_layout.addWidget(edu_btn)        <span class="code-comment"># Options menu button</span></div>
                 
                 <p><strong>Responsive Behavior:</strong> The stretch element ensures search and filter components remain right-aligned regardless of window width, while the title stays left-aligned.</p>
             </div>
@@ -587,18 +586,18 @@ command_layout.addWidget(edu_btn)        <span class="code-comment"># Options me
             <h3>Table Configuration - Advanced QTableView Setup</h3>
             <p>The table is configured with specific policies for optimal user experience:</p>
             <div class="code-block">
-<span class="code-comment"># Table configuration with detailed policies:</span>
-self.table.setAlternatingRowColors(True)        <span class="code-comment"># Zebra striping for readability</span>
-self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
-self.table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
-self.table.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContentsOnFirstShow)
-self.table.setShowGrid(False)                   <span class="code-comment"># Clean, modern look</span>
+                <span class="code-comment"># Table configuration with detailed policies:</span><br>
+                self.table.setAlternatingRowColors(True)        <span class="code-comment"># Zebra striping for readability</span><br>
+                self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)<br>
+                self.table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)<br>
+                self.table.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContentsOnFirstShow)<br>
+                self.table.setShowGrid(False)                   <span class="code-comment"># Clean, modern look</span>
 
-<span class="code-comment"># Column resize policies:</span>
-header.setSectionResizeMode(COL_PHOTO, QHeaderView.ResizeMode.Fixed)
-header.setSectionResizeMode(COL_INFO, QHeaderView.ResizeMode.ResizeToContents)
-header.setSectionResizeMode(COL_ADDRESS, QHeaderView.ResizeMode.ResizeToContents)
-header.setSectionResizeMode(COL_LAST_NOTE, QHeaderView.ResizeMode.Stretch)</div>
+                <span class="code-comment"># Column resize policies:</span>
+                header.setSectionResizeMode(COL_PHOTO, QHeaderView.ResizeMode.Fixed)
+                header.setSectionResizeMode(COL_INFO, QHeaderView.ResizeMode.ResizeToContents)
+                header.setSectionResizeMode(COL_ADDRESS, QHeaderView.ResizeMode.ResizeToContents)
+                header.setSectionResizeMode(COL_LAST_NOTE, QHeaderView.ResizeMode.Stretch)</div>
             
             <h3>Custom Widget Creation for Table Cells</h3>
             <p>Each cell uses custom widgets instead of standard item rendering:</p>
@@ -620,9 +619,11 @@ header.setSectionResizeMode(COL_LAST_NOTE, QHeaderView.ResizeMode.Stretch)</div>
                 <div class="screenshot-card">
                     <div class="screenshot-header">Photo Column Implementation</div>
                     <div class="screenshot-body">
-                        <div class="screenshot-icon">🖼️</div>
+                        <div style="display: flex;">
+                            <div class="screenshot-icon">🖼️</div>
+                            <p style="color:#2d2d2d; margin-top: 15px; margin-bottom: auto;"><strong>Smart Image Handling</strong></p>
+                        </div>
                         <div class="screenshot-desc">
-                            <strong>Smart Image Handling:</strong><br>
                             • Uses <code>bytea_to_pixmap()</code> for database BLOB conversion<br>
                             • Automatic scaling with aspect ratio preservation<br>
                             • Fallback to "No Photo" text with styled background<br>
@@ -634,9 +635,11 @@ header.setSectionResizeMode(COL_LAST_NOTE, QHeaderView.ResizeMode.Stretch)</div>
                 <div class="screenshot-card">
                     <div class="screenshot-header">Notes Column Complex Widget</div>
                     <div class="screenshot-body">
-                        <div class="screenshot-icon">📝</div>
+                        <div style="display: flex;">
+                            <div class="screenshot-icon">📝</div>
+                            <p style="color:#2d2d2d; margin-top: 15px; margin-bottom: auto;"><strong>Multi-component Widget</strong></p>
+                        </div>
                         <div class="screenshot-desc">
-                            <strong>Multi-component Widget:</strong><br>
                             • QScrollArea for long note content<br>
                             • Fixed height (120px) for consistent row sizing<br>
                             • Context menu button overlaid with absolute positioning<br>
@@ -649,9 +652,11 @@ header.setSectionResizeMode(COL_LAST_NOTE, QHeaderView.ResizeMode.Stretch)</div>
                 <div class="screenshot-card">
                     <div class="screenshot-header">Search Implementation</div>
                     <div class="screenshot-body">
-                        <div class="screenshot-icon">🔍</div>
+                        <div style="display: flex;">
+                            <div class="screenshot-icon">🔍</div>
+                            <p style="color:#2d2d2d; margin-top: 15px; margin-bottom: auto;"><strong>Intelligent Search Algorithm:</strong><br></p>
+                        </div>
                         <div class="screenshot-desc">
-                            <strong>Intelligent Search Algorithm:</strong><br>
                             • Iterative search with wrap-around<br>
                             • Searches both displayed text and underlying record data<br>
                             • Case-insensitive matching<br>
@@ -670,23 +675,21 @@ header.setSectionResizeMode(COL_LAST_NOTE, QHeaderView.ResizeMode.Stretch)</div>
             <p>The system uses a sophisticated dual-layer data storage approach:</p>
             
             <div class="code-block">
-<span class="code-comment"># Primary storage: Complete records in model UserRole</span>
-item = QStandardItem()
-item.setData(record, Qt.ItemDataRole.UserRole)  <span class="code-comment"># Store full tuple</span>
-self.model.setItem(row, COL_PHOTO, item)        <span class="code-comment"># In first column</span>
-
-<span class="code-comment"># Retrieval method:</span>
-<span class="code-keyword">def</span> _get_record_from_row(self, row: int):
-    <span class="code-keyword">if</span> 0 <= row < self.model.rowCount():
-        item = self.model.item(row, COL_PHOTO)
-        <span class="code-keyword">if</span> item:
-            <span class="code-keyword">return</span> item.data(Qt.ItemDataRole.UserRole)
-    <span class="code-keyword">return</span> <span class="code-keyword">None</span></div>
-            
-            <div class="info-box">
-                <strong>Design Advantage:</strong> This approach keeps the data model synchronized with displayed widgets. Records are stored once in the model, eliminating duplication and ensuring consistency between search operations and data display.
-            </div>
-            
+                <span class="code-comment"># Primary storage: Complete records in model UserRole</span><br>
+                item = QStandardItem()<br>
+                item.setData(record, Qt.ItemDataRole.UserRole)  <span class="code-comment"># Store full tuple</span><br>
+                self.model.setItem(row, COL_PHOTO, item)        <span class="code-comment"># In first column</span><br>
+                <span class="code-comment"># Retrieval method:</span><br>
+                <span class="code-keyword">def</span> _get_record_from_row(self, row: int):<br>
+                <span class="code-keyword">if</span> 0 <= row < self.model.rowCount():<br>
+                      item = self.model.item(row, COL_PHOTO)<br>
+                <span class="code-keyword">if</span> item:<br>
+                <span class="code-keyword">return</span> item.data(Qt.ItemDataRole.UserRole)<br>
+                <span class="code-keyword">return</span> <span class="code-keyword">None</span></div>
+                <div class="info-box">
+                    <strong>Design Advantage:</strong> This approach keeps the data model synchronized with displayed widgets. Records are stored once in the model, eliminating duplication and ensuring consistency between search operations and data display.
+                </div>
+                
             <h3>Group Management Data Flow</h3>
             <p>Group operations involve complex string manipulation for member lists:</p>
             
@@ -694,17 +697,16 @@ self.model.setItem(row, COL_PHOTO, item)        <span class="code-comment"># In 
                 <h4>Member String Format: ",id1,id2,id3,id4"</h4>
                 <p>The system uses a comma-separated string format with a leading comma for easier parsing and manipulation:</p>
                 <div class="code-block">
-<span class="code-comment"># Adding members - string concatenation with leading comma</span>
-id_list = ',' + ','.join(student_ids)
-
-<span class="code-comment"># Removing members - list filtering</span>
-members_list = [m.strip() for m in str(members).split(',') 
-                if m.strip() and m.strip() != student_id]
-updated_members = ',' + ','.join(members_list) if members_list else ''</div>
-                
-                <div class="warning-box">
-                    <strong>Performance Consideration:</strong> String manipulation for member lists becomes inefficient with large groups. Consider migrating to a proper junction table or array field for production use with thousands of students.
-                </div>
+                <span class="code-comment"># Adding members - string concatenation with leading comma</span><br>
+                id_list = ',' + ','.join(student_ids)<br>
+                <span class="code-comment"># Removing members - list filtering</span><br>
+                members_list = [m.strip() for m in str(members).split(',') <br>
+                                if m.strip() and m.strip() != student_id]<br>
+                updated_members = ',' + ','.join(members_list) if members_list else ''
+            </div>
+            <div class="warning-box">
+                <strong>Performance Consideration:</strong> String manipulation for member lists becomes inefficient with large groups. Consider migrating to a proper junction table or array field for production use with thousands of students.
+            </div>    
             </div>
             
             <h3>CSV Import Data Pipeline</h3>
@@ -733,7 +735,7 @@ updated_members = ',' + ','.join(members_list) if members_list else ''</div>
         </section>
 
         <section id="methods-detailed">
-            <h2>⚙️ 5. Core Method Analysis and Implementation Details</h2>
+            <h2>⚙️ 5. Method Analysis and Implementation Details</h2>
             
             <h3>Critical Public Methods</h3>
             
