@@ -28,6 +28,7 @@ h1, h2, h3, h4
     font-weight: 700;
     line-height: 1.5;
     color: var(--text-secondary);
+    opacity: 0.8;
 }
 button
 {
@@ -184,13 +185,18 @@ ul, ol {
     text-decoration: none;
 }
 
-.logo-text {
+.logo-text 
+{
+    color: var(--accent-color);
+    opacity: 0.6;
     font-size: 1.5rem;
     font-weight: 700;
 }
 
-.logo-subtitle {
+.logo-subtitle 
+{
     font-size: 0.7rem;
+    opacity: 0.6;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -678,7 +684,7 @@ section
     margin-bottom: var(--space-sm);
 }
 
-.footer-about p 
+/*.footer-about p 
 {
     color: var(--text-secondary);
 }
@@ -688,7 +694,7 @@ section
 {
     margin-bottom: var(--space-md);
 }
-
+*/
 .footer-links ul 
 {
     list-style: none;
@@ -705,14 +711,6 @@ section
     margin-bottom: var(--space-xs);
 }
 
-.footer-bottom 
-{
-    text-align: center;
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--border-color);
-    color: var(--text-muted);
-    font-size: 0.875rem;
-}
 
 /* Animation for cards */
 .publication-card,
