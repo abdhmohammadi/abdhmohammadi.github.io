@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <!-- Vazirmatn Font -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -88,185 +89,188 @@
             </div>
         </div>
     </header>
-
-    <!-- Main Content -->
+     <!-- List -->
+        
+            <!-- Main Content -->
     <main class="publications-main">
-        <div class="container">
-            <!-- Filter Section -->
-            <section class="filter-section">
-                <h2 class="filter-title">Filter by Type</h2>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-layer-group"></i> All
-                    </button>
-                    <button class="filter-btn" data-filter="journal">
-                        <i class="fas fa-book"></i> Journal Articles
-                    </button>
-                    <button class="filter-btn" data-filter="conference">
-                        <i class="fas fa-users"></i> Conference Papers
-                    </button>
-                    <button class="filter-btn" data-filter="thesis">
-                        <i class="fas fa-graduation-cap"></i> Theses
-                    </button>
-                    <button class="filter-btn" data-filter="persian">
-                        <i class="fas fa-language"></i> Persian
-                    </button>
-                </div>
-            </section>
-
-            <!-- Publications List -->
-            <section class="publications-list" id="all-publications">
-                <!-- 2026 Publications -->
-                <div class="year-section">
-                    <h2 class="year-title">2026</h2>
-                    
-                    <article class="publication-card" data-categories="journal english">
-                        <div class="pub-badges">
-                            <span class="pub-badge journal">Journal Article</span>
-                            <span class="pub-badge q1">Q1 Journal</span>
+        <!-- Publications List -->
+        <section class="publications-list" id="all-publications">
+                
+            <article class="publication-card" data-categories="journal english">
+                        <div class="pub-header">
+                            <span class="pub-year">2026</span>
+                            <span class="pub-type">Journal Article | Q1</span>
                         </div>
-                        
+
                         <div class="pub-content">
+                            
                             <h3 class="pub-title">Gravitational least squares twin support vector machine based on optimal angle for class imbalance learning</h3>
                             
                             <div class="pub-authors">
                                 <span class="author-highlight">Abdullah Mohammadi</span>, Jalal A. Nasiri, Sohrab Effati
                             </div>
                             
-                            <div class="pub-venue">
-                                <i class="fas fa-book-open"></i> Journal of Applied Mathematics and Computation 510 (2026) 129705
-                            </div>
-                            
-                            <div class="pub-abstract">
-                                <p>Proposes a novel Gravitational Least Squares Twin Support Vector Machine (GLSTSVM) based on optimal angle for class imbalance learning — Binary-class data separation inspired by Newton's gravitational force for unbalanced data classification.</p>
-                            </div>
-                            
-                            <div class="pub-keywords">
-                                <span class="keyword">Twin SVM</span>
-                                <span class="keyword">Optimal angle</span>
-                                <span class="keyword">Gravitational LSTSVM</span>
-                                <span class="keyword">Class Imbalance Learning</span>
-                                <span class="keyword">Large scale data</span>
+                            <div style="display: flex;">
+                                <div class="pub-venue" style="margin-right: auto;">
+                                    <i class="fas fa-book-open"></i> Journal of Applied Mathematics and Computation 510 (2026) 129705
+                                </div>
+                                <div class="pub-keywords">
+                                    <span class="badge">Twin SVM</span>
+                                    <span class="badge">Optimal angle</span>
+                                    <span class="badge">Gravitational LSTSVM</span>
+                                    <span class="badge">Class Imbalance Learning</span>
+                                    <span class="badge">Large scale data</span>
+                                </div>
                             </div>
                             
                             <div class="pub-actions">
-                                <a href="https://doi.org/10.1016/j.amc.2025.129705" class="action-btn primary" target="_blank">
-                                    <i class="fas fa-external-link-alt"></i> View Paper
+                                <a href="https://doi.org/10.1016/j.amc.2025.129705" target="_blank" class="btn-doi">
+                                    <i class="fas fa-external-link-alt"></i> View Paper (DOI)
                                 </a>
-                                <button class="action-btn secondary cite-btn">
+                                <button class="btn-cite">
                                     <i class="fas fa-quote-right"></i> Cite
                                 </button>
-                                <a href="#" class="action-btn outline">
-                                    <i class="fas fa-file-pdf"></i> PDF
-                                </a>
+                                <button class="btn-abstract" id="toggleAbstractBtn" aria-expanded="false">
+                                    Abstract
+                                </button>
+                            </div>
+                            <!-- HIDDEN <div> WITH CLASS "abstract-content" (exact required class) -->
+                            <div class="abstract-content" id="abstractContent">
+                                <h3>ABSTRACT</h3>
+                                <p>
+                                    This paper introduces the Gravitational Least Squares Twin Support Vector Machine for Class Imbalance Learning (GLSTSVM-CIL), 
+                                    a novel binary classification method designed to address critical limitations in existing approaches for imbalanced 
+                                    large-scale datasets. Traditional methods like Fuzzy TSVM and KNN-based weighting fail to simultaneously capture both global 
+                                    positional relationships and local density characteristics of data points. Our proposed gravitational weighting function 
+                                    innovatively models data samples as masses influenced by their distance from class centroids and neighborhood density, 
+                                    effectively prioritizing representative points while suppressing outliers. The optimization framework uniquely incorporates 
+                                    angular constraints between hyperplanes to enhance structural risk control and generalization capability. For scalability, 
+                                    we reformulate the solution into a linear system solvable via conjugate gradient methods, avoiding computationally expensive 
+                                    matrix inversions. Comprehensive evaluations on 92 datasets (including synthetic, noisy, medical, text, and large-scale NDC 
+                                    benchmarks) demonstrate GLSTSVM-CIL’s superior performance, particularly in minority-class recognition where it achieves 
+                                    average F1-Score improvements over baseline methods. The model maintains robust Accuracy under high noise (20 %) and extreme 
+                                    class imbalance (ratio 20:1) while ables to process datasets up to 50,000 samples.
+                                </p>
                             </div>
                         </div>
-                    </article>
-                </div>
-
-                <!-- 2025 Publications -->
-                <div class="year-section">
-                    <h2 class="year-title">2025</h2>
+            </article>
                     
-                    <article class="publication-card" data-categories="journal persian">
-                        <div class="pub-badges">
-                            <span class="pub-badge journal">Journal Article</span>
-                            <span class="pub-badge persian">Persian</span>
-                            <span class="pub-badge education">Education</span>
-                        </div>
+            <article class="publication-card" data-categories="journal persian">
+                    
+                    <div class="pub-header">
+                            <span class="pub-year">1404</span>
+                            <span class="pub-type">Expository Article | Persian</span>
+                            <span class="pub-type">Education</span>
+                    </div>
                         
-                        <div class="pub-content">
+                    <div class="pub-content">
                             <h3 class="pub-title" style="text-align: right; direction: rtl;">از تصمیم‌سازی تا طرحواره‌سازی: تلفیق ساخت و ساز گرایی، تصمیم‌سازی و طرحواره‌های ذهنی در آموزش ریاضی</h3>
                             <p class="pub-subtitle">From decision-making to schema-building: Combining constructivism, decision-making, and mental schemas in mathematics education to enhance mathematics teaching and learning</p>
                             <div class="pub-authors" style="direction: rtl;">
                                 <span class="author-highlight">عبدالله محمدی</span>
                             </div>
-                            
-                            <div class="pub-venue" style="direction: rtl;">
-                                <i class="fas fa-book-open" ></i> به سوی علوم ریاضی، دوره 5، شماره 1
+                            <div style="display: flex;">
+                                 <div class="pub-keywords">
+                                    <span class="badge">آموزش ریاضی</span>
+                                    <span class="badge">ساخت گرایی</span>
+                                    <span class="badge">تصمیم‌سازی</span>
+                                    <span class="badge">طرحواره‌های مفهومی</span>
+                                </div>
+                                <div class="pub-venue" style="direction: rtl; margin-left: auto;">
+                                    <i class="fas fa-book-open" ></i> به سوی علوم ریاضی، دوره 5، شماره 1
+                                </div>
+                               
                             </div>
-                            
-                            <div class="pub-abstract">
-                                <p style="text-align: right; direction: rtl;">ارائه یک سبک تدریس نوین با تلفیق رویکردهای ساخت گرایی، تصمیم‌سازی و طرحواره‌های ذهنی در آموزش ریاضی و ارائه چارچوب نظری جدید برای بهبود کیفیت تدریس و یادگیری ریاضی در سطوح مختلف تحصیلی.</p>
-                            </div>
-                            
-                            <div class="pub-keywords">
-                                <span class="keyword">آموزش ریاضی</span>
-                                <span class="keyword">ساخت گرایی</span>
-                                <span class="keyword">تصمیم‌سازی</span>
-                                <span class="keyword">طرحواره‌های مفهومی</span>
-                            </div>
-                            
+
                             <div class="pub-actions">
-                                <a href="https://tmsj.um.ac.ir/article_47676.html" class="action-btn primary" target="_blank">
+                                <a href="https://tmsj.um.ac.ir/article_47676.html" class="btn-doi" target="_blank">
                                     <i class="fas fa-external-link-alt"></i> مشاهده مقاله
                                 </a>
-                                <button class="action-btn secondary cite-btn">
+                                <button class="btn-cite">
                                     <i class="fas fa-quote-right"></i> استناد
                                 </button>
-                            </div>
-                        </div>
-                    </article>
-                </div>
 
-                <!-- 2024 Publications -->
-                <div class="year-section">
-                    <h2 class="year-title">2024</h2>
-                    
-                    <article class="publication-card" data-categories="thesis persian">
-                        <div class="pub-badges">
-                            <span class="pub-badge thesis">Master Thesis</span>
-                            <span class="pub-badge persian">Persian</span>
-                            <span class="pub-badge ml">Machine Learning</span>
+                                <button class="btn-abstract" id="toggleAbstractBtn" aria-expanded="false">
+                                    چکیده
+                                </button>
+                            </div>
+                        
+                            <div class="abstract-content" id="abstractContent">
+                                <h3 style="direction: rtl;">چکیده</h3>
+                                <p style="direction: rtl;">
+                                    
+                                    این مقاله با هدف ارائه‌ی سبک تدریس نوین در آموزش ریاضی، به تحلیل تعامل پویای سه مؤلفه‌ی کلیدی ساخت‌وسازگرایی
+                                     و طرحواره‌های می‌پردازد. بر اساس یافته‌ها، آموزش تصمیم‌سازی، به‌عنوان فرایند طراحی گزینه‌ها، تحلیل شرایط و ارزیابی پیامدها پیش از تصمیم‌گیری،
+                                      در بستر ساخت‌وسازگرایی، نقشی محوری در شکل‌گیری طرحواره‌های انعطاف‌پذیر شناختی ایفا می‌کند.
+                                       مدل مفهومی پیشنهادی نشان می‌دهد که معلم با طراحی موقعیت‌های تعارض‌برانگیز و مسئله‌محور در
+                                        «منطقه‌ی رشد تقریبی»، دانش‌آموزان را به انتخاب آگاهانه‌ی راهبردها، بازخوردگیری فعال و
+                                         بازسازی راه‌حل‌ها ترغیب می‌کند. این فرایند نه‌تنها درک رابطه‌ای مفاهیم
+                                          (در مقابل درک ابزاری) را تقویت می‌کند، بلکه از طریق سناریوهایی مانند انتخاب روش حل، تحلیل خطا و طراحی مسئله،
+                                           به شکل‌گیری طرحواره‌های پایدار و انتقال‌پذیر می‌انجامد.
+                                           گزارش تجربه‌ی عملی در کلاسِ باانگیزه‌ی پایین، مؤید کارایی این چارچوب در افزایش خودکارآمدی، تفکر انتقادی و مسئولیت‌پذیری دانش‌آموزان است.
+                                </p>
+                            </div>
+                    </div>
+            </article>
+
+            <article class="publication-card" data-categories="thesis persian">
+                        <div class="pub-header">
+                            <span class="pub-year">1403</span>
+                            <span class="pub-type">Master Thesis | Persian</span>
+                            <span class="pub-type">Machine Learning</span>
                         </div>
                         
                         <div class="pub-content">
-                            <h3 class="persian-text">ماشین بردار پشتیبان دوقلو برای داده های نامتوازن</h3>
+                            <h3 class="pub-title">ماشین بردار پشتیبان دوقلو برای داده های نامتوازن</h3>
                             <p class="pub-subtitle" style="direction: rtl;">Twin Support Vector Machines for Imbalanced Data</p>
                             
                             <div class="pub-authors" style="direction: rtl;">
                                 <span class="author-highlight">عبدالله محمدی</span>
                             </div>
+                            <div style="display: flex;">
                             
-                            <div class="pub-venue"  style="direction: rtl;">
-                                <i class="fas fa-university"></i> پایان‌نامه کارشناسی ارشد، دانشگاه فردوسی مشهد
-                            </div>
-                            
-                            <div class="pub-abstract">
-                                <p class="persian-text">توسعه روشی مبتنی بر ماشین بردار پشتیبان دوقلو (Twin SVM) برای پردازش داده‌های نامتوازن با استفاده از مدل سازی گرانشی و بهینه‌سازی زاویه برای بهبود عملکرد در طبقه‌بندی داده‌های نامتوازن.</p>
-                            </div>
                             
                             <div class="pub-keywords">
-                                <span class="keyword">یادگیری ماشین</span>
-                                <span class="keyword">ماشین بردار پشتیبان دوقلو</span>
-                                <span class="keyword">داده‌های نامتوازن</span>
-                                <span class="keyword">گرانش</span>
-                                <span class="keyword">جاذبه</span>
-                                <span class="keyword">زاویه بهینه</span>
-                                <span class="keyword">بردار نرم ابرصفحه</span>
+                                <span class="badge">یادگیری ماشین</span>
+                                <span class="badge">ماشین بردار پشتیبان دوقلو</span>
+                                <span class="badge">داده‌های نامتوازن</span>
+                                <span class="badge">گرانش</span>
+                                <span class="badge">جاذبه</span>
+                                <span class="badge">زاویه بهینه</span>
+                                <span class="badge">بردار نرم ابرصفحه</span>
                             </div>
-                            
-                            <div class="pub-actions">
-                                <a href="#" class="action-btn primary">
-                                    <i class="fas fa-file-pdf"></i> دانلود PDF
-                                </a>
-                                <button class="action-btn secondary cite-btn">
-                                    <i class="fas fa-quote-right"></i> استناد
-                                </button>
-                            </div>
+                        <div class="pub-venue"  style="direction: rtl; margin-left: auto;">
+                                <i class="fas fa-university"></i> پایان‌نامه کارشناسی ارشد، دانشگاه فردوسی مشهد
+                            </div>    
                         </div>
+                        
+                        <div class="pub-actions">
+                            <a href="https://ganj.irandoc.ac.ir/#/articles/b43dd2e90f4a311a94071501031c991d" class="btn-doi" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> مشاهده
+                                </a>
+                                <button class="btn-cite">
+                                    <i class="fas fa-quote-right"></i>استناد
+                                </button>
+                                <button class="btn-abstract" id="toggleAbstractBtn" aria-expanded="false">
+                                    چکیده
+                                </button>
+                        </div>
+                        <!--https://ganj.irandoc.ac.ir/#/articles/b43dd2e90f4a311a94071501031c991d-->
+                            <div class="abstract-content" style="direction: rtl;" id="abstractContent">
+                                <h2>چکیده</h2>
+                                <p>
+                                الگوریتم‌های برپایه‌ی ماشین‌های بردار پشتیبان یکی از روشهای قدرتمند در طبقه بندی داده هاست. روش استاندارد ماشین بردار پشتیبان با جستجوی دو ابرصفحه‌ی موازی داده‌ها را طبقه بندی می‌کند. روش توسعه یافته‌ی آن، ماشین بردار پشتیبان دوقلو ابرصفحه‌هایی را می‌یابد که لزوما موازی نیستند. در دو مورد قبل، تمام نمونه‌های مورد مطالعه در تعیین ابرصفحه ها دارای ارزش برابر هستند، اما داده‌های دورافتاده، داده‌های نزدیک به مرکز کلاس و یا داده‌هایی که در اطراف آن‌ها تجمع بیشتری وجود دارد، دارای اهمیت متفاوتی از لحاظ میزان تعلق به کلاس و تعیین ابرصفحه‌ها هستند. در واقع، تجمع و فاصله دو ویژگی بسیار مهم در تشابه نقاط است. نوع دیگر، مجموعه‌هایی هستند که در یک کلاس تعداد اندک و در کلاس دیگر تعداد خیلی زیادی از نمونه ها را شامل می‌شوند. در چنین مجموعه‌هایی، با استفاده از نسبت عدم تعادل، از سوگیری ابرصفحه ها به سمت کلاس بزرگتر جلوگیری می شود. داده‌های بیماری‌ها از این نوعند. در دنیای واقعی مانند داده‌های بیماری‌ها، علاوه بر برقراری تعادل در بین دو کلاس، تشخیص درست نمونه‌ها در کلاس کوچکتر اهمیت بیشتری دارد. در این پژوهش بر اساس تجمع و فاصله نمونه‌ها از مرکز کلاس، تابعی تعریف می‌شود که قادر است براساس چگالی و فاصله از مرکز کلاس، میزان اهمیت نقاط را اندازه گیری کند، بنابراین اهمیت نمونه ها از ترکیب چگالی اطراف و موقعیت مکانی به درستی کشف می‌شود. سپس مسئله بهینه سازی درجه‌ی دوی روشهای پیشین، به یک مسئله‌ی خطی بدون قید تبدیل می شود. و با استفاده از گرادیان مزدوج توانایی روش در برابر داده‌های بسیار بزرگ افزایش داده می شود. و در نهایت نتایج پژوهش روی انواع مختلفی از داده آزموده شده و انتظار می رود نتایج بهتر و مطمئن تری نسبت به روشهای پیشین بدست آوریم.
+                                </p>
+                                </div>
+                        </div>
+                        
                     </article>
-                </div>
-
-                <!-- 2023 Publications -->
-                <div class="year-section">
-                    <h2 class="year-title">2023</h2>
                     
                     <article class="publication-card" data-categories="conference persian">
-                        <div class="pub-badges">
-                            <span class="pub-badge conference">Conference Paper</span>
-                            <span class="pub-badge persian">Persian</span>
-                            <span class="pub-badge healthcare">Healthcare</span>
+                        <div class="pub-header">
+                            <span class="pub-year">1402</span>
+                            <span class="pub-type">Conference Paper | Persian</span>
+                            <span class="pub-type">Healthcare</span>
                         </div>
                         
                         <div class="pub-content" >
@@ -277,43 +281,52 @@
                                 <span class="author-highlight">عبدالله محمدی</span>، جلال الدین نصیری، سهراب عفتی
                             </div>
                             
-                            <div class="pub-venue" style="direction: rtl;">
-                                <i class="fas fa-users"></i> پنجمین کنفرانس ملی انفورماتیک ایران
-                            </div>
-                            
-                            <div class="pub-abstract" style="direction: rtl;">
-                                <p>بررسی تابع وزن گرانشی بر اساس ماشین بردار پشتیبان دوقلو برای پیش‌بینی بیماری‌های مزمن با استفاده از داده‌های نامتوازن و بهبود عملکرد طبقه‌بندی در شرایط نامتوازن.</p>
-                            </div>
+                            <div>
                             
                             <div class="pub-keywords">
-                                <span class="keyword">مدل وزنی</span>
-                                <span class="keyword">وزن گرانشی</span>
-                                <span class="keyword">ماشین بردار پشتیبان</span>
-                                <span class="keyword">بیماری‌های مزمن</span>
-                                <span class="keyword">دیابت</span>
-                                <span class="keyword">آلزایمر</span>
-                                <span class="keyword">سرطان</span>
+                                <span class="badge">مدل وزنی</span>
+                                <span class="badge">وزن گرانشی</span>
+                                <span class="badge">ماشین بردار پشتیبان</span>
+                                <span class="badge">بیماری‌های مزمن</span>
+                                <span class="badge">دیابت</span>
+                                <span class="badge">آلزایمر</span>
+                                <span class="badge">سرطان</span>
+                            </div>
+
+                            <div class="pub-venue" style="direction: rtl; margin-left: auto;">
+                                <i class="fas fa-users"></i> پنجمین کنفرانس ملی انفورماتیک ایران
+                            </div>
                             </div>
                             
                             <div class="pub-actions">
-                                <a href="https://ecc.isc.ac/showJournal/39989/282326/3559496" class="action-btn primary" target="_blank">
+                                <a href="https://ecc.isc.ac/showJournal/39989/282326/3559496" class="btn-doi" target="_blank">
                                     <i class="fas fa-external-link-alt"></i> مشاهده مقاله
                                 </a>
-                                <button class="action-btn secondary cite-btn">
+                                <button class="btn-cite">
                                     <i class="fas fa-quote-right"></i> استناد
                                 </button>
+
+                                 <button class="btn-abstract" id="toggleAbstractBtn" aria-expanded="false">
+                                    چکیده
+                                </button>
+                            </div>
+                            
+                            <div class="abstract-content" style="direction: rtl;">
+                                <h2>چکیده</h2>
+                                <p>
+                                    با پیشرفت تکنولوژی، روش‌های مبتنی بر داده برای تشخیص انواع بیماری ها، به طور گسترده‌ای مورد توجه قرار گرفته ‌است. در طبقه بندی بیماری ها،
+                                     تشحیص درست فرد ناسالم نسبت به تشخیص درست یک فرد سالم از اهمیت بیشتری برخودار است. اغلب داده های این بیماری ها دارای جامعه ی بیمار کوچک و جامعه ی سالم
+                                      بزرگتری است. در این مقاله با تعریف یک تابع وزن ویژه در مدل وزنی الگوریتم twin svm ، نشان داده می شود اختصاص وزن به گروه کوچکتر می تواند در تشخیص طبقه ی نمونه ها
+                                       موثرتر باشد، ابتدا مفاهیم پایه ای مدل را بیان نموده سپس علاوه بر روال الگوریتم های دیگر، برای داده های کلاس کوچکتر نیز وزن اختصاص داده می شود.
+                                        سپس از چندین مجموعه داده ی بیماریهای مزمن مانند سرطان، دیابت و آلزایمر و ...، برای ارزیابی عملکرد روش استفاده نموده با مقایسه ی نتایج با چند
+                                         روش دیگر، نشان داده می شود روش مورد استفاده می‌تواند با دقت بهتری نمونه ها را طبقه بندی کرده، نمونه های کلاس کوچکتر را نیز با دقت بالاتری تشخیص دهد
+                                          بنابراین می توان انتظار داشت بر روش‌های دیگر برتری داشته باشد.
+                                </p>
                             </div>
                         </div>
                     </article>
-                </div>
-            </section>
 
-            <!-- Back to Home -->
-            <div class="back-home">
-                <a href="../index.html" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </a>
-            </div>
+            </section>
         </div>
     </main>
 
@@ -330,8 +343,6 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="../index.html">Home</a></li>
-                        <li><a href="../index.html#about">About</a></li>
-                        <li><a href="#all-publications">Publications</a></li>
                         <li><a href="../index.html#projects">Projects</a></li>
                         <li><a href="../blogs/edu.html">Education Blog</a></li>
                         <li><a href="../blogs/ds.html">Data-Science Blog</a></li>
@@ -345,7 +356,6 @@
                             <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png">
                         </a>
                         <br>
-                        Content licensed under 
                         <a class="project-link" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>
                     </p>
                 </div>

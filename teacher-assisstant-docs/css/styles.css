@@ -1,22 +1,150 @@
-/*     .version-card 
-    {
-      background-color: var(--bg-card);
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }*/
-    .container 
-    {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
-    padding: var(--space-xl);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
+
+.container 
+{
+    padding: 0px 15%;
     position: relative;
-    overflow: hidden;
-    min-height: 100vh;
+    border: None;
 }
+        .flow-chart {
+            background: var(--card-bg);
+            border: 2px dashed #90a4ae;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            font-style: italic;
+            color: #546e7a;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .feature-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.2em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 50%;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.95em;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .code-comment {
+            color: #6a9955;
+        }
+        
+        .code-keyword {
+            color: #569cd6;
+        }
+        
+        .code-string {
+            color: #ce9178;
+        }
+        
+        .code-number {
+            color: #b5cea8;
+        }
+        
+        
+        .method-details {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--info-color);
+        }
+        
+        .method-signature {
+            font-family: 'Consolas', monospace;
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .parameter-table {
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        .parameter-table th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+        }
+        
+        .parameter-table td , tr{
+            padding: 12px;
+            color: var(--text-primary);
+             background: var(--bg-primary);
+        }     
+
+.technical-box 
+{
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    border: 1px solid var(--code-border);
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px 0;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+.class-item 
+{
+    background: var(--card-bg);
+    border-left: 4px solid var(--accent-color);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+
+
 .header
 {
     display: flex;
@@ -144,27 +272,6 @@
             margin: 15px 0;
         }
 
-        .technical-box {
-            background-color: var(--code-bg);
-            color: var(--code-text);
-            border: 1px solid var(--code-border);
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-            font-family: monospace;
-            font-size: 0.9em;
-        }
-
-        code {
-            background-color: var(--code-bg);
-            color: var(--code-text);
-            border: 1px solid var(--code-border);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-
         .toc-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -198,7 +305,8 @@
             margin: auto 0px; 
         }
 
-        .section-separator {
+        .section-separator 
+        {
             border: 0;
             height: 1px;
             background: linear-gradient(to right, transparent, var(--border-color), transparent);

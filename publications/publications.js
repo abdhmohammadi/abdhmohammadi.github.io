@@ -2,15 +2,16 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Filter functionality
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    //const filterButtons = document.querySelectorAll('.filter-btn');
     const publicationCards = document.querySelectorAll('.publication-card');
     const citationModal = document.getElementById('citationModal');
     const modalClose = document.getElementById('modalClose');
     const copyCitationBtn = document.getElementById('copyCitation');
     const formatButtons = document.querySelectorAll('.format-btn');
-    const citeButtons = document.querySelectorAll('.cite-btn');
+    const citeButtons = document.querySelectorAll('.btn-cite');
     
     // Filter publications
+    /*
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
             // Remove active class from all buttons
@@ -45,18 +46,23 @@ document.addEventListener('DOMContentLoaded', function() {
             history.pushState(null, null, `#${filter}`);
         });
     });
-    
+
+    */
     // Check URL for filter parameter on page load
+    /*
     const hash = window.location.hash.substring(1);
-    if (hash && ['all', 'journal', 'conference', 'thesis', 'persian'].includes(hash)) {
+    if (hash && ['all', 'journal', 'conference', 'thesis', 'persian'].includes(hash)) 
+        {
         const correspondingButton = document.querySelector(`.filter-btn[data-filter="${hash}"]`);
         if (correspondingButton) {
             correspondingButton.click();
         }
     }
-    
+    */
     // Citation modal functionality
-    function showCitationModal(title, authors, venue, year, type) {
+    function showCitationModal(title, authors, venue, year, type) 
+    {
+
         const citationText = document.getElementById('citationText');
         
         // Generate APA citation
@@ -76,10 +82,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'hidden';
     }
     
-    function generateAPACitation(title, authors, venue, year, type) {
-        if (type === 'persian') {
+    function generateAPACitation(title, authors, venue, year, type) 
+    {
+        if (type === 'persian') 
+        {
             return `${authors} (${year}). ${title}. ${venue}.`;
-        } else {
+        }
+        else 
+        {
             return `${authors} (${year}). ${title}. ${venue}.`;
         }
     }
@@ -89,18 +99,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return `@article{${key},\n  title={${title}},\n  author={${authors}},\n  journal={${venue}},\n  year={${year}}\n}`;
     }
     
-    function generateMLACitation(title, authors, venue, year, type) {
+    function generateMLACitation(title, authors, venue, year, type) 
+    {
         return `${authors}. "${title}." ${venue}, ${year}.`;
     }
     
     // Handle cite button clicks
-    citeButtons.forEach(button => {
-        button.addEventListener('click', function() {
+    citeButtons.forEach(button => 
+    {
+        button.addEventListener('click', function() 
+        {
             const card = this.closest('.publication-card');
             const title = card.querySelector('.pub-title').textContent;
             const authors = card.querySelector('.pub-authors').textContent;
             const venue = card.querySelector('.pub-venue').textContent.replace(/^[^a-zA-Z0-9]*/, ''); // Remove icon text
-            const year = card.closest('.year-section').querySelector('.year-title').textContent;
+            const year = card.querySelector('.pub-year').textContent;//.closest('.year-section').querySelector('.year-title').textContent;
             const type = card.getAttribute('data-categories').includes('persian') ? 'persian' : 'english';
             
             showCitationModal(title, authors, venue, year, type);
@@ -108,7 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Handle modal close
-    modalClose.addEventListener('click', function() {
+    modalClose.addEventListener('click', function() 
+    {
         citationModal.classList.remove('active');
         document.body.style.overflow = 'auto';
     });
@@ -149,7 +163,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Generate citation in selected format
             let newCitation;
-            switch (format) {
+            switch (format) 
+            {
                 case 'apa':
                     newCitation = generateAPACitation(title, authors, venue, year, type);
                     break;
@@ -278,4 +293,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize on load
     highlightActiveYear();
+
+// Select all abstract toggle buttons
+const buttons = document.querySelectorAll('.btn-abstract');
+
+buttons.forEach(button => {
+    // Find the closest parent card (adjust selector to match your card container)
+    const card = button.closest('.publication-card'); // or whatever container class you use
+    if (!card) return;
+
+    // Within that card, find the abstract content
+    const abstract = card.querySelector('.abstract-content');
+    if (!abstract) return;
+
+    // Set initial ARIA state (optional, for accessibility)
+    button.setAttribute('aria-expanded', 'false');
+
+    button.addEventListener('click', function(e) {
+        e.preventDefault(); // if needed
+        if (abstract.classList.contains('revealed')) {
+            abstract.classList.remove('revealed');
+            button.setAttribute('aria-expanded', 'false');
+        } else {
+            abstract.classList.add('revealed');
+            button.setAttribute('aria-expanded', 'true');
+        }
+    });
 });
+});
+

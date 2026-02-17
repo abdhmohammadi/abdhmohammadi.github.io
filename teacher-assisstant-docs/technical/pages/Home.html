@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeacherAssistant · Core & Window Technical Reference</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link rel="stylesheet" href="../../../css/theme.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+
+    <script src="../../../js/theme.js" defer></script>
+</head>
+<body>
+
+    <div class="header">
+        <a href="../dashboard.html"><i class="fas fa-arrow-left"></i></a>
+        <div>
+            <h1>TeacherAssistant · Core & Startup</h1>
+        </div>
+        <span class="badge" style="margin: 10px auto auto 10px;">v0.2.9+</span>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <!--<span id="themeIcon">🌙</span> Switch theme-->
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <div class="container">
+
+        <section>
+            <h2>TeacherAssistant - Technical Overview</h2>
+            <p style="margin-bottom: 1rem; line-height: 1.7;text-align:justify">
+                <strong>TeacherAssistant</strong> is a desktop application built with 
+                <strong>PySide6 (Qt)</strong> and the custom <strong>PySideAbdhUI</strong> library. It provides 
+                teachers with a unified interface to manage student rosters, educational resources, 
+                behavioral observations tracking and etc. The application follows a modular architecture: the entry 
+                point <code>main.py</code> bootstraps the environment, establishes a database connection with PostgreSQL via 
+                a modal dialog, and instantiates the main window. All global state—theme, fonts, language, 
+                and connection settings—is centralised in a singleton <a href="#">AppContext</a>, which persists 
+                user preferences to a <code>settings.json</code> file stored in the user’s local application 
+                data directory. The UI is constructed by <a href="#mainwindow">MainWindow</a> (a subclass of 
+                <a href="https://github.com/abdhmohammadi/PySideAbdhUI">AbdhWindow</a>), which features a left navigation panel, 
+                a right settings panel, and a central page stack. Pages such as <a href="student-list.html">StudentListPage</a> 
+                (the default home view), <a href="edu-resource-view.html">EduResourcesView</a>, <a href="edu-resource-editor.html">
+                EducationalResourceEditor</a>, and <code>DatabaseManagerPage</code> are loaded dynamically without restarting the application.
+            </p>
+            <p style="margin-bottom: 1rem; line-height: 1.7;;text-align:justify">
+                From a developer’s perspective, the project enforces absolute imports by patching 
+                <code>sys.path</code>, and all icons are sourced from <a href="https://lucide.dev/icons/categories">Lucide</a> (Free version), 
+                compiled into a Qt resource module (<code>resources_rc.py</code>) via a dedicated script. The build pipeline 
+                is explicitly documented: after installing the proprietary <a href="https://github.com/abdhmohammadi/PySideAbdhUI">PySideAbdhUI</a> 
+                dependency (via local wheel, editable install, or GitHub), the developer compiles resources, then packages 
+                the application with <strong>PyInstaller</strong> using a custom <code>.spec</code> file. 
+                Finally, a Windows installer is generated with <a href="https://jrsoftware.org/isinfo.php">InnoSetup</a>. The codebase also 
+                includes placeholders for future features (e.g., a disabled “Notebook” button) and supports 
+                runtime switching of themes, font families, and interface direction (LTR/RTL). This design 
+                makes TeacherAssistant both a production‑ready tool and a well‑documented reference for 
+                Qt/PySide application development.
+            </p>
+            
+            <div style="display: flex; gap: 10px;">
+                <p style="font-size: 1.1rem;">🔗 Full source code available at:</p>
+                <svg height="20" viewBox="0 0 16 16" width="20" style="fill:var(--accent-color);">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+                
+                <a href="https://github.com/abdhmohammadi/TeacherAssisstant" target="_blank">abdhmohammadi/TeacherAssisstant</a>
+            </div>
+        </section>
+
+     <!-- #############  MAIN.PY – APPLICATION ENTRY POINT  ############# -->
+    <section>
+        <div style="display: flex;">
+            <h2>Application entry & lifecycle - </h2>
+            <code>main.py</code>
+        </div>
+        
+        
+            <p>The program execution flow from start to display of the first page is shown in the image below. First of all, 
+               the PySideAbdhUI package and other required packages of the program must be installed. To install PySideAbdhUI, 
+               you can use:
+            </p>
+            <br>
+            <p style="text-align: center;"><code>pip install git+https://github.com/abdhmohammadi/PySideAbdhUI.git</code></p>
+            <br>
+            <p>or use a local package to install it. After installing the required packages, <code>env\Scripts\activate</code> 
+                must be activated via the terminal. Now the program is ready to run, The steps are summarized in the list below.
+            </p> 
+            <br>        
+            <ol style="margin-left: 1.5rem;">
+                <li><strong>Sys.path manipulation: </strong>
+                    Add the <code>src</code> directory to the Python path to allow for absolute imports, This is crucial for making the project runnable from any location
+                </li>
+                <li><strong>Global access setup: </strong>Access to configuration files, templates, and themes is set by the AppContext module.
+                    <code>app_context</code>  holds global state (theme, settings, DPI, resources) and provides helper classes to manage 
+                    this resources.
+                </li>
+                <li><strong>MainWindow: </strong>The main window is created. Then the login dialog for connecting to the database opens.</li>
+                <li><strong>Event loop: </strong>Using <code>app.exec()</code> the application starts and the list of students is displayed. 
+                    For now the page of the <a href="student-list.html">Student List</a> is considered as the home page.
+                </li>
+            </ol>
+            
+            <img src="../images/diagram.png" height="330" style="margin: 0 auto;border-radius: 10px;align-self: center;">
+            
+            <div style="background: var(--card-bg); padding: 16px; border-radius: 8px; margin-top: 16px;">
+                <p><strong>📁 Settings location (Windows): </strong><span class="badge">Planed</span></p> 
+                <p><strong>🔧 Settings stored:</strong> UI (theme, language, font), backup/restore paths, PostgreSQL tools path.</p>
+            </div>
+        
+    </section>
+
+    <!-- #############  BUILD & INSTALLATION (from main.py comments) ############# -->
+        <section>
+            <h2>Building & creating installer</h2>
+            <p>Building and publishing the application involves the following main steps:</p>
+            
+            <div>
+                <h3>🔨 Step 1 - install PySideAbdhUI (dependency)</h3>
+                <div> <strong>Option A - from local wheel: </strong>
+                <code>pip install [local directory]\PySideAbdhUI-[version]-py3-none-any.whl</code>
+            </div>
+            <br>
+            <div> <strong>Option B - editable install (for development): </strong>
+                <code>pip install -e [local directory]\PySideAbdhUI</code>
+            </div>
+            <br>
+            <div> <strong>Option C - direct from GitHub:</strong>
+                <code>pip install git+https://github.com/abdhmohammadi/PySideAbdhUI.git</code>
+            </div>
+            <br>
+            <h3> Step 2 - Compile Qt resources</h3>
+            <p>
+                To make the resource portable, we embed all Icon resources to the app in the <code>qrc</code> format.
+                <code>scripts/compile_qrc.py</code> generates <code>resources_rc.py</code> and is imported in <code>app_context</code>.
+                any change icons in <code>resources/</code>, need to run <code>scripts/build_qrc.py</code> to update resources, then re‑compile.
+            </p>
+
+            <h3>🖥️ Step 3 - Create executable pack</h3>
+            <p>To publish the app for Windows OPs we create intallation package in two steps. First we use 
+                <a href="https://pyinstaller.org/en/stable/installation.html">Pyinstaller</a> to make exe file then
+                use <a href="https://jrsoftware.org/isinfo.php">InnoSetup</a> tools to publish the app as Setup.exe pack.
+                Pyinstaller uses <code>TeacherAssistant.spec</code> to create the executable file. and saves it into 
+                <code>dist</code> folder. This folder is placed in the root directory, but the developer can change it when running PyInstaller.
+                After PyInstaller produces the executable file, the official installer is created with InnoSetup. below tow option is available
+                for PyInstaller:<br>
+                <code>pyinstaller .\scripts\TeacherAssistant.spec</code><br>
+                If PyInstaller is not in the PATH can be avialable by:<br>
+                <code>C:\Users\[user name]\AppData\Roaming\Python\Python314\Scripts\pyinstaller .\scripts\TeacherAssistant.spec</code>
+            </p>
+                
+        </section>
+  
+    
+    <footer>
+           <div class="section-separator"></div>
+            <p style="text-align: center; font-size: 0.9em; color: #777; margin-top: 40px;">
+                Technical documentation for TeacherAssistant <br>
+                Document Version: 1.0 | Generated: February 2026<br>
+                © 2026 Abdullah Mohammadi. All rights reserved.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

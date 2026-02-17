@@ -9,288 +9,13 @@
     <!-- Global base styles + page CSS -->
     <link rel="stylesheet" href="../../../css/styles.css">
     <link rel="stylesheet" href="../../../css/theme.css">
+    <link rel="stylesheet" href="../../css/styles.css">
     <script src="../../../js/theme.js" defer></script>
-
-    <style>
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            line-height: 1.6;
-            transition: background-color var(--transition-normal), color var(--transition-normal);
-            padding: 50px 10%;
-        }
-        
-        .container {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-xl);
-            padding: var(--space-xl);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-            min-height: 100vh;
-        }
-        
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-lg);
-            padding-bottom: var(--space-md);
-            border-bottom: 2px solid var(--border-color);
-        }
-        
-        .info-box {
-            background-color: #5bbeefde;
-            color: #0a4528;
-            border: 1px solid #5bbeefde;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-        }
-        
-        .warning-box {
-            background-color: #ffeb3bde;
-            color: #856404;
-            border: 1px solid #ffc107;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-            border-left: 5px solid #ffc107;
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            margin: 25px 0;
-        }
-        
-        .feature-card {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 25px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--secondary-color);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .feature-icon {
-            font-size: 2.2em;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            display: inline-block;
-            background: rgba(52, 152, 219, 0.1);
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            text-align: center;
-            border-radius: 50%;
-        }
-        
-        .code-block {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 20px 0;
-            font-family: 'Cascadia Code', 'Consolas', monospace;
-            font-size: 0.95em;
-            border-left: 4px solid var(--secondary-color);
-            position: relative;
-        }
-        
-        .code-comment {
-            color: #6a9955;
-        }
-        
-        .code-keyword {
-            color: #569cd6;
-        }
-        
-        .code-string {
-            color: #ce9178;
-        }
-        
-        .code-number {
-            color: #b5cea8;
-        }
-        
-        .method-details {
-            background: var(--bg-primary);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid var(--info-color);
-        }
-        
-        .parameter-table {
-            width: 100%;
-            margin: 15px 0;
-            border-collapse: collapse;
-        }
-        
-        .parameter-table th {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            text-align: left;
-        }
-        
-        .parameter-table td {
-            padding: 12px;
-            color: var(--text-primary);
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-        }
-        
-        .screenshot-placeholder {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            padding: 70px 40px;
-            margin: 30px 0;
-            text-align: center;
-            color: white;
-            border: 3px dashed rgba(255,255,255,0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .screenshot-placeholder:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(255, 255, 255, 0.1),
-                rgba(255, 255, 255, 0.1) 10px,
-                rgba(255, 255, 255, 0.05) 10px,
-                rgba(255, 255, 255, 0.05) 20px
-            );
-        }
-        
-        .architecture-diagram {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            padding: 30px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        
-        .flow-chart {
-            background: var(--card-bg);
-            border: 2px dashed #90a4ae;
-            border-radius: 10px;
-            padding: 40px;
-            margin: 30px 0;
-            text-align: center;
-            font-style: italic;
-            color: #546e7a;
-        }
-        
-        
-        
-.toc {
-    background: var(--bg-primary);
-    border-radius: 10px;
-    padding: 25px;
-    margin: 30px 0;
-    border-left: 5px solid var(--secondary-color);
-}
-
-.toc ul {
-    columns: 3;  /* Changed from 2 to 3 columns */
-    column-gap: 30px;
-    column-rule: 1px solid var(--border-color);
-}
-
-.toc li {
-    margin-bottom: 10px;
-    break-inside: avoid;
-    page-break-inside: avoid;
-}
-
-.toc a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    transition: color 0.3s;
-    display: block;
-    padding: 3px 0;
-}
-
-.toc a:hover {
-    color: var(--primary-color);
-    text-decoration: underline;
-}
-        
-
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    .toc ul {
-        columns: 2;
-        column-gap: 25px;
-    }
-}
-
-@media (max-width: 900px) {
-    .toc ul {
-        columns: 1;
-    }
-}
-
-@media (max-width: 768px) {
-    .toc {
-        padding: 15px;
-    }
-    
-    .toc ul {
-        columns: 1;
-    }
-
-           
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                padding: 20px;
-            }
-        }
-        
-        .section-separator {
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--border-color), transparent);
-            margin: 40px 0;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <a href="../technical-docs.html"><i class="fas fa-arrow-left"></i></a>
+    
+    <div class="header">
+            <a href="../dashboard.html"><i class="fas fa-arrow-left"></i></a>
             <div>
                 <h1>StudentActivityTrackingPage Class</h1>
                 <p>Technical Documentation - Student Progress Monitoring</p>
@@ -302,7 +27,9 @@
                 <i class="fas fa-moon"></i>
                 <i class="fas fa-sun"></i>
             </button>
-        </div>
+    </div>
+    <div class="container">
+        
 
         <p style="text-align: justify;">
             The StudentActivityTrackingPage class provides a comprehensive dashboard for monitoring individual student progress, combining behavioral observations with academic performance tracking. It serves as a detailed profile view for educators to track learning activities, behavioral patterns, and academic achievements in a unified interface. The page integrates multiple data visualization components including line charts, donut charts, and pie charts to provide actionable insights into student development.
@@ -1160,6 +887,7 @@
     </div>
 
     <script>
+        /*
         // Enhanced smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1357,6 +1085,7 @@ const createEnhancedTOC = () => {
                 });
             }
         });
+        */
     </script>
 </body>
 </html>
