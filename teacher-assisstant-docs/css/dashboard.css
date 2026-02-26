@@ -32,30 +32,11 @@
     border-bottom: 2px solid var(--border-color);
 }
 
-.dashboard-header h2 {
-    font-size: var(--font-size-2xl);
-    font-weight: 700;
-    color: var(--primary-color);
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-
 /* Resources Section */
 .resources-section {
     margin-top: var(--space-xl);
 }
 
-.resources-section h2 {
-    font-size: var(--font-size-xl);
-    color: var(--primary-color);
-    margin-bottom: var(--space-md);
-    font-weight: 600;
-    padding-bottom: var(--space-xs);
-    border-bottom: 2px solid var(--border-color);
-}
 
 /* Resources Grid */
 .resources-grid {

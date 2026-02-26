@@ -5,7 +5,8 @@
     position: relative;
     border: None;
 }
-        .flow-chart {
+
+.flow-chart {
             background: var(--card-bg);
             border: 2px dashed #90a4ae;
             border-radius: 10px;
@@ -14,13 +15,13 @@
             text-align: center;
             font-style: italic;
             color: #546e7a;
-        }
-        .feature-grid {
+}
+.feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
             margin: 25px 0;
-        }
+}
         
         .feature-card {
             border: 1px solid var(--border-color);
@@ -156,15 +157,6 @@
     border-bottom: 2px solid var(--border-color);
 }
 
-.header h2 {
-    font-size: var(--font-size-2xl);
-    font-weight: 700;
-    color: var(--primary-color);
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
         .screenshot-placeholder 
         {
             border-radius: 8px;
@@ -201,14 +193,6 @@
             border-radius: 6px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-
-        .feature-card h3 {
-            margin-top: 0;
-            color: var(--secondary-color);
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 8px;
-        }
-
         .chart-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -222,11 +206,6 @@
             padding: 15px;
             border-radius: 6px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .chart-card h4 {
-            margin-top: 0;
-            color: var(--primary-color);
         }
 
         .status-grid {
@@ -243,16 +222,17 @@
             font-weight: 500;
         }
 
-        .status-replied { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .status-waiting { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
-        .status-delayed { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .status-lost { background-color: #d6d8d9; color: #1b1e21; border: 1px solid #c6c8ca; }
+.status-replied { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.status-waiting { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+.status-delayed { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.status-lost { background-color: #d6d8d9; color: #1b1e21; border: 1px solid #c6c8ca; }
 
-        .menu-list li {
-            list-style-type: none;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%233498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>') no-repeat left center;
-            padding-left: 24px;
-        }
+.menu-list li 
+{
+    list-style-type: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%233498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>') no-repeat left center;
+    padding-left: 24px;
+}
 
         .info-box {
             background-color:#5bbeefde;

@@ -42,6 +42,8 @@
     --code-text: #4338ca;
     --code-border: #cbd5e1;
 
+    --moon-color:#b1b123;
+    
     /* Shadows - Refined for more natural depth */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -118,6 +120,8 @@
     --code-bg: #0b1120;
     --code-text: #a5b4fc;
     --code-border: #312e81;
+    --moon-color:#eaea22;
+    
 }
 
 /* Theme Toggle */
@@ -133,13 +137,13 @@
     align-items: center;
     justify-content: center;
     color: var(--text-primary);
-    background-color:transparent;/* var(--bg-tertiary);*/
+    background-color:transparent;
     transition: all var(--transition-fast);
     position: relative;
 }
 .fa-sun, .fa-moon
 {
-    color: rgb(202, 202, 28);
+    color:var(--moon-color)
 }
 .theme-toggle:hover 
 {
