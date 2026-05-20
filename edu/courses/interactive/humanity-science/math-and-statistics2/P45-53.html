@@ -17,8 +17,8 @@
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['\\(', '\\)']],
-                displayMath: [['$$', '$$']]
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']]
             },
             options: {
                 skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
@@ -33,12 +33,14 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        html {
+        html 
+        {
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
         }
         
-        body {
+        body 
+        {
             margin: 0;
             padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -47,12 +49,39 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        
-        button, .nav-tab, .option, .draggable-word, .card-nav-btn, 
-        .accordion-header, .tf-option {
+        .chart-area
+        {
+            display:flex;
+            gap:10px; 
+            padding:10px 25px;
+            direction: ltr;
+        }
+
+        .chart
+        {
+            border: 2px dashed #2196f3;
+            width: 270px;
+            height: 270px;
+            border-radius: 16px;
+        }
+        .chart img
+        {
+            width: 240px;
+            height: 240px;
+            margin: 10px;
+        }
+        button, 
+        .nav-tab, 
+        .option, 
+        .draggable-word, 
+        .card-nav-btn, 
+        .accordion-header, 
+        .tf-option 
+        {
             touch-action: manipulation;
         }
-        
+        .accordion-header
+        {font-size: 1.5rem;}
         .book-container {
             max-width: 90%;
             margin: 0 auto;
@@ -70,7 +99,7 @@
         }
         
         .cover-page h1 {
-            font-size: 2.5em;
+            
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
@@ -151,7 +180,8 @@
             margin-bottom: 25px;
         }
         
-        .content-section {
+        .content-section 
+        {
             background: #f8f9fa;
             padding: 25px;
             border-radius: 15px;
@@ -159,12 +189,19 @@
             border-right: 5px solid #667eea;
         }
         
-        .content-section h3 {
+        .content-section h3 
+        {
             color: #2a5298;
             margin-top: 0;
+            font-size: 1.75rem;
         }
-        
-        .formula-box {
+        .content-section p
+        {
+            font-size: 1.5rem;
+        }
+        .content-section ul{font-size: 1.25rem;}
+        .formula-box 
+        {
             background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
             padding: 20px;
             border-radius: 10px;
@@ -173,7 +210,8 @@
             text-align: center;
         }
         
-        .example-box {
+        .example-box 
+        {
             background: linear-gradient(135deg, #e8f5e9 0%, #fff 100%);
             padding: 20px;
             border-radius: 10px;
@@ -181,7 +219,8 @@
             margin: 20px 0;
         }
         
-        .example-box h4 {
+        .example-box h4 
+        {
             color: #2e7d32;
             margin-top: 0;
         }
@@ -194,7 +233,7 @@
             margin: 20px 0;
         }
         
-        .warning-box h4 {
+        .warning-box h3 {
             color: #e65100;
             margin-top: 0;
         }
@@ -240,7 +279,7 @@
             overflow: hidden;
             transition: all 0.3s ease;
         }
-        
+        .accordion-content p{font-size: 1.25rem;}
         .accordion-item.open .accordion-content {
             padding: 20px 25px;
             max-height: 500px;
@@ -255,7 +294,7 @@
         }
         
         .question-text {
-            font-size: 1.1em;
+            font-size: 1.25em;
             margin-bottom: 20px;
             color: #333;
         }
@@ -273,6 +312,7 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 1.25rem;
         }
         
         .option:hover {
@@ -309,11 +349,35 @@
             margin: 20px 0;
         }
         
-        .flashcard.flipped {
+        .flashcard.flipped 
+        {
             transform: rotateY(180deg);
         }
         
-        .card-front, .card-back {
+        .card-front 
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            padding: 15px 40px;
+            font-size: 1.75rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .card-front p
+        {
+            font-size: 1.75rem;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .card-back 
+        {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -321,24 +385,18 @@
             border-radius: 15px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 30px;
-            text-align: center;
-            font-size: 1.2em;
-        }
-        
-        .card-front {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .card-back {
+            padding: 15px 40px;
             background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
             color: white;
             transform: rotateY(180deg);
         }
-        
-        .card-navigation {
+        .card-back-content
+        {
+            font-size: 1.75rem;
+            text-align: justify;
+        }
+        .card-navigation 
+        {
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -376,12 +434,13 @@
         }
         
         .sentence-line {
-            font-size: 1.1em;
+            font-size: 1.5em;
             line-height: 2;
             margin: 15px 0;
         }
         
-        .blank-space {
+        .blank-space 
+        {
             display: inline-block;
             min-width: 120px;
             height: 35px;
@@ -395,23 +454,27 @@
             padding: 0 10px;
         }
         
-        .blank-space.filled {
+        .blank-space.filled 
+        {
             background: #bbdefb;
             border-style: solid;
+            font-size: 1.2rem;
         }
         
-        .draggable-words {
+        .draggable-words 
+        {
+            font-size: 1.5rem;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 20px;
+            margin: 20px;
             padding: 15px;
             background: white;
-            border-radius: 10px;
         }
         
-        .draggable-word {
-            padding: 8px 20px;
+        .draggable-word 
+        {
+            padding: 1px 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-radius: 20px;
@@ -429,7 +492,8 @@
             cursor: not-allowed;
         }
         
-        .fill-blank-input {
+        .fill-blank-input 
+        {
             width: 100px;
             padding: 8px 12px;
             border: 2px solid #667eea;
@@ -516,17 +580,21 @@
             overflow: hidden;
         }
         
-        .data-table th {
+        .data-table th 
+        {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             padding: 15px;
             text-align: center;
+            font-size: 1.5rem;
         }
         
-        .data-table td {
+        .data-table td 
+        {
             padding: 12px 15px;
             text-align: center;
             border-bottom: 1px solid #e9ecef;
+            font-size: 1.25rem;
         }
         
         .data-table tr:nth-child(even) {
@@ -539,6 +607,7 @@
             height: 10px;
             margin: 20px 0;
             overflow: hidden;
+            position:sticky;
         }
         
         .progress-bar {
@@ -591,6 +660,7 @@
         /* Responsive */
         @media (max-width: 720px) 
         {
+            .chart-area{display: block;}
             .book-container { margin: 0; border-radius: 0; max-width: 100%;}
             .chapter { padding: 15px; }
             .cover-page { padding: 40px 20px; }
@@ -637,6 +707,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="book-container">
         <!-- Cover Page -->
@@ -664,14 +735,15 @@
 // ============================================
 // BOOK DATA - Edit this JSON to customize content
 // ============================================
-const BOOK_DATA = {
+const BOOK_DATA = 
+{
     // Cover Information
     cover: 
     {
         title: "تدریس تعاملی ریاضی و آمار 2",
         subtitle: "عملیات روی توابع",
         author: " مدرس و طراح محتوا: محمدی",
-        version: "✍️ نسخه ۱.۰",
+        version: "✍️ نسخه 1.0.3",
         description: 
         [
             "در این درس، با عملیات اصلی روی توابع آشنا خواهید شد. یاد می‌گیرید چگونه دو تابع را با هم جمع، تفریق، ضرب و تقسیم کنید. همچنین با روش محاسبه و شناسایی دامنه این توابع و نحوه رسم نمودار آن‌ها آشنا می‌شوید.",
@@ -680,11 +752,13 @@ const BOOK_DATA = {
     },
     
     // Navigation Chapters
-    chapters: [
+    chapters: 
+    [
         { id: "overview", title: "📋 نمای کلی", type: "overview" },
         { id: "lesson", title: "📖 درسنامه", type: "lesson" },
-        { id: "glossary", title: "📕 واژه‌نامه", type: "glossary" },
+        { id: "glossary", title: "📕 اصطلاحات", type: "glossary" },
         { id: "practice", title: "✏️ آزمون تمرینی", type: "practice" },
+        { id: "charts", title: "📊 نمودارها", type: "chart" },
         { id: "graded", title: "📊 آزمون نمره‌دار", type: "graded" },
         { id: "cards", title: "🃏 کارت‌های مفهومی", type: "cards" },
         { id: "drag", title: "🔤 عبارت‌های کامل کردنی", type: "drag" },
@@ -692,27 +766,30 @@ const BOOK_DATA = {
         { id: "open", title: "💭 سوالات بازپاسخ", type: "open" },
         { id: "summary", title: "📝 خلاصه", type: "summary" }
     ],
-    
     // Overview Content
-    overview: {
-        objectives: [
+    overview: 
+    {
+        objectives: 
+        [
             "مفهوم عملیات روی توابع را درک کنید",
             "دو تابع را با هم جمع و تفریق کنید",
             "دو تابع را در هم ضرب کنید",
             "دو تابع را بر هم تقسیم کنید",
-            "دامنه توابع ترکیبی را تعیین کنید",
-            "نمودار توابع ترکیبی را رسم کنید"
+            "دامنه این توابع را تعیین کنید",
+            "نمودار این توابع را رسم کنید"
         ],
-        syllabus: [
+        syllabus: 
+        [
             { chapter: "۱", topic: "تعریف عملیات روی توابع", time: "۱۵ دقیقه" },
             { chapter: "۲", topic: "جمع توابع", time: "۲۰ دقیقه" },
             { chapter: "۳", topic: "تفریق توابع", time: "۱۵ دقیقه" },
             { chapter: "۴", topic: "ضرب توابع", time: "۱۵ دقیقه" },
             { chapter: "۵", topic: "تقسیم توابع", time: "۲۰ دقیقه" },
-            { chapter: "۶", topic: "جدول خلاصه عملیات", time: "۲۵ دقیقه" },
-            /*{ chapter: "۷", topic: "رسم نمودار توابع ترکیبی", time: "۳۰ دقیقه" }*/
+            { chapter: "۶", topic: "رسم نمودار", time: "۳۰ دقیقه" },
+            { chapter: "۷", topic: "جدول خلاصه عملیات", time: "۵ دقیقه" },
         ],
-        prerequisites: [
+        prerequisites: 
+        [
             "مفهوم تابع و دامنه",
             "جمع، تفریق، ضرب و تقسیم عبارات جبری",
             "رسم نمودار توابع ساده",
@@ -721,12 +798,13 @@ const BOOK_DATA = {
     },
     
     // Glossary Terms
-    glossary: [
+    glossary: 
+    [
         {
             term: "📖 تابع (Function)",
             definition: "تابع یک رابطه ریاضی است که هر عضو از مجموعه اول (دامنه) را دقیقاً به یک عضو از مجموعه دوم (برد) نسبت می‌دهد.",
             symbol: "\\(f: A \\rightarrow B\\) یا \\(y = f(x)\\)",
-            synonyms: "نگاشت، ارتباط یک‌به‌یک"
+            synonyms: "نگاشت"
         },
         {
             term: "📐 دامنه (Domain)",
@@ -737,7 +815,7 @@ const BOOK_DATA = {
         {
             term: "📊 برد (Range)",
             definition: "مجموعه تمام مقادیر خروجی که تابع می‌تواند تولید کند.",
-            symbol: "\\(R_f\\) یا \\(Ran(f)\\)",
+            symbol: "\\(R_f\\)",
             example: "اگر \\(f(x) = x^2\\)، آنگاه \\(R_f = \\{y | y \\geq 0\\}\\)"
         },
         {
@@ -765,7 +843,7 @@ const BOOK_DATA = {
             warning: "باید \\(g(x) \\neq 0\\) باشد. نقاطی که \\(g(x) = 0\\) از دامنه حذف می‌شوند."
         },
         {
-            term: "🔄 اشتراک مجموعه‌ها",
+            term: "🔄 اشتراک مجموعه‌ها(یادآوری)",
             definition: "مجموعه‌ای که شامل عناصر مشترک دو مجموعه است.",
             symbol: "\\(A \\cap B\\)",
             example: "اگر \\(A = \\{1, 2, 3\\}\\) و \\(B = \\{2, 3, 4\\}\\)، آنگاه \\(A \\cap B = \\{2, 3\\}\\)"
@@ -773,7 +851,8 @@ const BOOK_DATA = {
     ],
     
     // Practice Questions (Ungraded)
-    practiceQuestions: [
+    practiceQuestions: 
+    [
         {
             id: "pq1",
             question: "اگر \\(f = \\{(2, 0), (4, -1), (-1, 3)\\}\\) و \\(g = \\{(2, 5), (3, -1), (-1, 2)\\}\\)، حاصل \\(f + g\\) چیست؟",
@@ -825,7 +904,7 @@ const BOOK_DATA = {
         {
             id: "pq5",
             question: "fillBlank",
-            text: "دامنه \\(\\frac{f}{g}\\) برابر است با \\(D_f \\cap D_g - \\{x | g(x) = \\) ____________ \\(\\}\\)",
+            text: "دامنه \\(\\frac{f}{g}\\) برابر است با: <br> \\(\\}\\) ____________ \\( D_f \\cap D_g - \\{x | g(x) = \\)",
             correctAnswer: "0",
             explanation: "در تقسیم توابع، مخرج نباید صفر باشد، بنابراین g(x) ≠ 0 باید برقرار باشد."
         },
@@ -882,7 +961,8 @@ const BOOK_DATA = {
     ],
     
     // Graded Test Questions
-    gradedQuestions: [
+    gradedQuestions: 
+    [
         {
             id: "gq1",
             question: "اگر \\(f = \\{(1, 2), (3, 4), (5, 6)\\}\\) و \\(g = \\{(1, 3), (3, 1), (5, 2)\\}\\)، آنگاه \\((f + g)(3)\\) چیست؟",
@@ -919,12 +999,12 @@ const BOOK_DATA = {
             options: ["\\(x^2 - x + 1\\)", "\\(x^2 + x + 1\\)", "\\(x^2 - x - 1\\)", "\\(x^2 + 1\\)"],
             correct: 0
         },
-        {
+        /*{
             id: "gq7",
             question: "اگر \\(f(x) = \\sqrt{x}\\) و \\(g(x) = \\sqrt{4-x}\\)، دامنه \\((f + g)\\) چیست؟",
             options: ["\\([0, 4]\\)", "\\([0, \\infty)\\)", "\\((-\\infty, 4]\\)", "\\(\\mathbb{R}\\)"],
             correct: 0
-        },
+        },*/
         {
             id: "gq8",
             question: "اگر \\(f(x) = \\frac{1}{x}\\) و \\(g(x) = \\frac{1}{x-1}\\)، چند مقدار از دامنه \\(\\frac{f}{g}\\) حذف می‌شود؟",
@@ -946,7 +1026,8 @@ const BOOK_DATA = {
     ],
     
     // Flash Cards
-    flashcards: [
+    flashcards: 
+    [
         { front: "تابع", back: "رابطه‌ای که هر عضو مجموعه اول را دقیقاً به یک عضو مجموعه دوم نسبت می‌دهد." },
         { front: "دامنه", back: "مجموعه تمام مقادیر ورودی که تابع برای آن‌ها تعریف شده است." },
         { front: "برد", back: "مجموعه تمام مقادیر خروجی که تابع می‌تواند تولید کند." },
@@ -980,19 +1061,25 @@ const BOOK_DATA = {
             options: ["جابجایی", "انجمنی", "توزیع"]
         },
         {
-            sentence: "فرمول تفریق دو تابع: __________ = f(x) - g(x)",
-            answer: "(f-g)(x)",
-            options: ["(f-g)(x)", "(f+g)(x)", "(f×g)(x)"]
+            sentence: "فرمول تفریق دو تابع: __________ = \\(f(x) - g(x)\\)",
+            answer: "\\((f-g)(x)\\)",
+            options: ["\\((f-g)(x)\\)", "\\((f+g)(x)\\)", "\\((f \\times g)(x)\\)"]
         },
         {
-            sentence: "برای رسم نمودار تابع f+g، نمودارهای f و g را در هر نقطه __________ می‌کنیم.",
+            sentence: "برای رسم نمودار تابع \\(f+g\\)، نمودارهای f و g را در هر نقطه __________ می‌کنیم.",
             answer: "جمع",
             options: ["جمع", "تفریق", "ضرب"]
+        },
+        {
+            sentence:"جابجا کردن f و g در تابع __________ نتیجه را تغببر می دهد، مگر اینکه هر دو تابع صفر باشند.",
+            answer:"تفریق",
+            options:["ضرب","تفریق","جمع"]
         }
     ],
     
     // Vocabulary Questions
-    vocabQuestions: [
+    vocabQuestions: 
+    [
         {
             question: "مجموعه تمام مقادیر ورودی که تابع برای آن‌ها تعریف شده، چه نام دارد؟",
             options: ["برد", "دامنه", "تبدیل"],
@@ -1008,11 +1095,11 @@ const BOOK_DATA = {
             options: ["اجتماع دامنه‌ها", "اشتراک دامنه‌ها", "تفاضل دامنه‌ها"],
             correct: 1
         },
-        {
+        /*{
             question: "اگر \\(f(x) = x^2\\)، مقدار \\(f(-3)\\) چیست؟",
             options: ["۶", "۹-", "۹"],
             correct: 2
-        },
+        },*/
         {
             question: "کدام گزینه در مورد ضرب توابع صحیح است؟",
             options: ["خاصیت جابجایی ندارد", "خاصیت جابجایی دارد", "همیشه تعریف شده است"],
@@ -1020,7 +1107,7 @@ const BOOK_DATA = {
         },
         {
             question: "فرمول \\((f+g)(x)\\) کدام است؟",
-            options: ["f(x) + g(x)", "f(x) - g(x)", "f(x) × g(x)"],
+            options: ["\\(f(x) + g(x)\\)", "\\(f(x) - g(x)\\)", "\\(f(x) \\times g(x)\\)"],
             correct: 0
         },
         {
@@ -1028,11 +1115,11 @@ const BOOK_DATA = {
             options: ["\\(D_f - D_g\\)", "\\(D_f \\cap D_g\\)", "\\(\\{x | g(x) = 0\\}\\)"],
             correct: 1
         },
-        {
+        /*{
             question: "تابع \\(f(x) = \\sqrt{x}\\) برای کدام مقادیر تعریف شده؟",
             options: ["\\(x \\geq 0\\)", "\\(x > 0\\)", "همه اعداد حقیقی"],
             correct: 0
-        },
+        },*/
         {
             question: "اگر \\(f = \\{(1,2), (2,4)\\}\\)، مقدار f(1) چیست؟",
             options: ["۱", "۲", "۴"],
@@ -1065,15 +1152,16 @@ const BOOK_DATA = {
         },
         {
             question: "اگر \\(f(x) = c\\) (تابع ثابت)، آنگاه \\(f \\times g\\) چیست؟",
-            options: ["\\(c \\times g(x)\\)", "\\(c + g(x)\\)", "\\(g(x)\\)"],
+            options: ["\\(c \\times g(x)\\)", "\\(g(cx)\\)", "\\(c + g(x)\\)"],
             correct: 0
         }
     ],
     
     // Open-Ended Questions
-    openQuestions: [
+    openQuestions: 
+    [
         {
-            question: "چرا دامنه توابع ترکیبی اهمیت دارد؟ توضیح دهید.",
+            question: "چرا دامنه عملیات توابع اهمیت دارد؟ توضیح دهید.",
             answer: "دامنه اهمیت دارد زیرا مشخص می‌کند برای کدام مقادیر ورودی، تابع خروجی معتبر تولید می‌کند. در عملیات روی توابع، اگر x در دامنه یکی از توابع نباشد، نمی‌توانیم عملیات را انجام دهیم. به‌ویژه در تقسیم، باید مطمئن شویم مخرج صفر نشود."
         },
         {
@@ -1085,7 +1173,7 @@ const BOOK_DATA = {
             answer: "ضرب توابع خاصیت جابجایی دارد زیرا ضرب اعداد حقیقی جابجایی‌پذیر است. به عبارت دیگر، f(x) × g(x) = g(x) × f(x). مثال: اگر f(x) = 2x و g(x) = x + 1، آنگاه f × g = 2x(x+1) = 2x² + 2x و g × f = (x+1)2x = 2x² + 2x که برابرند."
         },
         {
-            question: "اگر \\(f(x) = x^2\\) و \\(g(x) = x^3\\)، دامنه \\((f/g)(x)\\) چیست؟",
+            question: "اگر \\(\\quad f(x) = x^2\\quad \\) و \\(\\quad g(x) = x^3\\quad \\)، دامنه \\(\\quad (\\frac{f}{g})(x)\\quad \\) چیست؟",
             answer: "دامنه f برابر تمام اعداد حقیقی (ℝ) است. دامنه g نیز برابر ℝ است. اشتراک: ℝ. اما باید نقاطی که g(x) = 0 را حذف کنیم: x³ = 0 یعنی x = 0. بنابراین دامنه f/g برابر ℝ - {0} است."
         },
         {
@@ -1094,7 +1182,7 @@ const BOOK_DATA = {
         },
         {
             question: "آیا \\((f - g)(x)\\) برابر \\((g - f)(x)\\) است؟ چرا؟",
-            answer: "خیر، این دو برابر نیستند. (f - g)(x) = f(x) - g(x) و (g - f)(x) = g(x) - f(x) = -(f(x) - g(x)) = -(f - g)(x). بنابراین (g - f) قرینه (f - g) است و تنها در صورتی برابر می‌شوند که هر دو صفر باشند."
+            answer: "خیر، این دو برابر نیستند. \\( \\quad g - f\\quad\\) قرینه \\( \\quad f - g \\quad\\) است و تنها در صورتی برابر می‌شوند که هر دو صفر باشند."
         },
         {
             question: "اگر f و g هر دو تابع ثابت باشند، \\(f + g\\) چه نوع تابعی است؟",
@@ -1104,10 +1192,10 @@ const BOOK_DATA = {
             question: "چه زمانی \\((f \\times g)(x) = 0\\) می‌شود؟",
             answer: "ضرب دو عدد زمانی صفر می‌شود که حداقل یکی از آن‌ها صفر باشد. بنابراین (f × g)(x) = 0 اگر f(x) = 0 یا g(x) = 0 (یا هر دو). این یعنی ریشه‌های تابع حاصل‌ضرب، اجتماع ریشه‌های دو تابع اصلی است."
         },
-        {
+        /*{
             question: "اگر \\(f(x) = \\sqrt{x}\\) و \\(g(x) = \\sqrt{4-x}\\)، دامنه \\((f + g)\\) را بیابید.",
             answer: "دامنه f: x ≥ 0. دامنه g: 4 - x ≥ 0 یعنی x ≤ 4. اشتراک: 0 ≤ x ≤ 4 یعنی [0, 4]. چون عملیات جمع است، نیازی به حذف نقاط اضافی نیست. بنابراین دامنه f + g برابر [0, 4] است."
-        },
+        },*/
         {
             question: "اهمیت یادگیری عملیات روی توابع در زندگی واقعی چیست؟",
             answer: "عملیات روی توابع در بسیاری از کاربردهای عملی استفاده می‌شود: محاسبه سود کل از چند منبع (جمع)، محاسبه اختلاف درآمد و هزینه (تفریق)، محاسبه مسافت از سرعت و زمان (ضرب)، محاسبه نرخ یا نسبت (تقسیم). در مهندسی، اقتصاد، فیزیک و علوم دیگر، ترکیب توابع برای مدل‌سازی پدیده‌های پیچیده ضروری است."
@@ -1115,25 +1203,29 @@ const BOOK_DATA = {
     ],
     
     // Summary Content
-    summary: {
-        keyPoints: [
+    summary: 
+    {
+        keyPoints: 
+        [
             { title: "جمع توابع", formula: "\\((f + g)(x) = f(x) + g(x)\\)", domain: "\\(D_f \\cap D_g\\)" },
             { title: "تفریق توابع", formula: "\\((f - g)(x) = f(x) - g(x)\\)", domain: "\\(D_f \\cap D_g\\)" },
             { title: "ضرب توابع", formula: "\\((f \\times g)(x) = f(x) \\times g(x)\\)", domain: "\\(D_f \\cap D_g\\)" },
             { title: "تقسیم توابع", formula: "\\(\\left(\\frac{f}{g}\\right)(x) = \\frac{f(x)}{g(x)}\\)", domain: "\\(D_f \\cap D_g - \\{x | g(x) = 0\\}\\)" }
         ],
-        tips: [
+        tips: 
+        [
             "قبل از انجام هر عملیات، حتماً اشتراک دامنه‌ها را بررسی کنید",
             "در تقسیم، همیشه مطمئن شوید مخرج صفر نمی‌شود",
             "ضرب و جمع توابع خاصیت جابجایی دارند",
             "برای رسم نمودار تابع ترکیبی، نمودارها را نقطه به نقطه با هم ترکیب کنید"
         ],
-        achievements: [
+        achievements: 
+        [
             "مفهوم عملیات روی توابع را درک کنید",
             "دو تابع را جمع و تفریق کنید",
             "دو تابع را در هم ضرب کنید",
             "دو تابع را بر هم تقسیم کنید",
-            "دامنه توابع ترکیبی را تعیین کنید"
+            "دامنه را تعیین کنید"
         ]
     }
 };
@@ -1152,19 +1244,23 @@ let gradedAnswers = {};
 let vocabAnswers = {};
 
 // Initialize the book
-function initBook() {
+function initBook() 
+{
     renderCover();
     renderNavigation();
     renderChapters();
     // make sure blank-space elements can accept drops
     setupDragListeners();
-    if (window.MathJax) {
+
+    if (window.MathJax) 
+    {
         MathJax.typeset();
     }
 }
 
 // Render Cover Page
-function renderCover() {
+function renderCover() 
+{
     document.getElementById('cover-title').textContent = BOOK_DATA.cover.title;
     document.getElementById('cover-subtitle').textContent = BOOK_DATA.cover.subtitle;
     document.getElementById('cover-author').textContent = BOOK_DATA.cover.author;
@@ -1175,7 +1271,8 @@ function renderCover() {
 }
 
 // Render Navigation
-function renderNavigation() {
+function renderNavigation() 
+{
     const navContainer = document.getElementById('nav-tabs');
     navContainer.innerHTML = BOOK_DATA.chapters.map((ch, i) => 
         `<button class="nav-tab ${i === 0 ? 'active' : ''}" onclick="showChapter('${ch.id}')">${ch.title}</button>`
@@ -1183,14 +1280,18 @@ function renderNavigation() {
 }
 
 // Render All Chapters
-function renderChapters() {
+function renderChapters() 
+{
     const container = document.getElementById('chapters-container');
-    container.innerHTML = BOOK_DATA.chapters.map((ch, i) => {
-        const renderer = {
+    container.innerHTML = BOOK_DATA.chapters.map((ch, i) => 
+    {
+        const renderer = 
+        {
             'overview': renderOverview,
             'lesson': renderLesson,
             'glossary': renderGlossary,
             'practice': renderPractice,
+            'chart':renderChart,
             'graded': renderGraded,
             'cards': renderCards,
             'drag': renderDrag,
@@ -1203,7 +1304,8 @@ function renderChapters() {
 }
 
 // Render Overview Chapter
-function renderOverview() {
+function renderOverview() 
+{
     return `
         <h2 class="chapter-title">نمای کلی و برنامه درس</h2>
         <div class="content-section">
@@ -1229,9 +1331,10 @@ function renderOverview() {
 }
 
 // Render Lesson Chapter
-function renderLesson() {
+function renderLesson() 
+{
     return `
-        <h2 class="chapter-title">درسنامه - عملیات روی توابع</h2>
+        <h2 class="chapter-title">درسنامه</h2>
         
         <div class="content-section">
             <h3>📐 تعریف عملیات روی توابع</h3>
@@ -1276,8 +1379,8 @@ function renderLesson() {
                 <p><strong>دامنه:</strong> \\(D_{\\frac{f}{g}} = D_f \\cap D_g - \\{x | g(x) = 0\\}\\)</p>
             </div>
             <div class="warning-box">
-                <h4>⚠️ نکته مهم:</h4>
-                <p>در تقسیم توابع، باید مراقب باشیم که مخرج صفر نشود. تمام مقادیری که \\(g(x) = 0\\) می‌کنند باید از دامنه حذف شوند.</p>
+                <h3>⚠️ نکته مهم:</h3>
+                <p>در تقسیم توابع، باید مراقب باشیم که مخرج صفر نشود. تمام مقادیری که در آن‌ها \\(g(x) = 0\\) می‌شود، باید از دامنه حذف شوند.</p>
             </div>
         </div>
         
@@ -1295,9 +1398,10 @@ function renderLesson() {
 }
 
 // Render Glossary Chapter
-function renderGlossary() {
+function renderGlossary() 
+{
     return `
-        <h2 class="chapter-title">واژه‌نامه اصطلاحات</h2>
+        <h2 class="chapter-title">اصطلاحات</h2>
         <div class="accordion-container">
             ${BOOK_DATA.glossary.map((item, i) => `
                 <div class="accordion-item">
@@ -1307,11 +1411,11 @@ function renderGlossary() {
                     </div>
                     <div class="accordion-content">
                         <p><strong>تعریف:</strong> ${item.definition}</p>
-                        ${item.symbol ? `<p><strong>نماد:</strong> ${item.symbol}</p>` : ''}
-                        ${item.formula ? `<p><strong>فرمول:</strong> ${item.formula}</p>` : ''}
-                        ${item.example ? `<p><strong>مثال:</strong> ${item.example}</p>` : ''}
-                        ${item.note ? `<p><strong>نکته:</strong> ${item.note}</p>` : ''}
-                        ${item.warning ? `<p><strong>هشدار:</strong> ${item.warning}</p>` : ''}
+                        ${item.symbol   ? `<p><strong>نماد:</strong> ${item.symbol}</p>` : ''}
+                        ${item.formula  ? `<p><strong>فرمول:</strong> ${item.formula}</p>` : ''}
+                        ${item.example  ? `<p><strong>مثال:</strong> ${item.example}</p>` : ''}
+                        ${item.note     ? `<p><strong>نکته:</strong> ${item.note}</p>` : ''}
+                        ${item.warning  ? `<p><strong>هشدار:</strong> ${item.warning}</p>` : ''}
                         ${item.synonyms ? `<p><strong>مترادف:</strong> ${item.synonyms}</p>` : ''}
                     </div>
                 </div>
@@ -1321,7 +1425,8 @@ function renderGlossary() {
 }
 
 // Render Practice Chapter
-function renderPractice() {
+function renderPractice() 
+{
     return `
         <h2 class="chapter-title">آزمون تمرینی (بدون نمره)</h2>
         <div class="content-section">
@@ -1332,22 +1437,79 @@ function renderPractice() {
         </div>
     `;
 }
+function renderChart()
+{
+    return `
+        <h2 class="chapter-title">رسم نمودار</h2>
+        <div class="content-section">
+            <p>در هنگام رسم نمودار، برای هر x مقدار تابع را با توجه به نوع عملیات محاسبه کرده و نقطه مناسب را پیدا می کنیم.</p>
+        </div>
+        <div class="question-container">
+            ${renderChartDrawing()}
+        </div>
+    `;
+}
+function renderChartDrawing()
+{
+     return `
+     <p>ابتدا \\(f+g\\) را برای \\(x= -1, 0, 1\\) محاسبه کنید. سپس نمودار آن را رسم کنید.</p>
+     <div class="chart-area">
+                
+                <div class="chart">
+                    <img src='chart1.png'>
+                </div>
+                
+                <button onclick="displayChartCalc('calculate-chart')" style="margin:auto 5px;">محاسبه</button>
 
+                <div class="chart">
+                    <p id="calculate-chart" style="font-size:0.8rem;display:none;text-align: left;margin:10px">
+                        \\(f(-1)+g(-1) = -1 + 1 = 0 \\)<br>
+                        \\(\\quad \\Rightarrow (-1,0) \\)
+                        <br><br>
+                        \\(f(0)+g(0) = 0 + 1 = 1\\)<br>
+                        \\(\\Rightarrow (0,1)\\)
+                        <br><br>
+                        \\(f(1)+g(1) = 1+1= 2 \\) <br>
+                        \\(\\Rightarrow (1,2)\\)
+                    </p>
+                </div>
+                
+                <button onclick="displayAnswerChart('chart3')" style="margin:auto 5px;">مشاهده جواب</button>
+
+
+                <div class="chart">
+                    <img style="display:none" src='chart3.png' id="chart3">
+                </div>
+
+            </div>`
+}
+function displayChartCalc(id)
+{
+   document.getElementById(id).style.setProperty("display","block");
+}
+function displayAnswerChart(id)
+{
+   document.getElementById(id).style.setProperty("display","block");
+}
 // Render a single practice question
-function renderPracticeQuestion(q, num) {
-    if (q.question === "fillBlank") {
+function renderPracticeQuestion(q, num) 
+{
+    if (q.question === "fillBlank") 
+    {
         return `
             <div class="question-container" id="${q.id}">
-                <p class="question-text"><strong>سوال ${num}:</strong> جاهای خالی را پر کنید:</p>
-                <p>${q.text.replace('____________', '<input type="text" class="fill-blank-input" id="' + q.id + '-blank">')}</p>
+                <p class="question-text"><strong>سوال ${num}:</strong> جای خالی را پر کنید:</p>
+                <p>${q.text.replace('____________', '<input type="text" style="width:1cm;" class="fill-blank-input" id="' + q.id + '-blank">')}</p>
                 <div class="feedback" id="${q.id}-feedback"></div>
                 <button class="btn-secondary" onclick="checkFillBlank('${q.id}', '${q.correctAnswer}', '${q.explanation}')">بررسی پاسخ</button>
             </div>
         `;
-    } else if (q.question === "trueFalse") {
+    } 
+    else if (q.question === "trueFalse") 
+    {
         return `
             <div class="question-container" id="${q.id}">
-                <p class="question-text"><strong>سوال ${num}:</strong> حکم زیر راستی یا نادرستی دارد؟</p>
+                <p class="question-text"><strong>سوال ${num}:</strong> درستی یا نادرستی حکم زیر را مشخص کنید؟</p>
                 <p>${q.text}</p>
                 <div class="tf-options">
                     <div class="tf-option true-option" onclick="selectTF(this, '${q.id}', true)">✓ درست</div>
@@ -1357,7 +1519,9 @@ function renderPracticeQuestion(q, num) {
                 <button class="btn-secondary" onclick="checkTF('${q.id}', ${q.correct}, '${q.explanation}')">بررسی پاسخ</button>
             </div>
         `;
-    } else {
+    } 
+    else 
+    {
         return `
             <div class="question-container" id="${q.id}">
                 <p class="question-text"><strong>سوال ${num}:</strong> ${q.question}</p>
@@ -1374,7 +1538,8 @@ function renderPracticeQuestion(q, num) {
 }
 
 // Render Graded Chapter
-function renderGraded() {
+function renderGraded() 
+{
     return `
         <h2 class="chapter-title">آزمون نمره‌دار</h2>
         <div class="content-section">
@@ -1407,7 +1572,8 @@ function renderGraded() {
 }
 
 // Render Cards Chapter
-function renderCards() {
+function renderCards() 
+{
     return `
         <h2 class="chapter-title">کارت‌های مفهومی</h2>
         <div class="content-section">
@@ -1420,8 +1586,14 @@ function renderCards() {
         </div>
         <div class="cards-container">
             <div class="flashcard" id="flashcard" onclick="flipCard()">
-                <div class="card-front" id="card-front">${BOOK_DATA.flashcards[0].front}</div>
-                <div class="card-back" id="card-back">${BOOK_DATA.flashcards[0].back}</div>
+
+                <div class="card-front" id="card-front">
+                    <p>${BOOK_DATA.flashcards[0].front}</p>
+                </div>
+                
+                <div class="card-back" id="card-back">
+                    <p>${BOOK_DATA.flashcards[0].back}</p>
+                </div>
             </div>
         </div>
         <p style="text-align: center; color: #666;">کلیک کنید تا کارت بچرخد</p>
@@ -1429,7 +1601,8 @@ function renderCards() {
 }
 
 // Render Drag Chapter
-function renderDrag() {
+function renderDrag() 
+{
     return `
         <h2 class="chapter-title">عبارت‌های کامل کردنی</h2>
         <div class="content-section">
@@ -1439,7 +1612,7 @@ function renderDrag() {
             ${BOOK_DATA.dragExercises.map((ex, i) => `
                 <div class="drag-text-container" id="drag-ex${i + 1}">
                     <p class="sentence-line">
-                        ${ex.sentence.replace('__________', `<span class="blank-space" data-answer="${ex.answer}"></span>`)}
+                    ${i + 1} - ${ex.sentence.replace('__________', `<span class="blank-space" data-answer="${ex.answer}"></span>`)}
                     </p>
                     <div class="draggable-words">
                         ${ex.options.map(opt => 
@@ -1458,7 +1631,8 @@ function renderDrag() {
 }
 
 // Render Vocab Chapter
-function renderVocab() {
+function renderVocab() 
+{
     return `
         <h2 class="chapter-title">سوالات چند گزینه ای</h2>
         <div id="vocab-questions">
@@ -1484,11 +1658,12 @@ function renderVocab() {
 }
 
 // Render Open Chapter
-function renderOpen() {
+function renderOpen() 
+{
     return `
-        <h2 class="chapter-title">سوالات بازپاسخ پاسخ</h2>
+        <h2 class="chapter-title">سوالات بازپاسخ</h2>
         <div class="content-section">
-            <p>💭 روی هر کارت کلیک کنید تا پاسخ پیشنهادی نمایش داده شود. به سوال فکر کنید و سپس پاسخ خود را با پاسخ پیشنهادی مقایسه کنید.</p>
+            <p>روی هر کارت کلیک کنید تا پاسخ پیشنهادی نمایش داده شود. به سوال فکر کنید و سپس پاسخ خود را با پاسخ پیشنهادی مقایسه کنید.</p>
         </div>
         <div class="card-navigation">
             <button class="card-nav-btn" onclick="prevOpenCard()">▶ قبلی </button>
@@ -1497,8 +1672,12 @@ function renderOpen() {
         </div>
         <div class="cards-container">
             <div class="flashcard" id="open-flashcard" onclick="flipOpenCard()">
-                <div class="card-front" id="open-card-front">${BOOK_DATA.openQuestions[0].question}</div>
-                <div class="card-back" id="open-card-back">${BOOK_DATA.openQuestions[0].answer}</div>
+                <div class="card-front" id="open-card-front">
+                    <p class="card-front-content">${BOOK_DATA.openQuestions[0].question}</p>
+                </div>
+                <div class="card-back" id="open-card-back">
+                   <p class="card-back-content"> ${BOOK_DATA.openQuestions[0].answer} </p>
+                </div>
             </div>
         </div>
         <p style="text-align: center; color: #666;">کلیک کنید تا پاسخ پیشنهادی نمایش داده شود</p>
@@ -1506,7 +1685,8 @@ function renderOpen() {
 }
 
 // Render Summary Chapter
-function renderSummary() {
+function renderSummary() 
+{
     return `
         <h2 class="chapter-title">خلاصه درس</h2>
         
@@ -1553,7 +1733,8 @@ function renderSummary() {
 // ============================================
 
 // Chapter Navigation
-function showChapter(chapterId) {
+function showChapter(chapterId) 
+{
     document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
     document.getElementById(chapterId).classList.add('active');
     
@@ -1700,16 +1881,19 @@ function submitGradedTest() {
 }
 
 // Flash Cards Functions
-function updateCard() {
+function updateCard()
+{
     const card = BOOK_DATA.flashcards[currentCard];
     document.getElementById('card-front').innerHTML = card.front;
+    /*document.getElementById('card-front').innerHTML.style.setProperty("align-items","center");*/
     document.getElementById('card-back').innerHTML = card.back;
     document.getElementById('card-number').textContent = currentCard + 1;
     document.getElementById('flashcard').classList.remove('flipped');
     if (window.MathJax) MathJax.typeset();
 }
 
-function flipCard() {
+function flipCard() 
+{
     document.getElementById('flashcard').classList.toggle('flipped');
 }
 
@@ -1724,7 +1908,8 @@ function prevCard() {
 }
 
 // Open Cards Functions
-function updateOpenCard() {
+function updateOpenCard() 
+{
     const card = BOOK_DATA.openQuestions[currentOpenCard];
     document.getElementById('open-card-front').innerHTML = card.question;
     document.getElementById('open-card-back').innerHTML = card.answer;
@@ -1733,7 +1918,8 @@ function updateOpenCard() {
     if (window.MathJax) MathJax.typeset();
 }
 
-function flipOpenCard() {
+function flipOpenCard() 
+{
     document.getElementById('open-flashcard').classList.toggle('flipped');
 }
 
@@ -1750,27 +1936,47 @@ function prevOpenCard() {
 // Drag and Drop Functions
 let draggedWord = null;
 
-function dragStart(event) {
+function dragStart(event) 
+{
     draggedWord = event.target;
     event.dataTransfer.setData('text/plain', event.target.dataset.word);
 }
 
 // attach drag listeners to blank spaces; call after the DOM has been populated
-function setupDragListeners() {
-    document.querySelectorAll('.blank-space').forEach(blank => {
+function setupDragListeners() 
+{
+    document.querySelectorAll('.blank-space').forEach(blank => 
+    {
         blank.addEventListener('dragover', e => e.preventDefault());
-        blank.addEventListener('drop', function(e) {
+
+        blank.addEventListener('drop', function(e) 
+        {            
             e.preventDefault();
             const word = e.dataTransfer.getData('text/plain');
             this.textContent = word;
             this.dataset.filled = word;
             this.classList.add('filled');
-            if (draggedWord) draggedWord.classList.add('used');
+            
+
+            if (draggedWord) 
+            {
+                const parent = draggedWord.parentElement;
+                parent.querySelectorAll('.used').forEach(used=>
+                    {
+                        used.className = 'draggable-word';
+                    }
+                );
+                draggedWord.classList.add('used');
+            }
+            if(window.MathJax) MathJax.typeset();
+
+
         });
     });
 }
 
-function checkDragExercises() {
+function checkDragExercises() 
+{
     let correct = 0;
     document.querySelectorAll('.blank-space').forEach(blank => {
         if (blank.dataset.filled === blank.dataset.answer) {
@@ -1789,8 +1995,10 @@ function checkDragExercises() {
     feedback.style.display = 'block';
 }
 
-function resetDragExercises() {
-    document.querySelectorAll('.blank-space').forEach(blank => {
+function resetDragExercises() 
+{
+    document.querySelectorAll('.blank-space').forEach(blank => 
+    {
         blank.textContent = '';
         blank.dataset.filled = '';
         blank.classList.remove('filled');
@@ -1809,7 +2017,8 @@ function selectVocabOption(element, questionId, optionIndex) {
     vocabAnswers[questionId] = optionIndex;
 }
 
-function checkVocabAnswers() {
+function checkVocabAnswers() 
+{
     let score = 0;
     
     BOOK_DATA.vocabQuestions.forEach((q, i) => {
@@ -1835,7 +2044,8 @@ function checkVocabAnswers() {
 }
 
 // Initialize on page load
-window.addEventListener('load', function() {
+window.addEventListener('load', function() 
+{
     initBook();
 });
 </script>

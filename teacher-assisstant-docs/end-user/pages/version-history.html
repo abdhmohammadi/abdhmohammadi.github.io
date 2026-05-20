@@ -38,12 +38,51 @@
         
         <div>
             <div class="card" style="margin-bottom: 25px;">
-                    <div class="version-number">Version 0.3.1</div>
-                    <div class="version-date">2026-02-12(unstable)</div>
-                    <ul class="version-notes">
-                        <li>Added new feature to the Student list. Now you can assign score to the all member of list manually or from *.txt or *.csv file.</li>
-                    </ul>
+                <div style="display: flex;">
+                    <div class="version-number">Version 0.4.0</div>
+                    <div class="version-date">2026-05-15(unstable)</div>
                 </div>
+                <ul class="version-notes">
+                    <li>The Activity Tracking page was updated, old heavy list replaced by metadata and added "View" button to access full data
+                        for each activity item.
+                    </li>
+                    <li><b>Bug fixes:</b></li>
+                    <ul>
+                        <li>
+                            HTML template crash resolved - The row template placeholders were incorrectly escaped, causing an IndexError whenever records existed. Placeholders are now correctly defined, and the row number renders as intended.
+                        </li>
+                        <li>Window disappearance on Windows fixed - The PdfGeneratorApp window is now stored as a persistent attribute, preventing it from being garbage-collected after the opening function returns. This resolved the issue where the window flashed or never appeared on installed Windows 11 systems.</li>
+                        <li>Template file syntax error fixed - The f-string in the answer HTML template path now uses consistent quoting, avoiding a SyntaxError at import time.</li>
+                    </ul>
+                    <li><b>Performance</b></li>
+                    <ul>
+                        <li>HTML generation is now O(n) – All table rows are built in a list and inserted into the template with a single replacement, instead of performing repeated full‑string scans for each row.</li>
+                    </ul>
+                    <li><b>Code Quality</b></li>
+                    <ul>
+                        <li>Common logic extracted – Dimension, style and content placeholder replacements are handled by a single helper method _apply_template_replacements(), removing duplicated code.
+                        <li>
+                            Resource safety – Template files are now opened with with statements, guaranteeing they are closed properly.
+                        </li>
+                        <li>User‑friendly error handling – If HTML generation fails, a QMessageBox now displays the error instead of failing silently.</li>
+                    </ul>
+                    <li><b>Packaging</b></li>
+                    <ul>
+                        <li>PyInstaller configuration updated – hidden_imports now includes all necessary PySide6.QtWebEngine submodules, ensuring the PDF preview works after installation.</li>
+                        <li>QtWebEngineProcess.exe can be explicitly bundled if needed, preventing missing process errors.</li>
+                    </ul>
+                    <li>Updated the color settings of the donut chart: Now, color of the donuts is choosen automatically based on dark theme.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="margin-bottom: 25px;">
+                <div class="version-number">Version 0.3.1</div>
+                <div class="version-date">2026-02-12(unstable)</div>
+                <ul class="version-notes">
+                    <li>Added new feature to the Student list. Now you can assign score to the all member of list manually or from *.txt or *.csv file.</li>
+                    <li>Changed menu caption from "Learning progress" to "Activity tracking"</li>
+                </ul>
+            </div>
 
                 <div class="card" style="margin-bottom: 25px;">
                     <div class="version-number">Version 0.2.9</div>
