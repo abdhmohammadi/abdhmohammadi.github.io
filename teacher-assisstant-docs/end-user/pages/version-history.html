@@ -33,10 +33,27 @@
         
         <div class="container">
         <p style="text-align: justify;">
-            Below listed history of version and updates of <b>Teacher Assistant</b> applicstion.
+            Below listed history of version and updates of <b>Teacher Assistant</b> application.
         </p>
         
         <div>
+            <div class="card" style="margin-bottom: 25px;">
+                <div style="display: flex;">
+                    <div class="version-number">Version 0.4.2</div>
+                    <div class="version-date">2026-05-21(unstable)- Stability, Performance & PDF Improvements</div>
+                </div>
+                <ul class="version-notes">
+                    <li>Fixed SQL injection vulnerabilities by adopting parameterised queries throughout.</li>
+                    <li>Corrected HTML template placeholders to eliminate IndexError crashes.</li>
+                    <li>Resolved window garbage-collection issue on Windows 11 by retaining a persistent reference.</li>
+                    <li>Introduced background thread worker for non-blocking HTML generation, preventing UI freezes.</li>
+                    <li>Added modal loading state inside Pdf-Generator for a smoother user experience.</li>
+                    <li>Implemented multi-page PDF export with proper page breaks (quiz / answers) and custom A4 layout.</li>
+                    <li>Removed duplicate JavaScript declarations when combining HTML, fixing createTreeWalker and persianDigits errors.</li>
+                    <li>General code cleanup: shared helper for template replacements, safe file handling, and improved error reporting.</li>
+                </ul>
+
+            </div>
             <div class="card" style="margin-bottom: 25px;">
                 <div style="display: flex;">
                     <div class="version-number">Version 0.4.0</div>
