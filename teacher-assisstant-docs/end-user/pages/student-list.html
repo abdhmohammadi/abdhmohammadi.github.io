@@ -65,8 +65,8 @@
         <li><strong>PHOTO:</strong> Displays the student's profile picture. If no photo is available, it shows a placeholder text.</li>
         <li><strong>INFO:</strong> Shows the Student ID and their full name (First Name, Last Name) in bold.</li>
         <li><strong>ADDRESS:</strong> Shows the residential address and phone number.</li>
-        <li><strong>LAST NOTE:</strong> Displays the most recent observed behavior entry, including the date and time. 
-            This column also contains the <strong>Action Menu</strong> button for the specific student.</li>
+        <li><strong>LAST OBSERVED BEHAVIOUR:</strong> Displays the most recent observed behavior entry, including the date and time. 
+            This column also contains the action menu button for the specific student.</li>
     </ul>
 
     <!-- Screenshot Placeholder: Columns Detail -->
@@ -91,10 +91,9 @@
         </p>
 
         <div class="screenshot-placeholder" style="width: 1000px;">
-            <p>Header tools</p>
             <img src="../images/03.png">
             <img src="../images/04.png">
-            <p>Dropdown menu</p>
+            <p>Dropdown menu and header tools</p>
         </div>
     </div>
 
@@ -108,25 +107,37 @@
             <ul>
                 <li><strong>Add New Student:</strong> Opens a blank form to register a new student in the database.</li>
                 <li><strong>Import from CSV File:</strong> Allows bulk importing of student data.</li>
-            </ul>
-    
-            <h3>Selection Mode</h3>
-            <ul>
-                <li><strong>Enable Multi-selection:</strong> Toggle this switch to select multiple rows in the table simultaneously. This is required for bulk operations like assigning items to specific students.</li>
-            </ul>
-    
-        </div>
-        <!-- Screenshot Placeholder: Options Menu -->
-        <div class="screenshot-placeholder">
-            <img src="../images/05.png">
-        </div>
-    </div>
-    <div class="warning-box">
+                <div class="warning-box">
                 <strong>CSV Import Warning:</strong><br>
                 The CSV import feature requires strict column formatting. Ensure your CSV file matches the following column order exactly:
                 <br><code>ID, First Name, Last Name, Parent Name, Phone, Address, Parent Phone, Additional Details, Gender, Date</code>
                 <br><em>Photos cannot be imported via CSV and must be added individually via the profile editor.</em>
+            </div>
+            </ul>
+            
+        </div>
+        <!-- Screenshot Placeholder: Options Menu -->
+        <div class="screenshot-placeholder">
+            <img src="../images/05.png" width="680" height="400">
+        </div>
     </div>
+            <div>
+        <h3>Manipulation</h3>
+            <ul>
+                <li><strong>Enable Multi-selection:</strong> Toggle this switch to select multiple rows in the table simultaneously. This is required for bulk operations like assigning items to specific students.</li>
+                <li><strong>Input score:</strong> Toggle this switch to enter earned scores for each student. This feature enables
+                    input box for each student under his/her name on "INFO" column. Also, It activates required buttons under the table. these 
+                buttons are "Load scores from file" and "Save" currently.</li>
+            </ul>
+        </div>
+     <!-- Screenshot Placeholder: Options Menu -->
+    <div class="screenshot-placeholder">
+        <img src="../images/24.png">
+    </div>
+    <p>The <code>Read scores from file</code> reads numerical scores from txt or csv file and assigns each score to 
+        a student in the list. the number of students and scores must be equal. the <code>Save</code> button saves the 
+        assigned scores in the database finally.
+    </p>
     <br>
     <h3>Educational & Group Operations</h3>
     <p>These operations allow you to assign resources or organize students into groups.</p>
