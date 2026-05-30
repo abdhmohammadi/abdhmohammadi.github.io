@@ -621,7 +621,7 @@
                             <td><code>score_input</code> (QLineEdit)</td>
                         </tr>
                         <tr>
-                            <td><code>content_description_</code></td>
+                            <td><code>content_</code></td>
                             <td>Text</td>
                             <td>Primary educational content</td>
                             <td><code>content_description_input</code> (RichTextEdit)</td>
@@ -633,10 +633,10 @@
                             <td><code>answer_input</code> (QTextEdit)</td>
                         </tr>
                         <tr>
-                            <td><code>additional_details_</code></td>
+                            <td><code>metadata_</code></td>
                             <td>Text</td>
                             <td>Notes, comments, metadata</td>
-                            <td><code>additional_details_input</code> (QTextEdit)</td>
+                            <td><code>metadata_input</code> (QTextEdit)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -690,7 +690,7 @@
                             where = f<span class="code-string">'WHERE Id = {self.id};'</span>
                         
                         <span class="code-comment"># Execute query and load data</span>
-                        query = <span class="code-string">"SELECT Id, source_, score_, content_description_, ... FROM educational_resources "</span> + where
+                        query = <span class="code-string">"SELECT Id, source_, score_, content_, ... FROM educational_resources "</span> + where
                         row = app_context.database.fetchone(query)
                         
                         <span class="code-comment"># Apply content type detection for proper loading</span>

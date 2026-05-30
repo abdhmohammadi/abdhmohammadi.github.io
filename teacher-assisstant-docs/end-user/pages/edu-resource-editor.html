@@ -32,7 +32,7 @@
     
     <p style="text-align: justify;">
         The Educational Resource Editor is a powerful, multi-format content creation and management tool designed specifically for educators. 
-        It supports a wide range of document types including Plain Text, Rich Text (RTF), HTML, LaTeX, Images, PDFs, and Word documents. 
+        It supports a wide range of document types including Plain Text, HTML, Images, PDFs, and Word documents(*.docx). 
         The editor provides a unified interface where teachers can create, edit, format, and manage educational content with precise control 
         over layout and formatting to ensure compatibility with standard A4 paper output.
     </p>
@@ -58,25 +58,14 @@
 
     <h3 id="interface-overview">Interface Overview</h3>
     
-    <div class="two-column">
         <div>
-            <h4>Primary Workspace</h4>
-            <p>The editor is organized into two main content areas:</p>
             <ul>
                 <li><strong>Content Section:</strong> Primary area for creating and editing educational questions, problems, or learning materials</li>
                 <li><strong>Answer Section:</strong> Dedicated area for creating answer keys, solutions, or explanatory notes</li>
+		<li><strong>Metadata:</strong> A simple text box that is used for more comments about the document. that acts like metadata. Also there is tow input box for source identication and specified score for the learning material.</li>
+		<li><strong>Toolbar:</strong> Import/export and Formatting.</li>
             </ul>
         </div>
-        
-        <div>
-            <h4>Control Panels</h4>
-            <ul>
-                <li><strong>Content Toolbar:</strong> Formatting and import tools specific to the content section</li>
-                <li><strong>Answer Toolbar:</strong> Formatting and import tools specific to the answer section</li>
-                <li><strong>Metadata Panel:</strong> Right-side panel for resource metadata and navigation</li>
-            </ul>
-        </div>
-    </div>
 
     <div class="info-box">
         <strong>Universal Width Constraint:</strong> All content areas are fixed to a width of <code>6.19 inches</code> (converted to pixels based on DPI settings). This ensures all content fits properly within the A4 paper layout during printing or PDF generation.
@@ -96,7 +85,7 @@
         </div>
 
         <div class="card">
-            <h4>Metadata Panel</h4>
+            <h4>Metadata</h4>
             <ul>
                 <li><strong>Source:</strong> Origin or category of the educational resource</li>
                 <li><strong>Score:</strong> Maximum points for the resource (default: 1)</li>
@@ -109,7 +98,6 @@
             <ul>
                 <li><strong>Delete:</strong> Permanently remove current resource from database</li>
                 <li><strong>Save:</strong> Save or update resource in the database</li>
-                <li><strong>Clear:</strong> Start a new resource (clears all fields)</li>
             </ul>
         </div>
     </div>
@@ -133,17 +121,6 @@
         </div>
 
         <div class="card">
-            <h4>🎨 Rich Text (RTF)</h4>
-            <ul>
-                <li><strong>Extension:</strong> <code>.rtf</code></li>
-                <li><strong>Editing:</strong> Full rich text formatting support</li>
-                <li><strong>Storage:</strong> Converted to HTML format using <code>toHtml()</code></li>
-                <li><strong>Restoration:</strong> Loaded using <code>setHtml()</code></li>
-                <li><strong>Features:</strong> Formatting, images, tables, advanced layout</li>
-            </ul>
-        </div>
-
-        <div class="card">
             <h4>🌐 HTML</h4>
             <ul>
                 <li><strong>Extension:</strong> <code>.html</code>, <code>.htm</code></li>
@@ -151,17 +128,6 @@
                 <li><strong>Storage:</strong> Saved as plain text using <code>toPlainText()</code></li>
                 <li><strong>Restoration:</strong> Loaded using <code>setPlainText()</code></li>
                 <li><strong>Processing:</strong> Use "Run HTML" to render in editor</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h4>📐 LaTeX</h4>
-            <ul>
-                <li><strong>Extension:</strong> <code>.tex</code></li>
-                <li><strong>Editing:</strong> Direct LaTeX source code editing</li>
-                <li><strong>Storage:</strong> Saved as plain text using <code>toPlainText()</code></li>
-                <li><strong>Restoration:</strong> Loaded using <code>setPlainText()</code></li>
-                <li><strong>Processing:</strong> Use "Run LaTeX" to compile and render</li>
             </ul>
         </div>
 
@@ -198,34 +164,10 @@
         </div>
     </div>
 
-    <div class="warning-box">
-        <strong>Important Note:</strong> LaTeX and HTML documents are saved as raw source code. They must be processed ("Run LaTeX" or "Run HTML") before they can be properly displayed or distributed. Unprocessed LaTeX/HTML will appear as source code in generated materials.
-    </div>
-
     <div class="section-separator"></div>
 
     <h3 id="content-creation">Content Creation Tools</h3>
     
-    <h4>Content Toolbar (Top)</h4>
-    <p>Located above the Content Editor, provides tools specifically for the main content area:</p>
-    <ul>
-        <li><strong>LaTeX Menu:</strong> Create new LaTeX document or compile existing LaTeX</li>
-        <li><strong>🌐</strong> - <strong>HTML Menu:</strong> Create new HTML template or render existing HTML</li>
-        <li><strong>🖼️</strong> - <strong>Image Insert:</strong> Add image to current cursor position</li>
-        <li><strong>✂️</strong> - <strong>Screen Capture:</strong> Capture area from screen and insert as image</li>
-        <li><strong>📤</strong> - <strong>Upload Menu:</strong> Replace entire content with uploaded file</li>
-        <li><strong>🔍</strong> - <strong>Database Search:</strong> Load existing resource by ID</li>
-        <li><strong>📝</strong> - <strong>New Content:</strong> Clear all fields for new resource</li>
-        <li><strong>🔖</strong> - <strong>Bookmark:</strong> Add [MARKED] tag to Additional Details</li>
-    </ul>
-
-    <h4>Answer Toolbar (Bottom)</h4>
-    <p>Located above the Answer Editor, provides identical tools for the answer section:</p>
-    <ul>
-        <li>Same toolset as Content Toolbar but applies to Answer Editor</li>
-        <li>Independent operation - changes in Content don't affect Answer</li>
-        <li>Useful for creating separate answer keys or solution notes</li>
-    </ul>
 
     <div class="info-box">
         <strong>Screen Capture Tip:</strong> The snipping tool automatically hides the main window, allowing you to capture any part of your screen. The captured image is automatically inserted at the current cursor position and resized to fit the 6.19-inch content width.
@@ -234,7 +176,7 @@
     <!-- Screenshot Placeholder: Toolbars -->
     <div class="screenshot-placeholder">
         <img src="../images/13.png" alt="Content and Answer Toolbars">
-        <p>Content (Top) and Answer (Bottom) Toolbars</p>
+        <p>Toolbars</p>
     </div>
 
     <div class="section-separator"></div>
@@ -278,7 +220,7 @@
         <div class="card">
             <div class="screenshot-placeholder">
                 <img height="300" src="../images/14.png" alt="Content and Answer Toolbars">
-                <p>Uploading Files options</p>
+                <p>Import and Export Files</p>
             </div>
         </div>
     </div>

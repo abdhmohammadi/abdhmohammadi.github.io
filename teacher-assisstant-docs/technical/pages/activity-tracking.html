@@ -357,7 +357,7 @@
                 <span class="code-comment"># Complex JOIN query for activity data:</span>
                 cmd = <span class="code-string">'SELECT quests.id, quests.max_point_, quests.earned_point_, quests.assign_date_, '</span>
                 cmd += <span class="code-string">'quests.deadline_, quests.answer_, quests.reply_date_, quests.feedback_ , '</span>
-                cmd += <span class="code-string">'educational_resources.content_description_ '</span>
+                cmd += <span class="code-string">'educational_resources.content_ '</span>
                 cmd += <span class="code-string">'FROM quests LEFT JOIN educational_resources '</span>
                 cmd += <span class="code-string">'ON quests.qb_id = educational_resources.id WHERE quests.student_id = %s '</span>
                 cmd += <span class="code-string">'ORDER BY quests.assign_date_ DESC;'</span>
@@ -365,7 +365,7 @@
                 <span class="code-comment"># Record structure (9 fields):</span>
                 <span class="code-comment"># [0] quests.id, [1] max_point_, [2] earned_point_, [3] assign_date_</span>
                 <span class="code-comment"># [4] deadline_, [5] answer_, [6] reply_date_, [7] feedback_</span>
-                <span class="code-comment"># [8] content_description_ (from educational_resources)</span>
+                <span class="code-comment"># [8] content_ (from educational_resources)</span>
             </div>
             
             <h3>EduItemStudentWidget Integration</h3>
@@ -553,7 +553,7 @@
                         <tr>
                             <td><code>educational_resources</code></td>
                             <td>id</td>
-                            <td>content_description_ (via JOIN)</td>
+                            <td>content_ (via JOIN)</td>
                             <td>Parent of quests (qb_id foreign key)</td>
                         </tr>
                         <tr>
@@ -591,7 +591,7 @@
                 <div class="code-block">
                     cmd = <span class="code-string">'SELECT quests.id, quests.max_point_, quests.earned_point_, quests.assign_date_, '</span>
                     cmd += <span class="code-string">'quests.deadline_, quests.answer_, quests.reply_date_, quests.feedback_ , '</span>
-                    cmd += <span class="code-string">'educational_resources.content_description_ '</span>
+                    cmd += <span class="code-string">'educational_resources.content_ '</span>
                     cmd += <span class="code-string">'FROM quests LEFT JOIN educational_resources '</span>
                     cmd += <span class="code-string">'ON quests.qb_id = educational_resources.id WHERE quests.student_id = %s '</span>
                     cmd += <span class="code-string">'ORDER BY quests.assign_date_ DESC;'</span>

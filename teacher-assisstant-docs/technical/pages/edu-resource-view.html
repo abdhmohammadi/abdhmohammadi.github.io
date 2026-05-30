@@ -627,7 +627,7 @@
                     
                     <span class="code-comment"># Build search query</span>
                     search = <span class="code-string">f"%{filter_text}%"</span>.strip()
-                    base_query = <span class="code-string">"SELECT Id, content_description_, score_, source_, additional_details_ FROM educational_resources"</span>
+                    base_query = <span class="code-string">"SELECT Id, content_, score_, source_, metadata_ FROM educational_resources"</span>
                     
                     <span class="code-comment"># Create worker for background loading</span>
                     worker = DataLoaderWorker(query=full_query, page=self.current_page, page_size=self.page_size)
@@ -657,12 +657,12 @@
                         <tr>
                             <td>Content Description</td>
                             <td>ILIKE (case-insensitive)</td>
-                            <td><code>content_description_</code></td>
+                            <td><code>content_</code></td>
                         </tr>
                         <tr>
                             <td>Additional Details</td>
                             <td>ILIKE (case-insensitive)</td>
-                            <td><code>additional_details_</code></td>
+                            <td><code>metadata_</code></td>
                         </tr>
                         <tr>
                             <td>Resource ID</td>

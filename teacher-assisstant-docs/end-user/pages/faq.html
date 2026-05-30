@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeacherAssistant · User FAQ</title>
+    <style>
+        /* ---------- THEME VARIABLES (same as before) ---------- */
+        :root {
+            --bg: #ffffff;
+            --surface: #f6f8fa;
+            --border: #e1e4e8;
+            --text: #24292e;
+            --text-muted: #586069;
+            --accent: #0366d6;
+            --accent-soft: #d1e5ff;
+            --code-bg: #f1f8ff;
+            --code-border: #c8e1ff;
+            --shadow: rgba(0,0,0,0.05) 0px 1px 2px;
+            --header-bg: #24292e;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --footer-bg: #f6f8fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0d1117;
+                --surface: #161b22;
+                --border: #30363d;
+                --text: #c9d1d9;
+                --text-muted: #8b949e;
+                --accent: #58a6ff;
+                --accent-soft: #1f3a5f;
+                --code-bg: #1f2a40;
+                --code-border: #3b4a5c;
+                --shadow: rgba(0,0,0,0.3) 0px 2px 4px;
+                --header-bg: #010409;
+                --header-text: #f0f6fc;
+                --card-bg: #0d1117;
+                --footer-bg: #161b22;
+            }
+        }
+
+        body.light {
+            --bg: #ffffff;
+            --surface: #f6f8fa;
+            --border: #e1e4e8;
+            --text: #24292e;
+            --text-muted: #586069;
+            --accent: #0366d6;
+            --accent-soft: #d1e5ff;
+            --code-bg: #f1f8ff;
+            --code-border: #c8e1ff;
+            --shadow: rgba(0,0,0,0.05) 0px 1px 2px;
+            --header-bg: #24292e;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --footer-bg: #f6f8fa;
+        }
+
+        body.dark {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-soft: #1f3a5f;
+            --code-bg: #1f2a40;
+            --code-border: #3b4a5c;
+            --shadow: rgba(0,0,0,0.3) 0px 2px 4px;
+            --header-bg: #010409;
+            --header-text: #f0f6fc;
+            --card-bg: #0d1117;
+            --footer-bg: #161b22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 1rem 0;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-left: 10px;
+        }
+
+        .theme-toggle {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.15s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 12px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 1rem 0;
+            padding: 0;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: var(--surface);
+            padding: 1rem 1.2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.1s;
+        }
+
+        .faq-question:hover {
+            background: var(--accent-soft);
+        }
+
+        .faq-question .indicator {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            padding: 0 1.2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.2s ease;
+            background: var(--card-bg);
+        }
+
+        .faq-answer.show {
+            max-height: 800px;
+            padding: 1rem 1.2rem 1.5rem 1.2rem;
+            transition: max-height 0.4s ease-in, padding 0.2s ease;
+        }
+
+        .faq-answer p, .faq-answer ul {
+            margin: 0.8rem 0;
+        }
+
+        .faq-answer ul {
+            margin-left: 1.5rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: var(--footer-bg);
+        }
+
+        .search-box {
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        #searchInput {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px 16px;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+            transition: 0.2s;
+        }
+
+        #searchInput:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-soft);
+        }
+
+        .highlight {
+            background-color: #ffdd99;
+            color: #222;
+            font-weight: bold;
+        }
+
+        body.dark .highlight {
+            background-color: #ffb347;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <h1>❓ TeacherAssistant · User FAQ</h1>
+                <span class="badge">v1.0.8+</span>
+            </div>
+            <button id="themeToggleBtn" class="theme-toggle">
+                <span id="themeIcon">🌙</span> Switch theme
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Search questions... (e.g., database, theme, backup)">
+        </div>
+
+        <div id="faqContainer">
+            <!-- FAQ 1: Getting started -->
+            <div class="faq-item" data-terms="start first launch setup database">
+                <div class="faq-question">
+                    <span>🚀 How do I start using TeacherAssistant for the first time?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>When you launch the app, a <strong>database connection window</strong> will appear. You need to provide:</p>
+                    <ul>
+                        <li><strong>Host</strong> – usually <code>localhost</code> if PostgreSQL is installed on your computer.</li>
+                        <li><strong>Port</strong> – default is <code>5432</code>.</li>
+                        <li><strong>Database name</strong> – the name of your existing PostgreSQL database (e.g., <code>teacher_assistant</code>).</li>
+                        <li><strong>Username</strong> – often <code>postgres</code>.</li>
+                        <li><strong>Password</strong> – your PostgreSQL password.</li>
+                    </ul>
+                    <p>After a successful connection, the app will remember these settings for future launches. You will then see the <strong>Home page</strong> with your list of students.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 2: Student management -->
+            <div class="faq-item" data-terms="students add edit delete list">
+                <div class="faq-question">
+                    <span>👩‍🎓 How do I manage my students?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The <strong>Home page</strong> (also called “Students” in the left menu) is where you manage your student roster. From there you can:</p>
+                    <ul>
+                        <li><strong>View</strong> all students in a sortable list.</li>
+                        <li><strong>Add a new student</strong> – click the “+” button and fill in their details (name, ID, class, etc.).</li>
+                        <li><strong>Edit</strong> existing student information.</li>
+                        <li><strong>Delete</strong> a student (with confirmation).</li>
+                        <li><strong>Search</strong> for a student by name or ID using the search bar.</li>
+                    </ul>
+                    <p>Each student can also be linked to educational resources (notes, files, links) through the “Resource collection” page.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 3: Educational resources -->
+            <div class="faq-item" data-terms="resources materials notes files editor">
+                <div class="faq-question">
+                    <span>📚 What are "educational resources" and how do I use them?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Educational resources are any teaching materials you want to share with your students – for example, PDF files, web links, video URLs, or text notes.</p>
+                    <p>There are two dedicated pages in the left menu:</p>
+                    <ul>
+                        <li><strong>Resource collection</strong> – a read‑only viewer where you can browse all available resources and filter them by student or subject.</li>
+                        <li><strong>Resource Editor</strong> – allows you to create, edit, or delete resources. You can upload files, paste links, or write notes, and then assign them to specific students or groups.</li>
+                    </ul>
+                    <p>All resources are stored in your PostgreSQL database, so they are safe and can be backed up.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 4: Backup / restore -->
+            <div class="faq-item" data-terms="backup restore save data recover">
+                <div class="faq-question">
+                    <span>💾 How do I back up my data to prevent loss?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>TeacherAssistant includes a <strong>Database maintenance</strong> page (left menu). To back up or restore your data:</p>
+                    <ul>
+                        <li><strong>Backup</strong> – choose a destination folder and click “Backup”. The app will create a compressed archive of your entire database (students, resources, etc.).</li>
+                        <li><strong>Restore</strong> – select a previously saved backup file and click “Restore”. This will replace your current database with the backed‑up version.</li>
+                    </ul>
+                    <p><strong>Important:</strong> The backup/restore feature requires PostgreSQL command‑line tools (<code>pg_dump</code> and <code>pg_restore</code>). If they are not installed, the app will prompt you to provide the path to the PostgreSQL <code>bin</code> folder (e.g., <code>C:\Program Files\PostgreSQL\16\bin</code>).</p>
+                </div>
+            </div>
+
+            <!-- FAQ 5: Theme and appearance -->
+            <div class="faq-item" data-terms="theme dark light font size direction">
+                <div class="faq-question">
+                    <span>🎨 Can I change how the app looks?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Open the <strong>Settings page</strong> from the left menu. There you will find options to:</p>
+                    <ul>
+                        <li><strong>Theme</strong> – switch between different colour schemes (e.g., light, dark, or custom themes).</li>
+                        <li><strong>Font</strong> – choose any font installed on your computer, and set the size (Tiny, Small, Medium, Large).</li>
+                        <li><strong>Direction</strong> – toggle between Left‑to‑Right (LTR) and Right‑to‑Left (RTL) layout – useful for languages like Persian or Arabic.</li>
+                    </ul>
+                    <p>Changes take effect immediately and are saved for your next session.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 6: Language support -->
+            <div class="faq-item" data-terms="language english persian farsi translation">
+                <div class="faq-question">
+                    <span>🌐 Is the app available in other languages?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>In the settings panel, you will see a “LANGUAGE” dropdown with <strong>English</strong> and <strong>فارسی (Persian)</strong>. However, please note that <strong>full translation is not yet implemented</strong> – this is a planned feature for a future update. The direction (RTL/LTR) does work correctly when you select Persian, so the layout will flip, but most menus and buttons will still show English text for now.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 7: Database maintenance page -->
+            <div class="faq-item" data-terms="database maintenance vacuum optimize">
+                <div class="faq-question">
+                    <span>🛠️ What does the "Database maintenance" page do besides backup/restore?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Apart from backup and restore, the Database maintenance page also lets you:</p>
+                    <ul>
+                        <li><strong>View connection details</strong> – see which database you are currently connected to.</li>
+                        <li><strong>Run basic maintenance tasks</strong> (if supported by your PostgreSQL version) like <code>VACUUM</code> or <code>ANALYZE</code> to keep the database performing well.</li>
+                        <li><strong>Change backup/restore paths</strong> – set default folders for your backups.</li>
+                    </ul>
+                    <p>Most users will only need the backup and restore functions, but advanced users can benefit from the additional tools.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 8: Troubleshooting connection -->
+            <div class="faq-item" data-terms="connection failed cannot connect postgresql error">
+                <div class="faq-question">
+                    <span>⚠️ The app says it cannot connect to the database. What should I do?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>First, make sure your PostgreSQL server is running. On Windows, you can check in <strong>Services</strong> (search for “Services” in the Start menu) – look for “postgresql-x64-...” and ensure it is “Running”.</p>
+                    <p>Then verify your connection details:</p>
+                    <ul>
+                        <li>Host: usually <code>localhost</code> or <code>127.0.0.1</code>.</li>
+                        <li>Port: default is <code>5432</code> (unless you changed it during PostgreSQL installation).</li>
+                        <li>Username and password – double‑check they are correct.</li>
+                        <li>Database name – the database must already exist (the app does not create it automatically).</li>
+                    </ul>
+                    <p>If you still cannot connect, try using a tool like <strong>pgAdmin</strong> to log in with the same credentials. If that works, the problem might be a firewall blocking the connection. You may need to allow port 5432 in your Windows Firewall.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 9: Where are my settings stored? -->
+            <div class="faq-item" data-terms="settings saved location appdata">
+                <div class="faq-question">
+                    <span>📁 Does the app remember my preferences after I close it?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. All your settings (database connection, chosen theme, font, language, and backup paths) are saved automatically in a file called <code>settings.json</code>. On Windows, this file is located at:</p>
+                    <p><code>C:\Users\[YourUsername]\AppData\Local\Abdh\TeacherAssistant\settings.json</code></p>
+                    <p>You do not need to edit this file manually – the app handles it. If you ever need to reset the app completely, you can delete this file (or the entire <code>TeacherAssistant</code> folder) and the app will start fresh.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 10: Navigation and layout -->
+            <div class="faq-item" data-terms="menu left panel right panel pages">
+                <div class="faq-question">
+                    <span>🧭 How do I navigate between different parts of the app?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>TeacherAssistant has a simple navigation system:</p>
+                    <ul>
+                        <li><strong>Left panel</strong> – contains the main menu buttons: Students (Home), Resource collection, Resource Editor, Database maintenance, and Settings. Click any button to switch the main view.</li>
+                        <li><strong>Right panel</strong> – holds quick settings for language, font, theme, and direction. You can adjust them without leaving your current page.</li>
+                        <li><strong>Center area</strong> – this is where the active page appears (e.g., student list, resource editor, etc.).</li>
+                    </ul>
+                    <p>The currently active page is highlighted in the left panel. You can always return to the Home (Students) page by clicking the “Students” button.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 11: Notebook button disabled -->
+            <div class="faq-item" data-terms="notebook disabled button grey">
+                <div class="faq-question">
+                    <span>📓 Why is the "Notebook" button greyed out / not working?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The “Notebook” button is a placeholder for a future feature that is not yet implemented. It will eventually allow you to take personal notes or create lesson plans. For now, it is disabled and cannot be clicked.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 12: Updating the app -->
+            <div class="faq-item" data-terms="update new version upgrade">
+                <div class="faq-question">
+                    <span>🔄 How do I update TeacherAssistant to a newer version?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>If you installed TeacherAssistant using the Windows installer (InnoSetup), simply download the latest installer from the official website or GitHub and run it. It will automatically replace the old files while keeping your settings and database connection intact.</p>
+                    <p>If you are running from source code, you can <code>git pull</code> the latest changes and re‑install dependencies if needed. Always back up your database before performing a major update.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+            ❓ Still have questions? Check the official <a href="https://github.com/abdhmohammadi/TeacherAssisstant" target="_blank">project repository</a> or contact your system administrator.
+        </p>
+    </main>
+
+    <footer>
+        <p>TeacherAssistant — User FAQ | Designed for teachers and school staff</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">Updated February 2026 · Light/Dark theme follows your system preference.</p>
+    </footer>
+
+    <script>
+        // ----- Theme toggle (manual override) -----
+        const btn = document.getElementById('themeToggleBtn');
+        const icon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.textContent = '🌙';
+                localStorage.setItem('teacherAssistantTheme', 'light');
+            } else if (theme === 'dark') {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.textContent = '☀️';
+                localStorage.setItem('teacherAssistantTheme', 'dark');
+            } else {
+                body.classList.remove('light', 'dark');
+                icon.textContent = window.matchMedia('(prefers-color-scheme: dark)').matches ? '☀️' : '🌙';
+                localStorage.removeItem('teacherAssistantTheme');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('teacherAssistantTheme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            setTheme(savedTheme);
+        } else {
+            setTheme(null);
+        }
+
+        btn.addEventListener('click', () => {
+            if (body.classList.contains('dark')) setTheme('light');
+            else if (body.classList.contains('light')) setTheme('dark');
+            else setTheme('dark');
+        });
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('teacherAssistantTheme')) {
+                icon.textContent = e.matches ? '☀️' : '🌙';
+            }
+        });
+
+        // ----- Accordion functionality -----
+        const questions = document.querySelectorAll('.faq-question');
+        questions.forEach(q => {
+            q.addEventListener('click', () => {
+                const answer = q.nextElementSibling;
+                answer.classList.toggle('show');
+                const indicator = q.querySelector('.indicator');
+                if (answer.classList.contains('show')) {
+                    indicator.textContent = '▲';
+                } else {
+                    indicator.textContent = '▼';
+                }
+            });
+        });
+
+        // ----- Search with highlighting -----
+        const searchInput = document.getElementById('searchInput');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        function highlightText(element, term) {
+            element.childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const parent = node.parentNode;
+                    const text = node.textContent;
+                    if (term && text.toLowerCase().includes(term)) {
+                        const regex = new RegExp(`(${term})`, 'gi');
+                        const newHtml = text.replace(regex, `<span class="highlight">$1</span>`);
+                        const span = document.createElement('span');
+                        span.innerHTML = newHtml;
+                        parent.replaceChild(span, node);
+                    }
+                } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList?.contains('faq-question') && !node.classList?.contains('indicator')) {
+                    highlightText(node, term);
+                }
+            });
+        }
+
+        function removeHighlights(element) {
+            element.querySelectorAll('.highlight').forEach(span => {
+                const parent = span.parentNode;
+                parent.replaceChild(document.createTextNode(span.textContent), span);
+                parent.normalize();
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.trim().toLowerCase();
+            faqItems.forEach(item => {
+                const questionDiv = item.querySelector('.faq-question');
+                const answerDiv = item.querySelector('.faq-answer');
+                const textContent = (questionDiv.innerText + ' ' + answerDiv.innerText).toLowerCase();
+                const matches = term === '' || textContent.includes(term);
+                item.style.display = matches ? '' : 'none';
+                if (matches && term !== '') {
+                    removeHighlights(item);
+                    highlightText(item, term);
+                } else if (term === '') {
+                    removeHighlights(item);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

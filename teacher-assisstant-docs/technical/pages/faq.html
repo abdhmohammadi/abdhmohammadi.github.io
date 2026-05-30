@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeacherAssistant · Frequently Asked Questions</title>
+    <style>
+        /* ---------- THEME VARIABLES ---------- */
+        :root {
+            --bg: #ffffff;
+            --surface: #f6f8fa;
+            --border: #e1e4e8;
+            --text: #24292e;
+            --text-muted: #586069;
+            --accent: #0366d6;
+            --accent-soft: #d1e5ff;
+            --code-bg: #f1f8ff;
+            --code-border: #c8e1ff;
+            --shadow: rgba(0,0,0,0.05) 0px 1px 2px;
+            --header-bg: #24292e;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --footer-bg: #f6f8fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0d1117;
+                --surface: #161b22;
+                --border: #30363d;
+                --text: #c9d1d9;
+                --text-muted: #8b949e;
+                --accent: #58a6ff;
+                --accent-soft: #1f3a5f;
+                --code-bg: #1f2a40;
+                --code-border: #3b4a5c;
+                --shadow: rgba(0,0,0,0.3) 0px 2px 4px;
+                --header-bg: #010409;
+                --header-text: #f0f6fc;
+                --card-bg: #0d1117;
+                --footer-bg: #161b22;
+            }
+        }
+
+        body.light {
+            --bg: #ffffff;
+            --surface: #f6f8fa;
+            --border: #e1e4e8;
+            --text: #24292e;
+            --text-muted: #586069;
+            --accent: #0366d6;
+            --accent-soft: #d1e5ff;
+            --code-bg: #f1f8ff;
+            --code-border: #c8e1ff;
+            --shadow: rgba(0,0,0,0.05) 0px 1px 2px;
+            --header-bg: #24292e;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --footer-bg: #f6f8fa;
+        }
+
+        body.dark {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-soft: #1f3a5f;
+            --code-bg: #1f2a40;
+            --code-border: #3b4a5c;
+            --shadow: rgba(0,0,0,0.3) 0px 2px 4px;
+            --header-bg: #010409;
+            --header-text: #f0f6fc;
+            --card-bg: #0d1117;
+            --footer-bg: #161b22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 1rem 0;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-left: 10px;
+        }
+
+        .theme-toggle {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.15s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 12px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        pre, code {
+            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 6px;
+            padding: 0.2em 0.4em;
+            font-size: 0.9em;
+        }
+
+        pre {
+            padding: 16px;
+            overflow-x: auto;
+            line-height: 1.45;
+            margin: 1rem 0;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 1rem 0;
+            padding: 0;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: var(--surface);
+            padding: 1rem 1.2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.1s;
+        }
+
+        .faq-question:hover {
+            background: var(--accent-soft);
+        }
+
+        .faq-question .indicator {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            padding: 0 1.2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.2s ease;
+            background: var(--card-bg);
+        }
+
+        .faq-answer.show {
+            max-height: 800px; /* enough for long answers */
+            padding: 1rem 1.2rem 1.5rem 1.2rem;
+            transition: max-height 0.4s ease-in, padding 0.2s ease;
+        }
+
+        .faq-answer p, .faq-answer ul, .faq-answer pre {
+            margin: 0.8rem 0;
+        }
+
+        .faq-answer ul {
+            margin-left: 1.5rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: var(--footer-bg);
+        }
+
+        .search-box {
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        #searchInput {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px 16px;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+            transition: 0.2s;
+        }
+
+        #searchInput:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-soft);
+        }
+
+        .highlight {
+            background-color: #ffdd99;
+            color: #222;
+            font-weight: bold;
+        }
+
+        body.dark .highlight {
+            background-color: #ffb347;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <h1>❓ TeacherAssistant · FAQ</h1>
+                <span class="badge">v1.0.8+</span>
+            </div>
+            <button id="themeToggleBtn" class="theme-toggle">
+                <span id="themeIcon">🌙</span> Switch theme
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Filter questions... (e.g., database, theme, build)">
+        </div>
+
+        <div id="faqContainer">
+            <!-- FAQ 1 -->
+            <div class="faq-item" data-terms="install installation dependency pysideabdhui wheel git">
+                <div class="faq-question">
+                    <span>📦 How do I install the required dependency PySideAbdhUI?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The application relies on the custom <code>PySideAbdhUI</code> library. You can install it using any of these methods (as documented in <code>main.py</code>):</p>
+                    <ul>
+                        <li><strong>Local wheel</strong> (recommended for end users):<br>
+                            <code>pip install F:\path\to\PySideAbdhUI-1.0.8-py3-none-any.whl</code></li>
+                        <li><strong>Editable install</strong> (for development):<br>
+                            <code>pip install -e F:\Projects\Python\PySideAbdhUI</code></li>
+                        <li><strong>Direct from GitHub</strong>:<br>
+                            <code>pip install git+https://github.com/abdhmohammadi/PySideAbdhUI.git</code></li>
+                    </ul>
+                    <p>Make sure your Python environment is activated (e.g., <code>env\Scripts\activate</code> on Windows).</p>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item" data-terms="connection database postgresql settings dialog fail error">
+                <div class="faq-question">
+                    <span>🔌 How do I connect to the PostgreSQL database?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>When you launch the app, a <strong>connection dialog</strong> (<code>PostgreSqlConnectionWidget</code>) appears automatically. You must provide:</p>
+                    <ul>
+                        <li>Host (default: localhost)</li>
+                        <li>Port (default: 5432)</li>
+                        <li>Database name</li>
+                        <li>Username (default: postgres)</li>
+                        <li>Password</li>
+                    </ul>
+                    <p>After successful connection, the settings are saved to <code>%LOCALAPPDATA%\Abdh\TeacherAssistant\settings.json</code>. The app will then load the Home page (<code>StudentListPage</code>). If connection fails, the dialog stays open – check your PostgreSQL service and credentials.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item" data-terms="build exe installer pyinstaller innosetup windows">
+                <div class="faq-question">
+                    <span>🛠️ How do I build an executable and installer for Windows?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The project includes a complete build pipeline:</p>
+                    <ol>
+                        <li>Install dependencies (including <code>pyinstaller</code>).</li>
+                        <li>Compile resources: <code>python scripts/compile_qrc.py</code> (generates <code>resources_rc.py</code>).</li>
+                        <li>Run PyInstaller with the provided spec file:<br>
+                            <code>pyinstaller .\scripts\TeacherAssistant.spec</code></li>
+                        <li>Use <strong>InnoSetup</strong> to create a Windows installer from the generated <code>dist/TeacherAssistant/</code> folder.</li>
+                    </ol>
+                    <p>If <code>pyinstaller</code> is not in PATH, use the full path e.g.:<br>
+                    <code>C:\Users\AbdhM\AppData\Roaming\Python\Python314\Scripts\pyinstaller .\scripts\TeacherAssistant.spec</code></p>
+                    <p>The installer can optionally bundle PostgreSQL command-line tools (<code>pg_dump</code>, <code>pg_restore</code>) for backup/restore features.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item" data-terms="theme dark light switch change style">
+                <div class="faq-question">
+                    <span>🎨 How do I change the theme or font?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Open the <strong>right settings panel</strong> (gear icon or “Settings” from left menu). There you can:</p>
+                    <ul>
+                        <li>Select a theme from the dropdown – available themes are defined by <code>theme_manager.get_all_themes()</code>.</li>
+                        <li>Pick a font family and size (tiny, small, medium, large).</li>
+                        <li>Switch the interface direction (Left-to-Right or Right-to-Left).</li>
+                    </ul>
+                    <p>Changes apply immediately to the whole application and are saved in <code>settings.json</code> under the <code>font</code>, <code>theme</code>, and <code>direction</code> keys.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="faq-item" data-terms="language english persian farsi translation">
+                <div class="faq-question">
+                    <span>🌐 Does the app support multiple languages?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Currently, the settings panel includes a language selector (English / فارسی). However, as noted in <code>main_window.py</code>, the language feature is <strong>not yet fully implemented</strong> globally – it is planned for future updates. The direction setting (RTL/LTR) does work and affects the main window layout.</p>
+                    <p>You can still select a language; the choice is stored in <code>settings.json</code> but does not yet translate UI strings.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="faq-item" data-terms="backup restore database maintenance pg_dump pg_restore">
+                <div class="faq-question">
+                    <span>💾 How do I backup or restore the database?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Use the <strong>Database maintenance</strong> page (accessible from the left panel: “Database maintenance”). You need to have PostgreSQL tools (<code>pg_dump</code>, <code>pg_restore</code>) installed and their path configured in <code>settings.json</code> (key <code>postgreSQL tools path</code>). Then you can:</p>
+                    <ul>
+                        <li>Choose a backup directory</li>
+                        <li>Perform a full backup of the current database</li>
+                        <li>Restore from a previous backup file</li>
+                    </ul>
+                    <p>The page (<code>DatabaseManagerPage</code>) reads connection settings automatically from <code>settings.json</code>.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="faq-item" data-terms="home page studentlistpage load after connection">
+                <div class="faq-question">
+                    <span>🏠 What is the "Home" page and how is it loaded?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The Home page is the <code>StudentListPage</code> class. It is loaded immediately after a successful database connection via <code>main_window.load_students_page(None)</code>. This page displays the list of students and is the central management hub. You can also navigate to it at any time by clicking the <strong>Students</strong> button in the left panel.</p>
+                    <p>The loading sequence: <code>main.py</code> → connection dialog success → <code>load_students_page()</code> → <code>uncheck_items()</code> → <code>add_page(StudentListPage(...))</code> → Home view appears.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="faq-item" data-terms="resource editor educational resource view collection">
+                <div class="faq-question">
+                    <span>📚 How do I manage educational resources?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The app provides two dedicated pages:</p>
+                    <ul>
+                        <li><strong>Resource collection</strong> – <code>EduResourcesView</code>: read‑only viewer for existing resources, can filter by target students.</li>
+                        <li><strong>Resource Editor</strong> – <code>EducationalResourceEditor</code>: allows creating, editing, and deleting educational materials (e.g., notes, links, files).</li>
+                    </ul>
+                    <p>Both are accessible from the left navigation panel. Resources are stored in the PostgreSQL database (specific schema not shown in provided code).</p>
+                </div>
+            </div>
+
+            <!-- FAQ 9 -->
+            <div class="faq-item" data-terms="settings.json location appdata local teacherassistant">
+                <div class="faq-question">
+                    <span>📁 Where are settings saved?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>All persistent settings are stored in a <code>settings.json</code> file located at:</p>
+                    <pre>%LOCALAPPDATA%\Abdh\TeacherAssistant\settings.json</pre>
+                    <p>On Windows, this expands to <code>C:\Users\[YourUsername]\AppData\Local\Abdh\TeacherAssistant\settings.json</code>. The file contains:</p>
+                    <ul>
+                        <li>Database connection parameters (<code>connection</code>)</li>
+                        <li>Font family and size (<code>font</code>)</li>
+                        <li>Theme name (<code>theme</code>)</li>
+                        <li>Language preference (<code>language</code>)</li>
+                        <li>Interface direction (<code>direction</code>)</li>
+                        <li>Backup/restore paths and PostgreSQL tools path</li>
+                    </ul>
+                    <p>The directory is created by <code>app_context.setup_app_directories()</code> on first run.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 10 -->
+            <div class="faq-item" data-terms="icons lucide resources.qrc compile pyside6-rcc">
+                <div class="faq-question">
+                    <span>🖼️ How are icons handled in the project?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>All icons are downloaded from <a href="https://lucide.dev/icons/categories" target="_blank">Lucide</a> (and modified if needed). They are placed in <code>src/teacher_assistant/resources/</code>. To make them portable, a <code>resources.qrc</code> file is created (via <code>scripts/build_qrc.py</code>) and then compiled using <code>pyside6-rcc</code> into a Python module <code>resources_rc.py</code> (via <code>scripts/compile_qrc.py</code>). This module is imported in <code>core/app_context.py</code> and allows using icons with the <code>:/icons/...</code> prefix anywhere in the code (e.g., <code>QPixmap(':/icons/app-icon.png')</code>).</p>
+                    <p>If you add or change icons, you must recompile the resources.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 11 -->
+            <div class="faq-item" data-terms="development virtual environment venv run main.py">
+                <div class="faq-question">
+                    <span>🐍 How do I run the app from source for development?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>From the project root, follow these steps:</p>
+                    <ol>
+                        <li>Create and activate a virtual environment:<br>
+                        <code>python -m venv env</code><br>
+                        <code>env\Scripts\activate</code> (Windows)</li>
+                        <li>Install dependencies: <code>pip install -r requirements.txt</code> (if provided) or manually install PySide6, PySideAbdhUI, psycopg2, etc.</li>
+                        <li>Run the application:<br>
+                        <code>python main.py</code></li>
+                    </ol>
+                    <p>The <code>main.py</code> file automatically adds <code>src</code> to <code>sys.path</code>, so no extra PYTHONPATH is needed.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 12 -->
+            <div class="faq-item" data-terms="notebook disabled button future feature">
+                <div class="faq-question">
+                    <span>📓 Why is the "Notebook" button disabled?</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>In <code>main_window.py</code>, the button for “Notebook” is created with <code>setEnabled(False)</code>. This is a placeholder for a planned future feature – possibly a personal note‑taking or lesson planning module. The functionality has not yet been implemented.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+            ❓ Still have questions? Check the <a href="https://github.com/abdhmohammadi/TeacherAssisstant" target="_blank">GitHub repository</a> or the <a href="https://abdhmohammadi.github.io/teacher-assisstant-docs/technical/" target="_blank">generated technical documentation</a>.
+        </p>
+    </main>
+
+    <footer>
+        <p>TeacherAssistant — FAQ page | Based on <code>main.py</code> & <code>main_window.py</code></p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">Updated February 2026 · Light/Dark theme auto‑detects your system preference.</p>
+    </footer>
+
+    <script>
+        // ----- Theme toggle (manual override) -----
+        const btn = document.getElementById('themeToggleBtn');
+        const icon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.textContent = '🌙';
+                localStorage.setItem('teacherAssistantTheme', 'light');
+            } else if (theme === 'dark') {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.textContent = '☀️';
+                localStorage.setItem('teacherAssistantTheme', 'dark');
+            } else {
+                // auto / no class
+                body.classList.remove('light', 'dark');
+                icon.textContent = window.matchMedia('(prefers-color-scheme: dark)').matches ? '☀️' : '🌙';
+                localStorage.removeItem('teacherAssistantTheme');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('teacherAssistantTheme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            setTheme(savedTheme);
+        } else {
+            setTheme(null); // follow system
+        }
+
+        btn.addEventListener('click', () => {
+            if (body.classList.contains('dark')) setTheme('light');
+            else if (body.classList.contains('light')) setTheme('dark');
+            else setTheme('dark'); // from system to explicit dark
+        });
+
+        // Listen for system changes only when no explicit theme is set
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('teacherAssistantTheme')) {
+                icon.textContent = e.matches ? '☀️' : '🌙';
+            }
+        });
+
+        // ----- Accordion functionality -----
+        const questions = document.querySelectorAll('.faq-question');
+        questions.forEach(q => {
+            q.addEventListener('click', () => {
+                const answer = q.nextElementSibling;
+                answer.classList.toggle('show');
+                const indicator = q.querySelector('.indicator');
+                if (answer.classList.contains('show')) {
+                    indicator.textContent = '▲';
+                } else {
+                    indicator.textContent = '▼';
+                }
+            });
+        });
+
+        // ----- Search / filter with highlighting -----
+        const searchInput = document.getElementById('searchInput');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        function highlightText(element, term) {
+            // Remove existing highlights
+            element.childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const parent = node.parentNode;
+                    const text = node.textContent;
+                    if (term && text.toLowerCase().includes(term)) {
+                        const regex = new RegExp(`(${term})`, 'gi');
+                        const newHtml = text.replace(regex, `<span class="highlight">$1</span>`);
+                        const span = document.createElement('span');
+                        span.innerHTML = newHtml;
+                        parent.replaceChild(span, node);
+                    }
+                } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList?.contains('faq-question') && !node.classList?.contains('indicator')) {
+                    // Recursively search inside child elements, but avoid question area
+                    highlightText(node, term);
+                }
+            });
+        }
+
+        function removeHighlights(element) {
+            element.querySelectorAll('.highlight').forEach(span => {
+                const parent = span.parentNode;
+                parent.replaceChild(document.createTextNode(span.textContent), span);
+                parent.normalize();
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.trim().toLowerCase();
+            faqItems.forEach(item => {
+                const questionDiv = item.querySelector('.faq-question');
+                const answerDiv = item.querySelector('.faq-answer');
+                const textContent = (questionDiv.innerText + ' ' + answerDiv.innerText).toLowerCase();
+                const matches = term === '' || textContent.includes(term);
+                item.style.display = matches ? '' : 'none';
+                if (matches && term !== '') {
+                    // Highlight within visible items
+                    removeHighlights(item);
+                    highlightText(item, term);
+                } else if (term === '') {
+                    removeHighlights(item);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

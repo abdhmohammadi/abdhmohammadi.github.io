@@ -331,7 +331,7 @@
 <span class="code-comment"># Complex SQL Query with LEFT JOIN for latest observation</span>
 base_query = (<span class="code-string">'SELECT t1.Id, t1.fname_, t1.lname_, t1.phone_, t1.address_, t1.photo_, '</span>
               <span class="code-string">'t2.date_time_, t2.observed_behaviour_, t1.parent_name_, t1.parent_phone_, '</span>
-              <span class="code-string">'t1.additional_details_, t1.birth_date_, t1.gender_ '</span>
+              <span class="code-string">'t1.metadata_, t1.birth_date_, t1.gender_ '</span>
               <span class="code-string">'FROM personal_info t1 '</span>
               <span class="code-string">'LEFT JOIN ('</span>
               <span class="code-string">' SELECT t2.* FROM observed_behaviours t2'</span>
