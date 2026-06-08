@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window.py — Technical Documentation</title>
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #161822;
+            --bg-tertiary: #1c1f2e;
+            --bg-code: #1a1d2e;
+            --text-primary: #e4e6f0;
+            --text-secondary: #9ca0b0;
+            --text-muted: #6b7085;
+            --accent-blue: #5b9cf5;
+            --accent-cyan: #4dc9f6;
+            --accent-green: #5ccba0;
+            --accent-orange: #f0a45d;
+            --accent-red: #ef6b73;
+            --accent-purple: #b07eee;
+            --border-color: #2a2d3e;
+            --hover-bg: #22253a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ─── Sidebar Navigation ───────────────────────────────────── */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 24px 0;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            padding: 0 24px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            color: var(--accent-blue);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .sidebar-logo span {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 4px;
+        }
+
+        .nav-section {
+            padding: 8px 0;
+        }
+
+        .nav-section-title {
+            padding: 8px 24px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+        }
+
+        .nav-link {
+            display: block;
+            padding: 6px 24px 6px 32px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13.5px;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-link.active {
+            color: var(--accent-blue);
+            background: var(--hover-bg);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-link.indent {
+            padding-left: 44px;
+            font-size: 12.5px;
+        }
+
+        /* ─── Main Content ─────────────────────────────────────────── */
+        .main-content {
+            margin-left: 280px;
+            padding: 40px 56px 80px;
+            max-width: 960px;
+        }
+
+        /* ─── Headings ─────────────────────────────────────────────── */
+        h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        h1 .module-path {
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-family: 'Consolas', 'Fira Code', monospace;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-top: 56px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 36px;
+            margin-bottom: 12px;
+            color: var(--accent-cyan);
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        /* ─── Paragraph & Text ─────────────────────────────────────── */
+        p {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ─── Code Blocks ──────────────────────────────────────────── */
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px 22px;
+            overflow-x: auto;
+            margin: 14px 0 18px;
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'Consolas', 'Fira Code', 'SF Mono', 'Monaco', monospace;
+        }
+
+        :not(pre) > code {
+            background: var(--bg-tertiary);
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--accent-orange);
+            border: 1px solid var(--border-color);
+        }
+
+        /* ─── Method Signature Block ───────────────────────────────── */
+        .method-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin: 20px 0 28px;
+            overflow: hidden;
+        }
+
+        .method-header {
+            background: var(--bg-tertiary);
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .method-header code {
+            font-size: 14px;
+            color: var(--accent-cyan);
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .method-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .tag-public { background: rgba(92, 203, 160, 0.15); color: var(--accent-green); }
+        .tag-private { background: rgba(239, 107, 115, 0.15); color: var(--accent-red); }
+        .tag-override { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+
+        .method-body {
+            padding: 16px 20px;
+        }
+
+        .method-body p {
+            margin-bottom: 10px;
+        }
+
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 14px;
+            font-size: 13.5px;
+        }
+
+        .param-table th {
+            text-align: left;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .param-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .param-table td code {
+            color: var(--accent-orange);
+        }
+
+        .returns-block {
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-top: 10px;
+            font-size: 13.5px;
+        }
+
+        .returns-block strong {
+            color: var(--accent-green);
+        }
+
+        /* ─── Info Boxes ───────────────────────────────────────────── */
+        .info-box {
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        .info-box.note {
+            background: rgba(91, 156, 245, 0.08);
+            border-left: 4px solid var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .info-box.warning {
+            background: rgba(240, 164, 93, 0.08);
+            border-left: 4px solid var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .info-box.important {
+            background: rgba(239, 107, 115, 0.08);
+            border-left: 4px solid var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .info-box .box-title {
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        /* ─── Diagram Blocks ───────────────────────────────────────── */
+        .diagram {
+            background: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 18px 0;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--accent-green);
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        /* ─── Class Attribute Table ────────────────────────────────── */
+        .attr-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 18px;
+            font-size: 13.5px;
+        }
+
+        .attr-table th 
+        {
+            text-align: left;
+            padding: 10px 14px;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .attr-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .attr-table td:first-child code {
+            color: var(--accent-cyan);
+        }
+
+        /* ─── Badge ────────────────────────────────────────────────── */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-inherits { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+        .badge-type { background: rgba(77, 201, 246, 0.12); color: var(--accent-cyan); }
+
+        /* ─── Scrollbar ────────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ─── Responsive ───────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SIDEBAR NAVIGATION
+     ═══════════════════════════════════════════════════════════════════ -->
+<nav class="sidebar">
+    <div class="sidebar-logo">
+        <h2>Window.py</h2>
+        <span>Technical Documentation</span>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="#overview" class="nav-link">Module Overview</a>
+        <a href="#architecture" class="nav-link">Architecture &amp; Layout</a>
+        <a href="#dependencies" class="nav-link">Dependencies</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Class: AbdhWindow</div>
+        <a href="#class-overview" class="nav-link">Class Overview</a>
+        <a href="#class-attributes" class="nav-link">Class Attributes</a>
+        <a href="#constructor" class="nav-link">Constructor</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Core Systems</div>
+        <a href="#size-lock" class="nav-link">Size Lock System</a>
+        <a href="#ui-initialization" class="nav-link">UI Initialization</a>
+        <a href="#panel-toggling" class="nav-link">Panel Toggling</a>
+        <a href="#animation" class="nav-link">Animation System</a>
+        <a href="#maximize-restore" class="nav-link">Maximize / Restore</a>
+        <a href="#edge-resize" class="nav-link">Edge &amp; Corner Resize</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Event Handling</div>
+        <a href="#event-handling" class="nav-link">Event System</a>
+        <a href="#mouse-events" class="nav-link">Mouse Events</a>
+        <a href="#event-filter" class="nav-link">Event Filter</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Helpers &amp; Utilities</div>
+        <a href="#helpers" class="nav-link">Helper Methods</a>
+        <a href="#page-style" class="nav-link">Page &amp; Style Helpers</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Reference</div>
+        <a href="#method-index" class="nav-link">Full Method Index</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════════════ -->
+<main class="main-content">
+
+    <!-- ─── Overview ─────────────────────────────────────────────────── -->
+    <h1 id="overview">
+        Window.py
+        <span class="module-path">PySide6 Custom QMainWindow — Frameless Window with Animated Panels</span>
+    </h1>
+
+    <p>
+        <code>Window.py</code> defines the <code>AbdhWindow</code> class, a fully customized <code>QMainWindow</code> subclass for
+        the PySideAbdhUI framework. It provides a <strong>frameless window</strong> with a hand-crafted titlebar,
+        collapsible left and right side-panel systems, smooth property-based animations for all
+        transitions, and a manual edge/corner resize implementation that replaces the broken
+        <code>QSizeGrip</code> approach commonly used in Qt frameless windows. The entire module is designed
+        to serve as the top-level application shell into which other framework components
+        (pages, navigation, widgets) are plugged.
+    </p>
+
+    <p>
+        The key design philosophy behind <code>AbdhWindow</code> is that the window should <em>never</em> be
+        auto-resized by Qt's internal layout system when child widgets change their
+        <code>sizeHint</code>. To enforce this, a <strong>size-lock</strong> mechanism pins the window to its current
+        dimensions (by setting both minimum and maximum size) and only unlocks it during
+        user-initiated operations such as edge-drag resizing or maximize/restore animations.
+        This eliminates the common problem of the window growing uncontrollably when a tree
+        widget or other dynamic content expands.
+    </p>
+
+    <!-- ─── Architecture ─────────────────────────────────────────────── -->
+    <h2 id="architecture">Architecture &amp; Layout</h2>
+
+    <p>
+        The window uses a <code>QGridLayout</code> with a 2-row &times; 3-column structure. This grid layout is the
+        foundation for positioning the titlebar, side panels, and the main content area. Every
+        widget is placed at a specific cell in the grid, and column stretch factors control how
+        extra horizontal space is distributed. The following diagram illustrates the layout:
+    </p>
+
+    <div class="diagram">+-------+------------------------+---------+
+| [0,0] |       [0,1]           |  [0,2]  |
+|       |                        |         |
+| Left  |     Titlebar           |  Right  |
+| Panel |   (spans cols 0-2)     |  Panel  |
+| (rows |                        | (rows   |
+|  0-1) |------------------------|  0-1)   |
+|       |       [1,1]           |         |
+|       |                        |         |
+|       |  Stacked Widget        |         |
+|       |  (Main Content Area)   |         |
+|       |  (col stretch = 1)     |         |
++-------+------------------------+---------+
+
+Column 0: Left panel   — fixed width, no stretch
+Column 1: Content area — expanding, stretch = 1
+Column 2: Right panel  — variable width, no stretch</div>
+
+    <p>
+        The titlebar spans all three columns in row 0. The left panel occupies column 0 across
+        both rows. The right panel occupies column 2 across both rows. The central stacked widget
+        (which hosts the application pages) sits at <code>[1,1]</code> and receives all extra horizontal space
+        via <code>setColumnStretch(1, 1)</code>. This ensures that when the window is resized, only the
+        content area grows or shrinks, while the side panels maintain their fixed or animated widths.
+    </p>
+
+    <div class="info-box note">
+        <p><span class="box-title">Note:</span> The titlebar is added to the grid <em>after</em> the other widgets but visually sits on top because <code>QGridLayout</code> Z-order follows insertion order — later additions are drawn on top. This ensures the titlebar overlaps the top edge of both side panels for a seamless visual appearance.</p>
+    </div>
+
+    <!-- ─── Dependencies ─────────────────────────────────────────────── -->
+    <h2 id="dependencies">Dependencies</h2>
+
+    <p>
+        The module relies on the following external and internal dependencies. Understanding these
+        imports is essential for comprehending the full functionality available to <code>AbdhWindow</code>:
+    </p>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Module</th><th>Components Used</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>os</code></td>
+                <td><code>os.path.exists</code></td>
+                <td>Checking if a stylesheet file exists before loading it.</td>
+            </tr>
+            <tr>
+                <td><code>PySide6.QtWidgets</code></td>
+                <td><code>QSizePolicy</code>, <code>QApplication</code>, <code>QMainWindow</code>, <code>QWidget</code>, <code>QVBoxLayout</code>, <code>QHBoxLayout</code>, <code>QGridLayout</code>, <code>QPushButton</code>, <code>QLabel</code>, <code>QFrame</code></td>
+                <td>Core widget and layout classes for building the entire UI structure.</td>
+            </tr>
+            <tr>
+                <td><code>PySide6.QtCore</code></td>
+                <td><code>Qt</code>, <code>QPropertyAnimation</code>, <code>QParallelAnimationGroup</code>, <code>QEasingCurve</code>, <code>QRect</code>, <code>QSize</code>, <code>QPoint</code>, <code>QEvent</code></td>
+                <td>Animation framework, geometry types, event types, and alignment/flags.</td>
+            </tr>
+            <tr>
+                <td><code>PySide6.QtGui</code></td>
+                <td><code>QPainter</code>, <code>QBrush</code>, <code>QColor</code>, <code>QPixmap</code>, <code>QPainterPath</code>, <code>QMouseEvent</code>, <code>QIcon</code></td>
+                <td>Custom painting (rounded corners), image handling, mouse event types, icons.</td>
+            </tr>
+            <tr>
+                <td><code>.Widgets</code></td>
+                <td><code>StackedWidget</code></td>
+                <td>Internal custom stacked widget with page navigation (back/forward).</td>
+            </tr>
+            <tr>
+                <td><code>.utils</code></td>
+                <td><code>get_icon</code></td>
+                <td>Internal utility for loading SVG/icon resources by name.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: AbdhWindow
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="class-overview">Class: AbdhWindow</h2>
+
+    <p>
+        <code>AbdhWindow</code> inherits from <code>QMainWindow</code>
+        <span class="badge badge-inherits">Inherits QMainWindow</span>
+        and is the primary top-level window class of the PySideAbdhUI framework. It completely
+        replaces the native window chrome with a custom frameless implementation, providing:
+    </p>
+
+    <ul style="margin: 12px 0 18px 24px; color: var(--text-secondary);">
+        <li><strong>Custom titlebar</strong> — with logo, navigation buttons (back/forward), title label, settings button, minimize, maximize/restore, and close.</li>
+        <li><strong>Collapsible left panel</strong> — operates in two modes: <em>pinned</em> (always visible, auto-close disabled) and <em>overlay/unpinned</em> (collapses to icon-only strip, auto-closes on outside click).</li>
+        <li><strong>Collapsible right panel</strong> — settings/details panel that starts at zero width and toggles on demand.</li>
+        <li><strong>Animated transitions</strong> — all panel open/close, maximize/restore, and first-show use <code>QPropertyAnimation</code> with easing curves.</li>
+        <li><strong>Manual edge/corner resize</strong> — full 8-direction resizing with appropriate cursor shapes, replacing the unreliable <code>QSizeGrip</code>.</li>
+        <li><strong>Size-lock mechanism</strong> — prevents Qt's layout system from auto-growing the window.</li>
+        <li><strong>Fade-in animation</strong> — the window fades and slides in when first shown.</li>
+    </ul>
+
+    <!-- ─── Class Attributes ──────────────────────────────────────────── -->
+    <h3 id="class-attributes">Class Attributes</h3>
+
+    <p>
+        These constants define the visual dimensions and behavior thresholds for the window.
+        They are class-level attributes shared across all instances of <code>AbdhWindow</code>:
+    </p>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>control_button_size</code></td>
+                <td><code>QSize</code></td>
+                <td><code>QSize(40, 32)</code></td>
+                <td>Dimensions for the window control buttons (minimize, maximize, close) in the titlebar.</td>
+            </tr>
+            <tr>
+                <td><code>logo_size</code></td>
+                <td><code>QSize</code></td>
+                <td><code>QSize(32, 32)</code></td>
+                <td>Dimensions for the application logo displayed in the top-left of the titlebar.</td>
+            </tr>
+            <tr>
+                <td><code>pane_width</code></td>
+                <td><code>int</code></td>
+                <td><code>250</code></td>
+                <td>The full expanded width of side panels (both left and right) when they are open.</td>
+            </tr>
+            <tr>
+                <td><code>pane_min_width</code></td>
+                <td><code>int</code></td>
+                <td><code>48</code></td>
+                <td>The collapsed width of the left panel in overlay mode — just enough to show icons.</td>
+            </tr>
+            <tr>
+                <td><code>titlebar_height</code></td>
+                <td><code>int</code></td>
+                <td><code>42</code></td>
+                <td>Fixed height of the custom titlebar widget in pixels.</td>
+            </tr>
+            <tr>
+                <td><code>RESIZE_MARGIN</code></td>
+                <td><code>int</code></td>
+                <td><code>8</code></td>
+                <td>Pixel distance from the window edge within which the cursor is considered to be near an edge for resizing. This defines the invisible resize grab zone.</td>
+            </tr>
+            <tr>
+                <td><code>MIN_WINDOW_WIDTH</code></td>
+                <td><code>int</code></td>
+                <td><code>400</code></td>
+                <td>Absolute minimum width the window can be resized to. Prevents the window from becoming unusably narrow.</td>
+            </tr>
+            <tr>
+                <td><code>MIN_WINDOW_HEIGHT</code></td>
+                <td><code>int</code></td>
+                <td><code>300</code></td>
+                <td>Absolute minimum height the window can be resized to. Ensures content remains visible.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ─── Constructor ───────────────────────────────────────────────── -->
+    <h3 id="constructor">Constructor: <code>__init__</code></h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>AbdhWindow.__init__(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initializes the window by calling <code>super().__init__()</code>, then configures the
+                frameless window appearance and sets up all internal state variables. The constructor
+                does <strong>not</strong> build any UI widgets — that is deferred to the <code>initUI()</code> method.
+            </p>
+
+            <h4>Key initialization steps:</h4>
+            <ol style="margin: 8px 0 12px 24px; color: var(--text-secondary);">
+                <li><strong>Frameless window flag</strong> — Sets <code>Qt.WindowType.FramelessWindowHint</code> to remove the native window border, and <code>Qt.WindowType.Window</code> to ensure it is still treated as a top-level window.</li>
+                <li><strong>Translucent background</strong> — Enables <code>WA_TranslucentBackground</code> so the rounded-corner painting in <code>paintEvent</code> produces actual transparency at the corners.</li>
+                <li><strong>Golden ratio sizing</strong> — Calculates the initial window size as <code>screen_dimension &times; 1.618 &times; 0.5</code>, giving approximately 80.9% of the screen dimension. This creates a visually pleasing initial window size.</li>
+                <li><strong>Centered positioning</strong> — The window is positioned at the horizontal center and slightly above vertical center (70% of calculated Y) for a more natural screen placement.</li>
+                <li><strong>State initialization</strong> — All resize state, drag state, panel state, and size-lock flags are set to their default values.</li>
+            </ol>
+
+            <div class="info-box warning">
+                <p><span class="box-title">Important:</span> Calling <code>show()</code> before <code>initUI()</code> will raise a <code>RuntimeError</code>. The <code>show()</code> method is overridden to check <code>self.initialized</code> before proceeding.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SIZE LOCK SYSTEM
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="size-lock">Size Lock System</h2>
+
+    <p>
+        The size-lock system is a critical architectural feature that prevents Qt's layout engine from
+        automatically growing the window when internal widgets change their size hints. This is a common
+        problem in Qt applications where, for example, a <code>QTreeWidget</code> with expanding nodes pushes
+        the window boundary outward. The solution implemented here is to lock the window to its exact
+        current size by setting both <code>minimumSize</code> and <code>maximumSize</code> to the current dimensions.
+        When the layout recalculates, it finds that the window cannot grow, so it reflows inside the
+        locked boundary instead.
+    </p>
+
+    <p>
+        The system works as a state machine: the window is normally <strong>locked</strong>, and is only briefly
+        <strong>unlocked</strong> during animations (maximize/restore, fade-in) or edge-drag resizing. After
+        each operation completes, the window is re-locked at its new size.
+    </p>
+
+    <!-- _lock_size -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_lock_size(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Locks the window to its current size by setting both <code>minimumSize</code> and <code>maximumSize</code>
+                to the current <code>self.size()</code>. This is the only reliable way to prevent Qt's layout
+                system from auto-growing the window when internal widgets change their <code>sizeHint</code>.
+                The layout will reflow inside the locked window boundary instead of pushing it outward.
+            </p>
+            <p>
+                Also sets <code>self._size_locked = True</code> for tracking purposes.
+            </p>
+        </div>
+    </div>
+
+    <!-- _unlock_size -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_unlock_size(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Relaxes the size constraints so that user-initiated resize operations (edge drag,
+                maximize/restore animations) can change the window size. The minimum size is set to
+                <code>MIN_WINDOW_WIDTH &times; MIN_WINDOW_HEIGHT</code> (400&times;300) and the maximum size is set to
+                <code>QWIDGETSIZE_MAX</code> (16777215&times;16777215). After the operation completes, the window
+                must be re-locked by calling <code>_lock_size()</code>.
+            </p>
+        </div>
+    </div>
+
+    <!-- _connect_lock_after_animation -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_connect_lock_after_animation(self, animation: QPropertyAnimation)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Convenience method that connects an animation's <code>finished</code> signal to
+                <code>_lock_size</code>, ensuring the window is automatically re-locked as soon as the
+                animation completes. Any previous <code>_lock_size</code> connection on this animation
+                is disconnected first to avoid duplicate calls, which could cause issues if the
+                same animation object is reused.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>animation</code></td><td><code>QPropertyAnimation</code></td><td>The animation whose <code>finished</code> signal should trigger a size lock.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         UI INITIALIZATION
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="ui-initialization">UI Initialization</h2>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>initUI(self, app_title: str = 'PySideAbdhUI Application', direction=Qt.LayoutDirection.LeftToRight, logo: QPixmap = None)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Constructs and assembles the entire window UI. This method must be called after
+                constructing the <code>AbdhWindow</code> instance and before calling <code>show()</code>. It creates
+                all widgets, layouts, and connections that make up the window.
+            </p>
+
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>app_title</code></td><td><code>str</code></td><td><code>'PySideAbdhUI Application'</code></td><td>The text displayed in the titlebar and used as the window title.</td></tr>
+                    <tr><td><code>direction</code></td><td><code>Qt.LayoutDirection</code></td><td><code>LeftToRight</code></td><td>The layout direction for the main widget, supporting RTL languages.</td></tr>
+                    <tr><td><code>logo</code></td><td><code>QPixmap</code></td><td><code>None</code></td><td>An optional logo pixmap displayed in the titlebar. If <code>None</code>, the logo label remains empty.</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Initialization sequence:</h4>
+            <ol style="margin: 8px 0 12px 24px; color: var(--text-secondary);">
+                <li><strong>Central widget</strong> — Creates a <code>QWidget</code> with the CSS class <code>window-background-layer</code> and sets it as the central widget with zero content margins.</li>
+                <li><strong>Grid layout</strong> — Creates a <code>QGridLayout</code> with zero margins and zero spacing for a pixel-perfect layout.</li>
+                <li><strong>Left panel</strong> — Creates a <code>QFrame</code> with CSS class <code>left-sidebar-background-layer</code>, fixed width of <code>pane_width</code> (250px), and a <code>QVBoxLayout</code> with top margin equal to <code>titlebar_height</code> to avoid overlap.</li>
+                <li><strong>Right panel</strong> — Creates a <code>QFrame</code> with CSS class <code>right-sidebar-background-layer</code>, starting at zero width (collapsed by default), with a <code>QVBoxLayout</code> and a stretch at the bottom for flexible content placement.</li>
+                <li><strong>Toggle button</strong> — Creates the hamburger-menu toggle button that expands/collapses the left panel, and a pin button that switches between pinned and overlay modes.</li>
+                <li><strong>Stacked widget</strong> — Creates a <code>StackedWidget</code> (custom class from <code>.Widgets</code>) for hosting application pages with back/forward navigation.</li>
+                <li><strong>Titlebar</strong> — Calls <code>_create_titlebar()</code> to build the custom titlebar with all control buttons.</li>
+                <li><strong>Grid placement</strong> — Adds all widgets to the grid layout in the correct positions with proper alignment and span values.</li>
+                <li><strong>Column stretch</strong> — Sets column stretch factors: 0 for left panel, 1 for content, 0 for right panel.</li>
+                <li><strong>Mouse tracking</strong> — Enables mouse tracking for edge-resize cursor feedback.</li>
+                <li><strong>Animation setup</strong> — Creates the main <code>QPropertyAnimation</code> object for maximize/restore with <code>OutQuad</code> easing and 175ms duration.</li>
+                <li><strong>Event filter</strong> — Installs a global event filter on <code>QApplication.instance()</code> to detect clicks outside panels and manage resize cursors.</li>
+            </ol>
+
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> After <code>initUI()</code> completes, <code>self.initialized</code> is set to <code>True</code>, which allows the <code>show()</code> method to proceed. If <code>show()</code> is called without initialization, a <code>RuntimeError</code> is raised.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── show() ────────────────────────────────────────────────────── -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>show(self)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Overrides the default <code>QMainWindow.show()</code> to add an initialization guard. If
+                <code>initUI()</code> has not been called yet (<code>self.initialized</code> is <code>False</code>), it
+                raises a <code>RuntimeError</code> with a descriptive message. Otherwise, it calls
+                <code>super().show()</code> to display the window normally.
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PANEL TOGGLING
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="panel-toggling">Panel Toggling</h2>
+
+    <p>
+        The left panel supports two distinct modes of operation, each providing a different user
+        experience for sidebar interaction. The right panel operates as a simple toggle (open/close).
+        Understanding these modes is essential for correctly integrating the window into an application.
+    </p>
+
+    <h4>Left Panel Modes</h4>
+    <ul style="margin: 8px 0 16px 24px; color: var(--text-secondary);">
+        <li>
+            <strong>Pinned mode</strong> (<code>self.overlay = False</code>): The left panel occupies column 0 only
+            (col-span = 1). It stays visible and does not auto-close. The toggle button animates
+            the panel between full width (<code>pane_width</code>) and minimum width (<code>pane_min_width</code>)
+            while staying in the same grid column. The content area shifts accordingly.
+        </li>
+        <li>
+            <strong>Overlay / Unpinned mode</strong> (<code>self.overlay = True</code>): The left panel is placed at
+            column 0 with col-span = 2, so it overlays the content area. The panel collapses to
+            <code>pane_min_width</code> (48px — just enough for icons) and auto-closes when the user
+            clicks outside of it (handled by the event filter). The stacked widget gets a left
+            margin equal to <code>pane_min_width</code> so its content is not hidden behind the panel.
+        </li>
+    </ul>
+
+    <!-- toggle_overlay -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>toggle_overlay(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Toggles the left panel between pinned and overlay mode. When switching to overlay mode,
+                the panel is removed from the grid and re-added with col-span = 2, its width is fixed
+                to <code>pane_min_width</code>, and the stacked widget receives a left margin to avoid
+                content occlusion. When switching back to pinned mode, the panel is re-added with
+                col-span = 1 and the stacked widget's left margin is reset to 0. The pin button is
+                hidden in overlay mode since pinning is only relevant in the expanded state.
+            </p>
+        </div>
+    </div>
+
+    <!-- animate_content -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>animate_content(self, frame: QFrame, stack: StackedWidget)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Animates the left panel open/closed with a smooth width transition. The behavior
+                differs depending on whether the panel is in overlay or pinned mode:
+            </p>
+            <ul style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Overlay mode</strong>: Calls <code>toggle_frame()</code> for a simple width toggle between 0 and <code>pane_width</code>.</li>
+                <li><strong>Pinned mode</strong>: Creates a <code>QParallelAnimationGroup</code> that simultaneously animates both <code>minimumWidth</code> and <code>maximumWidth</code> of the panel. This dual-animation approach prevents layout conflicts where Qt might auto-adjust one property while the other is being animated. The animation uses <code>InOutQuad</code> easing over 400ms for a natural feel.</li>
+            </ul>
+            <p>
+                After the animation completes, the stacked widget's width constraints are reset
+                (minimum to 0, maximum to <code>QWIDGETSIZE_MAX</code>) so it can freely expand when the
+                window is resized. The <code>expanded</code> flag is toggled and the pin button visibility
+                is updated accordingly.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>frame</code></td><td><code>QFrame</code></td><td>The left panel frame to animate (typically <code>self.left_panel</code>).</td></tr>
+                    <tr><td><code>stack</code></td><td><code>StackedWidget</code></td><td>The stacked content widget whose constraints are reset after animation.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- toggle_frame -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>toggle_frame(self, sender: QFrame, min: int)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                A generic panel toggle method that animates any <code>QFrame</code> between collapsed and
+                expanded widths. If the frame's current width is less than <code>pane_width</code>, it
+                animates open to <code>pane_width</code>; otherwise, it animates closed to the given
+                <code>min</code> value. The animation uses <code>OutCubic</code> easing over 400ms for a
+                smooth deceleration effect.
+            </p>
+            <p>
+                Before starting a new animation, any running animation on the sender is stopped
+                to prevent conflicts. The animation object is scheduled for deletion after it
+                finishes via <code>deleteLater()</code>.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>sender</code></td><td><code>QFrame</code></td><td>The panel frame to toggle (e.g., <code>self.right_panel</code>).</td></tr>
+                    <tr><td><code>min</code></td><td><code>int</code></td><td>The collapsed width to animate to. Typically 0 for the right panel or <code>pane_min_width</code> for the left panel.</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box warning">
+                <p><span class="box-title">Known Limitation:</span> This method only animates <code>minimumWidth</code>, not <code>maximumWidth</code>. A commented-out alternative implementation that animates both properties in parallel exists in the source code but is not currently active. This can cause layout jitter if internal widgets have large size hints.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- open_settings -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>open_settings(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Convenience method that calls <code>toggle_frame(self.right_panel, 0)</code> to toggle
+                the right (settings) panel open or closed. The collapsed width is 0, meaning the
+                panel completely disappears when closed.
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         ANIMATION SYSTEM
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="animation">Animation System</h2>
+
+    <p>
+        <code>AbdhWindow</code> uses Qt's <code>QPropertyAnimation</code> framework extensively for smooth visual
+        transitions. All animations are property-based, meaning they interpolate a specific Qt
+        property of a widget over time. The following animation types are used:
+    </p>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Animation Type</th><th>Property</th><th>Easing Curve</th><th>Duration</th><th>Context</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Geometry</td>
+                <td><code>b"geometry"</code></td>
+                <td><code>OutQuad</code></td>
+                <td>175 ms</td>
+                <td>Maximize/restore transitions</td>
+            </tr>
+            <tr>
+                <td>Minimum width</td>
+                <td><code>b"minimumWidth"</code></td>
+                <td><code>InOutQuad</code></td>
+                <td>400 ms</td>
+                <td>Left panel expand/collapse (pinned mode)</td>
+            </tr>
+            <tr>
+                <td>Maximum width</td>
+                <td><code>b"maximumWidth"</code></td>
+                <td><code>InOutQuad</code></td>
+                <td>400 ms</td>
+                <td>Left panel expand/collapse (pinned mode, parallel)</td>
+            </tr>
+            <tr>
+                <td>Minimum width</td>
+                <td><code>b"minimumWidth"</code></td>
+                <td><code>OutCubic</code></td>
+                <td>400 ms</td>
+                <td>Generic panel toggle (<code>toggle_frame</code>)</td>
+            </tr>
+            <tr>
+                <td>Window opacity</td>
+                <td><code>b"windowOpacity"</code></td>
+                <td><code>OutQuad</code></td>
+                <td>500 ms</td>
+                <td>Fade-in on first show</td>
+            </tr>
+            <tr>
+                <td>Geometry</td>
+                <td><code>b"geometry"</code></td>
+                <td><code>OutQuad</code></td>
+                <td>500 ms</td>
+                <td>Slide-in on first show (parallel with opacity)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        The <code>QParallelAnimationGroup</code> is used in the left panel pinned-mode animation to run
+        the minimum and maximum width animations simultaneously, preventing layout conflicts.
+        The fade-in animation also runs opacity and geometry animations in parallel for a combined
+        fade-and-slide effect.
+    </p>
+
+    <!-- animate_fadeIn -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>animate_fadeIn(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Performs a combined fade-in and slide-in animation when the window is shown for
+                the first time. Two animations run in parallel:
+            </p>
+            <ul style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Opacity animation</strong>: Transitions <code>windowOpacity</code> from 0.0 to 1.0 over 500ms with <code>OutQuad</code> easing, creating a smooth fade-in from transparent to fully opaque.</li>
+                <li><strong>Geometry animation</strong>: Starts the window 50 pixels above its final position and slides it down to the target geometry over 500ms with <code>OutQuad</code> easing, creating a subtle slide-in effect.</li>
+            </ul>
+            <p>
+                Before starting, the size lock is unlocked so the geometry animation can move the
+                window. After the geometry animation finishes, the size is re-locked via
+                <code>_connect_lock_after_animation()</code>. This method is called from <code>showEvent()</code>
+                only when <code>self.first_show</code> is <code>True</code>.
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MAXIMIZE / RESTORE
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="maximize-restore">Maximize / Restore</h2>
+
+    <p>
+        The maximize/restore system provides animated full-screen and windowed transitions without
+        using the native window manager's maximize function. This is necessary because the window
+        is frameless and the native maximize behavior would not respect the custom rounded corners
+        and layout. The system stores the "original" (pre-maximize) geometry and animates between
+        it and the full available screen geometry.
+    </p>
+
+    <!-- toggle_maximize_restore -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>toggle_maximize_restore(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Toggles between maximized and restored states. If currently maximized, it calls
+                <code>animate_restore()</code> and changes the maximize button icon to a single square.
+                If currently windowed, it calls <code>animate_maximize()</code> and changes the icon to
+                a double-square. The <code>is_maximized</code> flag is toggled after the call.
+            </p>
+        </div>
+    </div>
+
+    <!-- animate_maximize -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>animate_maximize(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Animates the window from its current geometry to the full available screen geometry
+                (excluding the taskbar). Before animating, the current geometry is saved as
+                <code>original_geometry</code> — but with bounds checking to ensure the stored geometry
+                is valid. Specifically, if the window is already wider/taller than the screen or
+                positioned off-screen, the geometry is clamped to ensure a valid restore target.
+            </p>
+            <p>
+                The animation uses the main <code>self.animation</code> object with <code>OutQuad</code> easing
+                over 175ms. After completion, the window is re-locked via
+                <code>_connect_lock_after_animation()</code>.
+            </p>
+        </div>
+    </div>
+
+    <!-- animate_restore -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>animate_restore(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Animates the window from its current (maximized) geometry back to the stored
+                <code>original_geometry</code>. Uses the same <code>self.animation</code> object with
+                <code>OutQuad</code> easing over 175ms. After completion, the window is re-locked.
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         EDGE & CORNER RESIZE
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="edge-resize">Edge &amp; Corner Resize</h2>
+
+    <p>
+        Since the window is frameless, there is no native border to grab for resizing. The
+        <code>AbdhWindow</code> class implements a complete manual resize system that detects when the
+        cursor is near the window's edges or corners, changes the cursor shape accordingly, and
+        handles mouse drag to resize the window from any of 8 directions (4 edges + 4 corners).
+        This replaces the commonly used <code>QSizeGrip</code> approach, which only provides a single
+        bottom-right resize handle and has known issues with frameless windows.
+    </p>
+
+    <!-- _get_resize_direction -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_get_resize_direction(self, pos) -&gt; str | None</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Determines which edge or corner the cursor is near based on the mouse position
+                relative to the window boundaries. The <code>RESIZE_MARGIN</code> (8 pixels) defines the
+                invisible grab zone around the window perimeter. Corners take priority over edges
+                in the detection logic.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>pos</code></td><td><code>QPoint</code></td><td>The mouse position in window-local coordinates.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block">
+                <strong>Returns:</strong> One of <code>'top_left'</code>, <code>'top_right'</code>, <code>'bottom_left'</code>, <code>'bottom_right'</code>, <code>'left'</code>, <code>'right'</code>, <code>'top'</code>, <code>'bottom'</code>, or <code>None</code> if the cursor is not near any edge.
+            </div>
+        </div>
+    </div>
+
+    <!-- _cursor_for_direction -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_cursor_for_direction(self, direction) -&gt; Qt.CursorShape</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Maps a resize direction string to the appropriate Qt cursor shape. Horizontal
+                edges use <code>SizeHorCursor</code>, vertical edges use <code>SizeVerCursor</code>, and
+                diagonal corners use <code>SizeFDiagCursor</code> or <code>SizeBDiagCursor</code> depending
+                on the diagonal direction. Returns <code>ArrowCursor</code> for unrecognized directions.
+            </p>
+            <table class="attr-table" style="font-size: 13px;">
+                <thead><tr><th>Direction</th><th>Cursor Shape</th><th>Visual</th></tr></thead>
+                <tbody>
+                    <tr><td><code>left</code>, <code>right</code></td><td><code>SizeHorCursor</code></td><td>Horizontal double arrow &harr;</td></tr>
+                    <tr><td><code>top</code>, <code>bottom</code></td><td><code>SizeVerCursor</code></td><td>Vertical double arrow &varr;</td></tr>
+                    <tr><td><code>top_left</code>, <code>bottom_right</code></td><td><code>SizeFDiagCursor</code></td><td>Forward diagonal &nwarr;&searr;</td></tr>
+                    <tr><td><code>top_right</code>, <code>bottom_left</code></td><td><code>SizeBDiagCursor</code></td><td>Backward diagonal &nearr;&swarr;</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- _do_resize -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_do_resize(self, global_pos)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Performs the actual resize based on the stored direction and the mouse position
+                delta. It calculates the new geometry by adjusting the appropriate edges of the
+                stored <code>_resize_start_geo</code> rectangle. Each direction flag in
+                <code>_resize_dir</code> (e.g., <code>'left'</code>, <code>'top'</code>) is checked independently,
+                which allows corner resizing to modify two edges simultaneously.
+            </p>
+            <p>
+                Minimum size constraints (<code>MIN_WINDOW_WIDTH</code> and <code>MIN_WINDOW_HEIGHT</code>) are
+                enforced: if resizing would make the window smaller than the minimum, the
+                corresponding edge is not moved. After setting the geometry, the main layout
+                is explicitly activated via <code>self.main_widget.layout().activate()</code> to
+                force an immediate reflow so the stacked widget expands/contracts to fill
+                the new window size.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>global_pos</code></td><td><code>QPoint</code></td><td>The current global mouse position.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         EVENT HANDLING
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="event-handling">Event System</h2>
+
+    <p>
+        <code>AbdhWindow</code> overrides several Qt event handlers and installs a global event filter to
+        implement its frameless window behavior. The event system handles: first-show fade-in
+        animation, custom painting of rounded corners, cursor management for edge resizing,
+        auto-closing panels on outside clicks, window dragging from the titlebar, and edge/corner
+        resizing.
+    </p>
+
+    <h3 id="mouse-events">Mouse Events</h3>
+
+    <!-- mousePressEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>mousePressEvent(self, event: QMouseEvent)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Handles left-button mouse press events with two distinct behaviors:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Edge/corner resize initiation</strong>: If the cursor is near an edge or corner (determined by <code>_get_resize_direction()</code>) and the window is not maximized, the resize state is initialized. The size lock is unlocked, the resize direction and starting geometry/position are stored, and the resize cursor is locked for the entire drag operation.</li>
+                <li><strong>Titlebar drag initiation</strong>: If the click is not near an edge, the drag start position is stored as the offset between the global cursor position and the window's top-left corner. This offset is used in <code>mouseMoveEvent()</code> to move the window smoothly.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- mouseDoubleClickEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>mouseDoubleClickEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Handles double-click events on the titlebar area. If the double-click occurs
+                within the titlebar height (<code>self.titlebar_height</code>) from the top of the window,
+                it triggers <code>toggle_maximize_restore()</code>. This mimics the standard Windows/macOS
+                behavior of double-clicking the titlebar to maximize/restore the window.
+            </p>
+        </div>
+    </div>
+
+    <!-- mouseMoveEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>mouseMoveEvent(self, event: QMouseEvent)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Handles left-button mouse move events with two behaviors:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Resizing</strong>: If <code>self._resizing</code> is <code>True</code>, calls <code>_do_resize()</code> with the current global position to update the window geometry.</li>
+                <li><strong>Titlebar dragging</strong>: If a drag start position exists and the cursor is within the titlebar's Y range, the window is moved to follow the cursor. If the window is maximized, it is first restored to windowed mode before dragging begins, allowing the user to "pull" the window out of maximized state — a common UX pattern.</li>
+            </ol>
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> Cursor management for hover (no button pressed) is handled in <code>eventFilter()</code>, not here. <code>mouseMoveEvent</code> only fires when the mouse is over the window's own area — child widgets consume the events. The event filter catches ALL mouse-move events so the resize cursor is always shown/hidden correctly.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- mouseReleaseEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>mouseReleaseEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Handles left-button mouse release events. If the user was resizing
+                (<code>self._resizing</code> is <code>True</code>), the resize state is reset and the
+                window is re-locked to its new size via <code>_lock_size()</code>. The cursor is
+                also unset, allowing the <code>eventFilter</code> to set the correct cursor on the
+                next hover move. The drag start position is always cleared on release.
+            </p>
+        </div>
+    </div>
+
+    <!-- showEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>showEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Triggers the fade-in animation when the window is shown for the first time.
+                If <code>self.first_show</code> is <code>True</code>, it sets it to <code>False</code> and
+                calls <code>animate_fadeIn()</code>. Subsequent show events (e.g., after minimizing
+                and restoring) do not trigger the animation.
+            </p>
+        </div>
+    </div>
+
+    <!-- paintEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>paintEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Custom paint event that draws a rounded rectangle over the entire window area.
+                This is necessary because the window is frameless with a translucent background,
+                so without custom painting the corners would show the desktop or other windows
+                behind. The method uses <code>QPainter</code> with antialiasing to draw a
+                <code>QPainterPath</code> containing a rounded rect (8px radius), filled with the
+                window palette's background color.
+            </p>
+        </div>
+    </div>
+
+    <!-- leaveEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>leaveEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Resets the cursor to the default arrow when the mouse leaves the window entirely.
+                This prevents the resize cursor from persisting when the mouse moves away from
+                the window edge without being over any child widget.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── Event Filter ──────────────────────────────────────────────── -->
+    <h3 id="event-filter">Global Event Filter</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>eventFilter(self, obj, event) -&gt; bool</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                A global event filter installed on <code>QApplication.instance()</code> that handles
+                two critical functions that cannot be implemented in regular event handlers:
+            </p>
+
+            <h4>1. Cursor Management (MouseMove, no buttons)</h4>
+            <p>
+                When the mouse moves without any buttons pressed, the filter checks if the cursor
+                is near a window edge or corner. If so, it sets the appropriate resize cursor.
+                If not, it unsets the cursor. This <strong>must</strong> be in the event filter (not
+                <code>mouseMoveEvent</code>) because <code>mouseMoveEvent</code> only fires when the mouse is
+                directly over the window's own area — not over child widgets. Without the event
+                filter, the resize cursor would get "stuck" or appear over child widgets that
+                inherit the parent's cursor. The filter is only active when the window is not
+                maximized and is visible.
+            </p>
+
+            <h4>2. Auto-Close Panels on Outside Click (MouseButtonPress)</h4>
+            <p>
+                When a mouse button press is detected anywhere in the application, the filter
+                checks whether the click target is one of the control buttons (toggle, pin,
+                settings, maximize, minimize, close). If it is, the event is passed through
+                normally. Otherwise:
+            </p>
+            <ul style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Right panel</strong>: If the right panel is open (width &gt; 0) and the click is outside its geometry, it is auto-closed via <code>toggle_frame()</code>.</li>
+                <li><strong>Left panel (overlay mode)</strong>: If the left panel is in overlay mode and expanded, and the click is outside its geometry, it is auto-collapsed via <code>animate_content()</code>.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         HELPERS
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="helpers">Helper Methods</h2>
+
+    <!-- _create_titlebar -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_create_titlebar(self, title_text: str, title_logo: QPixmap) -&gt; QWidget</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Builds the custom titlebar widget with all its child widgets and layout. The
+                titlebar is a <code>QWidget</code> with object name <code>Titlebar</code>, fixed height of
+                <code>titlebar_height</code> (42px), and a <code>QHBoxLayout</code> containing the following
+                widgets from left to right:
+            </p>
+            <table class="attr-table" style="font-size: 13px;">
+                <thead><tr><th>Widget</th><th>Property</th><th>Icon</th><th>Signal</th></tr></thead>
+                <tbody>
+                    <tr><td>Logo label</td><td>CSS class: default</td><td>—</td><td>—</td></tr>
+                    <tr><td>Back button</td><td><code>grouped_mini</code></td><td><code>arrow-left</code></td><td><code>stacked_widget.go_back</code></td></tr>
+                    <tr><td>Forward button</td><td><code>grouped_mini</code></td><td><code>arrow-right</code></td><td><code>stacked_widget.go_next</code></td></tr>
+                    <tr><td>Title label</td><td><code>caption</code></td><td>—</td><td>—</td></tr>
+                    <tr><td>Stretch</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><td>Settings button</td><td><code>grouped_mini</code></td><td><code>settings</code></td><td><code>toggle_frame(right_panel, 0)</code></td></tr>
+                    <tr><td>Minimize button</td><td><code>grouped_mini</code></td><td><code>minus</code></td><td><code>showMinimized</code></td></tr>
+                    <tr><td>Maximize button</td><td><code>grouped_mini</code></td><td><code>square</code></td><td><code>toggle_maximize_restore</code></td></tr>
+                    <tr><td>Close button</td><td><code>closebutton</code></td><td><code>x</code></td><td><code>close</code></td></tr>
+                </tbody>
+            </table>
+            <p>
+                All buttons use the <code>grouped_mini</code> CSS class (except the close button which uses
+                <code>closebutton</code>) and are aligned to the top of the titlebar. The layout direction
+                is forced to <code>LeftToRight</code> regardless of the application's layout direction,
+                ensuring the window controls always appear on the right side.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>title_text</code></td><td><code>str</code></td><td>The text displayed in the title label.</td></tr>
+                    <tr><td><code>title_logo</code></td><td><code>QPixmap</code></td><td>Optional logo pixmap; scaled to <code>logo_size</code> (32&times;32) with aspect ratio preservation.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block">
+                <strong>Returns:</strong> <code>QWidget</code> — The fully constructed titlebar widget.
+            </div>
+        </div>
+    </div>
+
+    <!-- switch_settings_button -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>switch_settings_button(self, on: bool = True)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Shows or hides the settings button in the titlebar. This is useful when a
+                particular page or application state does not require a settings panel.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>on</code></td><td><code>bool</code></td><td><code>True</code></td><td>If <code>True</code>, the settings button is visible; if <code>False</code>, it is hidden.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- switch_navigations -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>switch_navigations(self, on: bool = True)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Shows or hides both the back and forward navigation buttons in the titlebar
+                simultaneously. This is useful for pages that do not support navigation history.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>on</code></td><td><code>bool</code></td><td><code>True</code></td><td>If <code>True</code>, both navigation buttons are visible; if <code>False</code>, both are hidden.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- set_direction -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>set_direction(self, direction: Qt.LayoutDirection = Qt.LayoutDirection.LeftToRight)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Sets the layout direction of the stacked widget, enabling right-to-left (RTL)
+                support for languages like Arabic or Hebrew. The titlebar and side panels are
+                not affected — they maintain their forced <code>LeftToRight</code> direction.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>direction</code></td><td><code>Qt.LayoutDirection</code></td><td><code>LeftToRight</code></td><td>The layout direction for the content area.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- update_navigation_buttons -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>update_navigation_buttons(self, can_go_back: bool, can_go_forward: bool)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Independently controls the visibility of the back and forward navigation buttons.
+                This is typically called after a page navigation event to reflect the current
+                navigation history state — the back button is visible only if there is a previous
+                page to return to, and the forward button is visible only if there is a next page.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>can_go_back</code></td><td><code>bool</code></td><td>If <code>True</code>, the back button is shown; otherwise hidden.</td></tr>
+                    <tr><td><code>can_go_forward</code></td><td><code>bool</code></td><td>If <code>True</code>, the forward button is shown; otherwise hidden.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- add_right_panel_item -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>add_right_panel_item(self, item: QWidget)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Inserts a widget into the right panel layout, positioned before the bottom stretch.
+                The stretch was added during initialization with <code>addStretch(1)</code>, so new items
+                are inserted at index <code>count - 1</code> to appear above the stretch. This ensures
+                that content is always pushed to the top of the panel with flexible space at the bottom.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>item</code></td><td><code>QWidget</code></td><td>The widget to add to the right panel.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- add_left_panel_item -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>add_left_panel_item(self, item: QWidget)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Appends a widget to the end of the left panel layout. Widgets are added in order
+                from top to bottom, after the toggle and pin buttons that were added during
+                <code>initUI()</code>.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>item</code></td><td><code>QWidget</code></td><td>The widget to add to the left panel.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- left_panel_item -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>left_panel_item(self, index: int) -&gt; QWidget</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Returns the widget at the given index in the left panel layout. This is useful
+                for accessing or modifying previously added panel items.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>index</code></td><td><code>int</code></td><td>The zero-based index of the item in the left panel layout.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block">
+                <strong>Returns:</strong> <code>QWidget</code> — The widget at the specified index.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PAGE & STYLE HELPERS
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="page-style">Page &amp; Style Helpers</h2>
+
+    <!-- add_page -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>add_page(self, page_widget: QWidget)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Adds a page widget to the central stacked widget. Pages are managed by the
+                <code>StackedWidget</code> class, which provides navigation history (back/forward)
+                functionality. The first page added becomes the initially visible page. Each
+                subsequent page is hidden until navigated to via the stacked widget's methods.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>page_widget</code></td><td><code>QWidget</code></td><td>The page widget to add. It should contain the full UI for one application screen.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- apply_style -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>apply_style(self, style_sheet: str)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Applies a Qt style sheet string directly to the window. This is the programmatic
+                way to set styles, useful for dynamically generated or modified style sheets.
+                The style sheet affects the window and all its child widgets.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>style_sheet</code></td><td><code>str</code></td><td>A valid Qt style sheet (QSS) string to apply.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- load_style -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>load_style(self, file_name: str = 'default') -&gt; str | None</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Loads a Qt style sheet from an external file and applies it to the window. The
+                file is read as UTF-8 text. If the file does not exist, a warning is printed
+                to the console and <code>None</code> is returned. This method is useful for separating
+                style definitions from application code and allowing runtime theme switching.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>file_name</code></td><td><code>str</code></td><td><code>'default'</code></td><td>Path to the QSS file to load.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block">
+                <strong>Returns:</strong> The style sheet string if the file was found and loaded successfully; <code>None</code> otherwise.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FULL METHOD INDEX
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="method-index">Full Method Index</h2>
+
+    <p>
+        Complete reference of all methods in the <code>AbdhWindow</code> class, organized by visibility
+        and category:
+    </p>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Method</th><th>Visibility</th><th>Category</th><th>Brief Description</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>__init__</code></td><td>Public</td><td>Constructor</td><td>Initialize window state and frameless flags</td></tr>
+            <tr><td><code>initUI</code></td><td>Public</td><td>Initialization</td><td>Build the entire UI structure</td></tr>
+            <tr><td><code>show</code></td><td>Override</td><td>Initialization</td><td>Show with initialization guard</td></tr>
+            <tr><td><code>_lock_size</code></td><td>Private</td><td>Size Lock</td><td>Lock window to current size</td></tr>
+            <tr><td><code>_unlock_size</code></td><td>Private</td><td>Size Lock</td><td>Unlock for user-initiated resize</td></tr>
+            <tr><td><code>_connect_lock_after_animation</code></td><td>Private</td><td>Size Lock</td><td>Auto-lock after animation finishes</td></tr>
+            <tr><td><code>toggle_overlay</code></td><td>Public</td><td>Panel</td><td>Toggle pinned/overlay mode for left panel</td></tr>
+            <tr><td><code>animate_content</code></td><td>Public</td><td>Panel</td><td>Animate left panel open/close</td></tr>
+            <tr><td><code>toggle_frame</code></td><td>Public</td><td>Panel</td><td>Generic panel toggle with animation</td></tr>
+            <tr><td><code>open_settings</code></td><td>Public</td><td>Panel</td><td>Toggle right (settings) panel</td></tr>
+            <tr><td><code>toggle_maximize_restore</code></td><td>Public</td><td>Maximize</td><td>Toggle between maximized and restored</td></tr>
+            <tr><td><code>animate_maximize</code></td><td>Private</td><td>Maximize</td><td>Animate to full-screen geometry</td></tr>
+            <tr><td><code>animate_restore</code></td><td>Private</td><td>Maximize</td><td>Animate to stored windowed geometry</td></tr>
+            <tr><td><code>animate_fadeIn</code></td><td>Private</td><td>Animation</td><td>Fade-in + slide-in on first show</td></tr>
+            <tr><td><code>_get_resize_direction</code></td><td>Private</td><td>Resize</td><td>Detect edge/corner from cursor position</td></tr>
+            <tr><td><code>_cursor_for_direction</code></td><td>Private</td><td>Resize</td><td>Map direction to cursor shape</td></tr>
+            <tr><td><code>_do_resize</code></td><td>Private</td><td>Resize</td><td>Apply geometry change during drag</td></tr>
+            <tr><td><code>mousePressEvent</code></td><td>Override</td><td>Event</td><td>Initiate resize or titlebar drag</td></tr>
+            <tr><td><code>mouseDoubleClickEvent</code></td><td>Override</td><td>Event</td><td>Maximize/restore on titlebar double-click</td></tr>
+            <tr><td><code>mouseMoveEvent</code></td><td>Override</td><td>Event</td><td>Perform resize or window drag</td></tr>
+            <tr><td><code>mouseReleaseEvent</code></td><td>Override</td><td>Event</td><td>End resize, re-lock size</td></tr>
+            <tr><td><code>showEvent</code></td><td>Override</td><td>Event</td><td>Trigger fade-in on first show</td></tr>
+            <tr><td><code>paintEvent</code></td><td>Override</td><td>Event</td><td>Draw rounded rectangle background</td></tr>
+            <tr><td><code>leaveEvent</code></td><td>Override</td><td>Event</td><td>Reset cursor when mouse leaves</td></tr>
+            <tr><td><code>eventFilter</code></td><td>Override</td><td>Event</td><td>Cursor management + auto-close panels</td></tr>
+            <tr><td><code>_create_titlebar</code></td><td>Private</td><td>Helper</td><td>Build custom titlebar widget</td></tr>
+            <tr><td><code>switch_settings_button</code></td><td>Public</td><td>Helper</td><td>Show/hide settings button</td></tr>
+            <tr><td><code>switch_navigations</code></td><td>Public</td><td>Helper</td><td>Show/hide back &amp; forward buttons</td></tr>
+            <tr><td><code>set_direction</code></td><td>Public</td><td>Helper</td><td>Set content layout direction (RTL support)</td></tr>
+            <tr><td><code>update_navigation_buttons</code></td><td>Public</td><td>Helper</td><td>Individually control nav button visibility</td></tr>
+            <tr><td><code>add_right_panel_item</code></td><td>Public</td><td>Helper</td><td>Add widget to right panel</td></tr>
+            <tr><td><code>add_left_panel_item</code></td><td>Public</td><td>Helper</td><td>Add widget to left panel</td></tr>
+            <tr><td><code>left_panel_item</code></td><td>Public</td><td>Helper</td><td>Get widget at index in left panel</td></tr>
+            <tr><td><code>add_page</code></td><td>Public</td><td>Page/Style</td><td>Add page to stacked widget</td></tr>
+            <tr><td><code>apply_style</code></td><td>Public</td><td>Page/Style</td><td>Apply QSS string to window</td></tr>
+            <tr><td><code>load_style</code></td><td>Public</td><td>Page/Style</td><td>Load and apply QSS from file</td></tr>
+        </tbody>
+    </table>
+
+    <div class="info-box important" style="margin-top: 40px;">
+        <p><span class="box-title">CSS Class Reference:</span> The window uses CSS class properties (not object names) to match stylesheet selectors. Key CSS classes used include: <code>window-background-layer</code> (main widget), <code>left-sidebar-background-layer</code> (left panel), <code>right-sidebar-background-layer</code> (right panel), <code>grouped_mini</code> (small control buttons), <code>closebutton</code> (close button), and <code>caption</code> (title label). The titlebar widget uses <code>objectName</code> <code>Titlebar</code> instead.</p>
+    </div>
+
+</main>
+
+</body>
+</html>

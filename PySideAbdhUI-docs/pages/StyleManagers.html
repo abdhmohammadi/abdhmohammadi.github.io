@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleManagers.py — Technical Documentation</title>
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #161822;
+            --bg-tertiary: #1c1f2e;
+            --bg-code: #1a1d2e;
+            --text-primary: #e4e6f0;
+            --text-secondary: #9ca0b0;
+            --text-muted: #6b7085;
+            --accent-blue: #5b9cf5;
+            --accent-cyan: #4dc9f6;
+            --accent-green: #5ccba0;
+            --accent-orange: #f0a45d;
+            --accent-red: #ef6b73;
+            --accent-purple: #b07eee;
+            --accent-yellow: #e8d44d;
+            --accent-pink: #e87ca0;
+            --border-color: #2a2d3e;
+            --hover-bg: #22253a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .sidebar {
+            position: fixed; top: 0; left: 0;
+            width: 280px; height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto; padding: 24px 0; z-index: 100;
+        }
+        .sidebar-logo {
+            padding: 0 24px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+        .sidebar-logo h2 { font-size: 18px; color: var(--accent-blue); font-weight: 700; letter-spacing: -0.3px; }
+        .sidebar-logo span { font-size: 12px; color: var(--text-muted); display: block; margin-top: 4px; }
+        .nav-section { padding: 8px 0; }
+        .nav-section-title {
+            padding: 8px 24px; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted);
+        }
+        .nav-link {
+            display: block; padding: 6px 24px 6px 32px;
+            color: var(--text-secondary); text-decoration: none; font-size: 13.5px;
+            transition: all 0.2s; border-left: 3px solid transparent;
+        }
+        .nav-link:hover { background: var(--hover-bg); color: var(--text-primary); border-left-color: var(--accent-blue); }
+        .nav-link.active { color: var(--accent-blue); background: var(--hover-bg); border-left-color: var(--accent-blue); }
+        .nav-link.indent { padding-left: 44px; font-size: 12.5px; }
+
+        .main-content { margin-left: 280px; padding: 40px 56px 80px; max-width: 960px; }
+
+        h1 {
+            font-size: 36px; font-weight: 800; letter-spacing: -0.5px;
+            margin-bottom: 12px; color: var(--text-primary);
+        }
+        h1 .module-path {
+            display: block; font-size: 14px; font-weight: 400;
+            color: var(--text-muted); margin-top: 6px;
+            font-family: 'Consolas', 'Fira Code', monospace;
+        }
+        h2 {
+            font-size: 26px; font-weight: 700; margin-top: 56px; margin-bottom: 16px;
+            padding-bottom: 10px; border-bottom: 2px solid var(--border-color);
+            color: var(--text-primary); letter-spacing: -0.3px;
+        }
+        h3 { font-size: 20px; font-weight: 600; margin-top: 36px; margin-bottom: 12px; color: var(--accent-cyan); }
+        h4 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 8px; color: var(--text-primary); }
+
+        p { margin-bottom: 14px; color: var(--text-secondary); }
+        strong { color: var(--text-primary); font-weight: 600; }
+
+        pre {
+            background: var(--bg-code); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 18px 22px; overflow-x: auto;
+            margin: 14px 0 18px; font-size: 13.5px; line-height: 1.6;
+        }
+        code { font-family: 'Consolas', 'Fira Code', 'SF Mono', 'Monaco', monospace; }
+        :not(pre) > code {
+            background: var(--bg-tertiary); padding: 2px 7px; border-radius: 4px;
+            font-size: 13px; color: var(--accent-orange); border: 1px solid var(--border-color);
+        }
+
+        .method-block {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 10px; margin: 20px 0 28px; overflow: hidden;
+        }
+        .method-header {
+            background: var(--bg-tertiary); padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .method-header code { font-size: 14px; color: var(--accent-cyan); background: none; border: none; padding: 0; }
+        .method-tag {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.8px; padding: 3px 8px; border-radius: 4px;
+        }
+        .tag-public { background: rgba(92, 203, 160, 0.15); color: var(--accent-green); }
+        .tag-private { background: rgba(239, 107, 115, 0.15); color: var(--accent-red); }
+        .tag-static { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+        .tag-property { background: rgba(232, 212, 77, 0.15); color: var(--accent-yellow); }
+        .method-body { padding: 16px 20px; }
+        .method-body p { margin-bottom: 10px; }
+
+        .param-table, .attr-table {
+            width: 100%; border-collapse: collapse; margin: 12px 0 14px; font-size: 13.5px;
+        }
+        .param-table th, .attr-table th {
+            text-align: left; padding: 8px 12px; background: var(--bg-tertiary);
+            color: var(--text-muted); font-weight: 600; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .param-table td, .attr-table td {
+            padding: 8px 12px; border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .param-table td code, .attr-table td code { color: var(--accent-orange); }
+        .attr-table td:first-child code { color: var(--accent-cyan); }
+
+        .returns-block {
+            background: var(--bg-tertiary); border-radius: 6px;
+            padding: 10px 14px; margin-top: 10px; font-size: 13.5px;
+        }
+        .returns-block strong { color: var(--accent-green); }
+
+        .info-box { border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-size: 14px; }
+        .info-box.note { background: rgba(91, 156, 245, 0.08); border-left: 4px solid var(--accent-blue); color: var(--accent-blue); }
+        .info-box.warning { background: rgba(240, 164, 93, 0.08); border-left: 4px solid var(--accent-orange); color: var(--accent-orange); }
+        .info-box.important { background: rgba(239, 107, 115, 0.08); border-left: 4px solid var(--accent-red); color: var(--accent-red); }
+        .info-box.tip { background: rgba(92, 203, 160, 0.08); border-left: 4px solid var(--accent-green); color: var(--accent-green); }
+        .info-box p { color: var(--text-secondary); margin-bottom: 0; }
+        .info-box .box-title { font-weight: 700; margin-bottom: 6px; }
+
+        .diagram {
+            background: var(--bg-code); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 20px 24px; margin: 18px 0;
+            font-family: 'Consolas', 'Fira Code', monospace; font-size: 13px;
+            line-height: 1.5; color: var(--accent-green); overflow-x: auto; white-space: pre;
+        }
+
+        .class-card {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 12px; margin: 24px 0 32px; overflow: hidden;
+        }
+        .class-card-header {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            padding: 20px 24px; border-bottom: 1px solid var(--border-color);
+        }
+        .class-card-header h3 { margin: 0; color: var(--accent-cyan); font-size: 22px; }
+        .class-card-header .inherits { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+        .class-card-body { padding: 20px 24px; }
+        .class-card-body p { color: var(--text-secondary); }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════════════════════════ -->
+<nav class="sidebar">
+    <div class="sidebar-logo">
+        <h2>StyleManagers.py</h2>
+        <span>Technical Documentation</span>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="#overview" class="nav-link">Module Overview</a>
+        <a href="#dependencies" class="nav-link">Dependencies</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">QtStyleSheetManager</div>
+        <a href="#class-overview" class="nav-link">Class Overview</a>
+        <a href="#constructor" class="nav-link indent">Constructor</a>
+
+        <a href="#file-io" class="nav-link">File I/O</a>
+        <a href="#load-stylesheet" class="nav-link indent">load_stylesheet</a>
+        <a href="#save-stylesheet" class="nav-link indent">save_stylesheet</a>
+        <a href="#saveas-stylesheet" class="nav-link indent">saveas_stylesheet</a>
+
+        <a href="#property-editing" class="nav-link">Property Editing</a>
+        <a href="#add-property" class="nav-link indent">add_property_to_widget</a>
+        <a href="#remove-stylesheet" class="nav-link indent">remove_stylesheet_by_name</a>
+        <a href="#add-stylesheet" class="nav-link indent">add_stylesheet</a>
+
+        <a href="#accent-color" class="nav-link">Accent Color System</a>
+        <a href="#check-accent" class="nav-link indent">check_accent_color_placeholder</a>
+        <a href="#extract-accent" class="nav-link indent">extract_accent_color_value</a>
+        <a href="#replace-placeholder" class="nav-link indent">replace_placeholder</a>
+
+        <a href="#validation" class="nav-link">Validation</a>
+        <a href="#validate" class="nav-link indent">validate / validate_stylesheet</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Reference</div>
+        <a href="#method-index" class="nav-link">Full Method Index</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════════════ -->
+<main class="main-content">
+
+    <!-- ─── Overview ─────────────────────────────────────────────────── -->
+    <h1 id="overview">
+        StyleManagers.py
+        <span class="module-path">PySideAbdhUI — QSS Stylesheet Manager with Accent Color &amp; Validation</span>
+    </h1>
+
+    <p>
+        <code>StyleManagers.py</code> defines the <code>QtStyleSheetManager</code> class, a comprehensive
+        in-memory stylesheet manager for Qt applications. It provides a programmatic API for loading,
+        editing, validating, and persisting QSS (Qt Style Sheet) files. Unlike the simpler
+        <code>ThemeManager</code> in <code>utils.py</code> which only performs placeholder substitution,
+        <code>QtStyleSheetManager</code> offers fine-grained control over individual CSS properties within
+        widget blocks, supports accent-color placeholder extraction and replacement, includes a
+        validation engine that checks for common QSS syntax errors, and can remove entire widget
+        style blocks including their pseudo-states.
+    </p>
+
+    <p>
+        The class operates on an in-memory <code>self.stylesheet</code> string that represents the
+        entire QSS file content. All modifications (adding properties, removing blocks, replacing
+        placeholders) are performed on this string using regular expressions, and the modified
+        content can be saved back to the original file or to a new location. The manager is designed
+        to be used as a single-instance utility that maintains a one-to-one relationship with a QSS
+        file on disk.
+    </p>
+
+    <!-- ─── Dependencies ─────────────────────────────────────────────── -->
+    <h2 id="dependencies">Dependencies</h2>
+
+    <table class="attr-table">
+        <thead><tr><th>Module</th><th>Components Used</th><th>Purpose</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><code>os</code></td>
+                <td><code>os.path.exists</code></td>
+                <td>Checking if QSS files exist before reading or writing, preventing <code>FileNotFoundError</code>.</td>
+            </tr>
+            <tr>
+                <td><code>re</code></td>
+                <td><code>re.compile</code>, <code>re.search</code>, <code>re.sub</code>, <code>re.findall</code></td>
+                <td>Regular expression operations for matching widget blocks, extracting accent color values, removing stylesheet definitions, and validating syntax.</td>
+            </tr>
+            <tr>
+                <td><code>logging</code></td>
+                <td><code>logging.basicConfig</code>, <code>logging.getLogger</code></td>
+                <td>Structured logging at INFO and WARNING/ERROR levels for all operations. Configured at module level with <code>basicConfig(level=logging.INFO)</code>.</td>
+            </tr>
+            <tr>
+                <td><code>typing</code></td>
+                <td><code>Optional</code></td>
+                <td>Type annotation for the optional <code>stylesheet</code> attribute that can be <code>None</code> before a file is loaded.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ─── Architecture ─────────────────────────────────────────────── -->
+    <h2 id="architecture">Architecture</h2>
+
+    <p>
+        The <code>QtStyleSheetManager</code> follows a load-modify-save pattern where the QSS file
+        content is read into memory as a single string, modified through regex-based operations,
+        and written back to disk. The class does not maintain a parsed representation of the
+        stylesheet — it works directly on the raw string. This approach is simple and effective
+        for the targeted operations, but has inherent limitations with complex CSS structures.
+    </p>
+
+    <div class="diagram">QtStyleSheetManager Lifecycle:
+
+  ┌─────────────┐     ┌──────────────────────┐     ┌──────────────┐
+  │  Load QSS   │     │   In-Memory Edit     │     │   Save QSS   │
+  │  from File  │────►│                      │────►│   to File    │
+  │             │     │  self.stylesheet      │     │              │
+  └─────────────┘     │  (raw string)         │     └──────────────┘
+                      │                       │
+                      │  Operations:          │
+                      │  ├─ add_property      │
+                      │  ├─ remove_stylesheet │
+                      │  ├─ add_stylesheet    │
+                      │  ├─ replace_placeholder│
+                      │  └─ validate          │
+                      │                       │
+                      │  Accent Color System: │
+                      │  ├─ check placeholder │
+                      │  ├─ extract value     │
+                      │  └─ replace token     │
+                      └──────────────────────┘
+
+  Accent Color Pattern in QSS:
+  /* @accent-color: #0078d7;  Define the accent color placeholder */
+
+  Usage Flow:
+  1. load_stylesheet("theme.qss")
+  2. check_accent_color_placeholder() → (True, "#0078d7")
+  3. replace_placeholder("#6750A4")    → replaces all @accent-color
+  4. add_property_to_widget("QPushButton", "border", "2px solid")
+  5. validate()                        → True
+  6. save_stylesheet()                 → writes back to theme.qss</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS OVERVIEW
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="class-overview">QtStyleSheetManager</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>QtStyleSheetManager</h3>
+            <div class="inherits">Standalone class (no base class)</div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                A programmatic QSS stylesheet manager that provides a complete API for loading,
+                editing, validating, and saving Qt Style Sheets. The class manages a single QSS
+                file at a time, keeping its content as a raw string in memory and using regular
+                expressions for all modification operations. It supports three categories of
+                operations:
+            </p>
+            <ul style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>File I/O</strong>: Loading from and saving to QSS files.</li>
+                <li><strong>Property &amp; block editing</strong>: Adding/updating individual properties within widget blocks, removing entire widget definitions (including pseudo-states), and appending raw stylesheet content.</li>
+                <li><strong>Accent color management</strong>: A placeholder-based system for defining and replacing a theme accent color throughout the stylesheet, with support for both commented and uncommented placeholder definitions.</li>
+                <li><strong>Validation</strong>: Checking the stylesheet for common syntax errors including unclosed braces, missing semicolons, and invalid characters.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ─── Constructor ───────────────────────────────────────────────── -->
+    <h3 id="constructor">Constructor</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>QtStyleSheetManager.__init__(self, accent_color_template: str = '@accent-color')</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initializes the stylesheet manager with an optional accent color placeholder token.
+                The stylesheet string is set to <code>None</code> initially — no file is loaded until
+                <code>load_stylesheet()</code> is called. The accent color template defaults to
+                <code>'@accent-color'</code>, which follows CSS at-rule syntax. This token is expected
+                to appear in the QSS file as a placeholder that will be replaced with an actual
+                hex color value at runtime.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>accent_color_template</code></td><td><code>str</code></td><td><code>'@accent-color'</code></td><td>The placeholder token used in the QSS file to mark where the accent color should be inserted. This token is searched for and replaced by <code>replace_placeholder()</code>.</td></tr>
+                </tbody>
+            </table>
+            <table class="attr-table">
+                <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>stylesheet</code></td><td><code>Optional[str]</code></td><td><code>None</code></td><td>The in-memory QSS content. <code>None</code> until a file is loaded.</td></tr>
+                    <tr><td><code>accent_color_template</code></td><td><code>str</code></td><td><code>'@accent-color'</code></td><td>The accent color placeholder token.</td></tr>
+                    <tr><td><code>qss_file</code></td><td><code>str</code></td><td>—</td><td>Path to the loaded QSS file. Set by <code>load_stylesheet()</code>.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FILE I/O
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="file-io">File I/O</h2>
+
+    <p>
+        The file I/O methods handle reading QSS files into memory and writing the modified
+        stylesheet back to disk. The manager maintains a reference to the source file path
+        (<code>self.qss_file</code>) so that <code>save_stylesheet()</code> can write back to the
+        same location without requiring the path again.
+    </p>
+
+    <!-- load_stylesheet -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>load_stylesheet(self, qss_path: str) -&gt; str</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Loads a QSS file from the given path into the <code>self.stylesheet</code> string.
+                The file path is stored as <code>self.qss_file</code> for later use by
+                <code>save_stylesheet()</code>. The file is read with UTF-8 encoding. If the file
+                does not exist, an error is logged and <code>self.stylesheet</code> remains unchanged
+                (still <code>None</code> if this is the first load, or retains the previous content
+                if a file was previously loaded).
+            </p>
+            <p>
+                After loading, the <code>self.stylesheet</code> attribute contains the complete raw
+                content of the QSS file, including comments, placeholder tokens, and all widget
+                definitions. No parsing or preprocessing is performed at load time.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>qss_path</code></td><td><code>str</code></td><td>Filesystem path to the QSS file to load.</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box warning">
+                <p><span class="box-title">Note:</span> The method signature declares a return type of <code>str</code>, but the method does not explicitly return anything. It only sets <code>self.stylesheet</code> and <code>self.qss_file</code>. The return type annotation is misleading — the function implicitly returns <code>None</code>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- save_stylesheet -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>save_stylesheet(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Saves the current <code>self.stylesheet</code> content back to the file at
+                <code>self.qss_file</code> (the path stored by the most recent call to
+                <code>load_stylesheet()</code>). The file is overwritten completely with the
+                current in-memory content, written with UTF-8 encoding. If the file does not
+                exist at the stored path, an error is logged and no save is performed.
+            </p>
+            <p>
+                This method is automatically called by <code>add_property_to_widget()</code> after
+                each property modification, ensuring that the file on disk always reflects the
+                in-memory state. This auto-save behavior means every property change immediately
+                persists to disk.
+            </p>
+            <div class="info-box important">
+                <p><span class="box-title">Auto-Save Side Effect:</span> Because <code>add_property_to_widget()</code> calls <code>save_stylesheet()</code> internally, every property addition or update triggers a file write. For batch operations involving multiple property changes, this can result in numerous disk writes. Consider refactoring to defer the save until all changes are complete.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- saveas_stylesheet -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>saveas_stylesheet(self, qss_file: str = '')</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Saves the current stylesheet content to a different file path, analogous to a
+                "Save As" operation. Unlike <code>save_stylesheet()</code>, this method does not
+                update <code>self.qss_file</code> — subsequent calls to <code>save_stylesheet()</code>
+                will still write to the original file. The file must already exist at the specified
+                path; if it does not, an error is logged and no save is performed.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>qss_file</code></td><td><code>str</code></td><td><code>''</code></td><td>The destination file path for the "Save As" operation.</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box warning">
+                <p><span class="box-title">Limitation:</span> The method requires the destination file to already exist (<code>os.path.exists(qss_file)</code>). This prevents creating new files via "Save As". To save to a new file, the destination must be created first (e.g., by <code>touch</code> or writing an empty file).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PROPERTY EDITING
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="property-editing">Property Editing</h2>
+
+    <p>
+        The property editing methods provide programmatic control over the QSS content at varying
+        granularities: individual CSS properties within a widget block, entire widget blocks
+        (including pseudo-states), and raw stylesheet appending.
+    </p>
+
+    <!-- add_property_to_widget -->
+    <h3 id="add-property">add_property_to_widget</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>add_property_to_widget(self, widget_name: str, property_name: str, property_value: str)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Adds or updates a CSS property within a specific widget's style block in the
+                stylesheet. This is the primary method for fine-grained stylesheet customization.
+                It operates in three modes depending on the current state of the stylesheet:
+            </p>
+
+            <h4>Mode 1: Update existing property</h4>
+            <p>
+                If the widget block exists and the property already exists within it, the property
+                value is replaced. For example, if <code>QPushButton { color: red; }</code> exists
+                and <code>add_property_to_widget("QPushButton", "color", "blue")</code> is called,
+                the result is <code>QPushButton { color: blue; }</code>.
+            </p>
+
+            <h4>Mode 2: Append new property to existing block</h4>
+            <p>
+                If the widget block exists but the property does not, the new property is appended
+                before the closing brace with 4-space indentation. For example, if
+                <code>QPushButton { color: red; }</code> exists and
+                <code>add_property_to_widget("QPushButton", "border", "1px solid")</code> is called,
+                the result is:
+            </p>
+            <pre><code>QPushButton {
+    color: red;
+    border: 1px solid;
+}</code></pre>
+
+            <h4>Mode 3: Create new widget block</h4>
+            <p>
+                If no block for the widget exists at all, a new block is created and appended to
+                the end of the stylesheet. For example, calling
+                <code>add_property_to_widget("QLabel", "font-size", "14px")</code> when no
+                <code>QLabel</code> block exists produces:
+            </p>
+            <pre><code>QLabel {
+    font-size: 14px;
+}</code></pre>
+
+            <p>
+                After any modification, <code>save_stylesheet()</code> is called automatically to
+                persist the change to disk.
+            </p>
+
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>widget_name</code></td><td><code>str</code></td><td>The CSS selector name (e.g., <code>"QPushButton"</code>, <code>"QLabel#title"</code>).</td></tr>
+                    <tr><td><code>property_name</code></td><td><code>str</code></td><td>The CSS property name (e.g., <code>"color"</code>, <code>"border-radius"</code>).</td></tr>
+                    <tr><td><code>property_value</code></td><td><code>str</code></td><td>The CSS property value (e.g., <code>"red"</code>, <code>"8px"</code>).</td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box warning">
+                <p><span class="box-title">Regex Limitation:</span> The widget matching pattern <code>widget_name\s*\{[^}]*\}</code> does not support nested braces. This means widget blocks containing pseudo-state selectors (e.g., <code>QPushButton:hover { ... }</code>) or sub-selectors will not be matched correctly. The pattern only matches the first brace-enclosed block up to the first <code>}</code>, which may be the closing brace of a nested selector rather than the widget block itself.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- remove_stylesheet_by_name -->
+    <h3 id="remove-stylesheet">remove_stylesheet_by_name</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>remove_stylesheet_by_name(self, name: str) -&gt; str</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Removes all stylesheet blocks matching the given widget name, including any
+                pseudo-state variants. The regex pattern <code>name(:\w+)?\s*\{[\s\S]*?\}</code>
+                matches both the base widget (<code>QPushButton { ... }</code>) and any pseudo-states
+                (<code>QPushButton:hover { ... }</code>, <code>QPushButton:pressed { ... }</code>).
+                This is useful for completely removing a widget's styling from the stylesheet
+                without affecting other widgets.
+            </p>
+            <p>
+                The pattern uses a non-greedy match (<code>[\s\S]*?</code>) to find the shortest
+                possible content between braces, which works correctly for simple blocks but may
+                produce unexpected results for blocks containing nested braces.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>name</code></td><td><code>str</code></td><td>The widget name to remove. Matches the base selector and all pseudo-states (e.g., <code>"QPushButton"</code> removes <code>QPushButton</code>, <code>QPushButton:hover</code>, <code>QPushButton:pressed</code>, etc.).</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>str</code> — The updated stylesheet content (also modified in-place on <code>self.stylesheet</code>). Returns an empty string if no stylesheet is loaded.</div>
+
+            <div class="diagram">Removal Example:
+
+  Before:
+  QPushButton { color: blue; }
+  QPushButton:hover { color: darkblue; }
+  QPushButton:pressed { color: navy; }
+  QLabel { color: black; }
+
+  remove_stylesheet_by_name("QPushButton")
+
+  After:
+  QLabel { color: black; }</div>
+
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> Unlike <code>add_property_to_widget()</code>, this method does <strong>not</strong> call <code>save_stylesheet()</code> automatically. The caller must explicitly save if persistence is desired.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- add_stylesheet -->
+    <h3 id="add-stylesheet">add_stylesheet</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>add_stylesheet(self, stylesheet: str = None)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Appends raw QSS content to the existing stylesheet string. The new content is
+                joined with a newline separator. This is the simplest way to add stylesheet content —
+                it performs no parsing, validation, or deduplication. The caller is responsible for
+                ensuring the appended content is valid QSS and does not conflict with existing rules.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>stylesheet</code></td><td><code>str</code></td><td><code>None</code></td><td>The QSS string to append.</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box important">
+                <p><span class="box-title">Bug:</span> If <code>stylesheet</code> is <code>None</code> (the default), the expression <code>self.stylesheet + '\n' + stylesheet</code> will raise a <code>TypeError</code> because you cannot concatenate a string with <code>None</code>. Additionally, if <code>self.stylesheet</code> is <code>None</code> (no file loaded yet), the same error occurs. This method lacks the guard checks present in other methods.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         ACCENT COLOR SYSTEM
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="accent-color">Accent Color System</h2>
+
+    <p>
+        The accent color system provides a simple but flexible mechanism for defining a theme
+        accent color in a QSS file using a placeholder token. The system supports two formats
+        for defining the accent color in the QSS file — commented and uncommented — and provides
+        methods for checking, extracting, and replacing the placeholder throughout the stylesheet.
+    </p>
+
+    <div class="diagram">Accent Color Definition Formats:
+
+  Format 1: Commented (recommended)
+  /* @accent-color: #0078d7;  Define the accent color placeholder */
+
+  Format 2: Uncommented
+  @accent-color: #0078d7;
+
+  Usage in QSS:
+  QPushButton {
+      background-color: @accent-color;
+      border: 2px solid @accent-color;
+  }
+
+  After replace_placeholder("#6750A4"):
+  QPushButton {
+      background-color: #6750A4;
+      border: 2px solid #6750A4;
+  }</div>
+
+    <!-- check_accent_color_placeholder -->
+    <h3 id="check-accent">check_accent_color_placeholder</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>check_accent_color_placeholder(self) -&gt; tuple[bool, str]</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Checks whether the accent color placeholder exists in the loaded stylesheet and,
+                if it does, attempts to extract its value. The method returns a tuple where the
+                first element is a boolean indicating whether the placeholder was found, and the
+                second element is the extracted hex color value (or an empty string if extraction
+                failed).
+            </p>
+            <p>
+                The method performs three checks:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Stylesheet loaded?</strong>: If <code>self.stylesheet</code> is <code>None</code> or the QSS file doesn't exist, returns <code>(False, '')</code>.</li>
+                <li><strong>Placeholder present?</strong>: Searches for the <code>accent_color_template</code> string in the stylesheet content.</li>
+                <li><strong>Value extractable?</strong>: If the placeholder exists, calls <code>extract_accent_color_value()</code> to parse the hex color. Returns <code>(True, color)</code> on success, <code>(True, '')</code> if the placeholder exists but the value couldn't be extracted.</li>
+            </ol>
+            <table class="param-table">
+                <thead><tr><th>Return Scenario</th><th>Return Value</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td>No stylesheet loaded</td><td><code>(False, '')</code></td><td>The stylesheet has not been loaded or the file is missing.</td></tr>
+                    <tr><td>Placeholder not found</td><td><code>(False, '')</code></td><td>The <code>@accent-color</code> token does not appear anywhere in the QSS.</td></tr>
+                    <tr><td>Placeholder found, value extracted</td><td><code>(True, '#0078d7')</code></td><td>The placeholder exists and its hex value was successfully parsed.</td></tr>
+                    <tr><td>Placeholder found, extraction failed</td><td><code>(True, '')</code></td><td>The token exists but the definition line is malformed.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- extract_accent_color_value -->
+    <h3 id="extract-accent">extract_accent_color_value</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>extract_accent_color_value(self) -&gt; str</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Extracts the hex color value assigned to the accent color placeholder in the
+                stylesheet. The method handles both commented and uncommented definition formats
+                using a single regex with two alternation branches:
+            </p>
+            <ul style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Commented format</strong>: <code>/* @accent-color: #0078d7; */</code> — The regex matches the comment delimiters, the placeholder name, and captures the hex value.</li>
+                <li><strong>Uncommented format</strong>: <code>@accent-color: #0078d7;</code> — The regex matches the plain definition and captures the hex value.</li>
+            </ul>
+            <p>
+                The regex captures 3-digit (<code>#FFF</code>) and 6-digit (<code>#FFFFFF</code>) hex
+                color values. If a match is found, the first non-None capture group is returned
+                (using a generator expression with <code>next()</code>). If no match is found, an
+                empty string is returned.
+            </p>
+            <div class="returns-block"><strong>Returns:</strong> <code>str</code> — The extracted hex color value, or an empty string if not found.</div>
+            <div class="info-box tip">
+                <p><span class="box-title">Tip:</span> The commented format is recommended because it doesn't affect QSS parsing — Qt's style engine ignores CSS comments, so the placeholder definition line won't interfere with the stylesheet's validity. The uncommented format may cause Qt to emit warnings about unknown at-rules.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- replace_placeholder -->
+    <h3 id="replace-placeholder">replace_placeholder</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>replace_placeholder(self, accent_color: str) -&gt; str</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Replaces all occurrences of the accent color placeholder token in the stylesheet
+                with the provided hex color string. The replacement uses Python's
+                <code>str.replace()</code>, which performs a global (all occurrences) replacement.
+                This means every instance of <code>@accent-color</code> in the stylesheet — whether
+                used as a CSS value (<code>color: @accent-color;</code>) or in a definition
+                (<code>@accent-color: #0078d7;</code>) — will be replaced.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>accent_color</code></td><td><code>str</code></td><td>The hex color value to substitute (e.g., <code>"#6750A4"</code>).</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box warning">
+                <p><span class="box-title">Side Effect:</span> Because <code>str.replace()</code> replaces ALL occurrences, the accent color definition line itself will also be modified. For example, <code>@accent-color: #0078d7;</code> becomes <code>#6750A4: #0078d7;</code>, which is syntactically invalid. If you need to preserve the definition line, extract the value first, then use a more targeted replacement approach.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         VALIDATION
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="validation">Validation</h2>
+
+    <p>
+        The validation system checks the stylesheet for common syntax errors that could cause
+        Qt's style engine to silently ignore rules or produce unexpected visual results. The
+        validation is not exhaustive — it focuses on the most frequent mistakes that are difficult
+        to debug visually.
+    </p>
+
+    <!-- validate -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>validate(self) -&gt; bool</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Convenience method that validates the in-memory <code>self.stylesheet</code> string.
+                Delegates to the static method <code>validate_stylesheet(self.stylesheet)</code>.
+            </p>
+            <div class="returns-block"><strong>Returns:</strong> <code>True</code> if the stylesheet passes all validation checks; <code>False</code> otherwise.</div>
+        </div>
+    </div>
+
+    <!-- validate_stylesheet -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>validate_stylesheet(stylesheet: str) -&gt; bool</code>
+            <span class="method-tag tag-static">Static</span>
+        </div>
+        <div class="method-body">
+            <p>
+                A static method that performs syntax validation on a given stylesheet string.
+                The validation pipeline consists of three sequential checks, each of which can
+                cause the method to return <code>False</code> early:
+            </p>
+
+            <h4>1. Null Check</h4>
+            <p>
+                If the stylesheet is <code>None</code>, a warning is logged and the method returns
+                <code>False</code>. This prevents <code>AttributeError</code> when calling string
+                methods on <code>None</code>.
+            </p>
+
+            <h4>2. Unmatched Curly Braces</h4>
+            <p>
+                Counts the number of <code>{</code> and <code>}</code> characters in the stylesheet.
+                If they don't match, an error is logged and <code>False</code> is returned. This
+                catches the most common QSS error — a missing closing brace that causes all
+                subsequent rules to be absorbed into the unclosed block.
+            </p>
+
+            <h4>3. Missing Semicolons</h4>
+            <p>
+                Before checking for semicolons, the method preprocesses the stylesheet by removing
+                CSS comments (to avoid false positives) and temporarily replacing the
+                <code>@accent-color</code> placeholder with a valid hex color. Then, each style
+                block is extracted and checked for at least one property ending with a semicolon.
+                A block with zero semicolon-terminated properties is flagged as having missing
+                semicolons.
+            </p>
+
+            <h4>4. Invalid Characters</h4>
+            <p>
+                Checks for characters outside the allowed QSS character set. The regex
+                <code>[^\w\s:\-;#.%{}(),@"]</code> defines the whitelist of valid characters:
+                word characters, whitespace, colons, hyphens, semicolons, hash, period, percent,
+                braces, parentheses, commas, at-signs, and double quotes. Any other character
+                is flagged as invalid.
+            </p>
+
+            <div class="diagram">Validation Pipeline:
+
+  Input: stylesheet string
+       │
+       ▼
+  ┌──────────────────────┐
+  │ stylesheet is None?  │──Yes──► return False
+  └──────────┬───────────┘
+             │ No
+             ▼
+  ┌──────────────────────┐
+  │ { count == } count?  │──No───► return False
+  └──────────┬───────────┘
+             │ Yes
+             ▼
+  ┌──────────────────────────────────┐
+  │ Preprocess:                      │
+  │  • Remove CSS comments           │
+  │  • Replace @accent-color token   │
+  └──────────┬───────────────────────┘
+             │
+             ▼
+  ┌──────────────────────┐
+  │ For each style block:│
+  │  Properties found?   │──No───► return False
+  └──────────┬───────────┘
+             │ Yes (for all)
+             ▼
+  ┌──────────────────────┐
+  │ Invalid characters?  │──Yes──► return False
+  └──────────┬───────────┘
+             │ No
+             ▼
+  return True</div>
+
+            <div class="info-box warning">
+                <p><span class="box-title">Limitation:</span> The invalid character check uses a fixed whitelist that may be too restrictive for some valid QSS syntax. For example, single quotes (<code>'</code>), angle brackets (<code>&lt;&gt;</code>), and square brackets (<code>[]</code>) are not in the whitelist but may appear in valid QSS values. The regex also uses a raw double-quote character in the character class, which may need escaping depending on the context.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FULL METHOD INDEX
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="method-index">Full Method Index</h2>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Method</th><th>Visibility</th><th>Category</th><th>Brief Description</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>__init__</code></td><td>Public</td><td>Constructor</td><td>Initialize with accent color placeholder token</td></tr>
+            <tr><td><code>load_stylesheet</code></td><td>Public</td><td>File I/O</td><td>Load QSS file into memory</td></tr>
+            <tr><td><code>save_stylesheet</code></td><td>Public</td><td>File I/O</td><td>Save stylesheet back to original file</td></tr>
+            <tr><td><code>saveas_stylesheet</code></td><td>Public</td><td>File I/O</td><td>Save stylesheet to a different file path</td></tr>
+            <tr><td><code>add_property_to_widget</code></td><td>Public</td><td>Editing</td><td>Add/update CSS property in a widget block (auto-saves)</td></tr>
+            <tr><td><code>remove_stylesheet_by_name</code></td><td>Public</td><td>Editing</td><td>Remove all blocks for a widget including pseudo-states</td></tr>
+            <tr><td><code>add_stylesheet</code></td><td>Public</td><td>Editing</td><td>Append raw QSS content to the stylesheet</td></tr>
+            <tr><td><code>check_accent_color_placeholder</code></td><td>Public</td><td>Accent Color</td><td>Check if placeholder exists and extract its value</td></tr>
+            <tr><td><code>extract_accent_color_value</code></td><td>Private</td><td>Accent Color</td><td>Parse hex color from commented/uncommented definition</td></tr>
+            <tr><td><code>replace_placeholder</code></td><td>Public</td><td>Accent Color</td><td>Replace all placeholder tokens with a color value</td></tr>
+            <tr><td><code>validate</code></td><td>Public</td><td>Validation</td><td>Validate in-memory stylesheet</td></tr>
+            <tr><td><code>validate_stylesheet</code></td><td>Static</td><td>Validation</td><td>Validate any stylesheet string for syntax errors</td></tr>
+        </tbody>
+    </table>
+
+    <div class="info-box note" style="margin-top: 40px;">
+        <p><span class="box-title">Comparison with utils.py ThemeManager:</span> The <code>QtStyleSheetManager</code> and the <code>ThemeManager</code> in <code>utils.py</code> share a similar <code>add_property_to_widget()</code> method with nearly identical regex patterns. However, they differ in scope: <code>ThemeManager</code> works with a JSON-based theme system and performs QSS template placeholder substitution (<code>--name--</code> tokens), while <code>QtStyleSheetManager</code> works directly on raw QSS strings with an accent-color token (<code>@accent-color</code>). The <code>QtStyleSheetManager</code> additionally provides validation, block removal, and file persistence, which <code>ThemeManager</code> does not.</p>
+    </div>
+
+</main>
+
+</body>
+</html>

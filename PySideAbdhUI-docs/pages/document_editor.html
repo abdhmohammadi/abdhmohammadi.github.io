@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document_editor.py — Technical Documentation</title>
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #161822;
+            --bg-tertiary: #1c1f2e;
+            --bg-code: #1a1d2e;
+            --text-primary: #e4e6f0;
+            --text-secondary: #9ca0b0;
+            --text-muted: #6b7085;
+            --accent-blue: #5b9cf5;
+            --accent-cyan: #4dc9f6;
+            --accent-green: #5ccba0;
+            --accent-orange: #f0a45d;
+            --accent-red: #ef6b73;
+            --accent-purple: #b07eee;
+            --border-color: #2a2d3e;
+            --hover-bg: #22253a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 24px 0;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            padding: 0 24px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            color: var(--accent-blue);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .sidebar-logo span {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 4px;
+        }
+
+        .nav-section {
+            padding: 8px 0;
+        }
+
+        .nav-section-title {
+            padding: 8px 24px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+        }
+
+        .nav-link {
+            display: block;
+            padding: 6px 24px 6px 32px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13.5px;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-link.active {
+            color: var(--accent-blue);
+            background: var(--hover-bg);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-link.indent {
+            padding-left: 44px;
+            font-size: 12.5px;
+        }
+
+        .nav-link.indent-2 {
+            padding-left: 56px;
+            font-size: 12px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 40px 56px 80px;
+            max-width: 960px;
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        h1 .module-path {
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-family: 'Consolas', 'Fira Code', monospace;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-top: 56px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 36px;
+            margin-bottom: 12px;
+            color: var(--accent-cyan);
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        p, li {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Code blocks */
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px 22px;
+            overflow-x: auto;
+            margin: 14px 0 18px;
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'Consolas', 'Fira Code', 'SF Mono', 'Monaco', monospace;
+        }
+
+        :not(pre) > code {
+            background: var(--bg-tertiary);
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--accent-orange);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Method blocks */
+        .method-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin: 20px 0 28px;
+            overflow: hidden;
+        }
+
+        .method-header {
+            background: var(--bg-tertiary);
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .method-header code {
+            font-size: 14px;
+            color: var(--accent-cyan);
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .method-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .tag-public { background: rgba(92, 203, 160, 0.15); color: var(--accent-green); }
+        .tag-private { background: rgba(239, 107, 115, 0.15); color: var(--accent-red); }
+        .tag-override { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+        .tag-protected { background: rgba(240, 164, 93, 0.15); color: var(--accent-orange); }
+        .tag-static { background: rgba(91, 156, 245, 0.15); color: var(--accent-blue); }
+
+        .method-body {
+            padding: 16px 20px;
+        }
+
+        .method-body p {
+            margin-bottom: 10px;
+        }
+
+        .param-table, .attr-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 14px;
+            font-size: 13.5px;
+        }
+
+        .param-table th, .attr-table th {
+            text-align: left;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .param-table td, .attr-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .param-table td code, .attr-table td code {
+            color: var(--accent-orange);
+        }
+
+        .returns-block {
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-top: 10px;
+            font-size: 13.5px;
+        }
+
+        .returns-block strong {
+            color: var(--accent-green);
+        }
+
+        /* Info boxes */
+        .info-box {
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        .info-box.note {
+            background: rgba(91, 156, 245, 0.08);
+            border-left: 4px solid var(--accent-blue);
+        }
+        .info-box.warning {
+            background: rgba(240, 164, 93, 0.08);
+            border-left: 4px solid var(--accent-orange);
+        }
+        .info-box.important {
+            background: rgba(239, 107, 115, 0.08);
+            border-left: 4px solid var(--accent-red);
+        }
+        .info-box.success {
+            background: rgba(92, 203, 160, 0.08);
+            border-left: 4px solid var(--accent-green);
+        }
+        .info-box p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+        .info-box .box-title {
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* Diagram */
+        .diagram {
+            background: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 18px 0;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--accent-green);
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        /* Flow arrows */
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+        .flow-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .flow-arrow {
+            color: var(--accent-cyan);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            background: var(--bg-tertiary);
+            color: var(--accent-cyan);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 12px 0;
+            padding-left: 28px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===================== SIDEBAR NAVIGATION ===================== -->
+<nav class="sidebar">
+    <div class="sidebar-logo">
+        <h2>document_editor.py</h2>
+        <span>Technical Documentation</span>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="#overview" class="nav-link">Module Overview</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#dependencies" class="nav-link">Dependencies</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Classes</div>
+        <a href="#class-debugpage" class="nav-link">DebugPage</a>
+        <a href="#class-richtexteditor" class="nav-link">RichTextEditor</a>
+        <a href="#constructor" class="nav-link indent">Constructor &amp; Initialization</a>
+        <a href="#dirty-tracking" class="nav-link indent">Dirty Tracking</a>
+        <a href="#print-prepare" class="nav-link indent">Print Preparation</a>
+        <a href="#image-export" class="nav-link indent">Image Export</a>
+        <a href="#context-menus" class="nav-link indent">Context Menus</a>
+        <a href="#katex-resources" class="nav-link indent">KaTeX Resource Loader</a>
+        <a href="#pdf-lazy-loading" class="nav-link indent">PDF Library Lazy Loading</a>
+        <a href="#page-margins" class="nav-link indent">Page Margins</a>
+        <a href="#file-dialogs" class="nav-link indent">File Open/Save Dialogs</a>
+        <a href="#pdf-import" class="nav-link indent">PDF Import</a>
+        <a href="#pdf-export" class="nav-link indent">PDF Export</a>
+        <a href="#pandoc-export" class="nav-link indent">Pandoc Export</a>
+        <a href="#math-preprocessing" class="nav-link indent">Math Preprocessing</a>
+        <a href="#structure-sync" class="nav-link indent">Structure Synchronization</a>
+        <a href="#page-management" class="nav-link indent">Page Size &amp; Navigation</a>
+        <a href="#editability" class="nav-link indent">Editability Toggle</a>
+        <a href="#text-formatting" class="nav-link indent">Text Formatting</a>
+        <a href="#alignment-direction" class="nav-link indent">Alignment &amp; Direction</a>
+        <a href="#insert-content" class="nav-link indent">Insert Formula / Table / Image</a>
+        <a href="#content-access" class="nav-link indent">Content Get/Set/Clear</a>
+        <a href="#zoom-controls" class="nav-link indent">Zoom Controls</a>
+        <a href="#html-template" class="nav-link indent">HTML Template Builder</a>
+        <a href="#js-engines" class="nav-link indent">Embedded JS Engines</a>
+        <a href="#shortcut-loaders" class="nav-link indent">Shortcut File Loaders</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">API Reference</div>
+        <a href="#api-reference" class="nav-link">Complete API Reference</a>
+    </div>
+</nav>
+
+<!-- ===================== MAIN CONTENT ===================== -->
+<main class="main-content">
+
+    <!-- Hero section (preserved from original) -->
+    <h1 id="overview">
+        document_editor.py
+        <span class="module-path">Chromium-Based WYSIWYG Rich Text Editor for PySide6</span>
+    </h1>
+    <p style="color: var(--text-muted); margin-bottom: 24px;">
+        <span>📄 4,317 lines</span> &nbsp;|&nbsp;
+        <span>📦 PySideAbdhUI Package</span> &nbsp;|&nbsp;
+        <span>⚙ Python 3.10+ / PySide6</span>
+    </p>
+
+    <!-- ===================== OVERVIEW (full original content) ===================== -->
+    <p>
+        <code>document_editor.py</code> implements a fully-featured WYSIWYG (What You See Is What You Get) rich text editor widget
+        for desktop applications built with the PySide6 (Qt for Python) framework. The editor is built on top of
+        <code>QWebEngineView</code>, which embeds a Chromium rendering engine inside a native Qt widget. This hybrid architecture
+        leverages the power of modern web technologies — HTML, CSS, and JavaScript — for the editing surface, while the
+        surrounding Qt infrastructure handles desktop integration concerns such as native file dialogs, context menus,
+        colour pickers, and window management.
+    </p>
+    <p>
+        The editor presents itself as a multi-page document layout, where each page is a <code>&lt;div class="page"&gt;</code>
+        element with fixed CSS dimensions that correspond to a real paper size (A4, Letter, B5, or a custom "Edu-Item" format).
+        Content overflow is automatically managed by a JavaScript pagination engine that pushes overflowing blocks onto
+        subsequent pages and pulls underflowing content back when space becomes available. This approach gives users a
+        real-time preview of how their document will look when printed or exported to PDF.
+    </p>
+    <p>
+        Key capabilities of the editor include: KaTeX-based mathematical formula rendering with inline and display modes,
+        image insertion with drag-and-drop repositioning and 8-directional resize handles, table editing with column
+        resizing and row/column insertion, PDF import via Mozilla's pdf.js library, PDF export using Chromium's built-in
+        renderer, and DOCX/ODT import/export via pypandoc. The editor also supports zoom, page navigation, margin control,
+        text formatting (bold, italic, underline, strikethrough, font family, font size, text and background colours),
+        paragraph alignment, and bidirectional text support.
+    </p>
+
+    <div class="info-box note">
+        <p><span class="box-title">Design Philosophy</span> The editor follows a "web-inside-Qt" design where all visual editing happens in JavaScript inside Chromium, while Qt serves purely as the desktop shell providing native dialogs, menus, and file system access. Communication between the Python and JavaScript layers is achieved through <code>QWebEnginePage.runJavaScript()</code> calls (Python → JS) and the <code>document.title</code> bridge (JS → Python).</p>
+    </div>
+
+    <!-- ===================== ARCHITECTURE ===================== -->
+    <h2 id="architecture">Architecture</h2>
+    <p>
+        The system follows a layered architecture where the Python <code>RichTextEditor</code> class acts as the
+        controller, the Chromium <code>QWebEngineView</code> as the rendering engine, and an embedded HTML document
+        as the editing surface. The following diagram illustrates the high-level component relationships and data
+        flow between the layers.
+    </p>
+
+    <div class="diagram">
++-------------------------------------------------------------+
+|                     Qt Application Layer                     |
+|                                                              |
+|  +--------------------+    +-----------------------------+  |
+|  |  RichTextEditor     |    |  Desktop Dialogs            |  |
+|  |  (QWebEngineView)   |    |  - QFileDialog              |  |
+|  |                     |    |  - QColorDialog             |  |
+|  |  - Public API       |    |  - QInputDialog            |  |
+|  |  - Signal handling  |    |  - QMessageBox             |  |
+|  |  - File I/O         |    |  - QMenu (context menus)    |  |
+|  +--------+-----------+    +-----------------------------+  |
+           |                                                  |
+           | runJavaScript()   document.title bridge          |
+           +---+----------------------------+--+--------------+
+               |                            |  |
++--------------v----------------------------v--v--------------+
+|                  Chromium Rendering Engine                    |
+|                                                              |
+|  +--------------------------------------------------------+ |
+|  |              Embedded HTML Document                     | |
+|  |                                                         | |
+|  |  .pages-wrapper                                         | |
+|  |    +-- .page (contenteditable)  <-- Page 1             | |
+|  |    +-- .page (contenteditable)  <-- Page 2             | |
+|  |    +-- ...                                              | |
+|  |                                                         | |
+|  |  JS Engines:                                            | |
+|  |  [1] Drag &amp; Resize Engine (images)                    | |
+|  |  [2] Table Column Resize                               | |
+|  |  [3] Table Tab Navigation                              | |
+|  |  [4] Multi-Page Engine (overflow/underflow)            | |
+|  |  [5] Keyboard Handler (Backspace, Delete, Arrows...)   | |
+|  |  [6] KaTeX Rendering Engine                            | |
+|  |  [7] Dirty Flag Bridge (input event listener)          | |
+|  +--------------------------------------------------------+ |
+|                                                              |
+|  External Libraries (lazy-loaded):                           |
+|  - KaTeX (katex.min.js, auto-render.min.js, katex.min.css)   |
+|  - pdf.js (pdf.min.js, pdf.worker.min.js)                    |
+|  - pdf-lib (pdf-lib.min.js)                                  |
++--------------------------------------------------------------+
+    </div>
+
+    <h3>Python → JavaScript Communication</h3>
+    <p>
+        The primary channel for Python-to-JavaScript communication is the
+        <code>QWebEnginePage.runJavaScript()</code> method. This is an asynchronous API — Python submits
+        a JavaScript string for execution, and an optional callback receives the result. The <code>RichTextEditor</code>
+        class uses this mechanism extensively: every formatting command, content manipulation, page size change,
+        and zoom operation is implemented as a JavaScript fragment dispatched through <code>runJavaScript()</code>.
+    </p>
+    <p>
+        For operations that require a synchronous result (such as reading the editor's HTML content before a
+        Pandoc export), the class employs a <code>QEventLoop</code> to block the calling thread until the
+        asynchronous JavaScript callback fires. This pattern is visible in methods like
+        <code>getHtmlContentSync()</code> and <code>getPlainTextSync()</code>.
+    </p>
+
+    <h3>JavaScript → Python Communication</h3>
+    <p>
+        The reverse direction uses a creative "document title" bridge. When the user edits content in the browser,
+        the JavaScript <code>input</code> event listener sets <code>document.title</code> to a string starting
+        with <code>"__edit__"</code> followed by a timestamp. On the Python side, the
+        <code>page().titleChanged</code> signal is connected to <code>_on_title_changed()</code>, which
+        interprets this prefix as a notification that the document has been modified and sets the
+        <code>_is_dirty</code> flag accordingly.
+    </p>
+
+    <!-- ===================== DEPENDENCIES ===================== -->
+    <h2 id="dependencies">Dependencies</h2>
+
+    <h3>Standard Library</h3>
+    <table class="attr-table">
+        <thead><tr><th>Module</th><th>Purpose</th></tr></thead>
+        <tbody>
+            <tr><td><code>base64</code></td><td>Encode binary assets (images, JS bundles, PDF bytes) into base64 for HTML data-URI embedding</td></tr>
+            <tr><td><code>html</code></td><td>Escape LaTeX formula text for safe storage in <code>data-latex</code> attributes on math placeholder elements</td></tr>
+            <tr><td><code>json</code></td><td>Safely serialize Python strings into JavaScript string literals for <code>runJavaScript()</code> calls</td></tr>
+            <tr><td><code>os</code></td><td>Environment variable management, filesystem operations during import/export</td></tr>
+            <tr><td><code>re</code></td><td>Regular expressions for parsing HTML bodies, converting MathJax script tags, extracting style blocks</td></tr>
+            <tr><td><code>tempfile</code></td><td>Create short-lived temporary HTML files consumed by pypandoc during DOCX conversion</td></tr>
+        </tbody>
+    </table>
+
+    <h3>PySide6 (Qt for Python)</h3>
+    <table class="attr-table">
+        <thead><tr><th>Module</th><th>Classes</th><th>Role</th></tr></thead>
+        <tbody>
+            <tr><td><code>PySide6.QtCore</code></td><td><code>QEventLoop</code>, <code>QMarginsF</code>, <code>Qt</code>, <code>QTimer</code></td><td>Event loop blocking, print margins, enums, deferred execution</td></tr>
+            <tr><td><code>PySide6.QtGui</code></td><td><code>QColor</code>, <code>QPageLayout</code>, <code>QPageSize</code></td><td>Colour dialogs, PDF page configuration</td></tr>
+            <tr><td><code>PySide6.QtWidgets</code></td><td><code>QDoubleSpinBox</code>, <code>QMenu</code>, <code>QFileDialog</code>, <code>QMessageBox</code>, <code>QSpinBox</code>, <code>QDialog</code>, <code>QColorDialog</code>, <code>QInputDialog</code>, <code>QFormLayout</code>, <code>QDialogButtonBox</code>, <code>QSizePolicy</code></td><td>Desktop dialogs, context menus, form layouts, size policies</td></tr>
+            <tr><td><code>PySide6.QtWebEngineWidgets</code></td><td><code>QWebEngineView</code></td><td>Chromium web view widget (base class of <code>RichTextEditor</code>)</td></tr>
+            <tr><td><code>PySide6.QtWebEngineCore</code></td><td><code>QWebEnginePage</code></td><td>Browser actions (Cut/Copy/Paste), console message hook</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Package-Internal</h3>
+    <table class="attr-table"><thead><tr><th>Import</th><th>Purpose</th></tr></thead><tbody><tr><td><code>PySideAbdhUI.utils.get_resource_path</code></td><td>Resolve paths to bundled resources (KaTeX, pdf.js, pdf-lib) regardless of whether the application runs from source or an installed wheel</td></tr></tbody></table>
+
+    <div class="info-box warning">
+        <p><span class="box-title">Optional Dependency</span> <code>pypandoc</code> is required for DOCX and ODT import/export. If it is not installed, the editor still loads and functions normally, but DOCX-related operations will display a missing-dependency warning dialog instead of performing the conversion. The <code>HAS_PANDOC</code> flag controls this graceful degradation.</p>
+    </div>
+
+    <!-- ===================== CLASS: DebugPage ===================== -->
+    <h2 id="class-debugpage">Class: DebugPage</h2>
+    <p>
+        <code>DebugPage</code> is a lightweight subclass of <code>QWebEnginePage</code> that overrides the
+        <code>javaScriptConsoleMessage()</code> virtual method. By default, Chromium silently discards JavaScript
+        console output when running inside a <code>QWebEngineView</code>. This class intercepts every message
+        written to the browser console (via <code>console.log()</code>, <code>console.warn()</code>,
+        <code>console.error()</code>, etc.) and mirrors it to the Python standard output, prefixed with the
+        source line number. This makes debugging of the embedded JavaScript significantly easier during
+        development and testing.
+    </p>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>def javaScriptConsoleMessage(self, level, message, lineNumber, sourceID)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>Intercept a JavaScript console message. Prints <code>"JS[lineNumber] message"</code> to Python's stdout, then forwards the message to the base class implementation for normal Qt processing.</p>
+            <div class="param-table">
+                <div class="param"><span class="param-name">level</span> <span class="param-desc">Chromium log severity level (Info, Warning, Error, or Debug)</span></div>
+                <div class="param"><span class="param-name">message</span> <span class="param-desc">Text content written by console.log/warn/error in the editor page</span></div>
+                <div class="param"><span class="param-name">lineNumber</span> <span class="param-desc">1-based source line number inside the JavaScript file or inline script</span></div>
+                <div class="param"><span class="param-name">sourceID</span> <span class="param-desc">URL or identifier of the script file that produced the message</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CLASS: RichTextEditor ===================== -->
+    <h2 id="class-richtexteditor">Class: RichTextEditor</h2>
+    <p>
+        <code>RichTextEditor</code> is the main public widget and the heart of the module. It inherits from
+        <code>QWebEngineView</code> and provides a complete WYSIWYG editing experience inside a Chromium-based
+        web view. The class exposes a rich public API for text formatting, content management, page layout
+        control, file import/export, and more, while delegating all visual editing operations to JavaScript
+        running inside the embedded HTML document.
+    </p>
+
+    <h3 id="constructor">Constructor &amp; Initialization</h3>
+    <div class="method-block">
+        <div class="method-header"><code>def __init__(self, default_size: str = 'A4', parent=None)</code><span class="method-tag tag-public">Public</span></div>
+        <div class="method-body">
+            <p>Constructs the editor widget, generates the initial HTML template, and wires up all Qt/JS communication bridges.</p>
+            <p><strong>Parameters:</strong></p>
+            <div class="param-table">
+                <div><code>default_size</code> – Initial page size name. Must be one of: <code>"A4"</code>, <code>"Letter"</code>, <code>"B5"</code>, <code>"Edu-Item"</code>. Defaults to <code>"A4"</code>.</div>
+                <div><code>parent</code> – Optional parent widget for Qt ownership semantics.</div>
+            </div>
+            <p>The constructor performs the following initialization sequence:</p>
+            <ol>
+                <li>Calls <code>super().__init__(parent)</code> to initialise the underlying <code>QWebEngineView</code>.</li>
+                <li>Replaces the default <code>QWebEnginePage</code> with a <code>DebugPage</code> instance for JS console mirroring.</li>
+                <li>Sets the size policy to <code>Expanding</code> in both directions so the editor fills available layout space.</li>
+                <li>Initialises the <code>_page_margins</code> dictionary with 10 mm on all sides.</li>
+                <li>Disables Chromium's default context menu and connects <code>customContextMenuRequested</code> to the custom menu handler.</li>
+                <li>Initialises lazy-loading caches for pdf.js, pdf.worker, and pdf-lib base64 data.</li>
+                <li>Generates and loads the initial HTML document via <code>_build_initial_html()</code>.</li>
+                <li>Connects <code>loadFinished</code> for deferred content injection.</li>
+                <li>Initialises the <code>_is_dirty</code> flag and connects <code>titleChanged</code> for edit notifications.</li>
+                <li>Overrides <code>javaScriptConsoleMessage</code> with a lambda that prints detailed JS debug output.</li>
+            </ol>
+            <h4>PAGE_SIZES Class Constant</h4>
+            <table class="attr-table">
+                <thead><tr><th>Name</th><th>Width (mm)</th><th>Height (mm)</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>"A4"</code></td><td>210</td><td>297</td><td>ISO A4 — default paper size</td></tr>
+                    <tr><td><code>"Letter"</code></td><td>215.9</td><td>279.4</td><td>US Letter (8.5 in × 11 in)</td></tr>
+                    <tr><td><code>"B5"</code></td><td>176</td><td>250</td><td>ISO B5 — compact book/journal format</td></tr>
+                    <tr><td><code>"Edu-Item"</code></td><td>210</td><td>50</td><td>Custom short-page format for educational item cards</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h3 id="dirty-tracking">Dirty Tracking</h3>
+    <p>The editor tracks whether the document contains unsaved modifications through the <code>_is_dirty</code> boolean flag. When the user types, deletes, or otherwise modifies content, the JavaScript <code>input</code> event listener sets <code>document.title</code> to <code>"__edit__&lt;timestamp&gt;"</code>, which triggers the <code>_on_title_changed()</code> slot on the Python side and sets <code>_is_dirty = True</code>. The flag can also be set manually via <code>_mark_dirty()</code>, and is cleared when the document is saved via <code>setClean()</code>. The current state is queryable through <code>isModified()</code>.</p>
+
+    <div class="method-block"><div class="method-header"><code>def isModified(self) -> bool</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Returns <code>True</code> if the document has unsaved changes, <code>False</code> otherwise.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def setClean(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Marks the document as saved by clearing the dirty flag.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def _mark_dirty(self)</code><span class="method-tag tag-private">Private</span></div><div class="method-body"><p>Explicitly marks the document as modified.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def _on_title_changed(self, title: str)</code><span class="method-tag tag-private">Private</span></div><div class="method-body"><p>Receives edit notifications from JavaScript through the document.title bridge. If the title starts with <code>"__edit__"</code>, sets <code>_is_dirty = True</code>.</p></div></div>
+
+    <h3 id="print-prepare">Print Preparation</h3>
+    <p>Before generating a PDF or initiating a print operation, the editor must ensure that its internal page structure is consistent and that no blank trailing pages will appear in the output. The <code>_preparePrintBreaks()</code> method executes JavaScript that removes empty trailing pages and sets a temporary <code>data-print-ready</code> attribute on every remaining page element. After the export completes, <code>_cleanupPrintBreaks()</code> removes these markers and triggers a full page-consistency check.</p>
+    <div class="method-block"><div class="method-header"><code>def _preparePrintBreaks(self)</code><span class="method-tag tag-private">Private</span></div><div class="method-body"><p>Removes empty trailing pages and marks all pages as print-ready before PDF export.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def _cleanupPrintBreaks(self)</code><span class="method-tag tag-private">Private</span></div><div class="method-body"><p>Removes <code>data-print-ready</code> attributes from all pages and re-runs <code>checkAllPages()</code>.</p></div></div>
+
+    <h3 id="image-export">Image Export (Page-by-Page PNG Capture)</h3>
+    <p>The <code>extractAsImages()</code> method provides a mechanism to capture each logical editor page as a separate PNG image file. The capture process is multi-step and asynchronous, using a callback chain that processes pages one at a time:</p>
+    <div class="flow"><span class="flow-item">extractAsImages()</span><span class="flow-arrow">→</span><span class="flow-item">Collect page geometry (JS)</span><span class="flow-arrow">→</span><span class="flow-item">_on_page_geometry()</span><span class="flow-arrow">→</span><span class="flow-item">_capture_next_page()</span><span class="flow-arrow">→</span><span class="flow-item">_grab_current_page()</span><span class="flow-arrow">→</span><span class="flow-item">_finish_image_capture()</span></div>
+    <p>For each page, the widget is temporarily resized to match the page dimensions exactly at zoom 1.0, the viewport is scrolled to the correct position, and after a 200 ms rendering delay, <code>self.grab()</code> captures the widget contents as a <code>QPixmap</code>. After all pages are captured, the original widget size, zoom, and size constraints are restored, and the user is prompted to select an output directory. Each image is saved as <code>page_1.png</code>, <code>page_2.png</code>, etc.</p>
+    <div class="method-block"><div class="method-header"><code>def extractAsImages(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Capture each <code>.page</code> element as a separate PNG image using <code>self.grab()</code>.</p></div></div>
+
+    <h3 id="context-menus">Context Menus</h3>
+    <p>The editor disables Chromium's default right-click context menu and replaces it with custom Qt menus that are context-aware. When the user right-clicks inside a table cell (<code>&lt;td&gt;</code> or <code>&lt;th&gt;</code>), a table-specific menu appears with options to insert rows and columns. For all other locations, the standard editing menu is shown.</p>
+    <h4>Default Menu Actions</h4>
+    <table class="attr-table"><thead><tr><th>Category</th><th>Actions</th></tr></thead><tbody><tr><td>Clipboard</td><td>Cut, Copy, Paste, Select All</td></tr><tr><td>Alignment</td><td>Align Center, Align Justified, Align Left, Align Right</td></tr><tr><td>Direction</td><td>Change Text Direction LTR, Change Text Direction RTL</td></tr><tr><td>Text Style</td><td>Toggle Bold, Toggle Italic, Toggle Underline, Toggle Strikethrough</td></tr></tbody></table>
+    <h4>Table Menu Actions</h4>
+    <p>When right-clicking inside a table cell, the menu adds the following actions above a "Text Format" submenu containing all the default actions:</p>
+    <ul><li><strong>Insert Row Above</strong> — adds a new empty row above the current row</li><li><strong>Insert Row Below</strong> — adds a new empty row below the current row</li><li><strong>Insert Column Left</strong> — adds a new empty column to the left of the current column</li><li><strong>Insert Column Right</strong> — adds a new empty column to the right of the current column</li></ul>
+
+    <h3 id="katex-resources">KaTeX Resource Loader</h3>
+    <p>The <code>_load_katex_resource()</code> method reads KaTeX library files (CSS and JavaScript) from the application's packaged resources and converts them into base64 data-URI strings that can be embedded directly in the <code>&lt;link&gt;</code> and <code>&lt;script&gt;</code> tags of the editor HTML. This approach avoids filesystem path issues and makes the editor self-contained regardless of the installation directory.</p>
+    <p>If a KaTeX resource file is not found, the method returns an empty string, and the corresponding tag is replaced with an HTML comment in <code>_build_initial_html()</code>. This graceful degradation ensures the editor still loads and functions even when KaTeX is unavailable — math formulas simply won't be rendered.</p>
+    <div class="method-block"><div class="method-header"><code>def _load_katex_resource(self, name: str, ext: str = 'css') -> str</code><span class="method-tag tag-private">Private</span></div><div class="method-body"><p>Read a KaTeX file from the package resources and return a base64 data-URI string. Returns <code>''</code> if the file is not found.</p><div class="param-table"><div><code>name</code> – Resource filename without extension (e.g., <code>"katex.min"</code>, <code>"auto-render.min"</code>)</div><div><code>ext</code> – File extension: <code>"css"</code> or <code>"js"</code>. Determines the MIME type in the data-URI.</div></div></div></div>
+
+    <h3 id="pdf-lazy-loading">PDF Library Lazy Loading</h3>
+    <p>The PDF-related JavaScript libraries (pdf.js, pdf.worker, and pdf-lib) are not embedded in the initial HTML document to keep page load times fast and avoid errors when the files are missing. Instead, they are loaded on-demand when the user first opens a PDF file. Once loaded, the base64 data is cached in instance variables to prevent repeated disk reads.</p>
+    <div class="info-box note"><p><span class="box-title">Caching Strategy</span> All three loaders follow the same pattern: check the cache first, attempt to load and encode the file on a cache miss, store the result (or an empty string on failure) in the cache, and return the cached value. This ensures that each file is read at most once per editor instance.</p></div>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Resource</th><th>Cache Variable</th></tr></thead><tbody><tr><td><code>_load_pdfjs_b64()</code></td><td><code>pdf.min.js</code> (Mozilla pdf.js core)</td><td><code>_pdfjs_js_b64</code></td></tr><tr><td><code>_load_pdfjs_worker_b64()</code></td><td><code>pdf.worker.min.js</code> (pdf.js worker)</td><td><code>_pdfjs_worker_b64</code></td></tr><tr><td><code>_load_pdflib_b64()</code></td><td><code>pdf-lib.min.js</code> (PDF manipulation)</td><td><code>_pdflib_js_b64</code></td></tr></tbody></table>
+
+    <h3 id="page-margins">Page Margins</h3>
+    <p>Page margins are stored as a dictionary of four float values (top, right, bottom, left) in millimetres. They are applied as CSS padding on each <code>.page</code> div, determining the printable content area. Margins can be changed programmatically via <code>setPageMargins()</code> or interactively through the <code>showMarginDialog()</code> modal dialog, which provides four <code>QDoubleSpinBox</code> controls (range 0–50 mm, step 1 mm). When margins change, a full pagination recalculation is triggered via <code>checkAllPages()</code>.</p>
+    <div class="method-block"><div class="method-header"><code>def setPageMargins(self, top: float, right: float, bottom: float, left: float)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Update page margins (CSS padding) in millimetres and recalculate page breaks.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def showMarginDialog(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Open a modal dialog with spin boxes for editing page margins. Applies changes on OK.</p></div></div>
+
+    <h3 id="file-dialogs">File Open/Save Dialogs</h3>
+    <div class="method-block"><div class="method-header"><code>def LoadFileDialog(self, caption='Open a file', dir='', filter='', dialog_type='open')</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Unified file open/save dialog. Dispatches to the appropriate handler based on the file extension and dialog type. Supports <code>.txt</code>, <code>.html</code>, <code>.pdf</code>, and <code>.docx</code> formats for opening, and <code>.txt</code>, <code>.html</code>, <code>.pdf</code>, and <code>.docx</code> for saving.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def load_file(self, file_path: str = '')</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Read a file from disk and return its contents as a string suitable for editor insertion. DOCX files are converted to HTML via pypandoc; PDF files are returned as base64; TXT files are read as UTF-8 text; HTML files are returned raw.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def save_file(self, file_path: str = "")</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Save the current editor content to disk. TXT files use <code>toPlainText()</code>, HTML files use <code>toHtml()</code>, PDF files call <code>savePdf()</code>, and DOCX files call <code>saveWithPandoc()</code>.</p></div></div>
+
+    <h3 id="pdf-import">PDF Import</h3>
+    <p>PDF import is handled by Mozilla's pdf.js library, which is lazily injected into the editor page only when a PDF file is first opened. The import pipeline works as follows:</p>
+    <ol><li>The raw PDF bytes are read from disk and encoded as base64.</li><li><code>_ensurePdfJsLoaded()</code> checks whether pdf.js has already been injected; if not, it loads the base64-encoded <code>pdf.min.js</code> and <code>pdf.worker.min.js</code> from cached resources and injects them into the Chromium page via <code>runJavaScript()</code>.</li><li>Once the library is available, <code>_buildPdfRenderJs()</code> generates JavaScript that decodes the base64 PDF data and renders each page sequentially.</li><li>Each PDF page is rendered to an off-screen canvas at 2× display scale for sharpness, converted to a PNG data-URL, and inserted into the editor as an <code>&lt;div class="img-wrapper"&gt;</code> element with eight resize handles.</li><li>The display width of each page image matches the editor page content width, with proportional height scaling.</li></ol>
+    <div class="method-block"><div class="method-header"><code>def _ensurePdfJsLoaded(self, pdf_data_b64: str)</code><span class="method-tag tag-private">Private</span></div><div class="method-body"><p>Inject pdf.js into the page if not already done, then render the PDF. Shows an in-editor error when resources are missing.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def _renderPdfPages(self, pdf_data_b64: str)</code><span class="method-tag tag-private">Private</span></div><div class="method-body"><p>Render PDF pages when pdf.js has already been loaded in a previous open operation.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def _buildPdfRenderJs(self, safe_pdfdata: str) -> str</code><span class="method-tag tag-private">Private</span></div><div class="method-body"><p>Build the JavaScript source that decodes a PDF and inserts each page as an <code>img-wrapper</code> element.</p></div></div>
+
+    <h3 id="pdf-export">PDF Export</h3>
+    <p>PDF export uses Chromium's built-in <code>QWebEnginePage.printToPdf()</code> method, which renders the HTML document to a PDF file using the same Chromium rendering engine that displays it on screen. This ensures high fidelity between the on-screen preview and the exported document.</p>
+    <p>A <code>QPageLayout</code> object is constructed with the page size matching the editor's current setting and zero Qt margins — the CSS padding on the <code>.page</code> divs already provides the visual margins, and adding Qt margins on top would double the margin space. The print CSS media query ensures each page fills the printed page width exactly with <code>width:100%; height:auto</code> and uses <code>page-break-after: always</code> for correct page splitting.</p>
+    <div class="method-block"><div class="method-header"><code>def savePdf(self, filepath: str)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Export the document as a PDF file. Prepares print breaks, waits 100 ms for layout to settle, then calls <code>printToPdf()</code> with the appropriate page layout and zero margins.</p></div></div>
+
+    <h3 id="pandoc-export">Pandoc Export (DOCX / ODT)</h3>
+    <p>The <code>saveWithPandoc()</code> method enables export to DOCX, ODT, and other formats supported by Pandoc. It first checks the <code>HAS_PANDOC</code> flag to ensure pypandoc is available, then retrieves the current document HTML synchronously via <code>getHtmlContentSync()</code>, writes it to a temporary file, and passes it to <code>pypandoc.convert_file()</code> for conversion. The output format is automatically determined from the file extension. The temporary file is deleted after conversion regardless of success or failure.</p>
+    <div class="method-block"><div class="method-header"><code>def saveWithPandoc(self, filePath: str)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Export editor content via pypandoc. Supports DOCX, ODT, and any Pandoc-supported output format. Displays a warning dialog if pypandoc is not installed.</p></div></div>
+
+    <h3 id="math-preprocessing">Math Preprocessing &amp; Formula Preparation</h3>
+    <p>The editor provides two complementary methods for handling LaTeX math content in imported HTML:</p>
+    <h4><code>_preprocess_math_html()</code> — MathJax Script Conversion</h4>
+    <p>When importing HTML documents that were originally authored for MathJax, the <code>&lt;script type="math/tex"&gt;</code> elements would be stripped by the browser's <code>innerHTML</code> parser before KaTeX could see them. This static method converts MathJax script tags to plain-text LaTeX delimiters before the HTML reaches the browser:</p>
+    <ul><li><code>&lt;script type="math/tex; mode=display"&gt;...&lt;/script&gt;</code> → <code>$$...$$</code></li><li><code>&lt;script type="math/tex"&gt;...&lt;/script&gt;</code> → <code>\(...\)</code></li></ul>
+    <h4><code>prepare_math_formulas()</code> — LaTeX Delimiter to Placeholder Conversion</h4>
+    <p>After MathJax scripts have been converted (or for HTML that already uses standard LaTeX delimiters), this method scans the HTML and replaces all recognised delimiter patterns with lightweight placeholder <code>&lt;span&gt;</code> elements that the editor's KaTeX rendering pipeline understands:</p>
+    <table class="attr-table"><thead><tr><th>Delimiter</th><th>Mode</th><th>Output Element</th></tr></thead><tbody><tr><td><code>$$...$$</code></td><td>Display (block)</td><td><code>&lt;span class="math-formula" data-display="block" data-latex="..."&gt;</code></td></tr><tr><td><code>\[...\]</code></td><td>Display (block)</td><td><code>&lt;span class="math-formula" data-display="block" data-latex="..."&gt;</code></td></tr><tr><td><code>\(...\)</code></td><td>Inline</td><td><code>&lt;span class="math-formula" data-display="inline" data-latex="..."&gt;</code></td></tr><tr><td><code>$...$</code></td><td>Inline</td><td><code>&lt;span class="math-formula" data-display="inline" data-latex="..."&gt;</code></td></tr></tbody></table>
+
+    <h3 id="structure-sync">Structure Synchronization</h3>
+    <p>The <code>structure_synchronization()</code> method is a critical import pipeline component that merges an external HTML document into the editor's template without breaking the editor's internal structure. It performs the following steps in order:</p>
+    <ol><li><strong>Native document check:</strong> If the imported HTML already contains the <code>&lt;meta name="abdh-editor"&gt;</code> marker, it is a native editor document and needs no synchronization.</li><li><strong>Extract styles:</strong> All <code>&lt;style&gt;</code> blocks are extracted from the imported document.</li><li><strong>Extract body:</strong> The <code>&lt;body&gt;</code> content is extracted, or the entire document is used if no body tag exists.</li><li><strong>Remove external scripts:</strong> All <code>&lt;script&gt;</code> tags are stripped from the body to prevent external JavaScript from executing inside the editor.</li><li><strong>Rename conflicting classes:</strong> Any CSS class that matches an editor-reserved name (such as <code>page</code>, <code>katex</code>, <code>img-wrapper</code>, etc.) is renamed by prepending <code>EXT</code> (e.g., <code>.page</code> becomes <code>.EXTpage</code>).</li><li><strong>Convert math formulas:</strong> LaTeX delimiters in the body are converted to <code>math-formula</code> placeholder spans via <code>prepare_math_formulas()</code>.</li><li><strong>Inject into template:</strong> A fresh editor HTML template is built, the synchronized external styles are injected before <code>&lt;/head&gt;</code>, and the body content is inserted into the first <code>.page</code> div.</li></ol>
+    <div class="info-box warning"><p><span class="box-title">Reserved Classes</span> The following CSS class names are reserved by the editor and will be renamed with an <code>EXT</code> prefix when found in imported documents: <code>math-formula</code>, <code>math-editor</code>, <code>pages-wrapper</code>, <code>page</code>, <code>readonly-overlay</code>, <code>img-wrapper</code>, <code>resize-handle</code>, <code>handles-visible</code>, <code>handle-nw</code>, <code>handle-n</code>, <code>handle-ne</code>, <code>handle-e</code>, <code>handle-se</code>, <code>handle-s</code>, <code>handle-sw</code>, <code>handle-w</code>, <code>col-resize-handle</code>, <code>katex-error</code>, <code>katex</code>, <code>katex-display</code>, <code>katex-html</code>, <code>katex-mathml</code>.</p></div>
+
+    <h3 id="page-management">Page Size &amp; Navigation</h3>
+    <div class="method-block"><div class="method-header"><code>def setPageSize(self, size_name: str)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Switch all editor pages to a different paper size. Updates the CSS dimensions of every <code>.page</code> element and immediately recalculates page overflow. Raises <code>ValueError</code> for unknown size names.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def getPageCount(self, callback)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Asynchronously retrieve the number of <code>.page</code> elements. The result is passed to <code>callback</code> as an integer.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def scrollToPage(self, page_num: int)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Smoothly scroll the viewport so that the requested 1-based page number is visible at the top. Page numbers are clamped to the valid range.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def refreshPageBreaks(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Force an immediate recalculation of page overflow/underflow and reattach MutationObservers.</p></div></div>
+
+    <h3 id="editability">Editability Toggle</h3>
+    <div class="method-block"><div class="method-header"><code>def setEditable(self, b: bool = True)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Toggle between editable and read-only mode. When <code>b=False</code>, a transparent overlay (<code>#readonly-overlay</code>) is shown over the editor, blocking all mouse events. When <code>b=True</code>, the overlay is hidden and editing is allowed.</p></div></div>
+
+    <h3 id="text-formatting">Text Formatting</h3>
+    <p>The editor provides a comprehensive set of text formatting methods that all delegate to the <code>applyTextStyle()</code> helper, which in turn executes the corresponding <code>document.execCommand()</code> call inside Chromium. The following table summarizes the available formatting operations:</p>
+    <table class="attr-table"><thead><tr><th>Method</th><th>execCommand</th><th>Description</th></tr></thead><tbody><tr><td><code>setBold()</code></td><td><code>bold</code></td><td>Toggle bold formatting on selection</td></tr><tr><td><code>setItalic()</code></td><td><code>italic</code></td><td>Toggle italic formatting on selection</td></tr><tr><td><code>setUnderline()</code></td><td><code>underline</code></td><td>Toggle underline formatting on selection</td></tr><tr><td><code>setStrikeOut()</code></td><td><code>strikeThrough</code></td><td>Toggle strikethrough on selection</td></tr><tr><td><code>setFontFamily(family)</code></td><td><code>fontName</code></td><td>Set CSS font family on selection</td></tr><tr><td><code>setTextColor(color)</code></td><td><code>foreColor</code></td><td>Set text colour (QColor input)</td></tr><tr><td><code>setTextBackgroundColor(color)</code></td><td><code>hiliteColor</code></td><td>Set background highlight colour (QColor)</td></tr><tr><td><code>setFontSize(size)</code></td><td>Custom JS</td><td>Wrap selection in <code>&lt;span style="font-size:Npt"&gt;</code>; expands collapsed selections to current word</td></tr></tbody></table>
+    <div class="method-block"><div class="method-header"><code>def chooseTextColor(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Open a native colour picker dialog and apply the chosen colour as the text foreground.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def chooseBackgroundColor(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Open a native colour picker dialog and apply the chosen colour as the text background highlight.</p></div></div>
+
+    <h3 id="alignment-direction">Alignment &amp; Text Direction</h3>
+    <div class="method-block"><div class="method-header"><code>def setAlignment(self, align: str)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Set paragraph alignment on the nearest block-level ancestor of the current selection. Accepts <code>'left'</code>, <code>'center'</code>, <code>'right'</code>, or <code>'justify'</code>. If the cursor is directly inside a page div, a wrapping <code>&lt;p&gt;</code> element is created first.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def setParagraphDirection(self, rtl: bool)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Set the <code>dir</code> attribute of the nearest block ancestor to <code>'rtl'</code> or <code>'ltr'</code>. Useful for bidirectional text editing in Arabic, Hebrew, and Persian.</p></div></div>
+
+    <h3 id="insert-content">Insert Formula / Table / Image</h3>
+    <h4>Image Insertion</h4>
+    <p><code>insertImage()</code> opens a native file dialog filtered to common raster formats (PNG, JPG, JPEG, BMP, GIF), reads the selected file, encodes it as base64, and inserts a draggable <code>img-wrapper</code> element at the current cursor position. The wrapper includes eight directional resize handles (nw, n, ne, e, se, s, sw, w) that allow the user to resize the image by dragging from any corner or edge.</p>
+    <h4>Math Formula Insertion</h4>
+    <p><code>insertMath(latex, display=False)</code> inserts a KaTeX-rendered formula span at the cursor. The formula is created via the JavaScript <code>createMathFormula()</code> function, which produces a <code>&lt;span class="math-formula"&gt;</code> element with <code>contentEditable='false'</code>. Double-clicking on a rendered formula replaces it with a text input for live editing; pressing Enter or blurring the input re-renders the formula with the updated LaTeX source.</p>
+    <p><code>insertMathDialog()</code> provides a convenience dialog (<code>QInputDialog</code>) for entering LaTeX text, then calls <code>insertMath()</code> with the result.</p>
+    <h4>Table Insertion</h4>
+    <p><code>insertTable(rows, cols)</code> builds an HTML table with the specified dimensions and inserts it at the cursor. Column resize handles are automatically attached via <code>setupColumnResize()</code>. <code>insertTableDialog()</code> provides a dialog with spin boxes for choosing the dimensions (rows: 1–30, columns: 1–15, both defaulting to 3).</p>
+    <p>Private helpers <code>_insert_row(where)</code> and <code>_insert_col(where)</code> insert a new row or column relative to the current cursor position, used by the table context menu.</p>
+
+    <h3 id="content-access">Content Get / Set / Clear</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Return Type</th><th>Description</th></tr></thead><tbody><tr><td><code>setText(raw_string, auto_render=True)</code></td><td><code>None</code></td><td>Replace entire document content. HTML mode (auto_render=True) renders KaTeX and checks pagination; plain-text mode (False) inserts via <code>textContent</code> with no processing.</td></tr><tr><td><code>appendText(html, auto_render=True)</code></td><td><code>None</code></td><td>Append HTML to the last page. Optionally pre-processes math and triggers rendering.</td></tr><tr><td><code>clearContent()</code></td><td><code>None</code></td><td>Remove all pages and reset to a single empty contenteditable page.</td></tr><tr><td><code>getPlainText(callback)</code></td><td><code>None</code> (async)</td><td>Asynchronously retrieve the concatenated text content of all pages.</td></tr><tr><td><code>getHtmlContent(callback)</code></td><td><code>None</code> (async)</td><td>Asynchronously retrieve the concatenated inner HTML of all pages.</td></tr><tr><td><code>getPlainTextSync()</code></td><td><code>str</code></td><td>Blocking version of <code>getPlainText()</code> using <code>QEventLoop</code>.</td></tr><tr><td><code>getHtmlContentSync()</code></td><td><code>str</code></td><td>Blocking version of <code>getHtmlContent()</code> using <code>QEventLoop</code>.</td></tr><tr><td><code>getFullHtmlAsync()</code></td><td><code>str</code></td><td>Blocking retrieval of the complete page HTML including all <code>&lt;style&gt;</code> elements.</td></tr></tbody></table>
+
+    <h3 id="zoom-controls">Zoom Controls</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Description</th></tr></thead><tbody><tr><td><code>zoomIn()</code></td><td>Increase zoom by 10% (multiplies current factor by 1.1)</td></tr><tr><td><code>zoomOut()</code></td><td>Decrease zoom by 10% (divides current factor by 1.1)</td></tr><tr><td><code>setZoomPercent(percent)</code></td><td>Set zoom to an exact percentage (e.g., 100 = 1.0×)</td></tr><tr><td><code>fitPage()</code></td><td>Automatically zoom so the entire page fits inside the viewport, with 20 px margin. Clamped to 0.1×–5.0×.</td></tr><tr><td><code>on_zoom_changed(text)</code></td><td>Slot for a zoom-percentage combo box; parses <code>"100%"</code> and calls <code>setZoomPercent()</code>.</td></tr></tbody></table>
+
+    <h3 id="html-template">HTML Template Builder</h3>
+    <p>The <code>_build_initial_html()</code> method assembles the complete HTML document that serves as the editor's editing surface. This is the largest single method in the file, spanning approximately 1,400 lines and containing the full CSS stylesheet, seven JavaScript engines, and the initial page structure. The template is parameterised by the current page size (width and height in mm) and page margins.</p>
+    <p>The HTML structure consists of:</p>
+    <ul><li>A <code>&lt;head&gt;</code> section with a meta tag identifying the document as an editor file, embedded KaTeX tags (or fallback HTML comments), and the full CSS stylesheet.</li><li>A <code>&lt;body&gt;</code> containing a <code>&lt;div class="pages-wrapper"&gt;</code> with one initial <code>&lt;div class="page" contenteditable="true"&gt;</code> and a <code>&lt;div id="readonly-overlay"&gt;</code>.</li><li>A <code>&lt;script&gt;</code> section containing all seven JavaScript engines.</li></ul>
+    <h4>CSS Overview</h4>
+    <table class="attr-table"><thead><tr><th>Selector</th><th>Purpose</th></tr></thead><tbody><tr><td><code>body</code></td><td>Dark background (#0b1120), horizontal scroll for wide pages</td></tr><tr><td><code>html</code> scrollbar</td><td>Thin custom scrollbar styling for WebKit and Firefox</td></tr><tr><td><code>.math-formula</code></td><td>Inline-block, clickable, LTR direction</td></tr><tr><td><code>.math-editor</code></td><td>Monospace input styling for LaTeX editing</td></tr><tr><td><code>.pages-wrapper</code></td><td>Flex column layout, centered, 12 px gap between pages</td></tr><tr><td><code>.page</code></td><td>White background, box shadow, fixed mm dimensions, box-sizing border-box, overflow hidden</td></tr><tr><td><code>.readonly-overlay</code></td><td>Absolute-positioned transparent overlay for read-only mode</td></tr><tr><td><code>@media print</code></td><td>Print-specific styles: no shadows, auto height, page-break-after, visible overflow</td></tr><tr><td><code>.img-wrapper</code></td><td>Floating, relative-positioned container for draggable images</td></tr><tr><td><code>.resize-handle</code></td><td>8-directional handles (nw, n, ne, e, se, s, sw, w), hidden by default, shown on hover via <code>.handles-visible</code></td></tr><tr><td><code>table, td, th</code></td><td>Collapse borders, 1 px solid #aaa, relative positioning for column resize handles</td></tr><tr><td><code>.col-resize-handle</code></td><td>Absolute-positioned 5 px strip at cell right edge for column width adjustment</td></tr><tr><td><code>.katex-error</code></td><td>Red text on pink background for KaTeX rendering errors</td></tr></tbody></table>
+
+    <!-- ===================== EMBEDDED JS ENGINES ===================== -->
+    <h2 id="js-engines">Embedded JavaScript Engines</h2>
+    <p>The editor HTML template contains seven self-contained JavaScript modules that handle all interactive editing behaviour inside the Chromium document. Each module is wrapped in an IIFE (Immediately Invoked Function Expression) or attached to the <code>document</code>/<code>window</code> object as appropriate.</p>
+
+    <h3>Engine 1: Drag &amp; Resize Engine</h3>
+    <p>Manages drag-and-drop repositioning and 8-directional resizing of <code>.img-wrapper</code> elements. Uses margin-based positioning (<code>marginLeft</code> / <code>marginTop</code>) for overlap-free image movement within the content flow. When the user clicks on a resize handle, the engine tracks the mouse delta from the initial click position and applies proportional width/height changes while adjusting margins to keep opposite corners anchored. Resize handles are shown/hidden via CSS class toggling on <code>mouseenter</code>/<code>mouseleave</code> events, since CSS <code>:hover</code> is unreliable inside contenteditable regions.</p>
+
+    <h3>Engine 2: Table Column Resize</h3>
+    <p>The <code>setupColumnResize(table)</code> function adds invisible <code>.col-resize-handle</code> divs to each cell in the first row of a table. These handles capture <code>mousedown</code> events and track horizontal mouse movement to adjust column widths across all rows simultaneously. Tables are set to <code>table-layout: fixed</code> to ensure consistent column widths. The resize state is tracked via the <code>resizingColumn</code> flag and associated variables.</p>
+
+    <h3>Engine 3: Table Tab Navigation</h3>
+    <p>A <code>keydown</code> listener intercepts the Tab key when the cursor is inside a table cell and moves focus to the next cell (or previous cell with Shift+Tab). This provides natural spreadsheet-like navigation within tables. When the last cell is reached, focus wraps around to the first cell, and vice versa.</p>
+
+    <h3>Engine 4: Multi-Page Engine</h3>
+    <p>This is the most complex JavaScript module and the backbone of the editor's multi-page layout. It manages the creation, overflow handling, and deletion of <code>.page</code> divs:</p>
+    <ul><li><code>getPageGeometry()</code> — Returns the CSS pixel dimensions and padding of a page element.</li><li><code>createNewPage()</code> — Creates a new empty <code>.page</code> div with <code>contentEditable='true'</code>.</li><li><code>pushOverflow(pageEl)</code> — Moves overflowing block-level children from a page to the next page (or creates a new page if none exists). Preserves cursor position when the cursor's containing block is moved.</li><li><code>pullUnderflow(pageEl)</code> — Pulls content from the next page into the current page when there is available space. Never pulls from the currently focused page to avoid stealing the user's cursor.</li><li><code>removeEmptyPagesAndFixFocus()</code> — Removes empty trailing pages (never the first page) and restores cursor focus to the nearest remaining page.</li><li><code>isPageEmpty(page)</code> — Checks if a page contains only whitespace (excluding images, tables, and math formulas which are never considered empty).</li><li><code>checkAllPages()</code> — The main orchestration function: pushes overflow on all pages, pulls underflow in reverse order, removes empty pages, updates page count and page-number attributes, and restores focus. Includes a re-entrancy guard (<code>_pageCheckRunning</code>) and scroll-position preservation.</li><li><code>schedulePageCheck()</code> — Debounced version using <code>requestAnimationFrame()</code>.</li><li><code>setupPageObserver(pageEl)</code> — Attaches a <code>MutationObserver</code> to each page that triggers <code>schedulePageCheck()</code> on DOM changes.</li></ul>
+
+    <h3>Engine 5: Advanced Keyboard Handler</h3>
+    <p>Overrides several key behaviours inside the contenteditable to handle non-editable elements (math formulas, images), multi-page navigation, and edge cases that Chromium's default contenteditable handling does not address:</p>
+    <table class="attr-table"><thead><tr><th>Key / Combo</th><th>Behaviour</th></tr></thead><tbody><tr><td><code>Ctrl+A</code></td><td>Select all content across all pages (not just the current page)</td></tr><tr><td><code>Ctrl+Z</code> / <code>Ctrl+Y</code></td><td>Undo / Redo via <code>execCommand</code></td></tr><tr><td><code>Backspace</code> / <code>Delete</code></td><td>Delete non-editable nodes (formulas, images) when adjacent; reflow pages after deletion</td></tr><tr><td><code>Backspace</code> at page start</td><td>Move cursor to previous page or merge empty current page into previous</td></tr><tr><td><code>Delete</code> at page end</td><td>Move cursor to next page or remove empty next page</td></tr><tr><td><code>Arrow Left/Right</code></td><td>Skip over non-editable elements instead of entering them</td></tr><tr><td><code>Arrow Up</code> at page top</td><td>Move focus to previous page</td></tr><tr><td><code>Arrow Down</code> at page bottom</td><td>Move focus to next page</td></tr><tr><td><code>Enter</code></td><td>Insert a <code>&lt;div&gt;&lt;br&gt;&lt;/div&gt;</code> block; handle empty block exit; special handling for list items</td></tr><tr><td><code>Home</code> / <code>End</code></td><td>Skip over non-editable elements</td></tr></tbody></table>
+
+    <h3>Engine 6: KaTeX Rendering Engine</h3>
+    <p>Provides three key functions for mathematical formula handling:</p>
+    <ul><li><code>renderMathFormula(element)</code> — Renders a single <code>.math-formula</code> span using KaTeX, reading the LaTeX source from <code>data-latex</code> and the display mode from <code>data-display</code>.</li><li><code>renderAllMathFormulas()</code> — Iterates over all <code>.math-formula</code> elements and renders each one.</li><li><code>createMathFormula(latex, displayMode)</code> — Creates a new <code>.math-formula</code> span, renders it with KaTeX, and returns the DOM element.</li></ul>
+    <p>Double-click editing is implemented via a <code>dblclick</code> event listener that replaces the rendered span with a <code>&lt;input class="math-editor"&gt;</code> element. Pressing Enter or blurring the input creates a new formula span with the updated LaTeX and re-renders it.</p>
+
+    <h3>Engine 7: Dirty Flag Bridge</h3>
+    <p>A JavaScript <code>input</code> event listener on the document body detects all user edits (typing, deleting, formatting changes) and sets <code>document.title</code> to <code>"__edit__" + Date.now()</code>. This communicates the modification to Python via the <code>titleChanged</code> signal, which is connected to the <code>_on_title_changed()</code> slot that sets <code>_is_dirty = True</code>. The timestamp ensures that even rapid successive edits trigger distinct title changes.</p>
+
+    <!-- ===================== SHORTCUT FILE LOADERS ===================== -->
+    <h2 id="shortcut-loaders">Shortcut File Loaders</h2>
+    <p>The editor provides four convenience methods that combine a file dialog with the appropriate loading logic for each supported format:</p>
+    <div class="method-block"><div class="method-header"><code>def loadTextFile(self, auto_render=False)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Open a file dialog filtered to <code>.txt</code> files, read the content, and insert it as plain text (or optionally rendered HTML).</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def loadHtmlFile(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Open a file dialog filtered to <code>.html</code> / <code>.htm</code> files, synchronise the structure, and load it into the editor with post-load math rendering and pagination.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def loadDocxFile(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Open a file dialog filtered to <code>.docx</code> files, convert via pypandoc, synchronise the structure, and load it into the editor.</p></div></div>
+    <div class="method-block"><div class="method-header"><code>def loadPdfFile(self)</code><span class="method-tag tag-public">Public</span></div><div class="method-body"><p>Open a file dialog filtered to <code>.pdf</code> files, read and base64-encode the content, and render via pdf.js.</p></div></div>
+
+    <!-- ===================== API REFERENCE ===================== -->
+    <h2 id="api-reference">Complete API Reference</h2>
+    <p>The following table lists every public method exposed by the <code>RichTextEditor</code> class, grouped by functional category. Private methods (prefixed with <code>_</code>) are documented in the sections above but are omitted here as they are not part of the stable public interface.</p>
+
+    <h3>Document State</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>isModified</td><td><code>isModified() -> bool</code></td><td>True if unsaved changes exist</td></tr><tr><td>setClean</td><td><code>setClean()</code></td><td>None</td></tr><tr><td>setEditable</td><td><code>setEditable(b: bool = True)</code></td><td>None</td></tr></tbody></table>
+
+    <h3>Page Layout</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>setPageSize</td><td><code>setPageSize(size_name: str)</code></td><td>None</td></tr><tr><td>setPageMargins</td><td><code>setPageMargins(top, right, bottom, left: float)</code></td><td>None</td></tr><tr><td>showMarginDialog</td><td><code>showMarginDialog()</code></td><td>None</td></tr><tr><td>getPageCount</td><td><code>getPageCount(callback)</code></td><td>None (async)</td></tr><tr><td>scrollToPage</td><td><code>scrollToPage(page_num: int)</code></td><td>None</td></tr><tr><td>refreshPageBreaks</td><td><code>refreshPageBreaks()</code></td><td>None</td></tr></tbody></table>
+
+    <h3>Content</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>setText</td><td><code>setText(raw_string: str, auto_render: bool = True)</code></td><td>None</td></tr><tr><td>appendText</td><td><code>appendText(html: str, auto_render: bool = True)</code></td><td>None</td></tr><tr><td>clearContent</td><td><code>clearContent()</code></td><td>None</td></tr><tr><td>getPlainText</td><td><code>getPlainText(callback)</code></td><td>None (async)</td></tr><tr><td>getHtmlContent</td><td><code>getHtmlContent(callback)</code></td><td>None (async)</td></tr><tr><td>getPlainTextSync</td><td><code>getPlainTextSync() -> str</code></td><td>Plain text content</td></tr><tr><td>getHtmlContentSync</td><td><code>getHtmlContentSync() -> str</code></td><td>HTML content</td></tr><tr><td>getFullHtmlAsync</td><td><code>getFullHtmlAsync() -> str</code></td><td>Complete page HTML</td></tr></tbody></table>
+
+    <h3>Text Formatting</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>setBold</td><td><code>setBold(_: bool = True)</code></td><td>None</td></tr><tr><td>setItalic</td><td><code>setItalic(_: bool = True)</code></td><td>None</td></tr><tr><td>setUnderline</td><td><code>setUnderline(_: bool = True)</code></td><td>None</td></tr><tr><td>setStrikeOut</td><td><code>setStrikeOut(_: bool = True)</code></td><td>None</td></tr><tr><td>setFontFamily</td><td><code>setFontFamily(family: str)</code></td><td>None</td></tr><tr><td>setFontSize</td><td><code>setFontSize(size: int)</code></td><td>None</td></tr><tr><td>setTextColor</td><td><code>setTextColor(color: QColor)</code></td><td>None</td></tr><tr><td>setTextBackgroundColor</td><td><code>setTextBackgroundColor(color: QColor)</code></td><td>None</td></tr><tr><td>chooseTextColor</td><td><code>chooseTextColor()</code></td><td>None</td></tr><tr><td>chooseBackgroundColor</td><td><code>chooseBackgroundColor()</code></td><td>None</td></tr></tbody></table>
+
+    <h3>Alignment &amp; Direction</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>setAlignment</td><td><code>setAlignment(align: str)</code></td><td>None</td></tr><tr><td>setParagraphDirection</td><td><code>setParagraphDirection(rtl: bool)</code></td><td>None</td></tr></tbody></table>
+
+    <h3>Insert</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>insertImage</td><td><code>insertImage()</code></td><td>None</td></tr><tr><td>insertMath</td><td><code>insertMath(latex: str, display: bool = False)</code></td><td>None</td></tr><tr><td>insertMathDialog</td><td><code>insertMathDialog()</code></td><td>None</td></tr><tr><td>insertTable</td><td><code>insertTable(rows: int, cols: int)</code></td><td>None</td></tr><tr><td>insertTableDialog</td><td><code>insertTableDialog()</code></td><td>None</td></tr></tbody></table>
+
+    <h3>Zoom</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>zoomIn</td><td><code>zoomIn()</code></td><td>None</td></tr><tr><td>zoomOut</td><td><code>zoomOut()</code></td><td>None</td></tr><tr><td>setZoomPercent</td><td><code>setZoomPercent(percent: int)</code></td><td>None</td></tr><tr><td>fitPage</td><td><code>fitPage()</code></td><td>None</td></tr></tbody></table>
+
+    <h3>File Operations</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>LoadFileDialog</td><td><code>LoadFileDialog(caption, dir, filter, dialog_type)</code></td><td>None</td></tr><tr><td>load_file</td><td><code>load_file(file_path: str = '')</code></td><td>File data (str or base64)</td></tr><tr><td>save_file</td><td><code>save_file(file_path: str = "")</code></td><td>None</td></tr><tr><td>savePdf</td><td><code>savePdf(filepath: str)</code></td><td>None</td></tr><tr><td>saveWithPandoc</td><td><code>saveWithPandoc(filePath: str)</code></td><td>None</td></tr><tr><td>extractAsImages</td><td><code>extractAsImages()</code></td><td>None</td></tr><tr><td>loadTextFile</td><td><code>loadTextFile(auto_render=False)</code></td><td>None</td></tr><tr><td>loadHtmlFile</td><td><code>loadHtmlFile()</code></td><td>None</td></tr><tr><td>loadDocxFile</td><td><code>loadDocxFile()</code></td><td>None</td></tr><tr><td>loadPdfFile</td><td><code>loadPdfFile()</code></td><td>None</td></tr></tbody></table>
+
+    <h3>Import Helpers</h3>
+    <table class="attr-table"><thead><tr><th>Method</th><th>Signature</th><th>Returns</th></tr></thead><tbody><tr><td>is_native_document</td><td><code>is_native_document(html_content='') -> bool</code></td><td>True if HTML is a native editor document</td></tr><tr><td>structure_synchronization</td><td><code>structure_synchronization(imported_html: str) -> str</code></td><td>Synchronised HTML</td></tr><tr><td>prepare_math_formulas</td><td><code>prepare_math_formulas(source_html: str) -> str</code></td><td>HTML with math placeholders</td></tr></tbody></table>
+
+    <div class="info-box important" style="margin-top: 40px;">
+        <p><span class="box-title">Note</span> The editor uses <code>document.execCommand()</code> for basic formatting and custom JS for advanced features. For a complete list of reserved CSS classes (renamed during import), refer to the <code>structure_synchronization()</code> documentation.</p>
+    </div>
+
+</main>
+</body>
+</html>

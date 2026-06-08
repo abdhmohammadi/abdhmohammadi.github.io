@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardGridView.py — Technical Documentation</title>
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #161822;
+            --bg-tertiary: #1c1f2e;
+            --bg-code: #1a1d2e;
+            --text-primary: #e4e6f0;
+            --text-secondary: #9ca0b0;
+            --text-muted: #6b7085;
+            --accent-blue: #5b9cf5;
+            --accent-cyan: #4dc9f6;
+            --accent-green: #5ccba0;
+            --accent-orange: #f0a45d;
+            --accent-red: #ef6b73;
+            --accent-purple: #b07eee;
+            --accent-yellow: #e8d44d;
+            --accent-pink: #e87ca0;
+            --border-color: #2a2d3e;
+            --hover-bg: #22253a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ─── Sidebar ──────────────────────────────────────────────── */
+        .sidebar {
+            position: fixed; top: 0; left: 0;
+            width: 280px; height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto; padding: 24px 0; z-index: 100;
+        }
+        .sidebar-logo {
+            padding: 0 24px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+        .sidebar-logo h2 { font-size: 18px; color: var(--accent-blue); font-weight: 700; letter-spacing: -0.3px; }
+        .sidebar-logo span { font-size: 12px; color: var(--text-muted); display: block; margin-top: 4px; }
+        .nav-section { padding: 8px 0; }
+        .nav-section-title {
+            padding: 8px 24px; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted);
+        }
+        .nav-link {
+            display: block; padding: 6px 24px 6px 32px;
+            color: var(--text-secondary); text-decoration: none; font-size: 13.5px;
+            transition: all 0.2s; border-left: 3px solid transparent;
+        }
+        .nav-link:hover { background: var(--hover-bg); color: var(--text-primary); border-left-color: var(--accent-blue); }
+        .nav-link.active { color: var(--accent-blue); background: var(--hover-bg); border-left-color: var(--accent-blue); }
+        .nav-link.indent { padding-left: 44px; font-size: 12.5px; }
+
+        /* ─── Main ─────────────────────────────────────────────────── */
+        .main-content { margin-left: 280px; padding: 40px 56px 80px; max-width: 960px; }
+
+        /* ─── Headings ─────────────────────────────────────────────── */
+        h1 {
+            font-size: 36px; font-weight: 800; letter-spacing: -0.5px;
+            margin-bottom: 12px; color: var(--text-primary);
+        }
+        h1 .module-path {
+            display: block; font-size: 14px; font-weight: 400;
+            color: var(--text-muted); margin-top: 6px;
+            font-family: 'Consolas', 'Fira Code', monospace;
+        }
+        h2 {
+            font-size: 26px; font-weight: 700; margin-top: 56px; margin-bottom: 16px;
+            padding-bottom: 10px; border-bottom: 2px solid var(--border-color);
+            color: var(--text-primary); letter-spacing: -0.3px;
+        }
+        h3 { font-size: 20px; font-weight: 600; margin-top: 36px; margin-bottom: 12px; color: var(--accent-cyan); }
+        h4 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 8px; color: var(--text-primary); }
+
+        /* ─── Text ─────────────────────────────────────────────────── */
+        p { margin-bottom: 14px; color: var(--text-secondary); }
+        strong { color: var(--text-primary); font-weight: 600; }
+
+        /* ─── Code ─────────────────────────────────────────────────── */
+        pre {
+            background: var(--bg-code); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 18px 22px; overflow-x: auto;
+            margin: 14px 0 18px; font-size: 13.5px; line-height: 1.6;
+        }
+        code { font-family: 'Consolas', 'Fira Code', 'SF Mono', 'Monaco', monospace; }
+        :not(pre) > code {
+            background: var(--bg-tertiary); padding: 2px 7px; border-radius: 4px;
+            font-size: 13px; color: var(--accent-orange); border: 1px solid var(--border-color);
+        }
+
+        /* ─── Method Block ─────────────────────────────────────────── */
+        .method-block {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 10px; margin: 20px 0 28px; overflow: hidden;
+        }
+        .method-header {
+            background: var(--bg-tertiary); padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .method-header code { font-size: 14px; color: var(--accent-cyan); background: none; border: none; padding: 0; }
+        .method-tag {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.8px; padding: 3px 8px; border-radius: 4px;
+        }
+        .tag-public { background: rgba(92, 203, 160, 0.15); color: var(--accent-green); }
+        .tag-private { background: rgba(239, 107, 115, 0.15); color: var(--accent-red); }
+        .tag-override { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+        .tag-property { background: rgba(232, 212, 77, 0.15); color: var(--accent-yellow); }
+        .tag-signal { background: rgba(232, 124, 160, 0.15); color: var(--accent-pink); }
+        .method-body { padding: 16px 20px; }
+        .method-body p { margin-bottom: 10px; }
+
+        /* ─── Tables ───────────────────────────────────────────────── */
+        .param-table, .attr-table {
+            width: 100%; border-collapse: collapse; margin: 12px 0 14px; font-size: 13.5px;
+        }
+        .param-table th, .attr-table th {
+            text-align: left; padding: 8px 12px; background: var(--bg-tertiary);
+            color: var(--text-muted); font-weight: 600; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .param-table td, .attr-table td {
+            padding: 8px 12px; border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .param-table td code, .attr-table td code { color: var(--accent-orange); }
+        .attr-table td:first-child code { color: var(--accent-cyan); }
+
+        .returns-block {
+            background: var(--bg-tertiary); border-radius: 6px;
+            padding: 10px 14px; margin-top: 10px; font-size: 13.5px;
+        }
+        .returns-block strong { color: var(--accent-green); }
+
+        /* ─── Info Boxes ───────────────────────────────────────────── */
+        .info-box { border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-size: 14px; }
+        .info-box.note { background: rgba(91, 156, 245, 0.08); border-left: 4px solid var(--accent-blue); color: var(--accent-blue); }
+        .info-box.warning { background: rgba(240, 164, 93, 0.08); border-left: 4px solid var(--accent-orange); color: var(--accent-orange); }
+        .info-box.important { background: rgba(239, 107, 115, 0.08); border-left: 4px solid var(--accent-red); color: var(--accent-red); }
+        .info-box.tip { background: rgba(92, 203, 160, 0.08); border-left: 4px solid var(--accent-green); color: var(--accent-green); }
+        .info-box p { color: var(--text-secondary); margin-bottom: 0; }
+        .info-box .box-title { font-weight: 700; margin-bottom: 6px; }
+
+        /* ─── Diagram ──────────────────────────────────────────────── */
+        .diagram {
+            background: var(--bg-code); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 20px 24px; margin: 18px 0;
+            font-family: 'Consolas', 'Fira Code', monospace; font-size: 13px;
+            line-height: 1.5; color: var(--accent-green); overflow-x: auto; white-space: pre;
+        }
+
+        /* ─── Badge ────────────────────────────────────────────────── */
+        .badge {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+        }
+        .badge-inherits { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+        .badge-type { background: rgba(77, 201, 246, 0.12); color: var(--accent-cyan); }
+
+        /* ─── Class Card ───────────────────────────────────────────── */
+        .class-card {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 12px; margin: 24px 0 32px; overflow: hidden;
+        }
+        .class-card-header {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            padding: 20px 24px; border-bottom: 1px solid var(--border-color);
+        }
+        .class-card-header h3 { margin: 0; color: var(--accent-cyan); font-size: 22px; }
+        .class-card-header .inherits { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+        .class-card-header .inherits code { color: var(--accent-purple); background: none; border: none; padding: 0; }
+        .class-card-body { padding: 20px 24px; }
+        .class-card-body p { color: var(--text-secondary); }
+
+        /* ─── Signal Badge Row ─────────────────────────────────────── */
+        .signal-row {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 0; border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+        .signal-row:last-child { border-bottom: none; }
+        .signal-row code { color: var(--accent-pink); background: none; border: none; padding: 0; font-size: 14px; }
+        .signal-row .signal-desc { color: var(--text-secondary); }
+
+        /* ─── Scrollbar ────────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════════════════════════ -->
+<nav class="sidebar">
+    <div class="sidebar-logo">
+        <h2>CardGridView.py</h2>
+        <span>Technical Documentation</span>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="#overview" class="nav-link">Module Overview</a>
+        <a href="#dependencies" class="nav-link">Dependencies</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">CardWidget</div>
+        <a href="#card-widget" class="nav-link">Class Overview</a>
+        <a href="#card-widget-ctor" class="nav-link indent">Constructor</a>
+        <a href="#card-widget-signals" class="nav-link indent">Signals</a>
+        <a href="#card-widget-methods" class="nav-link indent">Methods</a>
+        <a href="#card-widget-selection" class="nav-link indent">Selection System</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">CardGridView</div>
+        <a href="#card-grid-view" class="nav-link">Class Overview</a>
+        <a href="#card-grid-ctor" class="nav-link indent">Constructor</a>
+        <a href="#card-grid-signals" class="nav-link indent">Signals</a>
+        <a href="#card-grid-ui" class="nav-link indent">UI Setup</a>
+        <a href="#card-grid-crud" class="nav-link indent">Card CRUD</a>
+        <a href="#card-grid-selection" class="nav-link indent">Selection</a>
+        <a href="#card-grid-infinite" class="nav-link indent">Infinite Scroll</a>
+        <a href="#card-grid-state" class="nav-link indent">State Management</a>
+        <a href="#card-grid-columns" class="nav-link indent">Column Management</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Reference</div>
+        <a href="#method-index" class="nav-link">Full Method Index</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════════════ -->
+<main class="main-content">
+
+    <!-- ─── Overview ─────────────────────────────────────────────────── -->
+    <h1 id="overview">
+        CardGridView.py
+        <span class="module-path">PySideAbdhUI — Card Grid with Infinite Scroll &amp; Selection</span>
+    </h1>
+
+    <p>
+        <code>CardGridView.py</code> provides two tightly-coupled widget classes that together implement a
+        scrollable, selectable card grid with infinite-scroll loading support. The module is designed
+        for scenarios where the user needs to browse a collection of items displayed as uniform cards
+        in a responsive grid layout — such as product catalogs, media libraries, search results, or
+        dashboard panels. The architecture separates the visual representation of an individual card
+        (<code>CardWidget</code>) from the grid container that manages layout, selection, and data loading
+        (<code>CardGridView</code>).
+    </p>
+
+    <p>
+        The <code>CardWidget</code> class wraps any arbitrary <code>QWidget</code> inside a styled card frame,
+        providing click detection and a visual selection toggle. The <code>CardGridView</code> class manages
+        a dictionary of cards indexed by integer IDs, handles single-selection semantics, supports
+        dynamic column reconfiguration, and implements an infinite-scroll pattern that emits a signal
+        when the user scrolls near the bottom, allowing the parent to load additional data. Auxiliary
+        UI states — loading indicators, "Load More" buttons, and empty-state messages — are managed
+        internally and shown/hidden as appropriate.
+    </p>
+
+    <!-- ─── Dependencies ─────────────────────────────────────────────── -->
+    <h2 id="dependencies">Dependencies</h2>
+
+    <table class="attr-table">
+        <thead><tr><th>Module</th><th>Components Used</th><th>Purpose</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><code>PySide6.QtWidgets</code></td>
+                <td><code>QWidget</code>, <code>QVBoxLayout</code>, <code>QGridLayout</code>, <code>QScrollArea</code>, <code>QLabel</code>, <code>QPushButton</code></td>
+                <td>Core widget classes for building the card grid, scroll container, and auxiliary UI elements.</td>
+            </tr>
+            <tr>
+                <td><code>PySide6.QtCore</code></td>
+                <td><code>Qt</code>, <code>Signal</code></td>
+                <td>Alignment/enum flags and the signal/slot system for event communication.</td>
+            </tr>
+            <tr>
+                <td><code>typing</code></td>
+                <td><code>List</code>, <code>Dict</code>, <code>Optional</code></td>
+                <td>Type annotations for method signatures and internal data structures.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ─── Architecture ─────────────────────────────────────────────── -->
+    <h2 id="architecture">Architecture</h2>
+
+    <p>
+        The module follows a container-item pattern where <code>CardGridView</code> owns and manages
+        <code>CardWidget</code> instances. Each card wraps an arbitrary user-provided widget and sits
+        inside a grid layout within a scroll area. The following diagram illustrates the widget
+        hierarchy:
+    </p>
+
+    <div class="diagram">Widget Hierarchy:
+
+CardGridView (QWidget)
+└── QVBoxLayout
+    └── QScrollArea (self.scroll_area)
+        └── Container QWidget (class: surface-background-layer)
+            └── QGridLayout (self.grid_layout)
+                ├── CardWidget [0,0] ──┐
+                ├── CardWidget [0,1] ──┤  Each CardWidget contains:
+                ├── CardWidget [1,0] ──┤  ┌────────────────────┐
+                ├── CardWidget [1,1] ──┤  │ QGridLayout        │
+                ├── ...                │  │ ┌────────────────┐ │
+                ├── loading_label      │  │ │ background_layer│ │
+                ├── load_more_button   │  │ │ (class: card)  │ │
+                └── empty_label        │  │ ├────────────────┤ │
+                                       │  │ │ user widget    │ │
+                                       │  │ │ (overlaid)    │ │
+                                       │  │ └────────────────┘ │
+                                       │  └────────────────────┘
+                                       └──────────────────────────┘
+
+Card Position Calculation:
+  row = card_index // columns
+  col = card_index %  columns</div>
+
+    <p>
+        Each <code>CardWidget</code> uses a <code>QGridLayout</code> with both the background layer and the
+        user widget placed at position <code>[0,0]</code>. Since <code>QGridLayout</code> stacks widgets at the
+        same cell in Z-order (later additions on top), the user widget is visually above the
+        background layer. The background layer's CSS class changes between <code>card</code> and
+        <code>card-selected</code> to indicate selection state, while the user widget always remains
+        interactive on top.
+    </p>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: CardWidget
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="card-widget">CardWidget</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>CardWidget</h3>
+            <div class="inherits">Inherits <code>QWidget</code></div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                A wrapper widget that encapsulates any user-provided <code>QWidget</code> inside a styled
+                card frame with click detection and visual selection toggling. The card consists of
+                two layers stacked at the same grid position: a <code>background_layer</code> widget whose
+                CSS class switches between <code>card</code> and <code>card-selected</code>, and the user
+                widget that sits on top. When the card is clicked, the <code>clicked</code> signal is
+                emitted, allowing the parent <code>CardGridView</code> to handle selection logic.
+            </p>
+            <p>
+                The selection state is purely visual — toggling selection changes the background
+                layer's CSS class and forces a style re-polish so the new class takes effect
+                immediately. The card does not enforce any selection policy itself; that is the
+                responsibility of <code>CardGridView</code>.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── Constructor ───────────────────────────────────────────────── -->
+    <h3 id="card-widget-ctor">Constructor</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>CardWidget.__init__(self, widget: QWidget, parent=None)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Creates a card wrapping the given widget. The widget is stored as
+                <code>self.widget</code> for later access and replacement. The selection state is
+                initialized to <code>False</code>, and <code>setup_ui()</code> is called to build the
+                visual structure.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>widget</code></td><td><code>QWidget</code></td><td>The user-defined widget to display inside the card. This can be any QWidget subclass — a form, an image viewer, a custom layout, etc.</td></tr>
+                    <tr><td><code>parent</code></td><td><code>QWidget</code></td><td>Optional parent widget for Qt ownership.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ─── Signals ───────────────────────────────────────────────────── -->
+    <h3 id="card-widget-signals">Signals</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>clicked = Signal(QWidget)</code>
+            <span class="method-tag tag-signal">Signal</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Emitted when the card receives a mouse press event. The signal carries a reference
+                to the <code>CardWidget</code> instance itself (as a <code>QWidget</code> type), allowing
+                the receiving slot to identify which card was clicked. The <code>CardGridView</code>
+                connects this signal to its <code>select_card()</code> method to implement single-selection
+                semantics.
+            </p>
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> The signal type is <code>Signal(QWidget)</code>, so the emitted value is the <code>CardWidget</code> instance upcast to <code>QWidget</code>. The receiver may need to cast it back to <code>CardWidget</code> to access card-specific properties like <code>widget</code> or <code>toggle_selection()</code>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Methods ───────────────────────────────────────────────────── -->
+    <h3 id="card-widget-methods">Methods</h3>
+
+    <!-- setup_ui -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setup_ui(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Constructs the card's visual structure. A <code>QGridLayout</code> with 2px margins and
+                2px spacing is created. Two widgets are placed at position <code>[0,0]</code>:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>background_layer</strong>: A <code>QWidget</code> with CSS class <code>card</code> that serves as the visual background. Its class changes to <code>card-selected</code> when selected.</li>
+                <li><strong>widget</strong>: The user-provided widget, placed at the same grid position so it overlaps the background layer.</li>
+            </ol>
+            <p>
+                The mouse press event is redirected by assigning <code>self.mousePressEvent = self._on_click</code>,
+                which means any default <code>mousePressEvent</code> behavior from <code>QWidget</code> is
+                completely replaced. This ensures clicks anywhere on the card (including on the
+                user widget) are captured.
+            </p>
+            <div class="info-box warning">
+                <p><span class="box-title">Important:</span> The <code>mousePressEvent</code> is replaced by direct attribute assignment rather than overriding the method. This means if a subclass overrides <code>mousePressEvent</code> after <code>setup_ui()</code> is called, the click handler will be overridden. Also, the original <code>event</code> parameter from the mouse press is not passed to the signal — only the card reference is emitted.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- _on_click -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_on_click(self, event)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Click handler that emits the <code>clicked</code> signal with <code>self</code> as the
+                argument. This method is assigned to <code>self.mousePressEvent</code> in
+                <code>setup_ui()</code>, replacing the default event handler. The <code>event</code>
+                parameter (a <code>QMouseEvent</code>) is received but not used — the handler does
+                not distinguish between left, right, or middle mouse button clicks.
+            </p>
+        </div>
+    </div>
+
+    <!-- update_widget -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>update_widget(self, widget: QWidget)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Replaces the current user widget inside the card with a new one. The old widget
+                is removed from the layout, detached from its parent (<code>setParent(None)</code> is
+                implicit via <code>deleteLater()</code>), and scheduled for deletion. The new widget
+                is stored as <code>self.widget</code> and added to the card's layout at the same
+                position. The background layer remains untouched — only the user content is swapped.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>widget</code></td><td><code>QWidget</code></td><td>The new widget to display inside the card.</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box tip">
+                <p><span class="box-title">Tip:</span> This method is useful for updating card content in-place without removing and re-adding the entire card, which would disrupt the grid layout and selection state.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Selection System ──────────────────────────────────────────── -->
+    <h3 id="card-widget-selection">Selection System</h3>
+
+    <!-- toggle_selection -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>toggle_selection(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Toggles the card's visual selection state. When toggled to selected, the
+                background layer's CSS class changes from <code>card</code> to <code>card-selected</code>.
+                When toggled to deselected, it reverts to <code>card</code>. After changing the
+                property, the style system is forced to re-evaluate by manually unpolishing
+                and re-polishing the background layer's style:
+            </p>
+            <pre><code>self.background_layer.style().unpolish(self.background_layer)
+self.background_layer.style().polish(self.background_layer)</code></pre>
+            <p>
+                This unpolish/re-polish pattern is necessary because Qt's style sheet engine caches
+                property-based selectors. Simply changing a property value does not automatically
+                trigger a style re-evaluation — the engine must be explicitly told to re-apply
+                the style sheet rules to the widget.
+            </p>
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> The <code>_selected</code> flag is tracked internally but is not exposed as a public property. If external code needs to check whether a card is selected, it would need to inspect the <code>background_layer</code>'s CSS class property or add a getter method.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: CardGridView
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="card-grid-view">CardGridView</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>CardGridView</h3>
+            <div class="inherits">Inherits <code>QWidget</code></div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                A scrollable grid container that manages a collection of <code>CardWidget</code> instances
+                arranged in a configurable column layout. The class provides a complete CRUD API
+                for cards (add, update, get, remove, clear), single-selection semantics with visual
+                feedback, infinite-scroll data loading, and auxiliary UI states (loading indicator,
+                "Load More" button, empty-state message). Cards are tracked by integer IDs in an
+                internal dictionary, and the grid position of each card is calculated automatically
+                based on its insertion order and the current column count.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── Constructor ───────────────────────────────────────────────── -->
+    <h3 id="card-grid-ctor">Constructor</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>CardGridView.__init__(self, columns: int = 2, parent=None)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initializes the grid view with a default 2-column layout. The constructor calls
+                <code>setup_ui()</code> to build the visual structure, then initializes the internal
+                state variables for card tracking, selection, and infinite-scroll management.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>columns</code></td><td><code>int</code></td><td><code>2</code></td><td>The initial number of columns in the grid layout. Must be at least 1.</td></tr>
+                    <tr><td><code>parent</code></td><td><code>QWidget</code></td><td><code>None</code></td><td>Optional parent widget for Qt ownership.</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Internal State</h4>
+            <table class="attr-table">
+                <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>selected_card</code></td><td><code>Optional[CardWidget]</code></td><td><code>None</code></td><td>Reference to the currently selected card, or None if no card is selected.</td></tr>
+                    <tr><td><code>cards</code></td><td><code>Dict[int, CardWidget]</code></td><td><code>{}</code></td><td>Dictionary mapping integer card IDs to their <code>CardWidget</code> instances.</td></tr>
+                    <tr><td><code>columns</code></td><td><code>int</code></td><td><code>2</code></td><td>Current number of grid columns. Affects card positioning calculations.</td></tr>
+                    <tr><td><code>has_more</code></td><td><code>bool</code></td><td><code>True</code></td><td>Whether more data is available for loading. Controlled by the parent. Set to <code>False</code> when all data has been loaded.</td></tr>
+                    <tr><td><code>is_loading</code></td><td><code>bool</code></td><td><code>False</code></td><td>Whether a loading operation is currently in progress. Prevents duplicate load requests.</td></tr>
+                    <tr><td><code>load_threshold</code></td><td><code>int</code></td><td><code>100</code></td><td>Distance in pixels from the scroll bottom that triggers the next page load.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ─── Signals ───────────────────────────────────────────────────── -->
+    <h3 id="card-grid-signals">Signals</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>card_selected = Signal(QWidget)</code>
+            <span class="method-tag tag-signal">Signal</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Emitted when a card is selected (clicked). The signal carries the <strong>inner
+                widget</strong> of the selected card (i.e., <code>card.widget</code>, not the
+                <code>CardWidget</code> itself). This gives the receiver direct access to the
+                user-defined content of the selected card, which is typically what application
+                code needs to react to.
+            </p>
+        </div>
+    </div>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>card_removed = Signal(QWidget)</code>
+            <span class="method-tag tag-signal">Signal</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Emitted when a card is removed from the grid. The signal carries the <strong>inner
+                widget</strong> of the removed card, allowing the receiver to perform cleanup or
+                update other UI elements in response to the removal.
+            </p>
+        </div>
+    </div>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>load_more_requested = Signal()</code>
+            <span class="method-tag tag-signal">Signal</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Emitted when the infinite-scroll system detects that more data should be loaded
+                (either because the user scrolled near the bottom or the "Load More" button was
+                clicked). The parent should connect to this signal, fetch additional data, and
+                call <code>add_card()</code> for each new item. After adding, the parent should call
+                <code>hide_loading_indicator()</code> to clear the loading state. If no more data
+                is available, the parent should set <code>has_more = False</code>.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── UI Setup ──────────────────────────────────────────────────── -->
+    <h3 id="card-grid-ui">UI Setup</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>setup_ui(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Constructs the complete visual structure of the grid view. The layout hierarchy
+                is as follows:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Outer layout</strong>: A <code>QVBoxLayout</code> with zero margins fills the entire <code>CardGridView</code> widget.</li>
+                <li><strong>Scroll area</strong>: A <code>QScrollArea</code> with <code>setWidgetResizable(True)</code> so the container stretches to fill the available width. Both horizontal and vertical scroll bars are set to <code>ScrollBarAsNeeded</code>.</li>
+                <li><strong>Container widget</strong>: A plain <code>QWidget</code> with CSS class <code>surface-background-layer</code> that holds the grid layout. This provides the visual background for the card area.</li>
+                <li><strong>Grid layout</strong>: A <code>QGridLayout</code> with 2px spacing and 3px margins where cards are placed.</li>
+            </ol>
+            <p>
+                Three auxiliary UI elements are created but initially hidden:
+            </p>
+            <ul style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>loading_label</strong>: A <code>QLabel</code> with text "Loading more items..." styled in gray, centered, with 20px padding. Shown during infinite-scroll loading.</li>
+                <li><strong>load_more_button</strong>: A <code>QPushButton</code> with text "Load More" and a pointing hand cursor. Provides an optional manual trigger for loading more data. Note: the click connection is commented out in the source.</li>
+                <li><strong>empty_label</strong>: A <code>QLabel</code> with text "No results found." styled in 18px gray, centered, with 50px padding. Shown when the grid has no cards.</li>
+            </ul>
+            <p>
+                The scroll area's vertical scrollbar <code>valueChanged</code> signal is connected to
+                <code>on_scroll_changed()</code> to implement infinite-scroll detection.
+            </p>
+            <div class="info-box warning">
+                <p><span class="box-title">Known Issue:</span> The <code>load_more_button.clicked</code> signal connection is commented out in the source code (<code>#self.load_more_button.clicked.connect(self.on_load_more_clicked)</code>). This means clicking the "Load More" button does nothing unless the connection is manually established by the user of this class.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Card CRUD ─────────────────────────────────────────────────── -->
+    <h3 id="card-grid-crud">Card CRUD Operations</h3>
+
+    <!-- add_card -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>add_card(self, card_id: int, widget: QWidget) -&gt; CardWidget</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Adds a new card to the grid. The card is created by wrapping the provided widget
+                in a <code>CardWidget</code>, which is then connected to the grid's selection handler
+                (<code>select_card</code>). The grid position is calculated based on the current
+                number of cards in the dictionary and the column count: <code>row = count // columns</code>,
+                <code>col = count % columns</code>. The card is stored in the <code>cards</code> dictionary
+                by its ID and added to the grid layout at the calculated position.
+            </p>
+            <p>
+                If a card with the same ID already exists, a <code>ValueError</code> is raised to
+                prevent duplicate IDs from corrupting the dictionary.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>card_id</code></td><td><code>int</code></td><td>Unique integer identifier for the card. Used for all subsequent CRUD operations.</td></tr>
+                    <tr><td><code>widget</code></td><td><code>QWidget</code></td><td>The user-defined widget to display inside the card.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>CardWidget</code> — The created card widget, allowing the caller to further customize it if needed.</div>
+        </div>
+    </div>
+
+    <!-- update_card -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>update_card(self, card_id: int, widget: QWidget) -&gt; bool</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Replaces the inner widget of an existing card with a new widget. The card's
+                position in the grid and its selection state are preserved — only the user
+                content is swapped. This is more efficient than removing and re-adding a card,
+                which would require reorganizing the entire grid.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>card_id</code></td><td><code>int</code></td><td>ID of the card to update.</td></tr>
+                    <tr><td><code>widget</code></td><td><code>QWidget</code></td><td>The new widget to display inside the card.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>True</code> if the card was found and updated; <code>False</code> if the card ID does not exist.</div>
+        </div>
+    </div>
+
+    <!-- get_card -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_card(self, card_id: int) -&gt; Optional[QWidget]</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Retrieves the inner user widget of a card by its ID. This returns the widget
+                that was passed to <code>add_card()</code>, not the <code>CardWidget</code> wrapper.
+                Use this to access or modify the content of a specific card.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>card_id</code></td><td><code>int</code></td><td>ID of the card to retrieve.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> The inner <code>QWidget</code> if the card exists; <code>None</code> otherwise.</div>
+        </div>
+    </div>
+
+    <!-- get_cards -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_cards(self) -&gt; List[QWidget]</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Returns a list of all inner user widgets in the grid, in dictionary insertion
+                order (which, for Python 3.7+, is the order in which cards were added). This
+                is useful for batch operations like iterating over all card contents.
+            </p>
+            <div class="returns-block"><strong>Returns:</strong> <code>List[QWidget]</code> — List of all card inner widgets.</div>
+        </div>
+    </div>
+
+    <!-- remove_card -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>remove_card(self, card_id: int) -&gt; bool</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Removes a card from the grid by its ID. The removal process involves several
+                steps:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li>If the card is currently selected, <code>selected_card</code> is reset to <code>None</code>.</li>
+                <li>The card widget is removed from the grid layout and scheduled for deletion via <code>deleteLater()</code>.</li>
+                <li>The card is removed from the <code>cards</code> dictionary.</li>
+                <li>All remaining cards are reorganized in the grid via <code>_reorganize_cards()</code> to fill the gap left by the removed card.</li>
+                <li>The <code>card_removed</code> signal is emitted with the removed card's inner widget.</li>
+                <li>UI helper elements (loading indicator, load more button, empty message) are hidden.</li>
+            </ol>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>card_id</code></td><td><code>int</code></td><td>ID of the card to remove.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>True</code> if the card was found and removed; <code>False</code> if the card ID does not exist.</div>
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> The <code>card_removed</code> signal is emitted <em>after</em> the card is removed from the dictionary and the grid, but the inner widget reference is still valid at the time of emission since <code>deleteLater()</code> only schedules deletion for the next event loop iteration.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Selection ─────────────────────────────────────────────────── -->
+    <h3 id="card-grid-selection">Card Selection</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>select_card(self, card: CardWidget)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Implements single-selection semantics for the grid. When a card is clicked:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li>If another card was previously selected, its selection is toggled off (CSS class reverts to <code>card</code>).</li>
+                <li>The clicked card's selection is toggled on (CSS class changes to <code>card-selected</code>).</li>
+                <li>The <code>selected_card</code> reference is updated to the clicked card.</li>
+                <li>The <code>card_selected</code> signal is emitted with the card's inner widget.</li>
+            </ol>
+            <p>
+                This method is automatically connected to each <code>CardWidget.clicked</code> signal
+                when the card is added via <code>add_card()</code>. It can also be called programmatically
+                to select a specific card.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>card</code></td><td><code>CardWidget</code></td><td>The card to select. This is the <code>CardWidget</code> instance, not the inner widget.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ─── Infinite Scroll ───────────────────────────────────────────── -->
+    <h3 id="card-grid-infinite">Infinite Scroll &amp; Loading</h3>
+
+    <p>
+        The infinite-scroll system automatically triggers data loading when the user scrolls
+        near the bottom of the grid. It consists of three components: a scroll-position watcher,
+        a loading state manager, and a signal-based data request mechanism. The parent component
+        controls the availability of more data via the <code>has_more</code> flag.
+    </p>
+
+    <div class="diagram">Infinite Scroll Flow:
+
+  ┌─────────────────────────────────────────┐
+  │          CardGridView                   │
+  │                                         │
+  │  User scrolls down                      │
+  │       │                                 │
+  │       ▼                                 │
+  │  on_scroll_changed(value)               │
+  │       │                                 │
+  │       ├── has_more? ──── No ──→ return  │
+  │       ├── is_loading? ── Yes ─→ return  │
+  │       │                                 │
+  │       ▼                                 │
+  │  scrollbar.max - value <= threshold?    │
+  │       │                                 │
+  │       ├── No ──→ return                 │
+  │       │                                 │
+  │       ▼                                 │
+  │  load_next_page()                       │
+  │       │                                 │
+  │       ├── show_loading_indicator()      │
+  │       └── emit load_more_requested      │
+  │                                         │
+  │  ═════════════════════════════════════  │
+  │                                         │
+  │  Parent receives signal                 │
+  │       │                                 │
+  │       ├── Fetches data                  │
+  │       ├── Calls add_card() for each     │
+  │       ├── Calls hide_loading_indicator()│
+  │       └── Sets has_more = False if done │
+  └─────────────────────────────────────────┘</div>
+
+    <!-- on_scroll_changed -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>on_scroll_changed(self, value: int)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Connected to the vertical scrollbar's <code>valueChanged</code> signal. Checks two
+                guard conditions: if <code>has_more</code> is <code>False</code> (all data loaded)
+                or <code>is_loading</code> is <code>True</code> (request already in progress), the
+                method returns immediately. Otherwise, it calculates whether the current scroll
+                position is within <code>load_threshold</code> pixels of the maximum scroll position.
+                If so, <code>load_next_page()</code> is called to trigger the next data load.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>value</code></td><td><code>int</code></td><td>The current value of the vertical scrollbar.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- on_load_more_clicked -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>on_load_more_clicked(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Handler for the "Load More" button click. Delegates to <code>load_next_page()</code>.
+                Note that the connection to this handler is commented out in the source code, so
+                this method currently has no effect unless manually connected.
+            </p>
+        </div>
+    </div>
+
+    <!-- load_next_page -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>load_next_page(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initiates the next data load cycle. Checks <code>has_more</code> and
+                <code>is_loading</code> guards, then shows the loading indicator and emits the
+                <code>load_more_requested</code> signal. The parent component should respond to this
+                signal by fetching additional data, adding cards via <code>add_card()</code>, and
+                then calling <code>hide_loading_indicator()</code> to clear the loading state.
+            </p>
+        </div>
+    </div>
+
+    <!-- show/hide loading indicator -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>show_loading_indicator(self) / hide_loading_indicator(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                <code>show_loading_indicator()</code> displays the "Loading more items..." label
+                at the bottom of the grid. If the label has not yet been added to the layout
+                (<code>parent() is None</code>), it is inserted at the next available row spanning
+                all columns. The <code>is_loading</code> flag is set to <code>True</code>.
+            </p>
+            <p>
+                <code>hide_loading_indicator()</code> hides the label and resets
+                <code>is_loading</code> to <code>False</code>, allowing subsequent scroll-triggered
+                loads to proceed. This method must be called by the parent after data has been
+                loaded and added to the grid.
+            </p>
+        </div>
+    </div>
+
+    <!-- show/hide load more button -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>show_load_more_button(self) / hide_load_more_button(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                <code>show_load_more_button()</code> displays the "Load More" button at the bottom
+                of the grid. If the button has not yet been added to the layout, it is inserted at
+                the next available row spanning all columns. This provides a manual fallback for
+                loading more data when infinite scroll is not desired or not working.
+            </p>
+            <p>
+                <code>hide_load_more_button()</code> hides the button. Both methods simply toggle
+                visibility without removing the widget from the layout.
+            </p>
+        </div>
+    </div>
+
+    <!-- show/hide empty message -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>show_empty_message(self, message: str = "No results found.") / hide_empty_message(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                <code>show_empty_message()</code> displays a centered empty-state message at the
+                bottom of the grid. The message text is customizable via the <code>message</code>
+                parameter, defaulting to "No results found." If the label has not yet been added
+                to the layout, it is inserted at the next available row spanning all columns.
+            </p>
+            <p>
+                <code>hide_empty_message()</code> hides the empty state label.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>message</code></td><td><code>str</code></td><td><code>"No results found."</code></td><td>Custom empty-state message text.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ─── State Management ──────────────────────────────────────────── -->
+    <h3 id="card-grid-state">State Management</h3>
+
+    <!-- reset -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>reset(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Resets the grid view to its initial state for a new data set. This is typically
+                called before starting a new search or refreshing the entire card list. The method
+                performs the following steps:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li>Calls <code>clear()</code> to remove all cards and reset UI elements.</li>
+                <li>Sets <code>has_more = True</code> to re-enable infinite scroll.</li>
+                <li>Sets <code>is_loading = False</code> to clear any stuck loading state.</li>
+                <li>Scrolls the scrollbar back to the top (value = 0).</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- clear -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>clear(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Removes all cards and auxiliary UI elements from the grid. The method iterates
+                through all items in the grid layout, removes each widget from its parent, and
+                schedules it for deletion via <code>deleteLater()</code>. The <code>cards</code> dictionary
+                is not explicitly cleared here, but all widget references become invalid after
+                deletion. The <code>selected_card</code> is reset to <code>None</code>, and all UI
+                helper elements (loading indicator, load more button, empty message) are hidden.
+            </p>
+            <div class="info-box warning">
+                <p><span class="box-title">Known Issue:</span> The <code>clear()</code> method removes widgets from the layout and schedules them for deletion, but it does not clear the <code>self.cards</code> dictionary. This means that after calling <code>clear()</code>, the dictionary still contains stale references to deleted widgets, which could cause issues if <code>add_card()</code> is called with the same IDs (it would raise <code>ValueError</code> for duplicates). The <code>reset()</code> method also does not clear the dictionary. This should be addressed by adding <code>self.cards.clear()</code> to the <code>clear()</code> method.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Column Management ─────────────────────────────────────────── -->
+    <h3 id="card-grid-columns">Column Management</h3>
+
+    <!-- set_columns -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>set_columns(self, columns: int)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Changes the number of columns in the grid and reorganizes all existing cards
+                to fit the new layout. The column count must be at least 1; a <code>ValueError</code>
+                is raised for invalid values. After updating <code>self.columns</code>,
+                <code>_reorganize_cards()</code> is called to recalculate the grid positions of
+                all cards.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>columns</code></td><td><code>int</code></td><td>The new number of columns. Must be &ge; 1.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- _reorganize_cards -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_reorganize_cards(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Recalculates and reassigns grid positions for all cards based on their order in
+                the <code>cards</code> dictionary and the current column count. Each card's position
+                is calculated as <code>row = index // columns</code>, <code>col = index % columns</code>.
+                The method calls <code>addWidget()</code> for each card, which automatically moves
+                existing widgets to their new positions within the grid layout.
+            </p>
+            <p>
+                This method is called after a card is removed (to fill the gap) or after the
+                column count is changed (to reflow the entire grid). The dictionary iteration
+                order determines the visual order of cards in the grid.
+            </p>
+            <div class="diagram">Reorganization Examples:
+
+2 Columns → 3 Columns:
+  ┌────┬────┐        ┌────┬────┬────┐
+  │ 0  │ 1  │        │ 0  │ 1  │ 2  │
+  ├────┼────┤   →    ├────┼────┼────┤
+  │ 2  │ 3  │        │ 3  │ 4  │ 5  │
+  ├────┼────┤        └────┴────┴────┘
+  │ 4  │ 5  │
+  └────┴────┘
+
+After Removing Card #2:
+  ┌────┬────┐        ┌────┬────┐
+  │ 0  │ 1  │        │ 0  │ 1  │
+  ├────┼────┤   →    ├────┼────┤
+  │ XX │ 3  │        │ 3  │ 4  │
+  ├────┼────┤        ├────┼────┤
+  │ 4  │ 5  │        │ 5  │    │
+  └────┴────┘        └────┴────┘</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FULL METHOD INDEX
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="method-index">Full Method Index</h2>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Class</th><th>Method</th><th>Visibility</th><th>Brief Description</th></tr>
+        </thead>
+        <tbody>
+            <!-- CardWidget -->
+            <tr><td rowspan="5" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">CardWidget</td>
+                <td><code>__init__</code></td><td>Public</td><td>Wrap a widget in a styled card frame</td></tr>
+            <tr><td><code>setup_ui</code></td><td>Private</td><td>Build layered card UI with click handler</td></tr>
+            <tr><td><code>_on_click</code></td><td>Private</td><td>Emit clicked signal on mouse press</td></tr>
+            <tr><td><code>update_widget</code></td><td>Public</td><td>Replace the inner widget</td></tr>
+            <tr><td><code>toggle_selection</code></td><td>Public</td><td>Toggle visual selection state</td></tr>
+
+            <!-- CardGridView -->
+            <tr><td rowspan="17" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">CardGridView</td>
+                <td><code>__init__</code></td><td>Public</td><td>Initialize grid with configurable columns</td></tr>
+            <tr><td><code>setup_ui</code></td><td>Private</td><td>Build scroll area, grid, and auxiliary UI</td></tr>
+            <tr><td><code>on_scroll_changed</code></td><td>Public</td><td>Detect near-bottom scroll for infinite loading</td></tr>
+            <tr><td><code>on_load_more_clicked</code></td><td>Public</td><td>Handle "Load More" button click</td></tr>
+            <tr><td><code>load_next_page</code></td><td>Public</td><td>Show loader and emit load_more_requested</td></tr>
+            <tr><td><code>show_loading_indicator</code></td><td>Public</td><td>Show "Loading more items..." label</td></tr>
+            <tr><td><code>hide_loading_indicator</code></td><td>Public</td><td>Hide loading label, reset is_loading</td></tr>
+            <tr><td><code>show_load_more_button</code></td><td>Public</td><td>Show manual "Load More" button</td></tr>
+            <tr><td><code>hide_load_more_button</code></td><td>Public</td><td>Hide "Load More" button</td></tr>
+            <tr><td><code>show_empty_message</code></td><td>Public</td><td>Show empty-state message</td></tr>
+            <tr><td><code>hide_empty_message</code></td><td>Public</td><td>Hide empty-state message</td></tr>
+            <tr><td><code>add_card</code></td><td>Public</td><td>Add card with unique ID, return CardWidget</td></tr>
+            <tr><td><code>update_card</code></td><td>Public</td><td>Replace inner widget of existing card</td></tr>
+            <tr><td><code>get_card</code></td><td>Public</td><td>Get inner widget by card ID</td></tr>
+            <tr><td><code>get_cards</code></td><td>Public</td><td>Get list of all inner widgets</td></tr>
+            <tr><td><code>remove_card</code></td><td>Public</td><td>Remove card by ID, reorganize grid</td></tr>
+            <tr><td><code>select_card</code></td><td>Public</td><td>Single-selection handler with visual toggle</td></tr>
+            <tr><td></td><td><code>reset</code></td><td>Public</td><td>Clear grid, reset scroll and state flags</td></tr>
+            <tr><td></td><td><code>clear</code></td><td>Public</td><td>Remove all cards and auxiliary UI</td></tr>
+            <tr><td></td><td><code>set_columns</code></td><td>Public</td><td>Change column count and reorganize</td></tr>
+            <tr><td></td><td><code>_reorganize_cards</code></td><td>Private</td><td>Recalculate grid positions for all cards</td></tr>
+        </tbody>
+    </table>
+
+    <div class="info-box important" style="margin-top: 40px;">
+        <p><span class="box-title">CSS Class Reference:</span> The following CSS class properties are used by the card system and must be defined in the application's stylesheet: <code>card</code> (default card background), <code>card-selected</code> (selected card background), and <code>surface-background-layer</code> (grid container background). Without these styles, the cards will appear unstyled.</p>
+    </div>
+
+</main>
+
+</body>
+</html>

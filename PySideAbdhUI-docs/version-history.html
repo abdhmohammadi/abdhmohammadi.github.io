@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PySideAbdhUI — Version History</title>
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #161822;
+            --bg-tertiary: #1c1f2e;
+            --bg-code: #1a1d2e;
+            --text-primary: #e4e6f0;
+            --text-secondary: #9ca0b0;
+            --text-muted: #6b7085;
+            --accent-blue: #5b9cf5;
+            --accent-cyan: #4dc9f6;
+            --accent-green: #5ccba0;
+            --accent-orange: #f0a45d;
+            --accent-red: #ef6b73;
+            --accent-purple: #b07eee;
+            --border-color: #2a2d3e;
+            --hover-bg: #22253a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ─── Top Navigation Bar ────────────────────────────────────── */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(15, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        .back-arrow {
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover .back-arrow {
+            transform: translateX(-3px);
+        }
+
+        .top-bar-sep {
+            width: 1px;
+            height: 24px;
+            background: var(--border-color);
+        }
+
+        .top-bar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .top-bar-badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            background: rgba(91, 156, 245, 0.12);
+            color: var(--accent-blue);
+            border: 1px solid rgba(91, 156, 245, 0.2);
+        }
+
+        /* ─── Page Header ───────────────────────────────────────────── */
+        .page-header {
+            padding: 56px 56px 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-header-inner {
+            max-width: 900px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .page-header .page-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            max-width: 660px;
+            line-height: 1.8;
+        }
+
+        /* ─── Filter Bar ────────────────────────────────────────────── */
+        .filter-bar {
+            padding: 20px 56px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: var(--bg-secondary);
+        }
+
+        .filter-btn {
+            padding: 6px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: rgba(91, 156, 245, 0.12);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .filter-btn[data-filter="major"].active {
+            background: rgba(92, 203, 160, 0.12);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .filter-btn[data-filter="minor"].active {
+            background: rgba(91, 156, 245, 0.12);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .filter-btn[data-filter="patch"].active {
+            background: rgba(176, 126, 238, 0.12);
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .filter-btn[data-filter="all"].active {
+            background: rgba(240, 164, 93, 0.12);
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        /* ─── Timeline ──────────────────────────────────────────────── */
+        .timeline-container {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 48px 56px 80px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 48px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 18px;
+            width: 2px;
+            height: 100%;
+            background: var(--border-color);
+        }
+
+        /* ─── Version Entry ─────────────────────────────────────────── */
+        .version-entry {
+            position: relative;
+            margin-bottom: 48px;
+            scroll-margin-top: 72px;
+        }
+
+        .version-entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .version-dot {
+            position: absolute;
+            left: -38px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary);
+            z-index: 2;
+        }
+
+        .version-entry.v-major .version-dot { background: var(--accent-green); box-shadow: 0 0 12px rgba(92, 203, 160, 0.4); }
+        .version-entry.v-minor .version-dot { background: var(--accent-blue); box-shadow: 0 0 10px rgba(91, 156, 245, 0.3); }
+        .version-entry.v-patch .version-dot { background: var(--accent-purple); box-shadow: 0 0 8px rgba(176, 126, 238, 0.3); }
+
+        .version-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .version-card:hover {
+            border-color: rgba(91, 156, 245, 0.3);
+        }
+
+        .version-entry.v-major .version-card:hover { border-color: rgba(92, 203, 160, 0.4); }
+        .version-entry.v-minor .version-card:hover { border-color: rgba(91, 156, 245, 0.4); }
+        .version-entry.v-patch .version-card:hover { border-color: rgba(176, 126, 238, 0.4); }
+
+        /* ─── Version Header ────────────────────────────────────────── */
+        .version-head {
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .version-head-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .version-number {
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        .version-entry.v-major .version-number { color: var(--accent-green); }
+        .version-entry.v-minor .version-number { color: var(--accent-blue); }
+        .version-entry.v-patch .version-number { color: var(--accent-purple); }
+
+        .version-type-badge {
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .v-major .version-type-badge { background: rgba(92, 203, 160, 0.12); color: var(--accent-green); }
+        .v-minor .version-type-badge { background: rgba(91, 156, 245, 0.12); color: var(--accent-blue); }
+        .v-patch .version-type-badge { background: rgba(176, 126, 238, 0.12); color: var(--accent-purple); }
+
+        .version-date {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ─── Version Body ──────────────────────────────────────────── */
+        .version-body {
+            padding: 20px 24px;
+        }
+
+        .version-summary {
+            font-size: 14.5px;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+
+        /* ─── Change Categories ─────────────────────────────────────── */
+        .change-category {
+            margin-bottom: 16px;
+        }
+
+        .change-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .change-category-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 10px;
+        }
+
+        .cat-icon {
+            font-size: 14px;
+        }
+
+        .change-category-title.cat-added   { color: var(--accent-green); }
+        .change-category-title.cat-changed  { color: var(--accent-blue); }
+        .change-category-title.cat-fixed    { color: var(--accent-orange); }
+        .change-category-title.cat-deprecated { color: var(--accent-red); }
+        .change-category-title.cat-removed  { color: var(--accent-red); }
+        .change-category-title.cat-security { color: var(--accent-cyan); }
+
+        .change-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .change-item {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: var(--bg-tertiary);
+            border-left: 3px solid transparent;
+            line-height: 1.6;
+        }
+
+        .cat-added + .change-list .change-item    { border-left-color: var(--accent-green); }
+        .cat-changed + .change-list .change-item   { border-left-color: var(--accent-blue); }
+        .cat-fixed + .change-list .change-item     { border-left-color: var(--accent-orange); }
+        .cat-deprecated + .change-list .change-item { border-left-color: var(--accent-red); }
+        .cat-removed + .change-list .change-item   { border-left-color: var(--accent-red); }
+        .cat-security + .change-list .change-item  { border-left-color: var(--accent-cyan); }
+
+        .change-item code {
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 12.5px;
+            background: var(--bg-code);
+            padding: 1px 6px;
+            border-radius: 3px;
+            color: var(--accent-orange);
+            border: 1px solid var(--border-color);
+        }
+
+        .change-item .module-tag {
+            display: inline-block;
+            padding: 1px 7px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 4px;
+        }
+
+        .module-tag.mt-window  { background: rgba(91, 156, 245, 0.12); color: var(--accent-blue); }
+        .module-tag.mt-widgets { background: rgba(77, 201, 246, 0.12); color: var(--accent-cyan); }
+        .module-tag.mt-grid    { background: rgba(92, 203, 160, 0.12); color: var(--accent-green); }
+        .module-tag.mt-utils   { background: rgba(240, 164, 93, 0.12); color: var(--accent-orange); }
+        .module-tag.mt-styles  { background: rgba(176, 126, 238, 0.12); color: var(--accent-purple); }
+        .module-tag.mt-editor  { background: rgba(239, 107, 115, 0.12); color: var(--accent-red); }
+        .module-tag.mt-all     { background: rgba(228, 230, 240, 0.08); color: var(--text-muted); }
+
+        /* ─── Module Scope Tags in Version Head ─────────────────────── */
+        .version-scope {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .scope-chip {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ─── Footer Nav ────────────────────────────────────────────── */
+        .footer-nav {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 56px;
+        }
+
+        .footer-nav-inner {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-nav-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-nav-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .footer-link:hover {
+            background: var(--hover-bg);
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+
+        /* ─── Scrollbar ─────────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ─── Responsive ────────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .top-bar {
+                padding: 0 20px;
+            }
+            .page-header {
+                padding: 36px 20px 28px;
+            }
+            .page-header h1 {
+                font-size: 28px;
+            }
+            .filter-bar {
+                padding: 16px 20px;
+            }
+            .timeline-container {
+                padding: 32px 20px 60px;
+            }
+            .timeline {
+                padding-left: 36px;
+            }
+            .timeline::before {
+                left: 12px;
+            }
+            .version-dot {
+                left: -30px;
+                width: 12px;
+                height: 12px;
+            }
+            .version-head {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .footer-nav {
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     TOP NAVIGATION BAR
+     ═══════════════════════════════════════════════════════════════════ -->
+<nav class="top-bar">
+    <div class="top-bar-left">
+        <a href="index.html" class="back-link">
+            <span class="back-arrow">&#8592;</span>
+            Documentation Hub
+        </a>
+        <div class="top-bar-sep"></div>
+        <span class="top-bar-title">Version History</span>
+    </div>
+    <span class="top-bar-badge">PySideAbdhUI</span>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE HEADER
+     ═══════════════════════════════════════════════════════════════════ -->
+<header class="page-header">
+    <div class="page-header-inner">
+        <h1>Version History</h1>
+        <p class="page-desc">
+            A chronological record of all changes to the PySideAbdhUI framework, organized by
+            semantic version. Each entry details new features, modifications, bug fixes, deprecations,
+            and breaking changes across all five modules. Use the filter buttons to narrow down by
+            release significance.
+        </p>
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     FILTER BAR
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="filter-bar">
+    <button class="filter-btn active" data-filter="all" onclick="filterVersions('all')">All Releases</button>
+    <button class="filter-btn" data-filter="major" onclick="filterVersions('major')">Major</button>
+    <button class="filter-btn" data-filter="minor" onclick="filterVersions('minor')">Minor</button>
+    <button class="filter-btn" data-filter="patch" onclick="filterVersions('patch')">Patch</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     TIMELINE
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="timeline-container">
+    <div class="timeline">
+
+        <!-- ═══════════ v1.0.0 ═══════════ -->
+        <div class="version-entry v-major" data-type="major" id="v1.0.0">
+            <div class="version-dot"></div>
+            <div class="version-card">
+                <div class="version-head">
+                    <div class="version-head-left">
+                        <span class="version-number">v1.0.0</span>
+                        <span class="version-type-badge">Major</span>
+                        <div class="version-scope">
+                            <span class="scope-chip mt-all module-tag">All Modules</span>
+                        </div>
+                    </div>
+                    <span class="version-date">2025-06-01</span>
+                </div>
+                <div class="version-body">
+                    <p class="version-summary">
+                        Initial stable release of the PySideAbdhUI framework. This version introduces the complete
+                        frameless window system with animated panels, a library of five reusable widgets, a card-based
+                        grid view with infinite scroll, a Chromium-based WYSIWYG rich text editor with KaTeX math
+                        rendering and PDF/DOCX import/export, a full resource and theme management pipeline with QSS
+                        template substitution and WCAG 2.0 contrast-based color generation, and a dedicated QSS
+                        stylesheet manager with accent color placeholder support and syntax validation.
+                    </p>
+
+                    <div class="change-category">
+                        <div class="change-category-title cat-added"><span class="cat-icon">&#43;</span> Added</div>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                <code>AbdhWindow</code> class: frameless <code>QMainWindow</code> with custom titlebar, collapsible left/right side panels, size-lock system, and 8-direction edge/corner resize.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Size-lock mechanism (<code>_lock_size</code> / <code>_unlock_size</code>) to prevent Qt layout auto-growth when child widgets change <code>sizeHint</code>.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Left panel dual-mode system: <strong>pinned</strong> (persistent sidebar) and <strong>overlay</strong> (auto-closing icon strip), toggled via <code>toggle_overlay()</code>.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Fade-in + slide animation on first <code>show()</code> using <code>QPropertyAnimation</code> with <code>OutQuad</code> easing.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Global <code>eventFilter</code> for auto-closing overlay panels on outside clicks and managing resize cursor shapes across the window.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                <code>StackedWidget</code>: animated page navigation with <code>go_back()</code>, <code>go_forward()</code>, <code>go_first()</code>, <code>go_last()</code>, and configurable <code>allow_same_types</code> page duplication check.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                <code>Separator</code>: horizontal or vertical divider line widget with configurable orientation and color.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                <code>Label</code>: styled <code>QLabel</code> subclass with consistent framework theming and CSS class <code>label</code>.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                <code>RingProgress</code>: circular progress indicator using <code>QPropertyAnimation</code> on a custom <code>progress_value</code> Qt property, rendered via <code>paintEvent</code>.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                <code>SearchBox</code>: search input widget with magnifying glass icon and clear button, emitting <code>textChanged</code> signals.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-grid">CardGrid</span>
+                                <code>CardWidget</code>: clickable card wrapper with selection state, hover highlighting, and <code>clicked</code> signal emission.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-grid">CardGrid</span>
+                                <code>CardGridView</code>: scrollable grid with CRUD API (<code>add_card</code>, <code>remove_card</code>, <code>get_card</code>, <code>clear</code>), dynamic column reconfiguration based on container width, and infinite scroll via <code>load_more</code> signal.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-grid">CardGrid</span>
+                                <code>card_clicked</code>, <code>card_selection_changed</code>, and <code>load_more</code> signals for event-driven card interaction patterns.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>get_resource_path()</code>: resolves packaged resource paths via <code>importlib.resources</code> with <code>pathlib.Path</code> return type.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>get_icon()</code>: loads SVG/PNG icons from the package's <code>icons/</code> directory and returns a <code>QIcon</code>.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>get_styles_template()</code>: reads QSS template files from the package's <code>styles/</code> directory.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>ThemeManager</code> class: JSON-persisted theme configuration with QSS template placeholder substitution, runtime widget property editing via regex, and <code>apply_theme()</code> to push stylesheets to <code>QApplication</code>.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>random_contrasting_hex()</code>: generates random hex colors with WCAG 2.0-compliant contrast ratios against a given background color.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>QtStyleSheetManager</code> class: regex-based QSS stylesheet lifecycle manager with file I/O, in-memory editing, and accent color placeholder system.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>add_property_to_widget()</code>: adds or updates a CSS property within a widget's stylesheet block using regex matching.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>remove_stylesheet_by_name()</code>: removes all stylesheet definitions for a given widget name, including pseudo-states (e.g., <code>:hover</code>).
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                Accent color placeholder system: <code>check_accent_color_placeholder()</code>, <code>extract_accent_color_value()</code>, and <code>replace_placeholder()</code> for token-based QSS theming.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>validate_stylesheet()</code>: static method that checks for unmatched braces, missing semicolons, and invalid characters in QSS source.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                <code>RichTextEditor</code> class: Chromium-based WYSIWYG rich text editor built on <code>QWebEngineView</code> with contenteditable HTML, multi-page layout, and document.title communication bridge.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                <code>DebugPage</code> class: custom <code>QWebEnginePage</code> subclass that mirrors JavaScript console messages to Python stdout.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                KaTeX math rendering: auto-detect and render LaTeX formulas in inline and display modes using bundled KaTeX resources.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                PDF import via Mozilla pdf.js (lazy-loaded) and PDF export via Chromium's built-in renderer with <code>QPageLayout</code> configuration.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                DOCX/ODT import/export via <code>pypandoc</code> with graceful degradation when Pandoc is not installed.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                Multi-page pagination engine: automatic overflow/underflow management with configurable page sizes (A4, Letter, B5, Edu-Item).
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                Image insertion with drag-and-drop repositioning and 8-directional resize handles, plus page-by-page PNG capture export.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                Table editing with column resize, row/column insertion via context menu, and Tab key navigation.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                Full text formatting API: bold, italic, underline, strikethrough, font family/size, text/background color, paragraph alignment, and bidirectional text.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                Zoom controls, page navigation, margin editing dialog, and dirty tracking with <code>isModified()</code>/<code>setClean()</code>.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <div class="change-category-title cat-fixed"><span class="cat-icon">&#9881;</span> Known Issues at Release</div>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                Typo: <code>allow_same_tyoes</code> in <code>StackedWidget</code> (should be <code>allow_same_types</code>). Functional impact: the attribute name is misspelled but consistent internally.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                Nested loop variable shadowing in <code>StackedWidget.add_page()</code> causing incorrect duplicate page detection.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-grid">CardGrid</span>
+                                <code>CardGridView.clear()</code> does not clear the internal <code>cards</code> dictionary, only removes widget items from the grid layout.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                Hardcoded Pandoc path (<code>C:\Program Files\Abdh\pandoc\pandoc.exe</code>) only works on Windows installations.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-editor">Editor</span>
+                                <code>QEventLoop</code> blocking for synchronous JS results can freeze the UI thread on slow operations.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ v0.4.0 ═══════════ -->
+        <div class="version-entry v-minor" data-type="minor" id="v0.4.0">
+            <div class="version-dot"></div>
+            <div class="version-card">
+                <div class="version-head">
+                    <div class="version-head-left">
+                        <span class="version-number">v0.4.0</span>
+                        <span class="version-type-badge">Minor</span>
+                        <div class="version-scope">
+                            <span class="scope-chip mt-styles module-tag">StyleManagers</span>
+                        </div>
+                    </div>
+                    <span class="version-date">2025-05-18</span>
+                </div>
+                <div class="version-body">
+                    <p class="version-summary">
+                        Introduction of the <code>QtStyleSheetManager</code> module, providing a regex-based QSS stylesheet
+                        lifecycle manager separate from the higher-level <code>ThemeManager</code> in utils.py. This module
+                        operates purely on string data with no Qt widget dependencies, making it suitable for headless
+                        stylesheet preprocessing and build-pipeline integration. It features an accent color placeholder
+                        system, property-level editing, widget-level removal, and static syntax validation.
+                    </p>
+
+                    <div class="change-category">
+                        <div class="change-category-title cat-added"><span class="cat-icon">&#43;</span> Added</div>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>QtStyleSheetManager</code> class with <code>load_stylesheet()</code>, <code>save_stylesheet()</code>, and <code>saveas_stylesheet()</code> for file-based QSS lifecycle management.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>add_property_to_widget()</code> method for adding or updating individual CSS properties within a widget's stylesheet block using regex pattern matching.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>remove_stylesheet_by_name()</code> method supporting removal of widget styles and their pseudo-states (e.g., <code>QWidget:hover</code>).
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                Accent color placeholder system: <code>check_accent_color_placeholder()</code>, <code>extract_accent_color_value()</code>, and <code>replace_placeholder()</code> for token-based accent color substitution in QSS files.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>validate_stylesheet()</code> static method for checking unmatched curly braces, missing semicolons, and invalid characters.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-styles">Styles</span>
+                                <code>add_stylesheet()</code> method for appending raw stylesheet strings to the current in-memory stylesheet.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ v0.3.0 ═══════════ -->
+        <div class="version-entry v-minor" data-type="minor" id="v0.3.0">
+            <div class="version-dot"></div>
+            <div class="version-card">
+                <div class="version-head">
+                    <div class="version-head-left">
+                        <span class="version-number">v0.3.0</span>
+                        <span class="version-type-badge">Minor</span>
+                        <div class="version-scope">
+                            <span class="scope-chip mt-utils module-tag">Utils</span>
+                        </div>
+                    </div>
+                    <span class="version-date">2025-04-22</span>
+                </div>
+                <div class="version-body">
+                    <p class="version-summary">
+                        Added the <code>ThemeManager</code> class and color utility functions to <code>utils.py</code>, completing the
+                        resource-resolution and theming pipeline. The <code>ThemeManager</code> provides JSON-persisted theme
+                        configuration, QSS template placeholder substitution (for accent color and other tokens), and
+                        runtime widget property editing. The <code>random_contrasting_hex()</code> function generates colors
+                        that meet WCAG 2.0 contrast ratio requirements against a given background, useful for dynamic
+                        UI color generation.
+                    </p>
+
+                    <div class="change-category">
+                        <div class="change-category-title cat-added"><span class="cat-icon">&#43;</span> Added</div>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>ThemeManager</code> class with <code>load()</code>, <code>save()</code>, <code>apply_theme()</code>, and <code>edit_widget_property()</code> for end-to-end theme management.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>get_color_roles()</code> function returning a dictionary of standard Qt color roles mapped to human-readable names.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>random_contrasting_hex()</code> function using HSL color space randomization with WCAG 2.0 relative luminance contrast ratio checking.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <div class="change-category-title cat-fixed"><span class="cat-icon">&#9881;</span> Known Issues at Release</div>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                Unreachable fallback code in <code>ThemeManager.load()</code> after an early <code>return</code> statement when the theme file is not found.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>edit_widget_property()</code> uses regex that may break on QSS with nested braces or complex selectors.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ v0.2.0 ═══════════ -->
+        <div class="version-entry v-minor" data-type="minor" id="v0.2.0">
+            <div class="version-dot"></div>
+            <div class="version-card">
+                <div class="version-head">
+                    <div class="version-head-left">
+                        <span class="version-number">v0.2.0</span>
+                        <span class="version-type-badge">Minor</span>
+                        <div class="version-scope">
+                            <span class="scope-chip mt-grid module-tag">CardGrid</span>
+                            <span class="scope-chip mt-widgets module-tag">Widgets</span>
+                        </div>
+                    </div>
+                    <span class="version-date">2025-03-10</span>
+                </div>
+                <div class="version-body">
+                    <p class="version-summary">
+                        Introduction of the <code>CardGridView</code> module for scrollable card-based layouts, and the
+                        <code>Widgets</code> library providing five reusable UI components. The card grid supports dynamic
+                        column reconfiguration based on container width, CRUD operations on cards, selection state
+                        management, and infinite scroll. The widgets library includes an animated stacked widget,
+                        separator, styled label, ring progress indicator, and search box.
+                    </p>
+
+                    <div class="change-category">
+                        <div class="change-category-title cat-added"><span class="cat-icon">&#43;</span> Added</div>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <span class="module-tag mt-grid">CardGrid</span>
+                                <code>CardWidget</code> class: click-able card with selection/hover states, <code>clicked</code> signal, and customizable inner widget hosting.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-grid">CardGrid</span>
+                                <code>CardGridView</code> class: scroll area with <code>QGridLayout</code>, CRUD API, dynamic column recalculation on resize, and <code>load_more</code> infinite scroll signal.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-grid">CardGrid</span>
+                                Three signals: <code>card_clicked</code>, <code>card_selection_changed</code>, and <code>load_more</code> for event-driven integration.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                <code>StackedWidget</code> with animated page transitions and bidirectional navigation (back/forward history stacks).
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                <code>Separator</code>, <code>Label</code>, <code>RingProgress</code>, and <code>SearchBox</code> widgets.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <div class="change-category-title cat-fixed"><span class="cat-icon">&#9881;</span> Known Issues at Release</div>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <span class="module-tag mt-widgets">Widgets</span>
+                                <code>allow_same_tyoes</code> typo in <code>StackedWidget</code> constructor parameter.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-grid">CardGrid</span>
+                                Commented-out <code>self.button.clicked.connect</code> in <code>CardWidget</code>, suggesting an incomplete feature.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ v0.1.0 ═══════════ -->
+        <div class="version-entry v-minor" data-type="minor" id="v0.1.0">
+            <div class="version-dot"></div>
+            <div class="version-card">
+                <div class="version-head">
+                    <div class="version-head-left">
+                        <span class="version-number">v0.1.0</span>
+                        <span class="version-type-badge">Minor</span>
+                        <div class="version-scope">
+                            <span class="scope-chip mt-window module-tag">Window</span>
+                            <span class="scope-chip mt-utils module-tag">Utils</span>
+                        </div>
+                    </div>
+                    <span class="version-date">2025-02-01</span>
+                </div>
+                <div class="version-body">
+                    <p class="version-summary">
+                        The first development release of PySideAbdhUI, establishing the core window shell and
+                        basic utility functions. The <code>AbdhWindow</code> class provides a fully frameless <code>QMainWindow</code>
+                        replacement with custom titlebar, collapsible side panels (pinned and overlay modes),
+                        a size-lock system to prevent Qt layout auto-growth, and manual 8-direction edge/corner
+                        resize. The <code>utils</code> module supplies resource path resolution and icon loading helpers
+                        using <code>importlib.resources</code>.
+                    </p>
+
+                    <div class="change-category">
+                        <div class="change-category-title cat-added"><span class="cat-icon">&#43;</span> Added</div>
+                        <ul class="change-list">
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                <code>AbdhWindow</code> class with frameless window flags, translucent background, golden-ratio initial sizing, and centered positioning.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Custom titlebar with logo, navigation buttons (back/forward), title label, settings button, and window control buttons (minimize, maximize/restore, close).
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Size-lock system (<code>_lock_size</code> / <code>_unlock_size</code>) pinning both <code>minimumSize</code> and <code>maximumSize</code> to prevent layout auto-growth.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Left panel dual-mode: pinned (persistent) and overlay (auto-closing with icon strip), toggled via <code>toggle_overlay()</code>.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Right panel toggle with <code>QPropertyAnimation</code> width animation.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Maximize/restore animation using <code>QPropertyAnimation</code> on <code>geometry</code> with <code>OutQuad</code> easing at 175ms.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                8-direction edge/corner resize with <code>RESIZE_MARGIN = 8px</code> grab zone and appropriate cursor shapes via <code>nativeEvent</code> on Windows.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-window">Window</span>
+                                Global <code>eventFilter</code> installed on <code>QApplication.instance()</code> for overlay auto-close and cursor management.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>get_resource_path()</code> function using <code>importlib.resources</code> for packaged resource resolution.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>get_icon()</code> function loading SVG icons from the package's <code>icons/</code> directory.
+                            </li>
+                            <li class="change-item">
+                                <span class="module-tag mt-utils">Utils</span>
+                                <code>get_styles_template()</code> function for reading QSS template files.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     FOOTER NAVIGATION
+     ═══════════════════════════════════════════════════════════════════ -->
+<footer class="footer-nav">
+    <div class="footer-nav-inner">
+        <div class="footer-nav-title">Navigate</div>
+        <div class="footer-nav-links">
+            <a href="index.html" class="footer-link">&#8592; Documentation Hub</a>
+            <a href="pages/window.html" class="footer-link">Window.py</a>
+            <a href="pages/Widgets.html" class="footer-link">Widgets.py</a>
+            <a href="pages/CardGridView.html" class="footer-link">CardGridView.py</a>
+            <a href="pages/utils.html" class="footer-link">utils.py</a>
+            <a href="pages/StyleManagers.html" class="footer-link">StyleManagers.py</a>
+            <a href="pages/document_editor.html" class="footer-link">document_editor.py</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     FILTER SCRIPT
+     ═══════════════════════════════════════════════════════════════════ -->
+<script>
+    function filterVersions(type) {
+        // Update active button state
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.filter === type);
+        });
+
+        // Show/hide version entries
+        document.querySelectorAll('.version-entry').forEach(entry => {
+            if (type === 'all') {
+                entry.style.display = '';
+            } else {
+                entry.style.display = entry.dataset.type === type ? '' : 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widgets.py — Technical Documentation</title>
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #161822;
+            --bg-tertiary: #1c1f2e;
+            --bg-code: #1a1d2e;
+            --text-primary: #e4e6f0;
+            --text-secondary: #9ca0b0;
+            --text-muted: #6b7085;
+            --accent-blue: #5b9cf5;
+            --accent-cyan: #4dc9f6;
+            --accent-green: #5ccba0;
+            --accent-orange: #f0a45d;
+            --accent-red: #ef6b73;
+            --accent-purple: #b07eee;
+            --accent-yellow: #e8d44d;
+            --border-color: #2a2d3e;
+            --hover-bg: #22253a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ─── Sidebar ──────────────────────────────────────────────── */
+        .sidebar {
+            position: fixed; top: 0; left: 0;
+            width: 280px; height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto; padding: 24px 0; z-index: 100;
+        }
+        .sidebar-logo {
+            padding: 0 24px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+        .sidebar-logo h2 { font-size: 18px; color: var(--accent-blue); font-weight: 700; letter-spacing: -0.3px; }
+        .sidebar-logo span { font-size: 12px; color: var(--text-muted); display: block; margin-top: 4px; }
+        .nav-section { padding: 8px 0; }
+        .nav-section-title {
+            padding: 8px 24px; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted);
+        }
+        .nav-link {
+            display: block; padding: 6px 24px 6px 32px;
+            color: var(--text-secondary); text-decoration: none; font-size: 13.5px;
+            transition: all 0.2s; border-left: 3px solid transparent;
+        }
+        .nav-link:hover { background: var(--hover-bg); color: var(--text-primary); border-left-color: var(--accent-blue); }
+        .nav-link.active { color: var(--accent-blue); background: var(--hover-bg); border-left-color: var(--accent-blue); }
+        .nav-link.indent { padding-left: 44px; font-size: 12.5px; }
+
+        /* ─── Main ─────────────────────────────────────────────────── */
+        .main-content { margin-left: 280px; padding: 40px 56px 80px; max-width: 960px; }
+
+        /* ─── Headings ─────────────────────────────────────────────── */
+        h1 {
+            font-size: 36px; font-weight: 800; letter-spacing: -0.5px;
+            margin-bottom: 12px; color: var(--text-primary);
+        }
+        h1 .module-path {
+            display: block; font-size: 14px; font-weight: 400;
+            color: var(--text-muted); margin-top: 6px;
+            font-family: 'Consolas', 'Fira Code', monospace;
+        }
+        h2 {
+            font-size: 26px; font-weight: 700; margin-top: 56px; margin-bottom: 16px;
+            padding-bottom: 10px; border-bottom: 2px solid var(--border-color);
+            color: var(--text-primary); letter-spacing: -0.3px;
+        }
+        h3 { font-size: 20px; font-weight: 600; margin-top: 36px; margin-bottom: 12px; color: var(--accent-cyan); }
+        h4 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 8px; color: var(--text-primary); }
+
+        /* ─── Text ─────────────────────────────────────────────────── */
+        p { margin-bottom: 14px; color: var(--text-secondary); }
+        strong { color: var(--text-primary); font-weight: 600; }
+
+        /* ─── Code ─────────────────────────────────────────────────── */
+        pre {
+            background: var(--bg-code); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 18px 22px; overflow-x: auto;
+            margin: 14px 0 18px; font-size: 13.5px; line-height: 1.6;
+        }
+        code { font-family: 'Consolas', 'Fira Code', 'SF Mono', 'Monaco', monospace; }
+        :not(pre) > code {
+            background: var(--bg-tertiary); padding: 2px 7px; border-radius: 4px;
+            font-size: 13px; color: var(--accent-orange); border: 1px solid var(--border-color);
+        }
+
+        /* ─── Method Block ─────────────────────────────────────────── */
+        .method-block {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 10px; margin: 20px 0 28px; overflow: hidden;
+        }
+        .method-header {
+            background: var(--bg-tertiary); padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .method-header code { font-size: 14px; color: var(--accent-cyan); background: none; border: none; padding: 0; }
+        .method-tag {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.8px; padding: 3px 8px; border-radius: 4px;
+        }
+        .tag-public { background: rgba(92, 203, 160, 0.15); color: var(--accent-green); }
+        .tag-private { background: rgba(239, 107, 115, 0.15); color: var(--accent-red); }
+        .tag-override { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+        .tag-property { background: rgba(232, 212, 77, 0.15); color: var(--accent-yellow); }
+        .method-body { padding: 16px 20px; }
+        .method-body p { margin-bottom: 10px; }
+
+        /* ─── Tables ───────────────────────────────────────────────── */
+        .param-table, .attr-table {
+            width: 100%; border-collapse: collapse; margin: 12px 0 14px; font-size: 13.5px;
+        }
+        .param-table th, .attr-table th {
+            text-align: left; padding: 8px 12px; background: var(--bg-tertiary);
+            color: var(--text-muted); font-weight: 600; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .param-table td, .attr-table td {
+            padding: 8px 12px; border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .param-table td code, .attr-table td code { color: var(--accent-orange); }
+        .attr-table td:first-child code { color: var(--accent-cyan); }
+
+        .returns-block {
+            background: var(--bg-tertiary); border-radius: 6px;
+            padding: 10px 14px; margin-top: 10px; font-size: 13.5px;
+        }
+        .returns-block strong { color: var(--accent-green); }
+
+        /* ─── Info Boxes ───────────────────────────────────────────── */
+        .info-box { border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-size: 14px; }
+        .info-box.note { background: rgba(91, 156, 245, 0.08); border-left: 4px solid var(--accent-blue); color: var(--accent-blue); }
+        .info-box.warning { background: rgba(240, 164, 93, 0.08); border-left: 4px solid var(--accent-orange); color: var(--accent-orange); }
+        .info-box.important { background: rgba(239, 107, 115, 0.08); border-left: 4px solid var(--accent-red); color: var(--accent-red); }
+        .info-box.tip { background: rgba(92, 203, 160, 0.08); border-left: 4px solid var(--accent-green); color: var(--accent-green); }
+        .info-box p { color: var(--text-secondary); margin-bottom: 0; }
+        .info-box .box-title { font-weight: 700; margin-bottom: 6px; }
+
+        /* ─── Diagram ──────────────────────────────────────────────── */
+        .diagram {
+            background: var(--bg-code); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 20px 24px; margin: 18px 0;
+            font-family: 'Consolas', 'Fira Code', monospace; font-size: 13px;
+            line-height: 1.5; color: var(--accent-green); overflow-x: auto; white-space: pre;
+        }
+
+        /* ─── Badge ────────────────────────────────────────────────── */
+        .badge {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+        }
+        .badge-inherits { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+        .badge-type { background: rgba(77, 201, 246, 0.12); color: var(--accent-cyan); }
+
+        /* ─── Class Card ───────────────────────────────────────────── */
+        .class-card {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 12px; margin: 24px 0 32px; overflow: hidden;
+        }
+        .class-card-header {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            padding: 20px 24px; border-bottom: 1px solid var(--border-color);
+        }
+        .class-card-header h3 { margin: 0; color: var(--accent-cyan); font-size: 22px; }
+        .class-card-header .inherits { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+        .class-card-header .inherits code { color: var(--accent-purple); background: none; border: none; padding: 0; }
+        .class-card-body { padding: 20px 24px; }
+        .class-card-body p { color: var(--text-secondary); }
+
+        /* ─── Scrollbar ────────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════════════════════════ -->
+<nav class="sidebar">
+    <div class="sidebar-logo">
+        <h2>Widgets.py</h2>
+        <span>Technical Documentation</span>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="#overview" class="nav-link">Module Overview</a>
+        <a href="#dependencies" class="nav-link">Dependencies</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Classes</div>
+        <a href="#stacked-widget" class="nav-link">StackedWidget</a>
+        <a href="#stacked-ctor" class="nav-link indent">Constructor</a>
+        <a href="#stacked-nav" class="nav-link indent">Navigation</a>
+        <a href="#stacked-anim" class="nav-link indent">Animation System</a>
+        <a href="#stacked-resize" class="nav-link indent">Resize Handling</a>
+
+        <a href="#separator" class="nav-link">Separator</a>
+        <a href="#label" class="nav-link">Label</a>
+        <a href="#ring-progress" class="nav-link">RingProgress</a>
+        <a href="#ring-ctor" class="nav-link indent">Constructor</a>
+        <a href="#ring-methods" class="nav-link indent">Methods</a>
+        <a href="#ring-painting" class="nav-link indent">Custom Painting</a>
+
+        <a href="#search-box" class="nav-link">SearchBox</a>
+        <a href="#search-ctor" class="nav-link indent">Constructor</a>
+        <a href="#search-property" class="nav-link indent">Custom Property</a>
+        <a href="#search-focus" class="nav-link indent">Focus Animation</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Reference</div>
+        <a href="#method-index" class="nav-link">Full Method Index</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════════════ -->
+<main class="main-content">
+
+    <!-- ─── Overview ─────────────────────────────────────────────────── -->
+    <h1 id="overview">
+        Widgets.py
+        <span class="module-path">PySideAbdhUI — Custom Widget Collection</span>
+    </h1>
+
+    <p>
+        <code>Widgets.py</code> is a companion module to the PySideAbdhUI framework that provides a collection
+        of reusable custom widgets. Each widget extends a standard PySide6/Qt widget with additional
+        functionality tailored for the framework's UI patterns. The module contains four distinct
+        classes that serve different purposes within the application:
+    </p>
+
+    <ul style="margin: 12px 0 18px 24px; color: var(--text-secondary);">
+        <li><strong>StackedWidget</strong> — An animated page-navigation container that extends <code>QStackedWidget</code> with smooth slide transitions, navigation history (back/forward/first/last), and an optional type-based deduplication system for pages.</li>
+        <li><strong>Separator</strong> — A lightweight visual divider widget extending <code>QFrame</code>, supporting horizontal or vertical orientation with customizable stroke width and color.</li>
+        <li><strong>Label</strong> — A signal-emitting label extending <code>QLabel</code> that fires a <code>textChanged</code> signal whenever its text content is modified, enabling reactive UI updates.</li>
+        <li><strong>RingProgress</strong> — A fully custom-painted circular progress indicator extending <code>QWidget</code>, featuring a configurable ring arc, background track, percentage text overlay, and customizable colors and dimensions.</li>
+        <li><strong>SearchBox</strong> — An animated search input extending <code>QLineEdit</code> that collapses to a compact icon when unfocused and smoothly expands on focus, using a custom Qt property animation.</li>
+    </ul>
+
+    <p>
+        Together, these widgets form the building blocks used by the <code>AbdhWindow</code> class and other
+        framework components. They are designed to be self-contained, styleable through Qt style sheets,
+        and composable within the framework's layout system.
+    </p>
+
+    <!-- ─── Dependencies ─────────────────────────────────────────────── -->
+    <h2 id="dependencies">Dependencies</h2>
+
+    <p>
+        The module imports from both the standard PySide6 library and an internal utility module.
+        Understanding these dependencies is important for comprehending the full capabilities of each widget:
+    </p>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Module</th><th>Components Used</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>PySide6.QtWidgets</code></td>
+                <td><code>QLineEdit</code>, <code>QStackedWidget</code>, <code>QLabel</code>, <code>QWidget</code>, <code>QFrame</code></td>
+                <td>Base classes that each custom widget inherits from.</td>
+            </tr>
+            <tr>
+                <td><code>PySide6.QtCore</code></td>
+                <td><code>Signal</code>, <code>QPropertyAnimation</code>, <code>QRect</code>, <code>QEasingCurve</code>, <code>QParallelAnimationGroup</code>, <code>Qt</code>, <code>Property</code></td>
+                <td>Signal/slot system, animation framework, geometry types, custom property system for animations.</td>
+            </tr>
+            <tr>
+                <td><code>PySide6.QtGui</code></td>
+                <td><code>QAction</code>, <code>QIcon</code>, <code>QPainter</code>, <code>QPen</code>, <code>QColor</code>, <code>QFont</code></td>
+                <td>Custom painting (RingProgress), action/icon system (SearchBox), color and font handling.</td>
+            </tr>
+            <tr>
+                <td><code>.utils</code></td>
+                <td><code>get_icon</code></td>
+                <td>Internal utility for loading SVG/icon resources by name, used in SearchBox.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: StackedWidget
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="stacked-widget">StackedWidget</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>StackedWidget</h3>
+            <div class="inherits">Inherits <code>QStackedWidget</code></div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                An animated page-navigation container that extends <code>QStackedWidget</code> with smooth
+                horizontal slide transitions between pages. Instead of the default instant-swap behavior
+                of <code>QStackedWidget</code>, this class animates the current page sliding out while the next
+                page slides in from the opposite direction, using <code>QPropertyAnimation</code> on each
+                widget's <code>geometry</code> property. The direction of the slide (left or right) is determined
+                by whether the target index is higher or lower than the current index.
+            </p>
+            <p>
+                The widget also provides a full navigation API: <code>go_next</code>, <code>go_back</code>,
+                <code>go_first</code>, <code>go_last</code>, and <code>goto_index</code>. A <code>add_page</code>
+                method handles page insertion with an optional deduplication feature that removes existing
+                pages of the same Python type before adding the new one. An <code>animating</code> flag prevents
+                overlapping animations, ensuring that rapid navigation clicks do not cause visual glitches.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── Constructor ───────────────────────────────────────────────── -->
+    <h3 id="stacked-ctor">Constructor</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>StackedWidget.__init__(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initializes the stacked widget by calling <code>super().__init__()</code>, then configures
+                animation and visual properties. The CSS class <code>stack</code> is assigned via
+                <code>setProperty('class', 'stack')</code> for external stylesheet targeting. A solid white
+                background is set using <code>setAutoFillBackground(True)</code> with a white palette color
+                to prevent flickering during animated transitions — without this, the transparent
+                background of the parent would be visible between page slides, causing a visual glitch.
+            </p>
+
+            <table class="attr-table">
+                <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>animation_duration</code></td><td><code>int</code></td><td><code>400</code></td><td>Duration in milliseconds for slide-in/slide-out animations.</td></tr>
+                    <tr><td><code>animating</code></td><td><code>bool</code></td><td><code>False</code></td><td>Guard flag that prevents overlapping animations. Set to <code>True</code> during animation and reset in the completion callback.</td></tr>
+                    <tr><td><code>target_index</code></td><td><code>int</code></td><td><code>0</code></td><td>The destination index for the current animation. Used by the completion callback to set the final widget index.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ─── Navigation ────────────────────────────────────────────────── -->
+    <h3 id="stacked-nav">Navigation API</h3>
+
+    <!-- add_page -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>add_page(self, page: QWidget, allow_same_tyoes: bool = True)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Adds a page widget to the stacked container and automatically navigates to it.
+                The method supports an optional deduplication feature: when <code>allow_same_tyoes</code>
+                is <code>False</code>, it scans all existing pages and removes any widget that has the
+                same Python type as the new page before inserting it. This is useful for ensuring
+                that only one instance of a particular page type exists at any time — for example,
+                preventing multiple "Settings" or "Profile" pages from accumulating in the stack.
+            </p>
+            <p>
+                When deduplication is active, the scan iterates backwards through the widget list
+                to safely remove items without invalidating indices. Removed widgets are deleted
+                via <code>deleteLater()</code> to ensure proper cleanup. The new page is given
+                <code>setAutoFillBackground(True)</code> to prevent flickering during slide animations.
+            </p>
+            <p>
+                After adding, <code>go_last()</code> is called to navigate to the newly added page with
+                a slide animation.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>page</code></td><td><code>QWidget</code></td><td>—</td><td>The page widget to add to the stack.</td></tr>
+                    <tr><td><code>allow_same_tyoes</code></td><td><code>bool</code></td><td><code>True</code></td><td>If <code>False</code>, removes any existing widget of the same type before adding. Note: the parameter name contains a typo ("tyoes" instead of "types").</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box warning">
+                <p><span class="box-title">Known Issue:</span> The parameter name <code>allow_same_tyoes</code> contains a typo — it should be <code>allow_same_types</code>. Additionally, when <code>allow_same_tyoes</code> is <code>False</code>, the code contains a nested loop bug: the outer <code>for i in range(self.count())</code> loop does nothing because the inner loop immediately shadows the variable <code>i</code> and performs the actual removal. The outer loop's body has no effect.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- go_next -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>go_next(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Navigates to the next page in the stack (current index + 1). If the current page
+                is already the last one, no action is taken — the boundary check <code>new_index &lt; self.count()</code>
+                prevents out-of-bounds navigation. The transition is animated.
+            </p>
+        </div>
+    </div>
+
+    <!-- go_back -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>go_back(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Navigates to the previous page in the stack (current index - 1). If the current
+                page is already the first one, no action is taken — the boundary check
+                <code>new_index &gt;= 0</code> prevents out-of-bounds navigation. The transition is animated.
+            </p>
+        </div>
+    </div>
+
+    <!-- goto_index -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>goto_index(self, index: int)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Navigates directly to the page at the specified index with an animated transition.
+                Boundary validation is handled by <code>setCurrentIndexAnimated()</code>.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>index</code></td><td><code>int</code></td><td>The zero-based index of the target page.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- go_last -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>go_last(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Navigates to the last page in the stack (<code>self.count() - 1</code>). This is
+                called automatically by <code>add_page()</code> after a new page is inserted.
+            </p>
+        </div>
+    </div>
+
+    <!-- go_first -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>go_first(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Navigates to the first page in the stack (index 0) with an animated transition.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── Animation System ──────────────────────────────────────────── -->
+    <h3 id="stacked-anim">Animation System</h3>
+
+    <p>
+        The slide transition system is the core feature of <code>StackedWidget</code>. It replaces the
+        default instant-swap behavior of <code>QStackedWidget</code> with a smooth horizontal slide
+        animation. The system works by manually managing widget geometry through
+        <code>QPropertyAnimation</code>, positioning the incoming page off-screen and animating both
+        pages simultaneously in a <code>QParallelAnimationGroup</code>.
+    </p>
+
+    <div class="diagram">Slide-Right Animation (navigating to a higher index):
+
+  ┌──────────────────────┐      ┌──────────────────────┐
+  │                      │      │                      │
+  │   Current Widget     │ ───► │   (slides left)      │
+  │                      │      │                      │
+  └──────────────────────┘      └──────────────────────┘
+  ┌──────────────────────┐      ┌──────────────────────┐
+  │   Next Widget        │      │                      │
+  │  (starts off-screen  │ ───► │   (slides into view) │
+  │   from the right)    │      │                      │
+  └──────────────────────┘      └──────────────────────┘
+
+Direction = +1 (right):  Current slides to -width, Next slides from +width to 0
+Direction = -1 (left):   Current slides to +width, Next slides from -width to 0</div>
+
+    <!-- setCurrentIndexAnimated -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setCurrentIndexAnimated(self, index: int)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initiates an animated transition to the page at the specified index. This method
+                performs three guard checks before proceeding:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Index bounds</strong>: If <code>index &lt; 0</code> or <code>index &gt;= self.count()</code>, the call is ignored.</li>
+                <li><strong>Same index</strong>: If the target index equals the current index, no animation is needed.</li>
+                <li><strong>Animation guard</strong>: If <code>self.animating</code> is <code>True</code>, the call is ignored to prevent overlapping animations.</li>
+            </ol>
+            <p>
+                Once the guards pass, the current widget is hidden, the direction is determined
+                (<code>+1</code> for forward navigation, <code>-1</code> for backward), and the animation
+                is delegated to <code>setCurrentWidgetAnimated()</code>.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>index</code></td><td><code>int</code></td><td>The target page index to navigate to.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- setCurrentWidgetAnimated -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setCurrentWidgetAnimated(self, next_widget: QWidget, direction: int = -1)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Performs the actual animated slide transition between the current widget and the
+                next widget. The method sets up two parallel <code>QPropertyAnimation</code> objects
+                on the <code>geometry</code> property of each widget:
+            </p>
+            <ul style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Outgoing animation</strong>: The current widget starts at <code>QRect(0, 0, width, height)</code> and slides to <code>QRect(-width*direction, 0, width, height)</code>. When <code>direction = +1</code> (forward), it slides left; when <code>direction = -1</code> (backward), it slides right.</li>
+                <li><strong>Incoming animation</strong>: The next widget starts at <code>QRect(width*direction, 0, width, height)</code> (off-screen) and slides to <code>QRect(0, 0, width, height)</code> (center).</li>
+            </ul>
+            <p>
+                Both animations run in a <code>QParallelAnimationGroup</code> with <code>OutCubic</code>
+                easing over <code>animation_duration</code> (400ms). The <code>animating</code> flag is set
+                to <code>True</code> before starting and reset in <code>_on_animation_finished()</code>.
+                The next widget is raised to the top of the Z-order with <code>raise_()</code> so it
+                paints above the outgoing widget during the transition.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>next_widget</code></td><td><code>QWidget</code></td><td>—</td><td>The widget to animate into view.</td></tr>
+                    <tr><td><code>direction</code></td><td><code>int</code></td><td><code>-1</code></td><td>Slide direction: <code>+1</code> for forward (right), <code>-1</code> for backward (left). The default is <code>-1</code>, which means direct calls slide from left by default.</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> The current widget is hidden with <code>hide()</code> at the start of the animation. This is slightly unusual — the widget is hidden but its geometry is still being animated. Since the animation operates on the widget's geometry property directly, it continues to animate even though the widget is not visible. The visual effect is that only the incoming widget is visible during the transition, which may cause the background to show through.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- _on_animation_finished -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_on_animation_finished(self)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Callback invoked when the parallel animation group finishes. It performs the
+                following cleanup steps:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Set final index</strong>: Calls <code>self.setCurrentIndex(self.target_index)</code> to update the internal state to the target page.</li>
+                <li><strong>Reset animation flag</strong>: Sets <code>self.animating = False</code> to allow new navigation operations.</li>
+                <li><strong>Clean up animation group</strong>: Calls <code>self.animation_group.deleteLater()</code> to free the animation objects.</li>
+                <li><strong>Reset widget geometry</strong>: Explicitly sets the current widget's geometry to fill the entire stacked widget area, calls <code>updateGeometry()</code> and <code>adjustSize()</code>, and activates the widget's layout to ensure proper sizing after the animation.</li>
+            </ol>
+            <p>
+                This cleanup is essential because the animation manipulates geometry directly,
+                which can leave widgets in an inconsistent layout state if not properly reset.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── Resize Handling ───────────────────────────────────────────── -->
+    <h3 id="stacked-resize">Resize Handling</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>resizeEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Overrides the default resize event to ensure the current page's layout is
+                re-activated when the stacked widget is resized. This is necessary because
+                during an animated transition, widget geometries are managed manually and may
+                not automatically adjust to the new container size. When the animation is not
+                running (<code>not self.animating</code>), the current widget's layout is explicitly
+                activated via <code>layout.activate()</code>.
+            </p>
+            <div class="info-box tip">
+                <p><span class="box-title">Tip:</span> A commented-out line <code>#current.setGeometry(0, 0, self.width(), self.height())</code> exists in the source, suggesting that direct geometry setting was previously used but replaced with layout activation for a more flexible approach that respects size policies and stretch factors.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: Separator
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="separator">Separator</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>Separator</h3>
+            <div class="inherits">Inherits <code>QFrame</code></div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                A simple visual divider widget used to create horizontal or vertical separator lines
+                in the UI. It extends <code>QFrame</code> and uses the built-in <code>HLine</code> or
+                <code>VLine</code> frame shapes for native rendering, then applies a custom style sheet
+                to control the line's color and thickness. The separator is configured with
+                <code>Plain</code> frame shadow (no 3D effect) for a flat, modern appearance.
+            </p>
+        </div>
+    </div>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>Separator.__init__(self, orientation: str = 'horizontal', stroke: int = 1, color: str = '#888888D1', parent=None)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Creates a separator line with the specified orientation, stroke width, and color.
+                The orientation determines whether a horizontal (<code>HLine</code>) or vertical
+                (<code>VLine</code>) frame shape is used. The color is applied via a style sheet that
+                sets both <code>color</code> and <code>background-color</code> properties, and constrains
+                the maximum height to the stroke width in pixels for horizontal separators.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>orientation</code></td><td><code>str</code></td><td><code>'horizontal'</code></td><td>Line direction. Accepts <code>'horizontal'</code> (HLine) or any other value (VLine).</td></tr>
+                    <tr><td><code>stroke</code></td><td><code>int</code></td><td><code>1</code></td><td>Line thickness in pixels. Applied as <code>max-height</code> in the stylesheet and as <code>lineWidth</code>.</td></tr>
+                    <tr><td><code>color</code></td><td><code>str</code></td><td><code>'#888888D1'</code></td><td>CSS color string for the line. Supports hex with alpha (<code>#RRGGBBAA</code> format). The default is a semi-transparent gray.</td></tr>
+                    <tr><td><code>parent</code></td><td><code>QWidget</code></td><td><code>None</code></td><td>Optional parent widget.</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> The default color <code>#888888D1</code> uses 8-digit hex with an alpha channel (D1 = ~82% opacity), giving the separator a subtle, non-intrusive appearance that works well against both light and dark backgrounds.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: Label
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="label">Label</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>Label</h3>
+            <div class="inherits">Inherits <code>QLabel</code></div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                A signal-emitting extension of <code>QLabel</code> that adds a <code>textChanged</code>
+                signal. Standard <code>QLabel</code> does not emit any signal when its text is changed
+                programmatically, which makes it difficult to implement reactive UI patterns where
+                other widgets need to respond to label text updates. The <code>Label</code> class solves
+                this by overriding <code>setText()</code> to compare the new text with the current text
+                and emit the <code>textChanged</code> signal only when the text actually changes, avoiding
+                unnecessary signal emissions for redundant updates.
+            </p>
+        </div>
+    </div>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>Label.__init__(self, text: str = '')</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initializes the label with optional text. The text is set via <code>super().setText(text)</code>
+                in the constructor rather than passed to <code>QLabel.__init__()</code> to ensure
+                consistency with the overridden <code>setText()</code> method.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>text</code></td><td><code>str</code></td><td><code>''</code></td><td>Initial text content for the label.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- textChanged signal -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>textChanged = Signal(str)</code>
+            <span class="method-tag tag-property">Signal</span>
+        </div>
+        <div class="method-body">
+            <p>
+                A custom PySide6 signal that is emitted whenever the label's text is changed via
+                <code>setText()</code>. The signal carries the new text as a <code>str</code> parameter,
+                allowing connected slots to react to the updated content. The signal is only emitted
+                when the new text differs from the current text, preventing infinite loops in
+                bidirectional data binding scenarios.
+            </p>
+        </div>
+    </div>
+
+    <!-- setText -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setText(self, text: str)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Overrides <code>QLabel.setText()</code> to add change detection. The method compares the
+                new text with the current text returned by <code>self.text()</code>. If they differ, it
+                calls <code>super().setText(text)</code> to update the label and then emits the
+                <code>textChanged</code> signal with the new text. If the text is the same, no action
+                is taken, which prevents unnecessary signal emissions and potential infinite loops
+                in signal-slot chains.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>text</code></td><td><code>str</code></td><td>The new text to set on the label.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: RingProgress
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="ring-progress">RingProgress</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>RingProgress</h3>
+            <div class="inherits">Inherits <code>QWidget</code></div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                A custom-painted circular progress indicator that renders a ring-shaped arc showing
+                the current progress value as a percentage. Unlike slider or progress bar widgets
+                provided by Qt, <code>RingProgress</code> draws its entire visual representation using
+                <code>QPainter</code>, giving full control over the appearance. The widget consists of
+                three visual layers: a background ring (the track), a colored progress arc, and an
+                optional percentage text label rendered in the center.
+            </p>
+            <p>
+                All visual properties — ring color, background color, text color, ring width, and
+                font size — are configurable through setter methods. Calling any setter triggers
+                <code>self.update()</code> to schedule a repaint, ensuring the visual state always
+                reflects the current property values.
+            </p>
+        </div>
+    </div>
+
+    <!-- Constructor -->
+    <h3 id="ring-ctor">Constructor</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>RingProgress.__init__(self, parent=None)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initializes the progress ring with default property values. The minimum widget
+                size is set to 120&times;120 pixels to ensure the ring is always large enough to
+                be visually meaningful and to prevent layout issues where the widget might be
+                squeezed to zero size.
+            </p>
+            <table class="attr-table">
+                <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>_value</code></td><td><code>int</code></td><td><code>0</code></td><td>Current progress value, clamped between <code>_min</code> and <code>_max</code>.</td></tr>
+                    <tr><td><code>_min</code></td><td><code>int</code></td><td><code>0</code></td><td>Minimum value in the progress range.</td></tr>
+                    <tr><td><code>_max</code></td><td><code>int</code></td><td><code>100</code></td><td>Maximum value in the progress range.</td></tr>
+                    <tr><td><code>_ring_color</code></td><td><code>QColor</code></td><td><code>#4CAF50</code></td><td>Color of the progress arc (Material Design green).</td></tr>
+                    <tr><td><code>_bg_color</code></td><td><code>QColor</code></td><td><code>#E0E0E0</code></td><td>Color of the background ring track (light gray).</td></tr>
+                    <tr><td><code>_text_color</code></td><td><code>QColor</code></td><td><code>#333333</code></td><td>Color of the percentage text overlay (dark gray).</td></tr>
+                    <tr><td><code>_ring_width</code></td><td><code>int</code></td><td><code>10</code></td><td>Width of the ring arc in pixels.</td></tr>
+                    <tr><td><code>_show_text</code></td><td><code>bool</code></td><td><code>True</code></td><td>Whether the percentage text is displayed in the center.</td></tr>
+                    <tr><td><code>_font_size</code></td><td><code>int</code></td><td><code>20</code></td><td>Point size of the percentage text font.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Methods -->
+    <h3 id="ring-methods">Methods</h3>
+
+    <!-- setValue -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setValue(self, val: int)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Sets the current progress value. The value is clamped to the valid range
+                [<code>_min</code>, <code>_max</code>] using <code>max(self._min, min(self._max, val))</code>.
+                After setting, <code>self.update()</code> is called to schedule a repaint of the widget.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>val</code></td><td><code>int</code></td><td>The new progress value. Will be clamped to the current range.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- value -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>value(self) -&gt; int</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Returns the current progress value.
+            </p>
+            <div class="returns-block"><strong>Returns:</strong> <code>int</code> — The current progress value.</div>
+        </div>
+    </div>
+
+    <!-- setRange -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setRange(self, min_val: int, max_val: int)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Sets the minimum and maximum values for the progress range. This changes the
+                scale against which the current value is measured. For example, setting
+                <code>setRange(0, 50)</code> means a value of 25 represents 50% progress. After
+                setting, <code>self.update()</code> schedules a repaint.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>min_val</code></td><td><code>int</code></td><td>The minimum value of the range.</td></tr>
+                    <tr><td><code>max_val</code></td><td><code>int</code></td><td>The maximum value of the range.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- setRingColor -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setRingColor(self, color)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Sets the color of the progress arc. The input is converted to a <code>QColor</code>
+                object, which accepts CSS color strings (<code>'#FF5722'</code>, <code>'red'</code>,
+                <code>'rgb(255,87,34)'</code>) or existing <code>QColor</code> objects.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>color</code></td><td><code>str</code> or <code>QColor</code></td><td>The new color for the progress arc.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- setBackgroundColor -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setBackgroundColor(self, color)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Sets the color of the background ring track that the progress arc fills over.
+                This is typically a muted or semi-transparent color that provides visual context
+                for the unfilled portion of the ring.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>color</code></td><td><code>str</code> or <code>QColor</code></td><td>The new color for the background track.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- setRingWidth -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setRingWidth(self, width: int)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Sets the stroke width of the ring arc in pixels. Larger values create a thicker
+                ring, while smaller values create a thinner one. The ring width also affects the
+                inset of the arc from the widget boundary — the arc is drawn inside the widget
+                rectangle with a margin equal to <code>_ring_width</code> on all sides.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>width</code></td><td><code>int</code></td><td>The new ring width in pixels.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- setShowText -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>setShowText(self, visible: bool)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Controls whether the percentage text is rendered in the center of the ring.
+                When <code>False</code>, only the arc is drawn, creating a clean, icon-style progress
+                indicator. When <code>True</code>, the current value followed by a percent sign is
+                rendered at the center.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>visible</code></td><td><code>bool</code></td><td>Whether to show the percentage text overlay.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Custom Painting -->
+    <h3 id="ring-painting">Custom Painting</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>paintEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Renders the ring progress indicator using <code>QPainter</code>. The painting process
+                consists of three layers, drawn in order:
+            </p>
+
+            <h4>1. Background Ring (Track)</h4>
+            <p>
+                A full 360-degree arc is drawn using the <code>_bg_color</code> pen with
+                <code>RoundCap</code> style for smooth endpoints. The arc rectangle is the widget
+                rectangle inset by <code>_ring_width</code> on all sides, ensuring the ring does not
+                overflow the widget boundary. The arc is drawn with <code>drawArc(rect, 0, 360*16)</code>
+                — Qt uses 1/16th of a degree as the unit for arc angles.
+            </p>
+
+            <h4>2. Progress Arc</h4>
+            <p>
+                The progress fraction is calculated as <code>(_value - _min) / (_max - _min)</code>,
+                producing a value between 0.0 and 1.0. This fraction is multiplied by 360&times;16
+                to get the span angle in Qt's 1/16-degree units. The progress arc is drawn starting
+                from 90&times;16 (the 12 o'clock position) with a negative span angle, meaning it
+                progresses clockwise. If <code>_max == _min</code>, the fraction defaults to 0 to
+                prevent division by zero.
+            </p>
+
+            <h4>3. Percentage Text</h4>
+            <p>
+                If <code>_show_text</code> is <code>True</code>, the current value followed by a
+                percent sign (<code>f"{_value}%"</code>) is rendered at the center of the widget
+                using <code>drawText(self.rect(), Qt.AlignCenter, text)</code>. The font size is
+                controlled by <code>_font_size</code>.
+            </p>
+
+            <div class="diagram">RingProgress Visual Structure:
+
+           ┌─────────────────────────┐
+           │    ╭───────────────╮    │  ← Widget boundary
+           │    │               │    │
+           │    │    ╭───╮      │    │  ← Background ring (full 360°)
+           │    │   │ 75%│      │    │  ← Percentage text (center)
+           │    │    ╰───╯      │    │
+           │    │   ▓▓▓▓▓       │    │  ← Progress arc (clockwise from top)
+           │    ╰───────────────╯    │
+           └─────────────────────────┘
+
+  Arc start angle: 90° (12 o'clock position)
+  Arc direction:   Clockwise (negative span)
+  Ring inset:      _ring_width pixels from each edge
+  Pen cap style:   RoundCap (smooth endpoints)</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: SearchBox
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="search-box">SearchBox</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>SearchBox</h3>
+            <div class="inherits">Inherits <code>QLineEdit</code></div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                An animated search input that collapses to a compact icon when unfocused and
+                smoothly expands to a full-width input field when focused. This pattern is common
+                in modern UIs where search functionality should be accessible but not consume
+                valuable horizontal space when not in use. The animation is implemented using a
+                custom Qt property (<code>expandingWidth</code>) that is animated by
+                <code>QPropertyAnimation</code>, allowing the width change to be smoothly interpolated
+                rather than jumping instantly between states.
+            </p>
+            <p>
+                The search box features a leading search icon (loaded via <code>get_icon("search")</code>),
+                placeholder text that is only visible when expanded, and a built-in clear button
+                provided by <code>setClearButtonEnabled(True)</code>. When the user types text and
+                then clicks away, the box remains expanded — it only collapses if the field is
+                empty, preserving the user's input.
+            </p>
+        </div>
+    </div>
+
+    <!-- Constructor -->
+    <h3 id="search-ctor">Constructor</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>SearchBox.__init__(self, parent=None, collapsed_width: int = 32, expanded_width: int = 200, duration: int = 300)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initializes the search box with configurable collapsed and expanded widths, and
+                animation duration. The widget starts in its collapsed state (fixed width =
+                <code>collapsed_width</code>). A <code>QAction</code> with a search icon is added at
+                the leading position, and placeholder text "Search&hellip;" is set. A reusable
+                <code>QPropertyAnimation</code> targeting the custom <code>expandingWidth</code> property
+                is created with <code>OutCubic</code> easing for a natural deceleration effect.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>parent</code></td><td><code>QWidget</code></td><td><code>None</code></td><td>Optional parent widget.</td></tr>
+                    <tr><td><code>collapsed_width</code></td><td><code>int</code></td><td><code>32</code></td><td>Width in pixels when the search box is collapsed (icon-only). Typically just enough to show the search icon.</td></tr>
+                    <tr><td><code>expanded_width</code></td><td><code>int</code></td><td><code>200</code></td><td>Width in pixels when the search box is expanded (full input). Large enough for comfortable text entry.</td></tr>
+                    <tr><td><code>duration</code></td><td><code>int</code></td><td><code>300</code></td><td>Duration of the expand/collapse animation in milliseconds.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Custom Property -->
+    <h3 id="search-property">Custom Property: expandingWidth</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>expandingWidth = Property(int, getExpandingWidth, setExpandingWidth)</code>
+            <span class="method-tag tag-property">Property</span>
+        </div>
+        <div class="method-body">
+            <p>
+                A custom Qt property that allows <code>QPropertyAnimation</code> to animate the
+                widget's width. Qt's property animation system requires the target property to be
+                defined as a <code>Property</code> with getter and setter methods. The
+                <code>expandingWidth</code> property wraps the widget's <code>width()</code> and
+                <code>setFixedWidth()</code> calls, making it animatable.
+            </p>
+
+            <h4>Getter: <code>getExpandingWidth(self) -&gt; int</code></h4>
+            <p>
+                Returns the current width of the widget via <code>self.width()</code>.
+            </p>
+
+            <h4>Setter: <code>setExpandingWidth(self, width: int)</code></h4>
+            <p>
+                Sets the widget's fixed width to the given value via <code>self.setFixedWidth(width)</code>.
+                Using <code>setFixedWidth</code> ensures the widget does not change size during the
+                animation due to layout constraints.
+            </p>
+        </div>
+    </div>
+
+    <!-- Focus Animation -->
+    <h3 id="search-focus">Focus-Driven Animation</h3>
+
+    <!-- focusInEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>focusInEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                When the search box receives focus (clicked or tabbed into), it animates
+                from the collapsed width to the expanded width. The animation uses the reusable
+                <code>_animation</code> object with <code>OutCubic</code> easing, creating a smooth
+                expansion that decelerates as it reaches the target width.
+            </p>
+        </div>
+    </div>
+
+    <!-- focusOutEvent -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>focusOutEvent(self, event)</code>
+            <span class="method-tag tag-override">Override</span>
+        </div>
+        <div class="method-body">
+            <p>
+                When the search box loses focus, it conditionally collapses back to the collapsed
+                width. The collapse only occurs if the text field is empty (checked via
+                <code>self.text().strip()</code>). If the user has typed text, the search box
+                remains expanded to keep the entered content visible. This is a deliberate UX
+                decision — collapsing with text would hide the user's input and create confusion.
+            </p>
+        </div>
+    </div>
+
+    <!-- _animate_to -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>_animate_to(self, target_width: int)</code>
+            <span class="method-tag tag-private">Private</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Core animation method that drives the width transition. It stops any currently
+                running animation on the reusable <code>_animation</code> object, sets the start
+                value to the current width and the end value to the target width, then starts
+                the animation. Stopping the previous animation before starting a new one prevents
+                conflicts if the user rapidly focuses and unfocuses the widget.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>target_width</code></td><td><code>int</code></td><td>The width to animate to (either <code>_collapsed_width</code> or <code>_expanded_width</code>).</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="diagram">SearchBox State Diagram:
+
+  [Unfocused, Empty]              [Focused]
+  ┌──┐                            ┌──────────────────────┐
+  │🔍│  ← collapsed (32px)        │🔍 Search…            │  ← expanded (200px)
+  └──┘                            └──────────────────────┘
+     │                                  ↑
+     │ focusInEvent()                   │ focusInEvent()
+     │ _animate_to(200)                │ _animate_to(200)
+     ↓                                  │
+  ┌──────────────────────┐             │
+  │🔍 Search…            │ ────────────┘
+  └──────────────────────┘
+     │
+     │ focusOutEvent() + text is empty
+     │ _animate_to(32)
+     ↓
+  ┌──┐
+  │🔍│  ← collapsed again
+  └──┘
+
+  If text is NOT empty on focusOut → stays expanded</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FULL METHOD INDEX
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="method-index">Full Method Index</h2>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Class</th><th>Method</th><th>Visibility</th><th>Brief Description</th></tr>
+        </thead>
+        <tbody>
+            <!-- StackedWidget -->
+            <tr><td rowspan="10" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">StackedWidget</td>
+                <td><code>__init__</code></td><td>Public</td><td>Initialize with animation config and white background</td></tr>
+            <tr><td><code>add_page</code></td><td>Public</td><td>Add page with optional type deduplication</td></tr>
+            <tr><td><code>go_next</code></td><td>Public</td><td>Navigate to next page (animated)</td></tr>
+            <tr><td><code>go_back</code></td><td>Public</td><td>Navigate to previous page (animated)</td></tr>
+            <tr><td><code>goto_index</code></td><td>Public</td><td>Navigate to specific index (animated)</td></tr>
+            <tr><td><code>go_last</code></td><td>Public</td><td>Navigate to last page (animated)</td></tr>
+            <tr><td><code>go_first</code></td><td>Public</td><td>Navigate to first page (animated)</td></tr>
+            <tr><td><code>setCurrentIndexAnimated</code></td><td>Public</td><td>Initiate animated transition by index</td></tr>
+            <tr><td><code>setCurrentWidgetAnimated</code></td><td>Public</td><td>Perform parallel slide animation</td></tr>
+            <tr><td><code>_on_animation_finished</code></td><td>Private</td><td>Finalize animation, reset geometry</td></tr>
+
+            <!-- Separator -->
+            <tr><td rowspan="1" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">Separator</td>
+                <td><code>__init__</code></td><td>Public</td><td>Create horizontal/vertical line with custom style</td></tr>
+
+            <!-- Label -->
+            <tr><td rowspan="2" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">Label</td>
+                <td><code>__init__</code></td><td>Public</td><td>Initialize label with optional text</td></tr>
+            <tr><td><code>setText</code></td><td>Override</td><td>Set text and emit textChanged signal on change</td></tr>
+
+            <!-- RingProgress -->
+            <tr><td rowspan="9" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">RingProgress</td>
+                <td><code>__init__</code></td><td>Public</td><td>Initialize with default colors and dimensions</td></tr>
+            <tr><td><code>setValue</code></td><td>Public</td><td>Set progress value (clamped to range)</td></tr>
+            <tr><td><code>value</code></td><td>Public</td><td>Get current progress value</td></tr>
+            <tr><td><code>setRange</code></td><td>Public</td><td>Set min/max range for progress scale</td></tr>
+            <tr><td><code>setRingColor</code></td><td>Public</td><td>Set progress arc color</td></tr>
+            <tr><td><code>setBackgroundColor</code></td><td>Public</td><td>Set background track color</td></tr>
+            <tr><td><code>setRingWidth</code></td><td>Public</td><td>Set ring stroke width in pixels</td></tr>
+            <tr><td><code>setShowText</code></td><td>Public</td><td>Toggle percentage text visibility</td></tr>
+            <tr><td><code>paintEvent</code></td><td>Override</td><td>Custom paint: background ring, progress arc, text</td></tr>
+
+            <!-- SearchBox -->
+            <tr><td rowspan="6" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">SearchBox</td>
+                <td><code>__init__</code></td><td>Public</td><td>Initialize with collapsed/expanded widths</td></tr>
+            <tr><td><code>getExpandingWidth</code></td><td>Public</td><td>Getter for custom property (returns width)</td></tr>
+            <tr><td><code>setExpandingWidth</code></td><td>Public</td><td>Setter for custom property (sets fixed width)</td></tr>
+            <tr><td><code>focusInEvent</code></td><td>Override</td><td>Expand on focus</td></tr>
+            <tr><td><code>focusOutEvent</code></td><td>Override</td><td>Collapse on unfocus (if empty)</td></tr>
+            <tr><td><code>_animate_to</code></td><td>Private</td><td>Animate width to target value</td></tr>
+        </tbody>
+    </table>
+
+</main>
+
+</body>
+</html>

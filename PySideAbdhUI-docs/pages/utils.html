@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>utils.py — Technical Documentation</title>
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #161822;
+            --bg-tertiary: #1c1f2e;
+            --bg-code: #1a1d2e;
+            --text-primary: #e4e6f0;
+            --text-secondary: #9ca0b0;
+            --text-muted: #6b7085;
+            --accent-blue: #5b9cf5;
+            --accent-cyan: #4dc9f6;
+            --accent-green: #5ccba0;
+            --accent-orange: #f0a45d;
+            --accent-red: #ef6b73;
+            --accent-purple: #b07eee;
+            --accent-yellow: #e8d44d;
+            --accent-pink: #e87ca0;
+            --border-color: #2a2d3e;
+            --hover-bg: #22253a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ─── Sidebar ──────────────────────────────────────────────── */
+        .sidebar {
+            position: fixed; top: 0; left: 0;
+            width: 280px; height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto; padding: 24px 0; z-index: 100;
+        }
+        .sidebar-logo {
+            padding: 0 24px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+        .sidebar-logo h2 { font-size: 18px; color: var(--accent-blue); font-weight: 700; letter-spacing: -0.3px; }
+        .sidebar-logo span { font-size: 12px; color: var(--text-muted); display: block; margin-top: 4px; }
+        .nav-section { padding: 8px 0; }
+        .nav-section-title {
+            padding: 8px 24px; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted);
+        }
+        .nav-link {
+            display: block; padding: 6px 24px 6px 32px;
+            color: var(--text-secondary); text-decoration: none; font-size: 13.5px;
+            transition: all 0.2s; border-left: 3px solid transparent;
+        }
+        .nav-link:hover { background: var(--hover-bg); color: var(--text-primary); border-left-color: var(--accent-blue); }
+        .nav-link.active { color: var(--accent-blue); background: var(--hover-bg); border-left-color: var(--accent-blue); }
+        .nav-link.indent { padding-left: 44px; font-size: 12.5px; }
+
+        /* ─── Main ─────────────────────────────────────────────────── */
+        .main-content { margin-left: 280px; padding: 40px 56px 80px; max-width: 960px; }
+
+        /* ─── Headings ─────────────────────────────────────────────── */
+        h1 {
+            font-size: 36px; font-weight: 800; letter-spacing: -0.5px;
+            margin-bottom: 12px; color: var(--text-primary);
+        }
+        h1 .module-path {
+            display: block; font-size: 14px; font-weight: 400;
+            color: var(--text-muted); margin-top: 6px;
+            font-family: 'Consolas', 'Fira Code', monospace;
+        }
+        h2 {
+            font-size: 26px; font-weight: 700; margin-top: 56px; margin-bottom: 16px;
+            padding-bottom: 10px; border-bottom: 2px solid var(--border-color);
+            color: var(--text-primary); letter-spacing: -0.3px;
+        }
+        h3 { font-size: 20px; font-weight: 600; margin-top: 36px; margin-bottom: 12px; color: var(--accent-cyan); }
+        h4 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 8px; color: var(--text-primary); }
+
+        /* ─── Text ─────────────────────────────────────────────────── */
+        p { margin-bottom: 14px; color: var(--text-secondary); }
+        strong { color: var(--text-primary); font-weight: 600; }
+
+        /* ─── Code ─────────────────────────────────────────────────── */
+        pre {
+            background: var(--bg-code); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 18px 22px; overflow-x: auto;
+            margin: 14px 0 18px; font-size: 13.5px; line-height: 1.6;
+        }
+        code { font-family: 'Consolas', 'Fira Code', 'SF Mono', 'Monaco', monospace; }
+        :not(pre) > code {
+            background: var(--bg-tertiary); padding: 2px 7px; border-radius: 4px;
+            font-size: 13px; color: var(--accent-orange); border: 1px solid var(--border-color);
+        }
+
+        /* ─── Method Block ─────────────────────────────────────────── */
+        .method-block {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 10px; margin: 20px 0 28px; overflow: hidden;
+        }
+        .method-header {
+            background: var(--bg-tertiary); padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .method-header code { font-size: 14px; color: var(--accent-cyan); background: none; border: none; padding: 0; }
+        .method-tag {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.8px; padding: 3px 8px; border-radius: 4px;
+        }
+        .tag-public { background: rgba(92, 203, 160, 0.15); color: var(--accent-green); }
+        .tag-private { background: rgba(239, 107, 115, 0.15); color: var(--accent-red); }
+        .tag-function { background: rgba(77, 201, 246, 0.12); color: var(--accent-cyan); }
+        .tag-property { background: rgba(232, 212, 77, 0.15); color: var(--accent-yellow); }
+        .tag-signal { background: rgba(232, 124, 160, 0.15); color: var(--accent-pink); }
+        .method-body { padding: 16px 20px; }
+        .method-body p { margin-bottom: 10px; }
+
+        /* ─── Tables ───────────────────────────────────────────────── */
+        .param-table, .attr-table {
+            width: 100%; border-collapse: collapse; margin: 12px 0 14px; font-size: 13.5px;
+        }
+        .param-table th, .attr-table th {
+            text-align: left; padding: 8px 12px; background: var(--bg-tertiary);
+            color: var(--text-muted); font-weight: 600; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .param-table td, .attr-table td {
+            padding: 8px 12px; border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .param-table td code, .attr-table td code { color: var(--accent-orange); }
+        .attr-table td:first-child code { color: var(--accent-cyan); }
+
+        .returns-block {
+            background: var(--bg-tertiary); border-radius: 6px;
+            padding: 10px 14px; margin-top: 10px; font-size: 13.5px;
+        }
+        .returns-block strong { color: var(--accent-green); }
+
+        /* ─── Info Boxes ───────────────────────────────────────────── */
+        .info-box { border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-size: 14px; }
+        .info-box.note { background: rgba(91, 156, 245, 0.08); border-left: 4px solid var(--accent-blue); color: var(--accent-blue); }
+        .info-box.warning { background: rgba(240, 164, 93, 0.08); border-left: 4px solid var(--accent-orange); color: var(--accent-orange); }
+        .info-box.important { background: rgba(239, 107, 115, 0.08); border-left: 4px solid var(--accent-red); color: var(--accent-red); }
+        .info-box.tip { background: rgba(92, 203, 160, 0.08); border-left: 4px solid var(--accent-green); color: var(--accent-green); }
+        .info-box p { color: var(--text-secondary); margin-bottom: 0; }
+        .info-box .box-title { font-weight: 700; margin-bottom: 6px; }
+
+        /* ─── Diagram ──────────────────────────────────────────────── */
+        .diagram {
+            background: var(--bg-code); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 20px 24px; margin: 18px 0;
+            font-family: 'Consolas', 'Fira Code', monospace; font-size: 13px;
+            line-height: 1.5; color: var(--accent-green); overflow-x: auto; white-space: pre;
+        }
+
+        /* ─── Badge ────────────────────────────────────────────────── */
+        .badge {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+        }
+        .badge-inherits { background: rgba(176, 126, 238, 0.15); color: var(--accent-purple); }
+        .badge-module { background: rgba(77, 201, 246, 0.12); color: var(--accent-cyan); }
+
+        /* ─── Class Card ───────────────────────────────────────────── */
+        .class-card {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 12px; margin: 24px 0 32px; overflow: hidden;
+        }
+        .class-card-header {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            padding: 20px 24px; border-bottom: 1px solid var(--border-color);
+        }
+        .class-card-header h3 { margin: 0; color: var(--accent-cyan); font-size: 22px; }
+        .class-card-header .inherits { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+        .class-card-header .inherits code { color: var(--accent-purple); background: none; border: none; padding: 0; }
+        .class-card-body { padding: 20px 24px; }
+        .class-card-body p { color: var(--text-secondary); }
+
+        /* ─── Scrollbar ────────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════════════════════════ -->
+<nav class="sidebar">
+    <div class="sidebar-logo">
+        <h2>utils.py</h2>
+        <span>Technical Documentation</span>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="#overview" class="nav-link">Module Overview</a>
+        <a href="#dependencies" class="nav-link">Dependencies</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Resource Functions</div>
+        <a href="#get-resource-path" class="nav-link">get_resource_path</a>
+        <a href="#get-icon" class="nav-link">get_icon</a>
+        <a href="#get-styles-template" class="nav-link">get_styles_template</a>
+        <a href="#get-color-roles" class="nav-link">get_color_roles</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">ThemeManager</div>
+        <a href="#theme-manager" class="nav-link">Class Overview</a>
+        <a href="#theme-ctor" class="nav-link indent">Constructor</a>
+        <a href="#theme-persistence" class="nav-link indent">Persistence (load/save)</a>
+        <a href="#theme-queries" class="nav-link indent">Theme Queries</a>
+        <a href="#theme-switching" class="nav-link indent">Theme Switching</a>
+        <a href="#theme-apply" class="nav-link indent">Apply Theme</a>
+        <a href="#theme-property" class="nav-link indent">Widget Property Editing</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Color Utility</div>
+        <a href="#random-contrasting" class="nav-link">random_contrasting_hex</a>
+        <a href="#contrast-algorithm" class="nav-link indent">Contrast Algorithm</a>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Reference</div>
+        <a href="#method-index" class="nav-link">Full Method / Function Index</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════════════ -->
+<main class="main-content">
+
+    <!-- ─── Overview ─────────────────────────────────────────────────── -->
+    <h1 id="overview">
+        utils.py
+        <span class="module-path">PySideAbdhUI — Resource Handling, Theme Management &amp; Color Utilities</span>
+    </h1>
+
+    <p>
+        <code>utils.py</code> is the central utility module for the PySideAbdhUI framework, providing three
+        distinct but interconnected capabilities: <strong>resource path resolution</strong>,
+        <strong>theme management</strong>, and <strong>contrast-aware color generation</strong>. Together, these
+        utilities ensure that the framework can locate its packaged assets (SVG icons, QSS templates,
+        JSON color-role definitions) regardless of installation location, apply user-selectable
+        themes at runtime by replacing placeholder tokens in a QSS template, and generate random
+        colors that meet WCAG accessibility contrast requirements against any background.
+    </p>
+
+    <p>
+        The module is designed around a resource-loading pipeline that uses Python's
+        <code>importlib.resources</code> to resolve packaged resources, a <code>ThemeManager</code>
+        class that reads/writes a JSON-based theme configuration and applies themes by performing
+        placeholder substitution on a QSS template file, and a standalone function
+        <code>random_contrasting_hex()</code> that computes perceptual luminance and contrast ratios
+        using the WCAG 2.0 algorithm to guarantee readable foreground colors.
+    </p>
+
+    <!-- ─── Dependencies ─────────────────────────────────────────────── -->
+    <h2 id="dependencies">Dependencies</h2>
+
+    <table class="attr-table">
+        <thead><tr><th>Module</th><th>Components Used</th><th>Purpose</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><code>random</code></td>
+                <td><code>random.uniform</code></td>
+                <td>Generating random HSL values for the contrast-aware color utility.</td>
+            </tr>
+            <tr>
+                <td><code>re</code></td>
+                <td><code>re.compile</code></td>
+                <td>Regular expression matching for widget property editing in QSS templates.</td>
+            </tr>
+            <tr>
+                <td><code>json</code></td>
+                <td><code>json.load</code>, <code>json.dump</code></td>
+                <td>Reading and writing the JSON-based theme configuration file.</td>
+            </tr>
+            <tr>
+                <td><code>importlib.resources</code></td>
+                <td><code>importlib.resources.path</code></td>
+                <td>Loading packaged resources (icons, templates, JSON) from the package's data directories using Python's standard resource API.</td>
+            </tr>
+            <tr>
+                <td><code>pathlib</code></td>
+                <td><code>Path</code></td>
+                <td>Type annotation for resource path return values.</td>
+            </tr>
+            <tr>
+                <td><code>PySide6.QtWidgets</code></td>
+                <td><code>QApplication</code></td>
+                <td>Applying stylesheets to the running application instance in <code>ThemeManager.apply_theme()</code>.</td>
+            </tr>
+            <tr>
+                <td><code>PySide6.QtGui</code></td>
+                <td><code>QColor</code></td>
+                <td>Color representation, HSL construction, and component access for contrast calculations.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ─── Architecture ─────────────────────────────────────────────── -->
+    <h2 id="architecture">Architecture</h2>
+
+    <p>
+        The module follows a layered architecture where low-level resource resolution functions
+        feed into higher-level theme management. The following diagram shows the data flow:
+    </p>
+
+    <div class="diagram">Data Flow Architecture:
+
+  ┌─────────────────────────────────────────────────────────────┐
+  │                    Resource Layer                            │
+  │                                                              │
+  │  get_resource_path(package, resource, ext)                  │
+  │       │           │            │           │                 │
+  │       ▼           ▼            ▼           ▼                 │
+  │  get_icon()  get_styles_template()  get_color_roles()       │
+  │  (SVG icons)  (QSS template)        (JSON color roles)      │
+  └───────┬───────────────┬──────────────────┬──────────────────┘
+          │               │                  │
+          ▼               ▼                  ▼
+  ┌─────────────────────────────────────────────────────────────┐
+  │                   ThemeManager Class                         │
+  │                                                              │
+  │  load() ← color-roles.json ──→ save()                      │
+  │       │                         │                            │
+  │       ▼                         │                            │
+  │  get_current_theme()            │                            │
+  │  get_color(category, name)      │                            │
+  │  get_all_themes()               │                            │
+  │       │                         │                            │
+  │       ▼                         │                            │
+  │  switch_theme() ────────────────┘                            │
+  │       │                                                      │
+  │       ▼                                                      │
+  │  apply_theme(app, name)                                      │
+  │    ├── reads qss-template.qss                                │
+  │    ├── replaces --placeholder-- tokens with color values     │
+  │    └── app.setStyleSheet(qss)                                │
+  │                                                              │
+  │  add_property_to_widget(widget, property, value)             │
+  │    ├── reads qss-template.qss                                │
+  │    ├── regex-matches widget block                            │
+  │    ├── inserts or updates CSS property                       │
+  │    └── writes qss-template.qss                               │
+  └─────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────┐
+  │              Standalone Color Utility                        │
+  │                                                              │
+  │  random_contrasting_hex(background, theme, min_contrast)    │
+  │    ├── Computes WCAG luminance of background                │
+  │    ├── Generates random HSL colors                          │
+  │    ├── Tests contrast ratio >= min_contrast                 │
+  │    └── Returns hex string of passing color                  │
+  └─────────────────────────────────────────────────────────────┘</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         RESOURCE FUNCTIONS
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="get-resource-path">Resource Resolution Functions</h2>
+
+    <p>
+        The resource resolution layer provides a unified API for locating packaged resources
+        (icons, stylesheets, configuration files) using Python's <code>importlib.resources</code>
+        module. This approach ensures that resources can be found regardless of whether the package
+        is installed as a regular directory, a zip-imported egg, or a wheel. All functions in this
+        layer delegate to <code>get_resource_path()</code>, which is the core resolver.
+    </p>
+
+    <!-- get_resource_path -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_resource_path(package: str, resource: str, ext: str = 'svg') -&gt; Path</code>
+            <span class="method-tag tag-function">Function</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Retrieves the full filesystem path to a specified resource located within a given
+                Python package. This is the foundational function upon which all other resource
+                accessors depend. It uses <code>importlib.resources.path()</code> as a context manager
+                to resolve the resource, which handles the complexity of different package
+                installation formats transparently.
+            </p>
+            <p>
+                The function automatically appends the file extension to the resource name. If
+                <code>ext</code> is provided (defaulting to <code>'svg'</code>), the resource is looked
+                up as <code>f'{resource}.{ext}'</code>. If <code>ext</code> is falsy (empty string or
+                <code>None</code>), the extension is derived from the last segment of the package
+                path — for example, a package path of <code>'PySideAbdhUI.resources.styles'</code>
+                would yield <code>ext = 'styles'</code>, which is likely incorrect. This fallback
+                behavior appears to be a design artifact rather than a useful feature.
+            </p>
+            <p>
+                If the resource cannot be located, a <code>RuntimeError</code> is raised with a
+                descriptive message that includes both the resource name and the package path,
+                and the original exception is chained via <code>from e</code>.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>package</code></td><td><code>str</code></td><td>—</td><td>Dotted package path where the resource is located. E.g., <code>'PySideAbdhUI.resources.icons.svg'</code>.</td></tr>
+                    <tr><td><code>resource</code></td><td><code>str</code></td><td>—</td><td>Base filename of the resource without extension. E.g., <code>'menu'</code> for <code>menu.svg</code>.</td></tr>
+                    <tr><td><code>ext</code></td><td><code>str</code></td><td><code>'svg'</code></td><td>File extension to append. If falsy, derived from the package path (usually incorrect).</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>Path</code> — The full filesystem path to the resource.</div>
+            <div class="info-box warning">
+                <p><span class="box-title">Known Issue:</span> The default value of <code>ext='svg'</code> means that calling <code>get_resource_path()</code> without specifying <code>ext</code> will always look for an <code>.svg</code> file, even for non-SVG resources. The convenience functions (<code>get_styles_template</code>, <code>get_color_roles</code>) override this correctly, but direct callers must remember to pass the appropriate extension.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- get_icon -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_icon(name: str, package: str = 'PySideAbdhUI.resources.icons.svg', ext: str = 'svg') -&gt; str</code>
+            <span class="method-tag tag-function">Function</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Convenience function that resolves the path to an SVG icon resource and returns
+                it as a POSIX-style string. This is the primary function used by the framework's
+                widgets to load icons — every <code>QIcon(get_icon('icon-name'))</code> call in
+                the codebase goes through this function. The default package path points to the
+                <code>PySideAbdhUI.resources.icons.svg</code> subpackage, where all SVG icons are
+                expected to reside.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>name</code></td><td><code>str</code></td><td>—</td><td>The icon name without extension. E.g., <code>'menu'</code> resolves to <code>menu.svg</code>.</td></tr>
+                    <tr><td><code>package</code></td><td><code>str</code></td><td><code>'PySideAbdhUI.resources.icons.svg'</code></td><td>Dotted package path where icons are stored.</td></tr>
+                    <tr><td><code>ext</code></td><td><code>str</code></td><td><code>'svg'</code></td><td>File extension of the icon resource.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>str</code> — POSIX-style path string suitable for <code>QIcon()</code> or <code>QAction()</code> constructors.</div>
+        </div>
+    </div>
+
+    <!-- get_styles_template -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_styles_template(package: str = 'PySideAbdhUI.resources.styles') -&gt; str</code>
+            <span class="method-tag tag-function">Function</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Convenience function that resolves the path to the QSS template file
+                (<code>qss-template.qss</code>) within the styles package. The template contains
+                CSS rules with placeholder tokens in the format <code>--token-name--</code> that
+                are replaced with actual color values during theme application. The template
+                serves as the single source of truth for the application's stylesheet structure,
+                while the color values come from the theme JSON file.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>package</code></td><td><code>str</code></td><td><code>'PySideAbdhUI.resources.styles'</code></td><td>Dotted package path where style resources are stored.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>str</code> — POSIX-style path string to the <code>qss-template.qss</code> file.</div>
+        </div>
+    </div>
+
+    <!-- get_color_roles -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_color_roles(package: str = 'PySideAbdhUI.resources.styles') -&gt; str</code>
+            <span class="method-tag tag-function">Function</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Convenience function that resolves the path to the color-roles JSON file
+                (<code>color-roles.json</code>) within the styles package. This JSON file defines
+                all available themes, their color categories and roles, and the currently active
+                theme. The file is the persistence layer for the <code>ThemeManager</code> — it is
+                read on initialization and written back when themes are switched or properties
+                are modified.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>package</code></td><td><code>str</code></td><td><code>'PySideAbdhUI.resources.styles'</code></td><td>Dotted package path where style resources are stored.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>str</code> — POSIX-style path string to the <code>color-roles.json</code> file.</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CLASS: ThemeManager
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="theme-manager">ThemeManager</h2>
+
+    <div class="class-card">
+        <div class="class-card-header">
+            <h3>ThemeManager</h3>
+            <div class="inherits">Standalone class (no base class)</div>
+        </div>
+        <div class="class-card-body">
+            <p>
+                Manages the application's theme lifecycle: loading theme definitions from a JSON file,
+                switching between themes, applying themes by performing placeholder substitution on a
+                QSS template, and editing CSS properties within the template. The class acts as the
+                bridge between the structured theme data (stored in <code>color-roles.json</code>) and
+                the flat QSS template (stored in <code>qss-template.qss</code>), converting structured
+                color definitions into a complete, application-ready stylesheet.
+            </p>
+            <p>
+                The theme system uses a simple but effective placeholder replacement approach: the QSS
+                template contains tokens in the format <code>--token-name--</code>, and the theme JSON
+                provides a nested dictionary of categories, role names, and color values. During
+                application, each placeholder is replaced with its corresponding color value. This
+                approach avoids the complexity of a full CSS preprocessor while still providing
+                theme-switching capability.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── Constructor ───────────────────────────────────────────────── -->
+    <h3 id="theme-ctor">Constructor</h3>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>ThemeManager.__init__(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Initializes the theme manager by resolving the paths to the color-roles JSON file
+                and the QSS template, then loading the theme data. The constructor performs the
+                following steps:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li>Calls <code>get_color_roles()</code> to resolve the path to <code>color-roles.json</code>.</li>
+                <li>Calls <code>get_styles_template()</code> to resolve the path to <code>qss-template.qss</code>.</li>
+                <li>Stores both paths as <code>self.color_roles</code> and <code>self.template_path</code>.</li>
+                <li>Calls <code>self.load()</code> to read and parse the JSON file into <code>self.data</code>.</li>
+            </ol>
+            <table class="attr-table">
+                <thead><tr><th>Attribute</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>color_roles</code></td><td><code>str</code></td><td>POSIX path to the <code>color-roles.json</code> file.</td></tr>
+                    <tr><td><code>template_path</code></td><td><code>str</code></td><td>POSIX path to the <code>qss-template.qss</code> file.</td></tr>
+                    <tr><td><code>data</code></td><td><code>dict</code></td><td>Parsed JSON data containing theme definitions and the active theme name.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ─── Persistence ───────────────────────────────────────────────── -->
+    <h3 id="theme-persistence">Persistence (load / save)</h3>
+
+    <!-- load -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>load(self) -&gt; dict</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Reads and parses the <code>color-roles.json</code> file, returning the resulting
+                dictionary. The file is opened with UTF-8 encoding and parsed with
+                <code>json.load()</code>. After reading, the file is explicitly closed with
+                <code>f.close()</code> (though the <code>with</code> statement would handle this
+                automatically).
+            </p>
+            <p>
+                If the file cannot be opened or parsed, the <code>with</code> block exits and the
+                code after it (<code>return {"active-theme": "", "themes": {}}</code>) is reached.
+                However, this fallback is <strong>unreachable</strong> because the <code>return</code>
+                statement inside the <code>with</code> block always executes first if the file is
+                successfully read, and an exception would propagate rather than falling through.
+            </p>
+            <div class="returns-block"><strong>Returns:</strong> <code>dict</code> — The parsed JSON data with theme definitions.</div>
+            <div class="info-box warning">
+                <p><span class="box-title">Unreachable Code:</span> The line <code>return {"active-theme": "", "themes": {}}</code> is unreachable because it appears after a <code>return</code> inside a <code>with</code> block. If the file read fails, an exception will be raised rather than reaching this fallback. A proper implementation would use a <code>try/except</code> around the file operation.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- save -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>save(self)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Writes the current <code>self.data</code> dictionary back to the
+                <code>color-roles.json</code> file with 4-space indentation. The file is opened with
+                UTF-8 encoding in write mode. Like <code>load()</code>, the file is explicitly closed
+                with <code>f.close()</code> despite the <code>with</code> statement handling this
+                automatically. This method is called by <code>switch_theme()</code> to persist the
+                active theme name change.
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── Theme Queries ─────────────────────────────────────────────── -->
+    <h3 id="theme-queries">Theme Queries</h3>
+
+    <!-- get_current_theme_name -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_current_theme_name(self) -&gt; str</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Returns the name of the currently active theme. The name is stored under the
+                <code>"active-theme"</code> key in the JSON data. If the key is missing, an empty
+                string is returned.
+            </p>
+            <div class="returns-block"><strong>Returns:</strong> <code>str</code> — The active theme name, or an empty string if not set.</div>
+        </div>
+    </div>
+
+    <!-- get_current_theme -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_current_theme(self) -&gt; dict</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Returns the full theme dictionary for the currently active theme. The theme
+                dictionary is a nested structure organized by color categories and role names.
+                For example, a theme might have categories like <code>"surface"</code>,
+                <code>"text"</code>, <code>"accent"</code>, each containing role entries with a
+                <code>"color"</code> field. If the active theme name does not exist in the themes
+                dictionary, an empty dict is returned.
+            </p>
+            <div class="returns-block"><strong>Returns:</strong> <code>dict</code> — The active theme's color definitions, or <code>{}</code> if not found.</div>
+        </div>
+    </div>
+
+    <!-- get_color -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_color(self, role_category: str, role_name: str) -&gt; str | None</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Retrieves a specific color value from the current theme by navigating the nested
+                dictionary structure: <code>theme[role_category][role_name]["color"]</code>. This
+                provides a convenient lookup API that abstracts away the dictionary structure.
+                If the category, role, or color key does not exist, <code>None</code> is returned
+                due to the chained <code>.get()</code> calls.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>role_category</code></td><td><code>str</code></td><td>The top-level category in the theme (e.g., <code>"surface"</code>, <code>"text"</code>, <code>"accent"</code>).</td></tr>
+                    <tr><td><code>role_name</code></td><td><code>str</code></td><td>The specific role within the category (e.g., <code>"primary"</code>, <code>"secondary"</code>, <code>"disabled"</code>).</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>str | None</code> — The color value (typically a hex string like <code>"#1E1E2E"</code>), or <code>None</code> if not found.</div>
+        </div>
+    </div>
+
+    <!-- get_all_themes -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>get_all_themes(self) -&gt; list</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Returns a list of all available theme names in the configuration. This is useful
+                for populating a theme selector UI where the user can choose from the installed
+                themes.
+            </p>
+            <div class="returns-block"><strong>Returns:</strong> <code>list[str]</code> — List of theme name strings.</div>
+        </div>
+    </div>
+
+    <!-- ─── Theme Switching ───────────────────────────────────────────── -->
+    <h3 id="theme-switching">Theme Switching</h3>
+
+    <!-- switch_theme -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>switch_theme(self, new_theme_name: str) -&gt; bool</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Switches the active theme to the specified theme name. The method first checks
+                whether the requested theme exists in the <code>"themes"</code> dictionary. If it
+                does, the <code>"active-theme"</code> key in <code>self.data</code> is updated and
+                <code>self.save()</code> is called to persist the change to disk. If the theme name
+                does not exist, the method returns <code>False</code> without making any changes.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>new_theme_name</code></td><td><code>str</code></td><td>The name of the theme to switch to. Must match a key in the <code>"themes"</code> dictionary.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>True</code> if the switch was successful; <code>False</code> if the theme name was not found.</div>
+        </div>
+    </div>
+
+    <!-- ─── Apply Theme ───────────────────────────────────────────────── -->
+    <h3 id="theme-apply">Applying Themes</h3>
+
+    <!-- apply_theme -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>apply_theme(self, app: QApplication, theme_name: str = 'default-dark')</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                The main entry point for applying a theme to the application. This method performs
+                a complete theme application cycle:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Switch theme</strong>: Calls <code>switch_theme(theme_name)</code> to update the active theme in the JSON data and persist the change.</li>
+                <li><strong>Load template</strong>: Reads the QSS template file from <code>self.template_path</code> into a string.</li>
+                <li><strong>Replace placeholders</strong>: Iterates over the current theme's categories and roles, replacing each placeholder token <code>--role_name--</code> in the QSS string with the corresponding color value. The iteration order ensures all nested categories and roles are covered.</li>
+                <li><strong>Apply stylesheet</strong>: Calls <code>app.setStyleSheet(qss)</code> on the <code>QApplication</code> instance to apply the completed stylesheet.</li>
+            </ol>
+            <p>
+                If the QSS template file cannot be read, an error message is printed to the console
+                and the method returns without applying any changes. The existing stylesheet remains
+                in effect.
+            </p>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>app</code></td><td><code>QApplication</code></td><td>—</td><td>The application instance to apply the stylesheet to.</td></tr>
+                    <tr><td><code>theme_name</code></td><td><code>str</code></td><td><code>'default-dark'</code></td><td>The name of the theme to apply.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="diagram">QSS Template Placeholder Replacement:
+
+  Before (qss-template.qss):
+  ┌────────────────────────────────────────────────────┐
+  │ QPushButton {                                      │
+  │     background-color: --primary--;                 │
+  │     color: --on-primary--;                         │
+  │     border: 1px solid --outline--;                 │
+  │ }                                                  │
+  └────────────────────────────────────────────────────┘
+
+  Theme JSON data:
+  ┌────────────────────────────────────────────────────┐
+  │ "surface": {                                       │
+  │     "primary":   { "color": "#6750A4" },           │
+  │     "on-primary": { "color": "#FFFFFF" },          │
+  │     "outline":   { "color": "#79747E" }            │
+  │ }                                                  │
+  └────────────────────────────────────────────────────┘
+
+  After replacement:
+  ┌────────────────────────────────────────────────────┐
+  │ QPushButton {                                      │
+  │     background-color: #6750A4;                     │
+  │     color: #FFFFFF;                                │
+  │     border: 1px solid #79747E;                     │
+  │ }                                                  │
+  └────────────────────────────────────────────────────┘</div>
+
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> The placeholder format <code>--role_name--</code> uses double dashes on both sides, which is different from CSS custom property syntax (<code>--name</code>). This avoids conflicts with CSS custom properties that might exist in the template. The replacement is a simple string substitution (<code>qss.replace(placeholder, color)</code>), not a regex, so placeholders must match exactly.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Widget Property Editing ───────────────────────────────────── -->
+    <h3 id="theme-property">Widget Property Editing</h3>
+
+    <!-- add_property_to_widget -->
+    <div class="method-block">
+        <div class="method-header">
+            <code>add_property_to_widget(self, widget_name: str, property_name: str, property_value: str)</code>
+            <span class="method-tag tag-public">Public</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Adds or updates a CSS property within a specific widget's style block in the QSS
+                template file. This method provides a programmatic way to customize the stylesheet
+                without manually editing the template file. It uses regular expressions to locate
+                and modify the target widget block.
+            </p>
+            <p>
+                The method performs the following steps:
+            </p>
+            <ol style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>Read template</strong>: Reads the entire QSS template file into a string.</li>
+                <li><strong>Match widget block</strong>: Uses the regex <code>widget_name\s*\{[^}]*\}</code> to find the CSS block for the specified widget. This pattern matches the widget name followed by a brace-enclosed block of properties.</li>
+                <li><strong>Check for existing property</strong>: Within the matched block, searches for <code>property_name\s*:\s*[^;]+;</code> to determine if the property already exists.</li>
+                <li><strong>Update or insert</strong>: If the property exists, its value is replaced. If it does not exist, the new property is appended before the closing brace with proper indentation.</li>
+                <li><strong>Write template</strong>: The modified QSS string is written back to the template file.</li>
+            </ol>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>widget_name</code></td><td><code>str</code></td><td>The CSS selector name (e.g., <code>"QPushButton"</code>, <code>"QLabel"</code>).</td></tr>
+                    <tr><td><code>property_name</code></td><td><code>str</code></td><td>The CSS property name (e.g., <code>"font-family"</code>, <code>"border-radius"</code>).</td></tr>
+                    <tr><td><code>property_value</code></td><td><code>str</code></td><td>The CSS property value (e.g., <code>"'Arial'"</code>, <code>"8px"</code>).</td></tr>
+                </tbody>
+            </table>
+            <div class="info-box warning">
+                <p><span class="box-title">Limitations:</span> The regex pattern <code>widget_name\s*\{[^}]*\}</code> does not support nested braces, which means it will fail for widget blocks that contain nested selectors (e.g., <code>QPushButton:hover { ... }</code>). Additionally, if the widget block spans multiple lines with complex formatting, the regex may not match correctly. The method only writes back to the template file if a match is found — if the widget does not exist in the template, no changes are made.</p>
+            </div>
+            <div class="info-box note">
+                <p><span class="box-title">Note:</span> After modifying the template, the commented-out line <code>#self.apply_theme(QApplication.instance(), self.get_current_theme_name())</code> suggests that the theme was originally re-applied automatically after property changes. This is currently disabled, meaning the user must manually call <code>apply_theme()</code> after using this method to see the changes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         COLOR UTILITY
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="random-contrasting">random_contrasting_hex</h2>
+
+    <div class="method-block">
+        <div class="method-header">
+            <code>random_contrasting_hex(background: QColor | str, theme: str = "auto", min_contrast: float = 4.5) -&gt; str</code>
+            <span class="method-tag tag-function">Function</span>
+        </div>
+        <div class="method-body">
+            <p>
+                Generates a random hex color that is guaranteed to be readable against the given
+                background color, meeting a specified minimum WCAG contrast ratio. The function
+                uses the WCAG 2.0 relative luminance algorithm to compute perceptual brightness
+                and the standard contrast ratio formula to ensure accessibility. The generated
+                color is never extremely bright (no white or near-white) and tends toward bolder,
+                more saturated colors due to the minimum saturation threshold.
+            </p>
+            <p>
+                The function supports two operating modes controlled by the <code>theme</code>
+                parameter:
+            </p>
+            <ul style="margin: 6px 0 10px 24px; color: var(--text-secondary);">
+                <li><strong>"auto"</strong> (default): Automatically determines whether a light or dark foreground is needed based on the background's luminance. If the background luminance is below 0.5, a light foreground is generated; otherwise, a dark one.</li>
+                <li><strong>"dark"</strong> or <strong>"light"</strong>: Forces the generation of a specific foreground type regardless of the background brightness. Use <code>"dark"</code> to generate light foreground colors (for dark backgrounds) and <code>"light"</code> for dark foreground colors (for light backgrounds).</li>
+            </ul>
+            <table class="param-table">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>background</code></td><td><code>QColor | str</code></td><td>—</td><td>The background color to contrast against. Accepts a <code>QColor</code> object or a CSS color string (e.g., <code>"#1E1E2E"</code>).</td></tr>
+                    <tr><td><code>theme</code></td><td><code>str</code></td><td><code>"auto"</code></td><td>Controls foreground brightness mode: <code>"auto"</code>, <code>"dark"</code> (light foreground), or any other value (dark foreground).</td></tr>
+                    <tr><td><code>min_contrast</code></td><td><code>float</code></td><td><code>4.5</code></td><td>Minimum WCAG contrast ratio. The default of 4.5 meets WCAG AA for normal text. Use 7.0 for AAA compliance.</td></tr>
+                </tbody>
+            </table>
+            <div class="returns-block"><strong>Returns:</strong> <code>str</code> — A hex color string (e.g., <code>"#C8A2FF"</code>) that meets the contrast requirement against the background.</div>
+        </div>
+    </div>
+
+    <!-- ─── Contrast Algorithm ────────────────────────────────────────── -->
+    <h3 id="contrast-algorithm">Contrast Algorithm Details</h3>
+
+    <p>
+        The function implements the WCAG 2.0 contrast ratio algorithm, which is the industry
+        standard for evaluating text readability on colored backgrounds. The algorithm consists
+        of two nested helper functions defined inside <code>random_contrasting_hex()</code>:
+    </p>
+
+    <h4>Luminance Calculation</h4>
+    <p>
+        The <code>luminance(color)</code> function computes the relative luminance of a color
+        using the sRGB linearization formula defined in WCAG 2.0 specification. Each RGB channel
+        is first normalized to the 0-1 range, then linearized using the standard transfer function:
+        values below 0.04045 are divided by 12.92, while values above are transformed using
+        <code>((c + 0.055) / 1.055) ^ 2.4</code>. The linearized values are then combined using
+        the weighted sum: <code>0.2126 * R + 0.7152 * G + 0.0722 * B</code>, where the weights
+        reflect the human eye's varying sensitivity to different wavelengths of light.
+    </p>
+
+    <div class="diagram">WCAG 2.0 Luminance &amp; Contrast Formulas:
+
+  Relative Luminance (L):
+  ┌─────────────────────────────────────────────────────────────┐
+  │ For each sRGB channel (R, G, B) in [0, 255]:              │
+  │                                                             │
+  │   c_norm = c / 255.0                                       │
+  │                                                             │
+  │   if c_norm &lt;= 0.04045:                                    │
+  │       c_lin = c_norm / 12.92                               │
+  │   else:                                                     │
+  │       c_lin = ((c_norm + 0.055) / 1.055) ^ 2.4            │
+  │                                                             │
+  │   L = 0.2126 * R_lin + 0.7152 * G_lin + 0.0722 * B_lin   │
+  └─────────────────────────────────────────────────────────────┘
+
+  Contrast Ratio (CR):
+  ┌─────────────────────────────────────────────────────────────┐
+  │   CR = (L_lighter + 0.05) / (L_darker + 0.05)            │
+  │                                                             │
+  │   Range: 1:1 (no contrast) to 21:1 (max contrast)         │
+  │   WCAG AA normal text: CR &gt;= 4.5                          │
+  │   WCAG AA large text:   CR &gt;= 3.0                          │
+  │   WCAG AAA normal text: CR &gt;= 7.0                          │
+  └─────────────────────────────────────────────────────────────┘
+
+  Color Generation Strategy:
+  ┌─────────────────────────────────────────────────────────────┐
+  │  Light foreground (dark background):                        │
+  │    H = random(0, 360)                                      │
+  │    S = random(0.4, 1.0)  ← bold saturation                 │
+  │    L = random(0.4, 0.7)  ← never too bright                │
+  │                                                             │
+  │  Dark foreground (light background):                        │
+  │    H = random(0, 360)                                      │
+  │    S = random(0.4, 1.0)  ← bold saturation                 │
+  │    L = random(0.1, 0.35) ← deep darks                      │
+  │                                                             │
+  │  Rejection filters:                                         │
+  │    • Skip #FFFFFF (pure white)                              │
+  │    • Skip colors with lightness > 85%                       │
+  │    • Skip colors below min_contrast threshold               │
+  │                                                             │
+  │  Fallback after 1000 failed attempts:                       │
+  │    Light → "#C8C8C8" (dark gray, readable on black)        │
+  │    Dark  → "#1A1A1A" (very dark gray, near black)          │
+  └─────────────────────────────────────────────────────────────┘</div>
+
+    <p>
+        The color generation loop runs up to 1000 attempts, generating random HSL colors and
+        testing each against the contrast threshold. The HSL parameters are constrained to produce
+        visually appealing colors: saturation is always at least 40% to avoid washed-out pastels,
+        and lightness is bounded to prevent extremely bright or dark results. Pure white
+        (<code>#ffffff</code>) and colors with a lightness value above 85% are explicitly rejected
+        regardless of contrast ratio, ensuring the output is never glaringly bright.
+    </p>
+
+    <p>
+        If no suitable color is found after 1000 attempts (which is extremely rare given the
+        constrained parameter ranges), a safe fallback color is returned: <code>"#C8C8C8"</code>
+        for light foregrounds (a medium gray readable on dark backgrounds) or <code>"#1A1A1A"</code>
+        for dark foregrounds (a near-black readable on light backgrounds). These fallbacks
+        deliberately avoid pure white and pure black, maintaining the function's guarantee of
+        "never extremely bright" output.
+    </p>
+
+    <div class="info-box tip">
+        <p><span class="box-title">Tip:</span> When calling this function, the default <code>min_contrast=4.5</code> meets WCAG AA requirements for normal-sized text. For large text (18pt+ or 14pt+ bold), <code>min_contrast=3.0</code> is sufficient. For the highest accessibility standard (WCAG AAA), use <code>min_contrast=7.0</code>.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FULL METHOD / FUNCTION INDEX
+         ═══════════════════════════════════════════════════════════════════ -->
+    <h2 id="method-index">Full Method / Function Index</h2>
+
+    <table class="attr-table">
+        <thead>
+            <tr><th>Type</th><th>Name</th><th>Brief Description</th></tr>
+        </thead>
+        <tbody>
+            <!-- Functions -->
+            <tr><td rowspan="4" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">Functions</td>
+                <td><code>get_resource_path</code></td><td>Resolve filesystem path to a packaged resource via importlib</td></tr>
+            <tr><td><code>get_icon</code></td><td>Resolve SVG icon path as POSIX string</td></tr>
+            <tr><td><code>get_styles_template</code></td><td>Resolve QSS template path as POSIX string</td></tr>
+            <tr><td><code>get_color_roles</code></td><td>Resolve color-roles JSON path as POSIX string</td></tr>
+
+            <!-- ThemeManager -->
+            <tr><td rowspan="9" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">ThemeManager</td>
+                <td><code>__init__</code></td><td>Resolve resource paths and load theme data</td></tr>
+            <tr><td><code>load</code></td><td>Read and parse color-roles.json</td></tr>
+            <tr><td><code>save</code></td><td>Write theme data back to color-roles.json</td></tr>
+            <tr><td><code>get_current_theme_name</code></td><td>Get the active theme name</td></tr>
+            <tr><td><code>get_current_theme</code></td><td>Get the full active theme dictionary</td></tr>
+            <tr><td><code>get_color</code></td><td>Look up a specific color by category and role</td></tr>
+            <tr><td><code>get_all_themes</code></td><td>List all available theme names</td></tr>
+            <tr><td><code>switch_theme</code></td><td>Change active theme and persist to disk</td></tr>
+            <tr><td><code>apply_theme</code></td><td>Apply theme to QApplication via placeholder replacement</td></tr>
+            <tr><td><code>add_property_to_widget</code></td><td>Add/update CSS property in QSS template via regex</td></tr>
+
+            <!-- Color Utility -->
+            <tr><td rowspan="1" style="vertical-align: top; font-weight: 600; color: var(--accent-cyan);">Color Utility</td>
+                <td><code>random_contrasting_hex</code></td><td>Generate WCAG-compliant contrasting random color</td></tr>
+        </tbody>
+    </table>
+
+    <div class="info-box important" style="margin-top: 40px;">
+        <p><span class="box-title">Resource Package Structure:</span> The utility functions expect the following package structure within <code>PySideAbdhUI</code>: <code>resources/icons/svg/</code> (SVG icon files), <code>resources/styles/</code> (<code>qss-template.qss</code> and <code>color-roles.json</code>). If the package is installed without these resources, all resource resolution functions will raise <code>RuntimeError</code>.</p>
+    </div>
+
+</main>
+
+</body>
+</html>
